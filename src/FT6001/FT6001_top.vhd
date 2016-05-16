@@ -1,7 +1,7 @@
 -- ----------------------------------------------------------------------------	
 -- FILE: 	FT6001_top.vhd
--- DESCRIPTION:	describe
--- DATE:	Feb 13, 2014
+-- DESCRIPTION:	top module for FT601
+-- DATE:	May 13, 2016
 -- AUTHOR(s):	Lime Microsystems
 -- REVISIONS:
 -- ----------------------------------------------------------------------------	
@@ -14,12 +14,12 @@ use ieee.numeric_std.all;
 -- ----------------------------------------------------------------------------
 entity FT6001_top is
 	generic(
-				EP02_rwidth	: integer := 8;
-				EP82_wwidth	: integer := 8;
-				EP82_wsize  : integer := 64;  --packet size in bytes, has to be multiple of 4 bytes				
-				EP03_rwidth	: integer := 32;
-				EP83_wwidth	: integer := 64;
-				EP83_wsize  : integer := 2048 --packet size in bytes, has to be multiple of 4 bytes	
+			EP02_rwidth		: integer := 8;
+			EP82_wwidth		: integer := 8;
+			EP82_wsize  	: integer := 64;  --packet size in bytes, has to be multiple of 4 bytes				
+			EP03_rwidth		: integer := 32;
+			EP83_wwidth		: integer := 64;
+			EP83_wsize  	: integer := 2048 --packet size in bytes, has to be multiple of 4 bytes	
 	);
 	port (
 			--input ports 
@@ -172,18 +172,18 @@ end component;
 --FT601 fsm component 
 component FT6001 is
     generic(
-			EP82_wsize       : integer := 64;  --packet size in bytes, has to be multiple of 4 bytes
-			EP83_wsize       : integer := 2048 --packet size in bytes, has to be multiple of 4 bytes
+			EP82_wsize       : integer := 64;  	--packet size in bytes, has to be multiple of 4 bytes
+			EP83_wsize       : integer := 2048 	--packet size in bytes, has to be multiple of 4 bytes
 			);
   port (
 			clk			: in std_logic;
 			reset_n		: in std_logic;
 			trnsf_en    : in std_logic;
 			ready			: out std_logic;
-			rd_wr    	: in std_logic;     -- 0- rd, 1-wr
+			rd_wr    	: in std_logic;     		-- 0- rd, 1-wr
 			ch_n     	: in std_logic_vector(3 downto 0);
-			valid_data 	: out std_logic;  -- 1- data is valid when MSRD and has to be valid when MSWR, 
-			                             -- 0 - no incoming data and no data is required. 
+			valid_data 	: out std_logic;  		-- 1- data is valid when MSRD and has to be valid when MSWR, 
+															-- 0 - no incoming data and no data is required. 
 			RD_data   	: out std_logic_vector(31 downto 0);
 			WR_data  	: in std_logic_vector(31 downto 0);  
 			wr_n			: out std_logic;
@@ -204,8 +204,8 @@ begin
 EP02_fifo : fifo_inst		
 generic map(
 		dev_family		=> "Cyclone IV",
-		wrwidth			=> 32,				--32 bits ftdi side, 
-		wrusedw_witdth	=> 10, 				--10=512 words (2048kB)
+		wrwidth			=> 32,						--32 bits ftdi side, 
+		wrusedw_witdth	=> 10, 						--10=512 words (2048kB)
 		rdwidth			=> EP02_rwidth,
 		rdusedw_width	=> 12,				
 		show_ahead     => "OFF"
@@ -230,8 +230,8 @@ EP82_fifo : fifo_inst
 generic map(
 		dev_family		=> "Cyclone IV",
 		wrwidth			=> EP82_wwidth,
-		wrusedw_witdth	=> 12, 			--12=2048 words (2048kB)
-		rdwidth			=> 32,			--32 bits ftdi side, 
+		wrusedw_witdth	=> 12, 						--12=2048 words (2048kB)
+		rdwidth			=> 32,						--32 bits ftdi side, 
 		rdusedw_width	=> 10,				
 		show_ahead		=> "ON"
 )
@@ -254,8 +254,8 @@ port map(
 EP03_fifo : fifo_inst		
 generic map(
 		dev_family		=> "Cyclone IV",
-		wrwidth			=> 32,				--32 bits ftdi side, 
-		wrusedw_witdth	=> 10, 				--10=512 words (2048kB)
+		wrwidth			=> 32,						--32 bits ftdi side, 
+		wrusedw_witdth	=> 10, 						--10=512 words (2048kB)
 		rdwidth			=> EP03_rwidth,
 		rdusedw_width	=> 10,				
 		show_ahead     => "OFF"

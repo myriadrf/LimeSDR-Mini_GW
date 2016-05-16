@@ -1,6 +1,6 @@
 -- ----------------------------------------------------------------------------	
 -- FILE: 	FT6001_arb.vhd
--- DESCRIPTION:	describe
+-- DESCRIPTION:	FT601 arbitrator
 -- DATE:	May 13, 2016
 -- AUTHOR(s):	Lime Microsystems
 -- REVISIONS:
@@ -15,9 +15,9 @@ use ieee.numeric_std.all;
 entity FT6001_arb is
 	generic(	
 			EP82_fifo_rwidth	: integer := 10;
-			EP82_wsize       : integer := 64;  --packet size in bytes, has to be multiple of 4 bytes
+			EP82_wsize       	: integer := 64;		--packet size in bytes, has to be multiple of 4 bytes
 			EP83_fifo_rwidth	: integer := 10;
-			EP83_wsize       : integer := 2048 --packet size in bytes, has to be multiple of 4 bytes
+			EP83_wsize       	: integer := 2048		--packet size in bytes, has to be multiple of 4 bytes
 	);
   port (
 			--input ports 
@@ -46,7 +46,7 @@ entity FT6001_arb is
 			EP83_fifo_rdusedw	: in std_logic_vector(EP82_fifo_rwidth-1 downto 0);
 			--fsm controll signals
 			fsm_epgo				: out std_logic;
-			fsm_rdwr				: out std_logic; -- 0- MASTER RD (PC->FPGA), 1-MASTER WR (FPGA->PC)
+			fsm_rdwr				: out std_logic; 		-- 0- MASTER RD (PC->FPGA), 1-MASTER WR (FPGA->PC)
 			fsm_ch				: out std_logic_vector(3 downto 0);
 			fsm_rdy				: in std_logic;
 			fsm_datavalid		: in std_logic;
@@ -62,7 +62,7 @@ end FT6001_arb;
 -- Architecture
 -- ----------------------------------------------------------------------------
 architecture arch of FT6001_arb is
---declare signals,  components here
+
 type state_type is (idle, check_priority, check_ep02, check_ep82, check_ep03, check_ep83, 
                     go_ep02, go_ep82, go_ep03, go_ep83);
 signal current_state, next_state : state_type;
@@ -76,17 +76,17 @@ signal ep_checked		: std_logic;
   
 begin
   
+--endpoint ready signals, indicates when transfer can occur
+en_ep02<='1' when EP02_fifo_wrempty='1'							and ep_status(4)='0'	and fsm_rdy='1' else '0';
+en_ep82<='1' when unsigned(EP82_fifo_rdusedw)>=EP82_wsize/4	and ep_status(0)='0'	and fsm_rdy='1' else '0';
+en_ep03<='1' when EP03_fifo_wrempty='1'							and ep_status(5)='0'	and fsm_rdy='1' else '0';
+en_ep83<='1' when unsigned(EP83_fifo_rdusedw)>=EP83_wsize/4	and ep_status(1)='0'	and fsm_rdy='1' else '0';
 
-en_ep02<='1' when EP02_fifo_wrempty='1' 				 and ep_status(4)='0' 	and fsm_rdy='1' else '0';
-en_ep82<='1' when unsigned(EP82_fifo_rdusedw)>=EP82_wsize/4 	 and ep_status(0)='0' 	and fsm_rdy='1' else '0';
-en_ep03<='1' when EP03_fifo_wrempty='1' 			    and ep_status(5)='0' 	and fsm_rdy='1' else '0';
-en_ep83<='1' when unsigned(EP83_fifo_rdusedw)>=EP83_wsize/4  and ep_status(1)='0' 	and fsm_rdy='1' else '0';
-
-
+--indicates when endpoint status was checked
 ep_checked<='1' when current_state=check_ep02 or current_state=check_ep82 or
 							current_state=check_ep03 or current_state=check_ep83 else '0';
 							
-							
+--endpoint fifo signals							
 EP02_fifo_wr    <=fsm_datavalid when ep_priority=1 else '0';
 EP02_fifo_data  <=fsm_rddata    when ep_priority=1 else (others=>'0');
 
@@ -181,7 +181,7 @@ fsm : process(current_state, enable, fsm_rdy, en_ep02, en_ep82, en_ep03, en_ep83
 		    next_state<=idle;
 		  end if;
 		  
-		when check_priority =>			-- if FTDI fsm is ready check enpoint status
+		when check_priority =>			-- if FTDI fsm is ready check endpoint status
 		  if fsm_rdy='1' then 
 		    if  ep_priority=0 then
 		      next_state<=check_ep02; 

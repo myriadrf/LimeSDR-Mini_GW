@@ -1,6 +1,6 @@
 -- ----------------------------------------------------------------------------	
 -- FILE: 	FT6001.vhd
--- DESCRIPTION:	FT6001 fsm module
+-- DESCRIPTION:	FT601 fsm module
 -- DATE:	May 11, 2016
 -- AUTHOR(s):	Lime Microsystems
 -- REVISIONS:
@@ -14,8 +14,8 @@ use ieee.numeric_std.all;
 -- ----------------------------------------------------------------------------
 entity FT6001 is
   generic(
-			EP82_wsize	: integer := 64;  --packet size in bytes, has to be multiple of 4 bytes
-			EP83_wsize  : integer := 2048 --packet size in bytes, has to be multiple of 4 bytes
+			EP82_wsize	: integer := 64;		--packet size in bytes, has to be multiple of 4 bytes
+			EP83_wsize  : integer := 2048 	--packet size in bytes, has to be multiple of 4 bytes
 			);
   port (
         --input ports 
@@ -23,10 +23,10 @@ entity FT6001 is
 			reset_n		: in std_logic;
 			trnsf_en    : in std_logic;
 			ready			: out std_logic;
-			rd_wr    	: in std_logic;     -- 0- MASTER RD (PC->FPGA), 1-MASTER WR (FPGA->PC)
+			rd_wr    	: in std_logic;		-- 0- MASTER RD (PC->FPGA), 1-MASTER WR (FPGA->PC)
 			ch_n     	: in std_logic_vector(3 downto 0);
-			valid_data 	: out std_logic;  -- 1- data is valid when MSRD and has to be valid when MSWR, 
-			                             -- 0 - no incoming data and no data is required. 
+			valid_data 	: out std_logic;		-- 1- data is valid when MSRD and has to be valid when MSWR, 
+														-- 0 - no incoming data and no data is required. 
 			RD_data   	: out std_logic_vector(31 downto 0);
 			WR_data  	: in std_logic_vector(31 downto 0);  
 			wr_n			: out std_logic;
@@ -66,20 +66,26 @@ begin
  valid_data<=  not wr_n_sig and  not rxf_n;
  RD_data<=data;
  
- 
+-- ----------------------------------------------------------------------------
+-- counter to determine when to stop transfer
+-- ----------------------------------------------------------------------------
  process (reset_n, clk)
   	begin 
 		if reset_n='0' then
 		  term_cnt<=(others=>'0');
 		elsif (clk'event and clk='1') then
 		  if current_state=data_trnsf then 
-		     term_cnt<=term_cnt+1;
+				term_cnt<=term_cnt+1;
 		  else 
-        term_cnt<=(others=>'0');
+				term_cnt<=(others=>'0');
       end if;
 	  end if;
-  end process; 
-
+  end process;
+ 
+ 
+-- ----------------------------------------------------------------------------
+-- to latch values on enable signal
+-- ----------------------------------------------------------------------------
 process(reset_n, clk)
 	begin 
 		if reset_n='0' then 
@@ -98,7 +104,9 @@ process(reset_n, clk)
 		end if;
 end process;
 			
-
+-- ----------------------------------------------------------------------------
+-- fsm ready indication
+-- ----------------------------------------------------------------------------
 process(current_state) 
   begin 
     if current_state=idle then 
@@ -167,7 +175,6 @@ wr_n<=wr_n_sig;
 -- ----------------------------------------------------------------------------
 --state machine
 -- ----------------------------------------------------------------------------
-
 fsm_f : process(clk, reset_n)begin
 	if(reset_n = '0')then
 		current_state <= idle;
@@ -183,27 +190,27 @@ fsm : process(current_state, trnsf_en_reg, rd_wr_reg, rxf_n, term_cnt, ch_n_reg)
 	next_state <= current_state;
 	case current_state is
 	  
-		when idle => 						--idle state 
+		when idle =>							--idle state 
 		  if trnsf_en_reg='1' then  		-- if acces is granted go to read or write command
 		      next_state<=cmd;      
 		  else 
 		    next_state<=idle;
 		  end if;		
 		  
-		when cmd =>   						-- command state, determine bus turn around length
+		when cmd =>								-- command state, determine bus turn around length
 		  if rd_wr_reg='0' then 
 		     next_state<=bus_turn0;
 		  else 
 		    	next_state<=bus_turn1;
 		  end if;
 		  
-		when bus_turn0 => 				-- bus turn around state
+		when bus_turn0 =>						-- bus turn around state
 		    next_state<=bus_turn1;
 			 
-		when bus_turn1 => 				-- bus turn around state 
+		when bus_turn1 =>						-- bus turn around state 
 		    next_state<=data_trnsf;
 			 
-		when data_trnsf => 				-- data transfer state 
+		when data_trnsf =>					-- data transfer state 
 		    if rxf_n='1' or (term_cnt=EP82_wsize/4-1 AND rd_wr_reg='1' AND ch_n_reg=x"1") then 
 		       next_state<=idle;
 		    else 

@@ -625,7 +625,7 @@ set_location_assignment PIN_D13 -to FPGA_I2C_SCL
 set_location_assignment PIN_K13 -to FPGA_I2C_SDA
 set_location_assignment PIN_K8 -to FPGA_SPI_DAC_SS
 set_location_assignment PIN_J5 -to FPGA_SPI_LMS_SS
-set_location_assignment PIN_J6 -to FPGA_SPI_MOSI
+set_location_assignment PIN_J7 -to FPGA_SPI_MOSI
 set_location_assignment PIN_K5 -to FPGA_SPI_SCLK
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_SPI_DAC_SS
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_SPI_LMS_SS
@@ -649,5 +649,7 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RFSW1_VCTL1
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_TXEN
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_RXEN
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_RESET
-set_global_assignment -name SLD_FILE db/debug_auto_stripped.stp
+set_location_assignment PIN_J6 -to FPGA_SPI_MISO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_SPI_MISO
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name SLD_FILE db/debug_auto_stripped.stp

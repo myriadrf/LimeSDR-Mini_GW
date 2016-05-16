@@ -109,16 +109,6 @@ set_global_assignment -name ENABLE_SIGNALTAP ON
 set_global_assignment -name USE_SIGNALTAP_FILE signal_tap/debug.stp
 set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS ON
 set_global_assignment -name NUM_PARALLEL_PROCESSORS ALL
-set_global_assignment -name VHDL_FILE src/general/simple_reg.vhd
-set_global_assignment -name VHDL_FILE src/fifo/fifo_inst.vhd
-set_global_assignment -name VHDL_FILE src/general/alive.vhd
-set_global_assignment -name SDC_FILE timing.sdc
-set_global_assignment -name VHDL_FILE src/FT6001/FT6001.vhd
-set_global_assignment -name SIGNALTAP_FILE signal_tap/debug.stp
-set_global_assignment -name VHDL_FILE src/FT6001/FT6001_arb.vhd
-set_global_assignment -name QIP_FILE ip/fifo/fifo.qip
-set_global_assignment -name VHDL_FILE src/FT6001/FT6001_top.vhd
-set_global_assignment -name VHDL_FILE src/fifo/fifo_inst_max10.vhd
 set_global_assignment -name SLD_NODE_CREATOR_ID 110 -section_id FT602_top
 set_global_assignment -name SLD_NODE_ENTITY_NAME sld_signaltap -section_id FT602_top
 set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_clk -to "FT6001_top:inst6|clk" -section_id FT602_top
@@ -568,7 +558,6 @@ set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_IN_ENABLE
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ADVANCED_TRIGGER_ENTITY=basic,1," -section_id FT602_top
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL_PIPELINE=1" -section_id FT602_top
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ENABLE_ADVANCED_TRIGGER=0" -section_id FT602_top
-set_global_assignment -name BDF_FILE lms7_trx_top.bdf
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
@@ -619,5 +608,46 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FT_CLK
 set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to FT_D[*]
 set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to FT_WRn
 set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to FT_BE[*]
+set_global_assignment -name VHDL_FILE src/nios_cpu/nios_cpu.vhd
+set_global_assignment -name QIP_FILE lms_ctr/synthesis/lms_ctr.qip
+set_global_assignment -name VHDL_FILE src/general/simple_reg.vhd
+set_global_assignment -name VHDL_FILE src/fifo/fifo_inst.vhd
+set_global_assignment -name VHDL_FILE src/general/alive.vhd
+set_global_assignment -name SDC_FILE timing.sdc
+set_global_assignment -name VHDL_FILE src/FT6001/FT6001.vhd
+set_global_assignment -name SIGNALTAP_FILE signal_tap/debug.stp
+set_global_assignment -name VHDL_FILE src/FT6001/FT6001_arb.vhd
+set_global_assignment -name QIP_FILE ip/fifo/fifo.qip
+set_global_assignment -name VHDL_FILE src/FT6001/FT6001_top.vhd
+set_global_assignment -name VHDL_FILE src/fifo/fifo_inst_max10.vhd
+set_global_assignment -name BDF_FILE lms7_trx_top.bdf
+set_location_assignment PIN_D13 -to FPGA_I2C_SCL
+set_location_assignment PIN_K13 -to FPGA_I2C_SDA
+set_location_assignment PIN_K8 -to FPGA_SPI_DAC_SS
+set_location_assignment PIN_J5 -to FPGA_SPI_LMS_SS
+set_location_assignment PIN_J6 -to FPGA_SPI_MOSI
+set_location_assignment PIN_K5 -to FPGA_SPI_SCLK
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_SPI_DAC_SS
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_SPI_LMS_SS
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_SPI_MOSI
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_SPI_SCLK
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_I2C_SCL
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_I2C_SDA
+set_location_assignment PIN_C4 -to RFSW2_VCTL2
+set_location_assignment PIN_C5 -to RFSW2_VCTL1
+set_location_assignment PIN_B9 -to RFSW1_VCTL2
+set_location_assignment PIN_D8 -to RFSW1_VCTL1
+set_location_assignment PIN_K6 -to LMS_TXEN
+set_location_assignment PIN_M11 -to LMS_RXEN
+set_location_assignment PIN_L12 -to LMS_RESET
+set_location_assignment PIN_N11 -to LMS_CORE_LDO_EN
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_CORE_LDO_EN
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RFSW2_VCTL2
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RFSW2_VCTL1
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RFSW1_VCTL2
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RFSW1_VCTL1
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_TXEN
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_RXEN
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_RESET
 set_global_assignment -name SLD_FILE db/debug_auto_stripped.stp
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

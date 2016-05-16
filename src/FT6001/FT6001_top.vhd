@@ -38,6 +38,7 @@ entity FT6001_top is
 			EP02_rempty		: out std_logic;
 			--controll endpoint fifo FPGA->PC
 			EP82_wclk		: in std_logic;
+			EP82_aclr		: in std_logic;
 			EP82_wr			: in std_logic;
 			EP82_wdata		: in std_logic_vector(EP82_wwidth-1 downto 0);
 			EP82_wfull		: out std_logic;
@@ -235,7 +236,7 @@ generic map(
 		show_ahead		=> "ON"
 )
 port map(
-      reset_n       	=> reset_n, 
+      reset_n       	=> EP82_aclr, 
       wrclk				=> EP82_wclk,
       wrreq				=> EP82_wr,
       data          	=> EP82_wdata,

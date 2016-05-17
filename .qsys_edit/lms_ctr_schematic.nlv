@@ -1,0 +1,42 @@
+# # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
+# 
+preplace inst lms_ctr.nios2_cpu -pg 1 -lvl 1 -y 50
+preplace inst lms_ctr.uart -pg 1 -lvl 3 -y 820
+preplace inst lms_ctr.leds -pg 1 -lvl 3 -y 1300
+preplace inst lms_ctr.oc_mem -pg 1 -lvl 3 -y 940
+preplace inst lms_ctr.nios2_cpu.clock_bridge -pg 1
+preplace inst lms_ctr.lms_ctr_gpio -pg 1 -lvl 3 -y 1100
+preplace inst lms_ctr.clk_main -pg 1 -lvl 2 -y 140
+preplace inst lms_ctr.dac_spi -pg 1 -lvl 3 -y 580
+preplace inst lms_ctr.Av_FIFO_Int_0 -pg 1 -lvl 3 -y 220
+preplace inst lms_ctr.nios2_cpu.cpu -pg 1
+preplace inst lms_ctr.sysid_qsys_0 -pg 1 -lvl 3 -y 1020
+preplace inst lms_ctr -pg 1 -lvl 1 -y 40 -regy -20
+preplace inst lms_ctr.switch -pg 1 -lvl 3 -y 1200
+preplace inst lms_ctr.nios2_cpu.reset_bridge -pg 1
+preplace inst lms_ctr.fpga_spi -pg 1 -lvl 3 -y 700
+preplace inst lms_ctr.nios_custom_instr_bitswap_0 -pg 1 -lvl 3 -y 50
+preplace inst lms_ctr.i2c_opencores_0 -pg 1 -lvl 3 -y 440
+preplace netloc EXPORT<net_container>lms_ctr</net_container>(SLAVE)lms_ctr.uart_external_connection,(SLAVE)uart.external_connection) 1 0 3 NJ 850 NJ 850 NJ
+preplace netloc EXPORT<net_container>lms_ctr</net_container>(SLAVE)Av_FIFO_Int_0.cnd_of_d,(SLAVE)lms_ctr.exfifo_of_d) 1 0 3 NJ 350 NJ 350 NJ
+preplace netloc FAN_OUT<net_container>lms_ctr</net_container>(SLAVE)dac_spi.irq,(SLAVE)i2c_opencores_0.interrupt_sender,(SLAVE)uart.irq,(MASTER)nios2_cpu.irq,(SLAVE)fpga_spi.irq) 1 1 2 NJ 230 910
+preplace netloc EXPORT<net_container>lms_ctr</net_container>(SLAVE)lms_ctr.i2c_scl,(SLAVE)i2c_opencores_0.export_scl) 1 0 3 NJ 510 NJ 510 NJ
+preplace netloc EXPORT<net_container>lms_ctr</net_container>(SLAVE)Av_FIFO_Int_0.cnd_if_rd,(SLAVE)lms_ctr.exfifo_if_rd) 1 0 3 NJ 310 NJ 310 NJ
+preplace netloc EXPORT<net_container>lms_ctr</net_container>(SLAVE)lms_ctr.clk,(SLAVE)clk_main.clk_in) 1 0 2 NJ 250 NJ
+preplace netloc EXPORT<net_container>lms_ctr</net_container>(SLAVE)switch.external_connection,(SLAVE)lms_ctr.switch_external_connection) 1 0 3 NJ 1230 NJ 1230 NJ
+preplace netloc EXPORT<net_container>lms_ctr</net_container>(SLAVE)lms_ctr.lms_ctr_gpio_external_connection,(SLAVE)lms_ctr_gpio.external_connection) 1 0 3 NJ 1130 NJ 1130 NJ
+preplace netloc EXPORT<net_container>lms_ctr</net_container>(SLAVE)Av_FIFO_Int_0.cnd_of_wrfull,(SLAVE)lms_ctr.exfifo_of_wrfull) 1 0 3 NJ 410 NJ 410 NJ
+preplace netloc EXPORT<net_container>lms_ctr</net_container>(SLAVE)lms_ctr.exfifo_of_wr,(SLAVE)Av_FIFO_Int_0.cnd_of_wr) 1 0 3 NJ 390 NJ 390 NJ
+preplace netloc INTERCONNECT<net_container>lms_ctr</net_container>(SLAVE)leds.reset,(SLAVE)Av_FIFO_Int_0.reset,(SLAVE)switch.reset,(SLAVE)uart.reset,(SLAVE)sysid_qsys_0.reset,(SLAVE)clk_main.clk_in_reset,(MASTER)nios2_cpu.debug_reset_request,(SLAVE)fpga_spi.reset,(SLAVE)i2c_opencores_0.clock_reset,(SLAVE)nios2_cpu.reset,(MASTER)clk_main.clk_reset,(SLAVE)oc_mem.reset1,(SLAVE)lms_ctr_gpio.reset,(SLAVE)dac_spi.reset) 1 0 3 270 210 650 110 1010
+preplace netloc POINT_TO_POINT<net_container>lms_ctr</net_container>(MASTER)nios2_cpu.custom_instruction_master,(SLAVE)nios_custom_instr_bitswap_0.s1) 1 1 2 NJ 60 N
+preplace netloc EXPORT<net_container>lms_ctr</net_container>(SLAVE)lms_ctr.leds_external_connection,(SLAVE)leds.external_connection) 1 0 3 NJ 1330 NJ 1330 NJ
+preplace netloc EXPORT<net_container>lms_ctr</net_container>(SLAVE)lms_ctr.exfifo_if_rdempty,(SLAVE)Av_FIFO_Int_0.cnd_if_rdempty) 1 0 3 NJ 330 NJ 330 NJ
+preplace netloc EXPORT<net_container>lms_ctr</net_container>(SLAVE)lms_ctr.i2c_sda,(SLAVE)i2c_opencores_0.export_sda) 1 0 3 NJ 530 NJ 530 NJ
+preplace netloc EXPORT<net_container>lms_ctr</net_container>(SLAVE)lms_ctr.dac_spi_ext,(SLAVE)dac_spi.external) 1 0 3 NJ 610 NJ 610 NJ
+preplace netloc FAN_OUT<net_container>lms_ctr</net_container>(SLAVE)switch.clk,(SLAVE)Av_FIFO_Int_0.clock,(SLAVE)nios2_cpu.clk,(MASTER)clk_main.clk,(SLAVE)uart.clk,(SLAVE)i2c_opencores_0.clock,(SLAVE)dac_spi.clk,(SLAVE)lms_ctr_gpio.clk,(SLAVE)leds.clk,(SLAVE)fpga_spi.clk,(SLAVE)sysid_qsys_0.clk,(SLAVE)oc_mem.clk1) 1 0 3 230 230 NJ 130 970
+preplace netloc EXPORT<net_container>lms_ctr</net_container>(SLAVE)lms_ctr.exfifo_rst,(SLAVE)Av_FIFO_Int_0.cnd_fifo_rst) 1 0 3 NJ 270 NJ 270 NJ
+preplace netloc EXPORT<net_container>lms_ctr</net_container>(SLAVE)Av_FIFO_Int_0.cnd_if_d,(SLAVE)lms_ctr.exfifo_if_d) 1 0 3 NJ 290 NJ 290 NJ
+preplace netloc INTERCONNECT<net_container>lms_ctr</net_container>(SLAVE)dac_spi.spi_control_port,(SLAVE)switch.s1,(SLAVE)Av_FIFO_Int_0.avalon_slave_0,(SLAVE)i2c_opencores_0.avalon_slave_0,(SLAVE)lms_ctr_gpio.s1,(SLAVE)leds.s1,(SLAVE)nios2_cpu.debug_mem_slave,(SLAVE)uart.s1,(SLAVE)sysid_qsys_0.control_slave,(MASTER)nios2_cpu.instruction_master,(MASTER)nios2_cpu.data_master,(SLAVE)oc_mem.s1,(SLAVE)fpga_spi.spi_control_port) 1 0 3 250 190 630 210 930
+preplace netloc EXPORT<net_container>lms_ctr</net_container>(SLAVE)fpga_spi.external,(SLAVE)lms_ctr.fpga_spi_ext) 1 0 3 NJ 730 NJ 730 NJ
+levelinfo -pg 1 0 200 1240
+levelinfo -hier lms_ctr 210 390 740 1080 1230

@@ -1,0 +1,55 @@
+17:14:03 **** Incremental Build of configuration Nios II for project lms_ctr_app ****
+make all 
+Info: Building ../lms_ctr_bsp/
+C:/altera_lite/15.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lms_ctr_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../lms_ctr_bsp//HAL/inc -I../lms_ctr_bsp/ -I../lms_ctr_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o obj/default/main.o main.c
+In file included from main.c:18:0:
+sodera_pcie_brd_v1r0.h:16:9: note: #pragma message: **** sodera_pcie_brd_v1r0 ****
+ #pragma message ("**** sodera_pcie_brd_v1r0 ****")
+         ^
+main.c: In function 'Configure_LM75':
+main.c:95:6: warning: variable 'spirez' set but not used [-Wunused-but-set-variable]
+  int spirez;
+      ^
+main.c: In function 'testEEPROM':
+main.c:123:10: warning: variable 'converted_val' set but not used [-Wunused-but-set-variable]
+  uint8_t converted_val;
+          ^
+main.c:122:6: warning: variable 'spirez' set but not used [-Wunused-but-set-variable]
+  int spirez;
+      ^
+main.c: In function 'main':
+main.c:604:10: warning: "/*" within comment [-Wcomment]
+         //**status = FlashSpiEraseSector(CyTrue, FLASH_LAYOUT_FPGA_METADATA); //erase sector for FPGA autoload metadata
+ ^
+main.c:672:11: warning: "/*" within comment [-Wcomment]
+          //**status = FlashSpiEraseSector(CyTrue, FLASH_LAYOUT_FPGA_METADATA); //erase sector for FPGA autoload metadata
+ ^
+main.c:673:11: warning: "/*" within comment [-Wcomment]
+          //**FlashSpiTransfer((FLASH_LAYOUT_FPGA_METADATA * FLASH_SECTOR_SIZE/FLASH_PAGE_SIZE), FLASH_PAGE_SIZE, flash_page_data, CyFalse);//write to flash
+ ^
+main.c:722:11: warning: array subscript has type 'char' [-Wchar-subscripts]
+           IOWR(AV_FIFO_INT_0_BASE, 0, glEp0Buffer_Tx[cnt]);
+           ^
+main.c:196:13: warning: unused variable 'spi_wrbuf2' [-Wunused-variable]
+     uint8_t spi_wrbuf2[6] = {0x80, 0x20, 0xFF, 0xFD, 0x00, 0x20};
+             ^
+main.c:195:13: warning: unused variable 'spi_wrbuf1' [-Wunused-variable]
+     uint8_t spi_wrbuf1[2] = {0x00, 0x20};
+             ^
+main.c:188:13: warning: unused variable 'status' [-Wunused-variable]
+     uint8_t status = 0;
+             ^
+main.c:181:19: warning: unused variable 'led_pattern' [-Wunused-variable]
+     unsigned char led_pattern = 0x00;
+                   ^
+Info: Linking lms_ctr_app.elf
+nios2-elf-g++  -T'../lms_ctr_bsp//linker.x' -msys-crt0='../lms_ctr_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../lms_ctr_bsp/   -Wl,-Map=lms_ctr_app.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o lms_ctr_app.elf obj/default/i2c_opencores.o obj/default/main.o obj/default/spi_flash_lib.o -lm -msys-lib=m
+nios2-elf-insert lms_ctr_app.elf --thread_model hal --cpu_name nios2_cpu --qsys true --simulation_enabled false --id 4920 --sidp 0x110f0 --timestamp 1462976199 --stderr_dev none --stdin_dev none --stdout_dev none --sopc_system_name lms_ctr --sopcinfo D:/LimeMicrosystems/SparkBoards/uLimeSDR/qii/uLimeTest/software/lms_ctr_bsp/../../lms_ctr.sopcinfo
+Info: (lms_ctr_app.elf) 15 KBytes program size (code + initialized data).
+Info:                   15 KBytes free for stack + heap.
+Info: Creating lms_ctr_app.objdump
+nios2-elf-objdump --disassemble --syms --all-header lms_ctr_app.elf >lms_ctr_app.objdump
+[lms_ctr_app build complete]

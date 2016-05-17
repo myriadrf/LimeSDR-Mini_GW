@@ -76,8 +76,8 @@ agreement for further details.
 	(port
 		(pt 0 144)
 		(input)
-		(text "EP82_aclr" (rect 0 0 42 12)(font "Arial" ))
-		(text "EP82_aclr" (rect 21 139 63 151)(font "Arial" ))
+		(text "EP82_aclrn" (rect 0 0 47 12)(font "Arial" ))
+		(text "EP82_aclrn" (rect 21 139 68 151)(font "Arial" ))
 		(line (pt 0 144)(pt 16 144)(line_width 1))
 	)
 	(port

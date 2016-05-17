@@ -50,7 +50,7 @@ set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 256
 set_global_assignment -name ENABLE_OCT_DONE OFF
 set_global_assignment -name ENABLE_CONFIGURATION_PINS OFF
 set_global_assignment -name ENABLE_BOOT_SEL_PIN OFF
-set_global_assignment -name USE_CONFIGURATION_DEVICE ON
+set_global_assignment -name USE_CONFIGURATION_DEVICE OFF
 set_global_assignment -name CRC_ERROR_OPEN_DRAIN OFF
 set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -rise
 set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -fall
@@ -608,19 +608,6 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FT_CLK
 set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to FT_D[*]
 set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to FT_WRn
 set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to FT_BE[*]
-set_global_assignment -name VHDL_FILE src/nios_cpu/nios_cpu.vhd
-set_global_assignment -name QIP_FILE lms_ctr/synthesis/lms_ctr.qip
-set_global_assignment -name VHDL_FILE src/general/simple_reg.vhd
-set_global_assignment -name VHDL_FILE src/fifo/fifo_inst.vhd
-set_global_assignment -name VHDL_FILE src/general/alive.vhd
-set_global_assignment -name SDC_FILE timing.sdc
-set_global_assignment -name VHDL_FILE src/FT6001/FT6001.vhd
-set_global_assignment -name SIGNALTAP_FILE signal_tap/debug.stp
-set_global_assignment -name VHDL_FILE src/FT6001/FT6001_arb.vhd
-set_global_assignment -name QIP_FILE ip/fifo/fifo.qip
-set_global_assignment -name VHDL_FILE src/FT6001/FT6001_top.vhd
-set_global_assignment -name VHDL_FILE src/fifo/fifo_inst_max10.vhd
-set_global_assignment -name BDF_FILE lms7_trx_top.bdf
 set_location_assignment PIN_D13 -to FPGA_I2C_SCL
 set_location_assignment PIN_K13 -to FPGA_I2C_SDA
 set_location_assignment PIN_K8 -to FPGA_SPI_DAC_SS
@@ -651,5 +638,21 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_RXEN
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_RESET
 set_location_assignment PIN_J6 -to FPGA_SPI_MISO
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_SPI_MISO
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name QIP_FILE software/lms_ctr_app/mem_init/meminit.qip
+set_global_assignment -name VHDL_FILE src/nios_cpu/nios_cpu.vhd
+set_global_assignment -name QIP_FILE lms_ctr/synthesis/lms_ctr.qip
+set_global_assignment -name VHDL_FILE src/general/simple_reg.vhd
+set_global_assignment -name VHDL_FILE src/fifo/fifo_inst.vhd
+set_global_assignment -name VHDL_FILE src/general/alive.vhd
+set_global_assignment -name SDC_FILE timing.sdc
+set_global_assignment -name VHDL_FILE src/FT6001/FT6001.vhd
+set_global_assignment -name SIGNALTAP_FILE signal_tap/debug.stp
+set_global_assignment -name VHDL_FILE src/FT6001/FT6001_arb.vhd
+set_global_assignment -name QIP_FILE ip/fifo/fifo.qip
+set_global_assignment -name VHDL_FILE src/FT6001/FT6001_top.vhd
+set_global_assignment -name VHDL_FILE src/fifo/fifo_inst_max10.vhd
+set_global_assignment -name BDF_FILE lms7_trx_top.bdf
+set_global_assignment -name EXTERNAL_FLASH_FALLBACK_ADDRESS 00000000
+set_global_assignment -name INTERNAL_FLASH_UPDATE_MODE "SINGLE IMAGE WITH ERAM"
 set_global_assignment -name SLD_FILE db/debug_auto_stripped.stp
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

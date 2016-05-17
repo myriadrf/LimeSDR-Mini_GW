@@ -1,0 +1,9 @@
+15:48:34 **** Incremental Build of configuration Nios II for project lms_ctr_app ****
+make all 
+Info: Building ../lms_ctr_bsp/
+C:/altera_lite/15.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lms_ctr_bsp/
+[BSP build complete]
+[lms_ctr_app build complete]
+
+15:48:35 Build Finished (took 426ms)
+

@@ -691,6 +691,67 @@ agreement for further details.
 	)
 )
 (symbol
+	(rect 696 920 832 1032)
+	(text "simple_reg" (rect 5 0 87 14)(font "Arial" ))
+	(text "inst8" (rect 8 96 49 110)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk" (rect 0 0 24 14)(font "Arial" ))
+		(text "clk" (rect 21 27 45 41)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "reset_n" (rect 0 0 57 14)(font "Arial" ))
+		(text "reset_n" (rect 21 43 78 57)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "d" (rect 0 0 8 14)(font "Arial" ))
+		(text "d" (rect 21 59 29 73)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64))
+	)
+	(port
+		(pt 136 32)
+		(output)
+		(text "q" (rect 0 0 8 14)(font "Arial" ))
+		(text "q" (rect 109 27 117 41)(font "Arial" ))
+		(line (pt 136 32)(pt 120 32))
+	)
+	(drawing
+		(rectangle (rect 16 16 120 96))
+	)
+)
+(symbol
+	(rect 1008 872 1056 904)
+	(text "NOT" (rect 1 0 25 11)(font "Arial" (font_size 6)))
+	(text "inst11" (rect 3 21 52 35)(font "Arial" ))
+	(port
+		(pt 0 16)
+		(input)
+		(text "IN" (rect 2 7 13 21)(font "Courier New" (bold))(invisible))
+		(text "IN" (rect 2 7 13 21)(font "Courier New" (bold))(invisible))
+		(line (pt 0 16)(pt 13 16))
+	)
+	(port
+		(pt 48 16)
+		(output)
+		(text "OUT" (rect 32 7 49 21)(font "Courier New" (bold))(invisible))
+		(text "OUT" (rect 32 7 49 21)(font "Courier New" (bold))(invisible))
+		(line (pt 39 16)(pt 48 16))
+	)
+	(drawing
+		(line (pt 13 25)(pt 13 7))
+		(line (pt 13 7)(pt 31 16))
+		(line (pt 13 25)(pt 31 16))
+		(circle (rect 31 12 39 20))
+	)
+)
+(symbol
 	(rect 1176 680 1512 1016)
 	(text "FT6001_top" (rect 5 0 87 14)(font "Arial" ))
 	(text "inst6" (rect 8 320 49 334)(font "Arial" ))
@@ -746,8 +807,8 @@ agreement for further details.
 	(port
 		(pt 0 144)
 		(input)
-		(text "EP82_aclr" (rect 0 0 74 14)(font "Arial" ))
-		(text "EP82_aclr" (rect 21 139 95 153)(font "Arial" ))
+		(text "EP82_aclrn" (rect 0 0 82 14)(font "Arial" ))
+		(text "EP82_aclrn" (rect 21 139 103 153)(font "Arial" ))
 		(line (pt 0 144)(pt 16 144))
 	)
 	(port
@@ -912,45 +973,9 @@ agreement for further details.
 	(annotation_block (parameter)(rect 1512 536 1824 683))
 )
 (symbol
-	(rect 696 920 832 1032)
-	(text "simple_reg" (rect 5 0 87 14)(font "Arial" ))
-	(text "inst8" (rect 8 96 49 110)(font "Arial" ))
-	(port
-		(pt 0 32)
-		(input)
-		(text "clk" (rect 0 0 24 14)(font "Arial" ))
-		(text "clk" (rect 21 27 45 41)(font "Arial" ))
-		(line (pt 0 32)(pt 16 32))
-	)
-	(port
-		(pt 0 48)
-		(input)
-		(text "reset_n" (rect 0 0 57 14)(font "Arial" ))
-		(text "reset_n" (rect 21 43 78 57)(font "Arial" ))
-		(line (pt 0 48)(pt 16 48))
-	)
-	(port
-		(pt 0 64)
-		(input)
-		(text "d" (rect 0 0 8 14)(font "Arial" ))
-		(text "d" (rect 21 59 29 73)(font "Arial" ))
-		(line (pt 0 64)(pt 16 64))
-	)
-	(port
-		(pt 136 32)
-		(output)
-		(text "q" (rect 0 0 8 14)(font "Arial" ))
-		(text "q" (rect 109 27 117 41)(font "Arial" ))
-		(line (pt 136 32)(pt 120 32))
-	)
-	(drawing
-		(rectangle (rect 16 16 120 96))
-	)
-)
-(symbol
-	(rect 1008 872 1056 904)
+	(rect 1008 808 1056 840)
 	(text "NOT" (rect 1 0 25 11)(font "Arial" (font_size 6)))
-	(text "inst11" (rect 3 21 52 35)(font "Arial" ))
+	(text "inst1" (rect 3 21 44 35)(font "Arial" ))
 	(port
 		(pt 0 16)
 		(input)
@@ -991,11 +1016,6 @@ agreement for further details.
 	(text "H" (rect 408 1249 422 1257)(font "Arial" )(vertical))
 	(pt 424 1176)
 	(pt 424 1272)
-)
-(connector
-	(text "LMK_CLK" (rect 953 376 1010 390)(font "Arial" ))
-	(pt 1040 392)
-	(pt 936 392)
 )
 (connector
 	(text "beat" (rect 1206 360 1239 374)(font "Arial" ))
@@ -1041,11 +1061,6 @@ agreement for further details.
 	(bus)
 )
 (connector
-	(text "FT_CLK" (rect 1074 760 1123 774)(font "Arial" ))
-	(pt 1176 776)
-	(pt 1056 776)
-)
-(connector
 	(pt 1176 744)
 	(pt 1056 744)
 )
@@ -1068,11 +1083,6 @@ agreement for further details.
 	(text "EP03_rempty" (rect 1544 808 1634 822)(font "Arial" ))
 	(pt 1512 824)
 	(pt 1640 824)
-)
-(connector
-	(text "FT_CLK" (rect 1042 1712 1091 1726)(font "Arial" ))
-	(pt 1136 1728)
-	(pt 1016 1728)
 )
 (connector
 	(text "EP02_rdata[7..0]" (rect 1041 1728 1173 1742)(font "Arial" ))
@@ -1134,16 +1144,6 @@ agreement for further details.
 	(pt 1136 1824)
 )
 (connector
-	(text "FT_CLK" (rect 1074 856 1123 870)(font "Arial" ))
-	(pt 1176 872)
-	(pt 1056 872)
-)
-(connector
-	(text "FT_CLK" (rect 1074 904 1123 918)(font "Arial" ))
-	(pt 1176 920)
-	(pt 1056 920)
-)
-(connector
 	(text "L" (rect 1111 888 1119 902)(font "Arial" ))
 	(pt 1176 904)
 	(pt 1056 904)
@@ -1195,19 +1195,9 @@ agreement for further details.
 	(pt 1008 888)
 )
 (connector
-	(text "FT_CLK" (rect 1074 792 1123 806)(font "Arial" ))
-	(pt 1176 808)
-	(pt 1056 808)
-)
-(connector
 	(text "exfifo_rst" (rect 1442 1760 1524 1774)(font "Arial" ))
 	(pt 1392 1776)
 	(pt 1560 1776)
-)
-(connector
-	(text "exfifo_rst" (rect 1074 808 1156 822)(font "Arial" ))
-	(pt 1056 824)
-	(pt 1176 824)
 )
 (connector
 	(text "H" (rect 1872 1976 1880 1990)(font "Arial" ))
@@ -1294,6 +1284,45 @@ agreement for further details.
 (connector
 	(pt 1000 1792)
 	(pt 1136 1792)
+)
+(connector
+	(text "FT_CLK" (rect 953 376 1002 390)(font "Arial" ))
+	(pt 1040 392)
+	(pt 936 392)
+)
+(connector
+	(text "LMK_CLK" (rect 1042 1712 1099 1726)(font "Arial" ))
+	(pt 1136 1728)
+	(pt 1016 1728)
+)
+(connector
+	(text "LMK_CLK" (rect 1074 760 1131 774)(font "Arial" ))
+	(pt 1176 776)
+	(pt 1056 776)
+)
+(connector
+	(text "LMK_CLK" (rect 1074 792 1131 806)(font "Arial" ))
+	(pt 1176 808)
+	(pt 1056 808)
+)
+(connector
+	(text "LMK_CLK" (rect 1074 856 1131 870)(font "Arial" ))
+	(pt 1176 872)
+	(pt 1056 872)
+)
+(connector
+	(text "LMK_CLK" (rect 1074 904 1131 918)(font "Arial" ))
+	(pt 1176 920)
+	(pt 1056 920)
+)
+(connector
+	(pt 1056 824)
+	(pt 1176 824)
+)
+(connector
+	(text "exfifo_rst" (rect 898 808 980 822)(font "Arial" ))
+	(pt 1008 824)
+	(pt 880 824)
 )
 (rectangle (rect 288 184 2432 1352))
 (rectangle (rect 280 1448 2424 2616))

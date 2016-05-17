@@ -147,6 +147,7 @@ C_SRCS += spi_flash_lib.c
 C_SRCS += i2c_opencores.c
 CXX_SRCS :=
 ASM_SRCS :=
+#C_SRCS += main - Copy.c
 
 
 # Path to root of object file tree.

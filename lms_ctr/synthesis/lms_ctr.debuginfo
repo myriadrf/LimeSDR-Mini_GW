@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="lms_ctr" kind="system" version="15.1" fabric="QSYS">
- <!-- Format version 15.1 185 (Future versions may contain additional information.) -->
- <!-- 2016.05.11.17:17:03 -->
+ <!-- Format version 15.1 193 (Future versions may contain additional information.) -->
+ <!-- 2016.05.17.15:39:14 -->
  <!-- A collection of modules and connections -->
  <parameter name="clockCrossingAdapter">
   <type>com.altera.sopcmodel.ensemble.EClockAdapter</type>
@@ -53,7 +53,7 @@
  </parameter>
  <parameter name="generationId">
   <type>int</type>
-  <value>1462976199</value>
+  <value>1463488739</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>true</visible>
@@ -101,7 +101,7 @@
  </parameter>
  <parameter name="projectName">
   <type>java.lang.String</type>
-  <value>uLimeTest.qpf</value>
+  <value>uLimeSDR_lms7_trx.qpf</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -8737,7 +8737,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.INIT_MEM_CONTENT</name>
-   <value>0</value>
+   <value>1</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.INSTANCE_ID</name>
@@ -8841,7 +8841,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="initMemContent">
    <type>boolean</type>
-   <value>false</value>
+   <value>true</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -8923,7 +8923,7 @@ the requested settings for a module instance. -->
    <type>boolean</type>
    <value>false</value>
    <derived>false</derived>
-   <enabled>false</enabled>
+   <enabled>true</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -10285,7 +10285,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1462976199</value>
+   <value>1463488739</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -10305,7 +10305,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1462976199</value>
+   <value>1463488739</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -10321,7 +10321,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1462976199</value>
+   <value>1463488739</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -21043,6 +21043,6 @@ parameters are a RESULT of the module parameters. -->
   <displayName>Reset Connection</displayName>
   <version>15.1</version>
  </plugin>
- <reportVersion>15.1 185</reportVersion>
- <uniqueIdentifier>00000000000000E000000154A02D440E</uniqueIdentifier>
+ <reportVersion>15.1 193</reportVersion>
+ <uniqueIdentifier>448A5B8829BA00000154BEBA0572</uniqueIdentifier>
 </EnsembleReport>

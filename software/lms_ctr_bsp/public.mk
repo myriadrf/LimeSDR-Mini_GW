@@ -82,7 +82,7 @@ ACDS_VERSION := 15.1
 
 # This following BUILD_NUMBER comment indicates the build number of the tool 
 # used to generate this makefile. 
-# BUILD_NUMBER: 185
+# BUILD_NUMBER: 193
 
 # Qsys--generated SOPCINFO file. Required for resolving node instance ID's with 
 # design component names. 
@@ -157,9 +157,9 @@ SOPC_SYSID_FLAG += --sidp=0x110f0
 ELF_PATCH_FLAG  += --sidp 0x110f0
 
 # The SOPC Timestamp 
-# setting SOPC_TIMESTAMP is 1462976199
-SOPC_SYSID_FLAG += --timestamp=1462976199
-ELF_PATCH_FLAG  += --timestamp 1462976199
+# setting SOPC_TIMESTAMP is 1463488739
+SOPC_SYSID_FLAG += --timestamp=1463488739
+ELF_PATCH_FLAG  += --timestamp 1463488739
 
 # Enable driver ioctl() support. This feature is not compatible with the 
 # 'small' driver; ioctl() support will not be compiled if either the UART 

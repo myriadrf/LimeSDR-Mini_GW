@@ -98,7 +98,7 @@ ACDS_VERSION := 15.1
 
 # This following BUILD_NUMBER comment indicates the build number of the tool 
 # used to generate this makefile. 
-# BUILD_NUMBER: 185
+# BUILD_NUMBER: 193
 
 SETTINGS_FILE := settings.bsp
 SOPC_FILE := ../../lms_ctr.sopcinfo

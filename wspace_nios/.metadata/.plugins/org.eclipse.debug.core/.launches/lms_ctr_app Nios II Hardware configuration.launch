@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="com.altera.sbtgui.launch.hardware.Nios2HardwareLaunchConfiguration">
+<stringAttribute key="com.altera.sbtgui.launch.REMOTE_PORT" value="58573"/>
+<booleanAttribute key="downloadProgram" value="true"/>
+<stringAttribute key="elfFile" value="D:\LimeMicrosystems\SparkBoards\uLimeSDR\qii\uLimeTest\software\lms_ctr_app\lms_ctr_app.elf"/>
+<stringAttribute key="org.eclipse.cdt.debug.mi.core.GDB_INIT" value=""/>
+<stringAttribute key="org.eclipse.cdt.debug.mi.core.commandFactory" value="com.altera.debug.cdi.gdb.plugin.Nios2GDBServerCommandFactory"/>
+<stringAttribute key="org.eclipse.cdt.launch.DEBUGGER_ID" value="com.altera.debug.cdi.gdb.plugin.Nios2GdbCdiDebugger"/>
+<stringAttribute key="org.eclipse.cdt.launch.DEBUGGER_REGISTER_GROUPS" value=""/>
+<stringAttribute key="org.eclipse.cdt.launch.DEBUGGER_START_MODE" value="run"/>
+<booleanAttribute key="org.eclipse.cdt.launch.DEBUGGER_STOP_AT_MAIN" value="true"/>
+<stringAttribute key="org.eclipse.cdt.launch.DEBUGGER_STOP_AT_MAIN_SYMBOL" value="main"/>
+<booleanAttribute key="org.eclipse.cdt.launch.ENABLE_REGISTER_BOOKKEEPING" value="false"/>
+<booleanAttribute key="org.eclipse.cdt.launch.ENABLE_VARIABLE_BOOKKEEPING" value="false"/>
+<stringAttribute key="org.eclipse.cdt.launch.FORMAT" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&lt;contentList&gt;&lt;content id=&quot;spi_wrbuf2[5]-spi_wrbuf2-main-(format)&quot; val=&quot;4&quot;/&gt;&lt;content id=&quot;spi_wrbuf2[4]-spi_wrbuf2-main-(format)&quot; val=&quot;4&quot;/&gt;&lt;content id=&quot;spi_wrbuf2[3]-spi_wrbuf2-main-(format)&quot; val=&quot;4&quot;/&gt;&lt;content id=&quot;spi_wrbuf2[2]-spi_wrbuf2-main-(format)&quot; val=&quot;4&quot;/&gt;&lt;content id=&quot;spi_wrbuf2[1]-spi_wrbuf2-main-(format)&quot; val=&quot;4&quot;/&gt;&lt;content id=&quot;spi_wrbuf2[0]-spi_wrbuf2-main-(format)&quot; val=&quot;4&quot;/&gt;&lt;/contentList&gt;"/>
+<stringAttribute key="org.eclipse.cdt.launch.GLOBAL_VARIABLES" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#13;&#10;&lt;globalVariableList/&gt;&#13;&#10;"/>
+<stringAttribute key="org.eclipse.cdt.launch.MEMORY_BLOCKS" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#13;&#10;&lt;memoryBlockExpressionList/&gt;&#13;&#10;"/>
+<stringAttribute key="org.eclipse.cdt.launch.PROGRAM_NAME" value="lms_ctr_app.elf"/>
+<stringAttribute key="org.eclipse.cdt.launch.PROJECT_ATTR" value="lms_ctr_app"/>
+<stringAttribute key="processorCableName" value="USB-Blaster on localhost [USB-0]"/>
+<stringAttribute key="processorDeviceIndex" value="1"/>
+<stringAttribute key="processorInstanceId" value="0"/>
+<booleanAttribute key="runProgram" value="true"/>
+</launchConfiguration>

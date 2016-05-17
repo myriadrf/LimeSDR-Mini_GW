@@ -31,7 +31,6 @@
 #define SPI_NR_LMS7002M 0
 #define SPI_NR_FPGA     1
 #define SPI_NR_DAC      0
-#define SPI_NR_ADF4002  0
 #define SPI_NR_FLASH    0
 
 uint8_t test, block, cmd_errors, glEp0Buffer_Rx[64], glEp0Buffer_Tx[64];
@@ -171,11 +170,11 @@ int main()
     // Write initial data to the DAC
 	dac_data[0] = (dac_val) >>2; //POWER-DOWN MODE = NORMAL OPERATION (MSB bits =00) + MSB data
 	dac_data[1] = (dac_val) <<6; //LSB data
-	spirez = alt_avalon_spi_command(SPI_LMS_BASE, SPI_NR_DAC, 2, dac_data, 0, NULL, 0);
+	spirez = alt_avalon_spi_command(DAC_SPI_BASE, SPI_NR_DAC, 2, dac_data, 0, NULL, 0);
 
     //FLASH MEMORY
-    spi_wrbuf1[0] = FLASH_CMD_READJEDECID;	//
-    spirez = alt_avalon_spi_command(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 1, spi_wrbuf1, 3, spi_wrbuf2, 0);
+    //spi_wrbuf1[0] = FLASH_CMD_READJEDECID;	//
+    //spirez = alt_avalon_spi_command(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 1, spi_wrbuf1, 3, spi_wrbuf2, 0);
 
 	//flash_page_data[FLASH_PAGE_SIZE];
     //testFlash();
@@ -199,18 +198,7 @@ int main()
 
     // Configure LM75
     Configure_LM75();
-/*
- 	//Si5351C
-    spirez = I2C_start(I2C_OPENCORES_0_BASE, SI5351_I2C_ADDR, 0);
-    spirez = I2C_write(I2C_OPENCORES_0_BASE, 0x09, 0);
-    spirez = I2C_write(I2C_OPENCORES_0_BASE, 0x0F, 1);
 
-
-    spirez = I2C_start(I2C_OPENCORES_0_BASE, SI5351_I2C_ADDR, 0);
-    spirez = I2C_write(I2C_OPENCORES_0_BASE, 0x09, 1);
-    spirez = I2C_start(I2C_OPENCORES_0_BASE, SI5351_I2C_ADDR, 1);
-    spirez = I2C_read(I2C_OPENCORES_0_BASE, 1);
-*/
 
  /*
     // LM75
@@ -246,7 +234,63 @@ int main()
 
 
 
+		spirez = I2C_start(I2C_OPENCORES_0_BASE, LM75_I2C_ADDR, 0);
+		spirez = I2C_write(I2C_OPENCORES_0_BASE, 0x00, 1);				// Pointer = temperature register
+		spirez = I2C_start(I2C_OPENCORES_0_BASE, LM75_I2C_ADDR, 1);
 
+		// Read temperature and recalculate
+		converted_val = (signed short int)I2C_read(I2C_OPENCORES_0_BASE, 0);
+		converted_val = converted_val << 8;
+		converted_val = 10 * (converted_val >> 8);
+		spirez = I2C_read(I2C_OPENCORES_0_BASE, 1);
+		if(spirez & 0x80) converted_val = converted_val + 5;
+
+
+		//Read from LMS7
+		spi_wrbuf1[0] = 0x00;
+		spi_wrbuf1[1] = 0x21;
+		spirez = alt_avalon_spi_command(FPGA_SPI_BASE, SPI_NR_LMS7002M, 2, spi_wrbuf1, 2, spi_wrbuf2, 0);
+
+		// Write to the DAC
+		//dac_val = 10;
+		//dac_data[0] = (dac_val) >>2; //POWER-DOWN MODE = NORMAL OPERATION (MSB bits =00) + MSB data
+		//dac_data[1] = (dac_val) <<6; //LSB data
+		//spirez = alt_avalon_spi_command(DAC_SPI_BASE, SPI_NR_DAC, 2, dac_data, 0, NULL, 0);
+
+		//dac_val = 200;
+		//dac_data[0] = (dac_val) >>2; //POWER-DOWN MODE = NORMAL OPERATION (MSB bits =00) + MSB data
+		//dac_data[1] = (dac_val) <<6; //LSB data
+		//spirez = alt_avalon_spi_command(DAC_SPI_BASE, SPI_NR_DAC, 2, dac_data, 0, NULL, 0);
+
+		//EEPROM Test, RD from 0x0000
+		spirez = I2C_start(I2C_OPENCORES_0_BASE, EEPROM_I2C_ADDR, 0);
+		spirez = I2C_write(I2C_OPENCORES_0_BASE, 0x00, 0);
+		spirez = I2C_write(I2C_OPENCORES_0_BASE, 0x00, 0);
+
+		spirez = I2C_start(I2C_OPENCORES_0_BASE, EEPROM_I2C_ADDR, 1);
+		converted_val = I2C_read(I2C_OPENCORES_0_BASE, 1);
+
+		//WR
+		spirez = I2C_start(I2C_OPENCORES_0_BASE, EEPROM_I2C_ADDR, 0);
+		spirez = I2C_write(I2C_OPENCORES_0_BASE, 0x00, 0);
+		spirez = I2C_write(I2C_OPENCORES_0_BASE, 0x01, 0);
+		spirez = I2C_write(I2C_OPENCORES_0_BASE, 0x5A, 1);
+
+		//EEPROM Test, RD from 0x0001
+		spirez = I2C_start(I2C_OPENCORES_0_BASE, EEPROM_I2C_ADDR, 0);
+		spirez = I2C_write(I2C_OPENCORES_0_BASE, 0x00, 0);
+		spirez = I2C_write(I2C_OPENCORES_0_BASE, 0x01, 1);
+
+		spirez = I2C_start(I2C_OPENCORES_0_BASE, EEPROM_I2C_ADDR, 1);
+		converted_val = I2C_read(I2C_OPENCORES_0_BASE, 1);
+
+
+    }
+
+
+
+    while (1)	// infinite loop
+    {
         // FIFO
         //IOWR(AV_FIFO_INT_0_BASE, 0, cnt);		// Write Data to FIFO
         //cnt++;
@@ -322,7 +366,7 @@ int main()
  	 					CyU3PSpiTransmitWords (&LMS_Ctrl_Packet_Rx->Data_field[2 + (block * 4)], 1); //reg data MSB
  	 					CyU3PSpiTransmitWords (&LMS_Ctrl_Packet_Rx->Data_field[3 + (block * 4)], 1); //reg data LSB
  	 					*/
- 	 					spirez = alt_avalon_spi_command(SPI_LMS_BASE, SPI_NR_LMS7002M, 4, &LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 4)], 0, NULL, 0);
+ 	 					spirez = alt_avalon_spi_command(FPGA_SPI_BASE, SPI_NR_LMS7002M, 4, &LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 4)], 0, NULL, 0);
  	 				}
 
  	 				//CyU3PGpioSetValue (FX3_SPI_CS, CyTrue); //Disable LMS's SPI
@@ -351,7 +395,7 @@ int main()
  						CyU3PSpiReceiveWords (&LMS_Ctrl_Packet_Tx->Data_field[2 + (block * 4)], 1); //reg data MSB
  						CyU3PSpiReceiveWords (&LMS_Ctrl_Packet_Tx->Data_field[3 + (block * 4)], 1); //reg data LSB
  						*/
- 						spirez = alt_avalon_spi_command(SPI_LMS_BASE, SPI_NR_LMS7002M, 2, &LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 2)], 2, &LMS_Ctrl_Packet_Tx->Data_field[2 + (block * 4)], 0);
+ 						spirez = alt_avalon_spi_command(FPGA_SPI_BASE, SPI_NR_LMS7002M, 2, &LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 2)], 2, &LMS_Ctrl_Packet_Tx->Data_field[2 + (block * 4)], 0);
  					}
 
  					//CyU3PGpioSetValue (FX3_SPI_CS, CyTrue); //Disable LMS's SPI
@@ -377,7 +421,7 @@ int main()
  	 					CyU3PSpiTransmitWords (&LMS_Ctrl_Packet_Rx->Data_field[2 + (block * 4)], 1); //reg data MSB
  	 					CyU3PSpiTransmitWords (&LMS_Ctrl_Packet_Rx->Data_field[3 + (block * 4)], 1); //reg data LSB
  	 					*/
- 	 					spirez = alt_avalon_spi_command(SPI_LMS_BASE, SPI_NR_FPGA, 4, &LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 4)], 0, NULL, 0);
+ 	 					spirez = alt_avalon_spi_command(FPGA_SPI_BASE, SPI_NR_FPGA, 4, &LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 4)], 0, NULL, 0);
  	 				}
 
  	 				//CyU3PGpioSetValue (FX3_SPI_CS, CyTrue); //Disable LMS's SPI
@@ -406,53 +450,12 @@ int main()
  						CyU3PSpiReceiveWords (&LMS_Ctrl_Packet_Tx->Data_field[2 + (block * 4)], 1); //reg data MSB
  						CyU3PSpiReceiveWords (&LMS_Ctrl_Packet_Tx->Data_field[3 + (block * 4)], 1); //reg data LSB
  						*/
- 						spirez = alt_avalon_spi_command(SPI_LMS_BASE, SPI_NR_FPGA, 2, &LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 2)], 2, &LMS_Ctrl_Packet_Tx->Data_field[2 + (block * 4)], 0);
+ 						spirez = alt_avalon_spi_command(FPGA_SPI_BASE, SPI_NR_FPGA, 2, &LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 2)], 2, &LMS_Ctrl_Packet_Tx->Data_field[2 + (block * 4)], 0);
  					}
 
  					//CyU3PGpioSetValue (FX3_SPI_CS, CyTrue); //Disable LMS's SPI
 
  					LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
- 				break;
-
- 				case CMD_ADF4002_WR:
- 					if(Check_many_blocks (3)) break;
-
- 					for(block = 0; block < LMS_Ctrl_Packet_Rx->Header.Data_blocks; block++)
- 					{
- 						switch(LMS_Ctrl_Packet_Rx->Header.Periph_ID)
- 						{
- 							case 0: //onboard
- 								//CyU3PGpioSetValue (FX3_ADF_SNN, CyFalse); //Enable onboard ADF's SPI
- 								break;
- 							case 1: //fmc
- 								//Modify_BRDSPI16_Reg_bits (0x14, BRD_SPI_ADF_SS, BRD_SPI_ADF_SS, 0); //Enable ADF's SPI
- 								break;
- 							default:
- 								cmd_errors++;
- 								break;
- 						}
-
- 						//CyU3PSpiTransmitWords (&LMS_Ctrl_Packet_Rx->Data_field[0 + (block*3)], 1);
- 						//CyU3PSpiTransmitWords (&LMS_Ctrl_Packet_Rx->Data_field[1 + (block*3)], 1);
- 						//CyU3PSpiTransmitWords (&LMS_Ctrl_Packet_Rx->Data_field[2 + (block*3)], 1);
- 						spirez = alt_avalon_spi_command(SPI_1_ADF4002_BASE, SPI_NR_ADF4002, 3, &LMS_Ctrl_Packet_Rx->Data_field[0 + (block*3)], 0, NULL, 0);
-
- 						switch(LMS_Ctrl_Packet_Rx->Header.Periph_ID)
- 						{
- 							case 0: //onboard
- 								//CyU3PGpioSetValue (FX3_ADF_SNN, CyTrue); //Disable ADF's SPI
- 							break;
- 							case 1: //fmc
- 								//Modify_BRDSPI16_Reg_bits (0x14, BRD_SPI_ADF_SS, BRD_SPI_ADF_SS, 1); //Disable ADF's SPI
- 							break;
- 							default:
- 								cmd_errors++;
- 							break;
- 						}
- 					}
-
- 					if(cmd_errors) LMS_Ctrl_Packet_Tx->Header.Status = STATUS_INVALID_PERIPH_ID_CMD;
- 					else LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
  				break;
 
 
@@ -553,7 +556,7 @@ int main()
 										dac_data[1] = (dac_val << 6) & 0xC0; //LSB data
 
 										//if( CyU3PI2cTransmitBytes (&preamble, &sc_brdg_data[0], 2, 0) != CY_U3P_SUCCESS)  cmd_errors++;
-										spirez = alt_avalon_spi_command(SPI_1_BASE, SPI_NR_DAC, 2, dac_data, 0, NULL, 0);
+										spirez = alt_avalon_spi_command(DAC_SPI_BASE, SPI_NR_DAC, 2, dac_data, 0, NULL, 0);
 									}
 									else cmd_errors++;
 								}
@@ -606,7 +609,7 @@ int main()
 						case 1: //write data to Flash from PC
 							//Flash_ID();
 							//Reconfigure_SPI_for_Flash ();
-
+/*
 							if(current_portion == 0)//beginning
 							{
 								flash_page = 0;
@@ -690,7 +693,7 @@ int main()
 							}
 							else //not correct bitsream size
 								LMS_Ctrl_Packet_Tx->Header.Status = STATUS_ERROR_CMD;
-
+*/
 						break;
 
 						case 2: //configure FPGA from flash
@@ -720,75 +723,6 @@ int main()
 					}
 
 				break;
-
-
-	 			case CMD_SI5351_WR:
-	 				if(Check_many_blocks(2)) break;
-
-	        		//I2C_Addr = SI5351_I2C_ADDR;
-
-	 				for(block = 0; block < LMS_Ctrl_Packet_Rx->Header.Data_blocks; block++)
-	 				{
-	 					/*
-	            		//write byte
-	 					preamble.length    = 2;
-	 					preamble.buffer[0] = I2C_Addr; //write h70;
-	 					preamble.buffer[1] = LMS_Ctrl_Packet_Rx->Data_field[block * 2]; //reg to write
-	 					preamble.ctrlMask  = 0x0000;
-
-	 					if( CyU3PI2cTransmitBytes (&preamble, &LMS_Ctrl_Packet_Rx->Data_field[1 + (block * 2)], 1, 0) != CY_U3P_SUCCESS)  cmd_errors++;
-	 					*/
-
-	 					cmd_errors += I2C_start(I2C_OPENCORES_0_BASE, SI5351_I2C_ADDR, 0);
-	 					cmd_errors += I2C_write(I2C_OPENCORES_0_BASE, LMS_Ctrl_Packet_Rx->Data_field[block * 2    ], 0);
-	 					cmd_errors += I2C_write(I2C_OPENCORES_0_BASE, LMS_Ctrl_Packet_Rx->Data_field[block * 2 + 1], 1);
-	 				}
-
-	 				if(cmd_errors) LMS_Ctrl_Packet_Tx->Header.Status = STATUS_ERROR_CMD;
-	 				else LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
-
-	 			break;
-
-
- 				case CMD_SI5351_RD:
- 					if(Check_many_blocks (2)) break;
-/*
- 					I2C_Addr = SI5351_I2C_ADDR;
-
- 					for(block = 0; block < LMS_Ctrl_Packet_Rx->Header.Data_blocks; block++)
- 					{
-        		        //read byte
-        		        preamble.length = 3;
-
-        		        I2C_Addr &= ~(1 << 0);//write addr
-        		        preamble.buffer[0] = I2C_Addr;//0xE0; //write h70;
-
-        		        preamble.buffer[1] = LMS_Ctrl_Packet_Rx->Data_field[block]; //reg to read
-
-        		        I2C_Addr |= 1 << 0;	//read addr
-
-        		        preamble.buffer[2] = I2C_Addr;//0xE1; //read h70
-        		        preamble.ctrlMask  = 0x0002;
-
-        		        if( CyU3PI2cReceiveBytes (&preamble, &LMS_Ctrl_Packet_Tx->Data_field[1 + block * 2], 1, 0)  != CY_U3P_SUCCESS)  cmd_errors++;
-
- 						LMS_Ctrl_Packet_Tx->Data_field[block * 2] = LMS_Ctrl_Packet_Rx->Data_field[block];
- 					}
-*/
- 					for(block = 0; block < LMS_Ctrl_Packet_Rx->Header.Data_blocks; block++)
- 					{
- 						cmd_errors += I2C_start(I2C_OPENCORES_0_BASE, SI5351_I2C_ADDR, 0);
- 						cmd_errors += I2C_write(I2C_OPENCORES_0_BASE, LMS_Ctrl_Packet_Rx->Data_field[block], 1);
- 						cmd_errors += I2C_start(I2C_OPENCORES_0_BASE, SI5351_I2C_ADDR, 1);
-
- 						LMS_Ctrl_Packet_Tx->Data_field[block * 2    ] = LMS_Ctrl_Packet_Rx->Data_field[block];
- 						LMS_Ctrl_Packet_Tx->Data_field[block * 2 + 1] = I2C_read(I2C_OPENCORES_0_BASE, 1);
- 					}
-
- 					if(cmd_errors) LMS_Ctrl_Packet_Tx->Header.Status = STATUS_ERROR_CMD;
- 					else LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
-
- 				break;
 
 
 

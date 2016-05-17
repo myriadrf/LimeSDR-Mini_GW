@@ -1,6 +1,7 @@
 #=======================Base clocks=====================================
-create_clock -period "30.72MHz"	-name LMK_CLK [get_ports LMK_CLK]
-create_clock -period "100MHz"		-name FT_CLK	[get_ports FT_CLK]
+create_clock -period "30.72MHz"	-name LMK_CLK 		[get_ports LMK_CLK]
+create_clock -period "100MHz"		-name FT_CLK		[get_ports FT_CLK]
+create_clock -period "20MHz"		-name LMS_MCLK2	[get_ports LMS_MCLK2]
 
 
 #// Inputs
@@ -18,3 +19,4 @@ set_output_delay -clock [get_clocks FT_CLK] -add_delay -max 0.5 [get_ports {FT_B
 #set_false_path -from {fifo_mst_fsm:i_fifo_mst_fsm|tp_dt_oe*} -to [get_ports {FT_D[*]}]
 
 derive_clock_uncertainty
+derive_pll_clocks

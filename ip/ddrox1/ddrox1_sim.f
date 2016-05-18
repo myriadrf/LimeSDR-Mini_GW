@@ -1,0 +1,3 @@
+ddrox1_sim/ddrox1.vhd
+ddrox1_sim/altera_gpio_lite/altera_gpio_lite.sv
+ddrox1_sim/altera_gpio_lite/mentor/altera_gpio_lite.sv

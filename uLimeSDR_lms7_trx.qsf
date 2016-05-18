@@ -281,40 +281,6 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[8]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[9]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[10]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[11]
-set_global_assignment -name VHDL_FILE src/general/my_busmux.vhd
-set_global_assignment -name VHDL_FILE src/testing/test_data_dd.vhd
-set_global_assignment -name VHDL_FILE src/rx_modules/wr_rx_fifo_v3.vhd
-set_global_assignment -name VHDL_FILE src/rx_modules/rx_pct_data_v2.vhd
-set_global_assignment -name VHDL_FILE src/rx_modules/compress_v2.vhd
-set_global_assignment -name VHDL_FILE src/general/synchronizer.vhd
-set_global_assignment -name BDF_FILE symbols/rx_synchronizers.bdf
-set_global_assignment -name BDF_FILE symbols/LTE_rx_path.bdf
-set_global_assignment -name VHDL_FILE src/spi/pllcfg_top.vhd
-set_global_assignment -name VHDL_FILE src/spi/pllcfg.vhd
-set_global_assignment -name VHDL_FILE src/spi/miso_mux.vhd
-set_global_assignment -name VHDL_FILE src/spi/mem_package.vhd
-set_global_assignment -name VHDL_FILE src/spi/mcfg32wm_fsm.vhd
-set_global_assignment -name VHDL_FILE src/spi/mcfg_components.vhd
-set_global_assignment -name VHDL_FILE src/spi/fpgacfg.vhd
-set_global_assignment -name QIP_FILE software/lms_ctr_app/mem_init/meminit.qip
-set_global_assignment -name VHDL_FILE src/nios_cpu/nios_cpu.vhd
-set_global_assignment -name QIP_FILE lms_ctr/synthesis/lms_ctr.qip
-set_global_assignment -name VHDL_FILE src/general/simple_reg.vhd
-set_global_assignment -name VHDL_FILE src/fifo/fifo_inst.vhd
-set_global_assignment -name VHDL_FILE src/general/alive.vhd
-set_global_assignment -name SDC_FILE timing.sdc
-set_global_assignment -name VHDL_FILE src/FT6001/FT6001.vhd
-set_global_assignment -name SIGNALTAP_FILE signal_tap/debug.stp
-set_global_assignment -name VHDL_FILE src/FT6001/FT6001_arb.vhd
-set_global_assignment -name QIP_FILE ip/fifo/fifo.qip
-set_global_assignment -name VHDL_FILE src/FT6001/FT6001_top.vhd
-set_global_assignment -name VHDL_FILE src/fifo/fifo_inst_max10.vhd
-set_global_assignment -name BDF_FILE lms7_trx_top.bdf
-set_global_assignment -name QIP_FILE ip/pll/pll.qip
-set_global_assignment -name QIP_FILE ip/ddrix13/ddrix13.qip
-set_global_assignment -name SIP_FILE ip/ddrix13/ddrix13.sip
-set_global_assignment -name QIP_FILE ip/ddrox13/ddrox13.qip
-set_global_assignment -name SIP_FILE ip/ddrox13/ddrox13.sip
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[5] -to FT602_top|gnd -section_id FT602_top
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[10] -to FT602_top|gnd -section_id FT602_top
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[12] -to FT602_top|gnd -section_id FT602_top
@@ -586,5 +552,56 @@ set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[154] -
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_DATA_BITS=155" -section_id FT602_top
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_BITS=155" -section_id FT602_top
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[9] -to FT602_top|gnd -section_id FT602_top
+set_global_assignment -name VHDL_FILE src/tx_modules/rd_tx_fifo.vhd
+set_global_assignment -name VHDL_FILE src/tx_modules/decompress.vhd
+set_global_assignment -name VHDL_FILE src/general/bus_synch.vhd
+set_global_assignment -name VHDL_FILE src/tx_modules/tx_pct_data_mimo_v3.vhd
+set_global_assignment -name BDF_FILE symbols/LTE_tx_path.bdf
+set_global_assignment -name VHDL_FILE src/reg_phase_shift/simple_reg.vhd
+set_global_assignment -name VHDL_FILE src/reg_phase_shift/phase_shift.vhd
+set_global_assignment -name VHDL_FILE src/dyn_ps/pll_ps_cntrl.vhd
+set_global_assignment -name VHDL_FILE src/pll_reconfig_ctrl/pll_reconfig_status.vhd
+set_global_assignment -name VHDL_FILE src/pll_reconfig_ctrl/config_ctrl.vhd
+set_global_assignment -name BDF_FILE symbols/pll_block.bdf
+set_global_assignment -name VHDL_FILE src/general/my_busmux.vhd
+set_global_assignment -name VHDL_FILE src/testing/test_data_dd.vhd
+set_global_assignment -name VHDL_FILE src/rx_modules/wr_rx_fifo_v3.vhd
+set_global_assignment -name VHDL_FILE src/rx_modules/rx_pct_data_v2.vhd
+set_global_assignment -name VHDL_FILE src/rx_modules/compress_v2.vhd
+set_global_assignment -name VHDL_FILE src/general/synchronizer.vhd
+set_global_assignment -name BDF_FILE symbols/rx_synchronizers.bdf
+set_global_assignment -name BDF_FILE symbols/LTE_rx_path.bdf
+set_global_assignment -name VHDL_FILE src/spi/pllcfg_top.vhd
+set_global_assignment -name VHDL_FILE src/spi/pllcfg.vhd
+set_global_assignment -name VHDL_FILE src/spi/miso_mux.vhd
+set_global_assignment -name VHDL_FILE src/spi/mem_package.vhd
+set_global_assignment -name VHDL_FILE src/spi/mcfg32wm_fsm.vhd
+set_global_assignment -name VHDL_FILE src/spi/mcfg_components.vhd
+set_global_assignment -name VHDL_FILE src/spi/fpgacfg.vhd
+set_global_assignment -name QIP_FILE software/lms_ctr_app/mem_init/meminit.qip
+set_global_assignment -name VHDL_FILE src/nios_cpu/nios_cpu.vhd
+set_global_assignment -name QIP_FILE lms_ctr/synthesis/lms_ctr.qip
+set_global_assignment -name VHDL_FILE src/general/simple_reg.vhd
+set_global_assignment -name VHDL_FILE src/fifo/fifo_inst.vhd
+set_global_assignment -name VHDL_FILE src/general/alive.vhd
+set_global_assignment -name SDC_FILE timing.sdc
+set_global_assignment -name VHDL_FILE src/FT6001/FT6001.vhd
+set_global_assignment -name SIGNALTAP_FILE signal_tap/debug.stp
+set_global_assignment -name VHDL_FILE src/FT6001/FT6001_arb.vhd
+set_global_assignment -name QIP_FILE ip/fifo/fifo.qip
+set_global_assignment -name VHDL_FILE src/FT6001/FT6001_top.vhd
+set_global_assignment -name VHDL_FILE src/fifo/fifo_inst_max10.vhd
+set_global_assignment -name BDF_FILE lms7_trx_top.bdf
+set_global_assignment -name QIP_FILE ip/pll/pll.qip
+set_global_assignment -name QIP_FILE ip/ddrix13/ddrix13.qip
+set_global_assignment -name SIP_FILE ip/ddrix13/ddrix13.sip
+set_global_assignment -name QIP_FILE ip/ddrox13/ddrox13.qip
+set_global_assignment -name SIP_FILE ip/ddrox13/ddrox13.sip
+set_global_assignment -name QIP_FILE ip/pll_reconfig_module/pll_reconfig_module.qip
+set_global_assignment -name QIP_FILE ip/ddrox1/ddrox1.qip
+set_global_assignment -name SIP_FILE ip/ddrox1/ddrox1.sip
+set_global_assignment -name BDF_FILE symbols/tx_synchronizers.bdf
+set_global_assignment -name VHDL_FILE src/tx_modules/sync_fifo_rw.vhd
+set_global_assignment -name VHDL_FILE src/tx_modules/sample_nr_cnt_mimo.vhd
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
 set_global_assignment -name SLD_FILE db/debug_auto_stripped.stp

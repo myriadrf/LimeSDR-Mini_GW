@@ -1,0 +1,163 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 1991-2016 Altera Corporation. All rights reserved.
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, the Altera Quartus Prime License Agreement,
+the Altera MegaCore Function License Agreement, or other 
+applicable license agreement, including, without limitation, 
+that your use is for the sole purpose of programming logic 
+devices manufactured by Altera and sold by Altera or its 
+authorized distributors.  Please refer to the applicable 
+agreement for further details.
+*/
+(header "symbol" (version "1.2"))
+(symbol
+	(rect 0 0 216 296)
+	(text "pll_reconfig_module" (rect 52 0 298 18)(font "Arial" (font_size 10)))
+	(text "inst" (rect 8 278 41 292)(font "Arial" ))
+	(port
+		(pt 0 40)
+		(input)
+		(text "reconfig" (rect 0 0 75 16)(font "Arial" (font_size 8)))
+		(text "reconfig" (rect 20 33 58 46)(font "Arial" (font_size 8)))
+		(line (pt 0 40)(pt 16 40))
+	)
+	(port
+		(pt 0 56)
+		(input)
+		(text "read_param" (rect 0 0 94 16)(font "Arial" (font_size 8)))
+		(text "read_param" (rect 20 49 76 62)(font "Arial" (font_size 8)))
+		(line (pt 0 56)(pt 16 56))
+	)
+	(port
+		(pt 0 72)
+		(input)
+		(text "write_param" (rect 0 0 103 16)(font "Arial" (font_size 8)))
+		(text "write_param" (rect 20 65 79 78)(font "Arial" (font_size 8)))
+		(line (pt 0 72)(pt 16 72))
+	)
+	(port
+		(pt 0 96)
+		(input)
+		(text "data_in[8..0]" (rect 0 0 122 16)(font "Arial" (font_size 8)))
+		(text "data_in[8..0]" (rect 20 89 77 102)(font "Arial" (font_size 8)))
+		(line (pt 0 96)(pt 16 96)(line_width 3))
+	)
+	(port
+		(pt 0 112)
+		(input)
+		(text "counter_type[3..0]" (rect 0 0 169 16)(font "Arial" (font_size 8)))
+		(text "counter_type[3..0]" (rect 20 105 106 118)(font "Arial" (font_size 8)))
+		(line (pt 0 112)(pt 16 112)(line_width 3))
+	)
+	(port
+		(pt 0 128)
+		(input)
+		(text "counter_param[2..0]" (rect 0 0 179 16)(font "Arial" (font_size 8)))
+		(text "counter_param[2..0]" (rect 20 121 115 134)(font "Arial" (font_size 8)))
+		(line (pt 0 128)(pt 16 128)(line_width 3))
+	)
+	(port
+		(pt 0 168)
+		(input)
+		(text "pll_scandataout" (rect 0 0 141 16)(font "Arial" (font_size 8)))
+		(text "pll_scandataout" (rect 20 161 94 174)(font "Arial" (font_size 8)))
+		(line (pt 0 168)(pt 16 168))
+	)
+	(port
+		(pt 0 184)
+		(input)
+		(text "pll_scandone" (rect 0 0 113 16)(font "Arial" (font_size 8)))
+		(text "pll_scandone" (rect 20 177 82 190)(font "Arial" (font_size 8)))
+		(line (pt 0 184)(pt 16 184))
+	)
+	(port
+		(pt 0 208)
+		(input)
+		(text "clock" (rect 0 0 47 16)(font "Arial" (font_size 8)))
+		(text "clock" (rect 20 201 43 214)(font "Arial" (font_size 8)))
+		(line (pt 0 208)(pt 16 208))
+	)
+	(port
+		(pt 0 224)
+		(input)
+		(text "reset" (rect 0 0 47 16)(font "Arial" (font_size 8)))
+		(text "reset" (rect 20 217 43 230)(font "Arial" (font_size 8)))
+		(line (pt 0 224)(pt 16 224))
+	)
+	(port
+		(pt 0 248)
+		(input)
+		(text "pll_areset_in" (rect 0 0 122 16)(font "Arial" (font_size 8)))
+		(text "pll_areset_in" (rect 20 241 79 254)(font "Arial" (font_size 8)))
+		(line (pt 0 248)(pt 16 248))
+	)
+	(port
+		(pt 216 40)
+		(output)
+		(text "busy" (rect 0 0 37 16)(font "Arial" (font_size 8)))
+		(text "busy" (rect 173 33 195 46)(font "Arial" (font_size 8)))
+		(line (pt 216 40)(pt 200 40))
+	)
+	(port
+		(pt 216 96)
+		(output)
+		(text "data_out[8..0]" (rect 0 0 132 16)(font "Arial" (font_size 8)))
+		(text "data_out[8..0]" (rect 131 89 195 102)(font "Arial" (font_size 8)))
+		(line (pt 216 96)(pt 200 96)(line_width 3))
+	)
+	(port
+		(pt 216 152)
+		(output)
+		(text "pll_scandata" (rect 0 0 113 16)(font "Arial" (font_size 8)))
+		(text "pll_scandata" (rect 136 145 195 158)(font "Arial" (font_size 8)))
+		(line (pt 216 152)(pt 200 152))
+	)
+	(port
+		(pt 216 168)
+		(output)
+		(text "pll_scanclk" (rect 0 0 103 16)(font "Arial" (font_size 8)))
+		(text "pll_scanclk" (rect 144 161 195 174)(font "Arial" (font_size 8)))
+		(line (pt 216 168)(pt 200 168))
+	)
+	(port
+		(pt 216 200)
+		(output)
+		(text "pll_scanclkena" (rect 0 0 132 16)(font "Arial" (font_size 8)))
+		(text "pll_scanclkena" (rect 126 193 195 206)(font "Arial" (font_size 8)))
+		(line (pt 216 200)(pt 200 200))
+	)
+	(port
+		(pt 216 216)
+		(output)
+		(text "pll_configupdate" (rect 0 0 151 16)(font "Arial" (font_size 8)))
+		(text "pll_configupdate" (rect 118 209 195 222)(font "Arial" (font_size 8)))
+		(line (pt 216 216)(pt 200 216))
+	)
+	(port
+		(pt 216 248)
+		(output)
+		(text "pll_areset" (rect 0 0 94 16)(font "Arial" (font_size 8)))
+		(text "pll_areset" (rect 150 241 195 254)(font "Arial" (font_size 8)))
+		(line (pt 216 248)(pt 200 248))
+	)
+	(drawing
+		(line (pt 0 0)(pt 218 0))
+		(line (pt 218 0)(pt 218 298))
+		(line (pt 0 298)(pt 218 298))
+		(line (pt 0 0)(pt 0 298))
+		(line (pt 16 24)(pt 202 24))
+		(line (pt 202 24)(pt 202 274))
+		(line (pt 16 274)(pt 202 274))
+		(line (pt 16 24)(pt 16 274))
+	)
+)

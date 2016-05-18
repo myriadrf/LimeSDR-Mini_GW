@@ -70,7 +70,7 @@ agreement for further details.
 	)
 	(drawing
 		(text "MAX 10" (rect 242 176 513 363)(font "Arial" ))
-		(text "inclk0 frequency: 20.000 MHz" (rect 58 59 239 129)(font "Arial" ))
+		(text "inclk0 frequency: 5.000 MHz" (rect 58 59 234 129)(font "Arial" ))
 		(text "Operation Mode: Src Sync Comp" (rect 58 72 252 155)(font "Arial" ))
 		(text "Clk " (rect 59 93 132 197)(font "Arial" ))
 		(text "Ratio" (rect 80 93 180 197)(font "Arial" ))

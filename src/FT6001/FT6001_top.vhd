@@ -53,7 +53,8 @@ entity FT6001_top is
 			EP83_aclrn		: in std_logic;
 			EP83_wr			: in std_logic;
 			EP83_wdata		: in std_logic_vector(EP83_wwidth-1 downto 0);
-			EP83_wfull		: out std_logic
+			EP83_wfull		: out std_logic;
+			EP83_wrusedw	: out std_logic_vector(10 downto 0)
         
         );
 end FT6001_top;
@@ -79,7 +80,7 @@ signal EP03_wr					: std_logic;
 signal EP03_wdata				: std_logic_vector(31 downto 0);
 
 --EP83 fifo signals
-signal EP83_fifo_rdusedw	: std_logic_vector(9 downto 0);
+signal EP83_fifo_rdusedw	: std_logic_vector(11 downto 0);
 signal EP83_fifo_q			: std_logic_vector(31 downto 0);
 signal EP83_fifo_rdreq		: std_logic;
 
@@ -127,7 +128,7 @@ component FT6001_arb is
 	generic(	
 			EP82_fifo_rwidth	: integer := 10;
 			EP82_wsize       	: integer := 64;  --packet size in bytes, has to be multiple of 4 bytes
-			EP83_fifo_rwidth	: integer := 10;
+			EP83_fifo_rwidth	: integer := 11;
 			EP83_wsize       	: integer := 2048 --packet size in bytes, has to be multiple of 4 bytes
 	);
   port (
@@ -154,7 +155,7 @@ component FT6001_arb is
 			--stream EP FPGA->PC
 			EP83_fifo_data		: in std_logic_vector(31 downto 0);
 			EP83_fifo_rd 		: out std_logic;
-			EP83_fifo_rdusedw	: in std_logic_vector(EP82_fifo_rwidth-1 downto 0);
+			EP83_fifo_rdusedw	: in std_logic_vector(EP83_fifo_rwidth-1 downto 0);
 			--fsm controll signals
 			fsm_epgo				: out std_logic;
 			fsm_rdwr				: out std_logic; -- 0- MASTER RD (PC->FPGA), 1-MASTER WR (FPGA->PC)
@@ -280,19 +281,19 @@ EP83_fifo : fifo_inst
 generic map(
 		dev_family		=> "Cyclone IV",
 		wrwidth			=> EP83_wwidth,
-		wrusedw_witdth	=> 10, 			--12=2048 words (2048kB)
+		wrusedw_witdth	=> 11, 			--11=1024 words x EP83_wwidth (8192KB)
 		rdwidth			=> 32,			--32 bits ftdi side, 
-		rdusedw_width	=> 10,				
+		rdusedw_width	=> 12,				
 		show_ahead		=> "ON"
 )
 port map(
-      reset_n       	=> reset_n, 
+      reset_n       	=> EP83_aclrn, 
       wrclk				=> EP83_wclk,
       wrreq				=> EP83_wr,
       data          	=> EP83_wdata,
       wrfull        	=> EP83_wfull,
 		wrempty		  	=> open,
-      wrusedw       	=> open,
+      wrusedw       	=> EP83_wrusedw,
       rdclk 	     	=> clk,
       rdreq         	=> EP83_fifo_rdreq,
       q             	=> EP83_fifo_q,
@@ -307,7 +308,7 @@ port map(
 	generic map(	
 			EP82_fifo_rwidth	=> 10,
 			EP82_wsize       	=> EP82_wsize,
-			EP83_fifo_rwidth	=> 10,
+			EP83_fifo_rwidth	=> 12,
 			EP83_wsize       	=> EP83_wsize
 	)
   port map(

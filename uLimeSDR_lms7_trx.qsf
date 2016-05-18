@@ -112,408 +112,10 @@ set_global_assignment -name NUM_PARALLEL_PROCESSORS ALL
 set_global_assignment -name SLD_NODE_CREATOR_ID 110 -section_id FT602_top
 set_global_assignment -name SLD_NODE_ENTITY_NAME sld_signaltap -section_id FT602_top
 set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_clk -to "FT6001_top:inst6|clk" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[0] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.bus_turn0" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[1] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.bus_turn1" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[2] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.cmd" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[3] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.command" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[4] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.data_trnsf" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[5] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.idle" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[6] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.master_rd" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[7] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.master_wr" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[8] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.rd_ch1" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[9] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.rd_ch2" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[10] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.check_ep02" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[11] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.check_ep03" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[12] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.check_ep82" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[13] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.check_ep83" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[14] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.check_priority" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[15] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.go_ep02" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[16] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.go_ep03" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[17] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.go_ep82" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[18] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.go_ep83" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[19] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.idle" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[20] -to "FT6001_top:inst6|FT_be[0]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[21] -to "FT6001_top:inst6|FT_be[1]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[22] -to "FT6001_top:inst6|FT_be[2]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[23] -to "FT6001_top:inst6|FT_be[3]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[24] -to "FT6001_top:inst6|FT_data[0]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[25] -to "FT6001_top:inst6|FT_data[10]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[26] -to "FT6001_top:inst6|FT_data[11]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[27] -to "FT6001_top:inst6|FT_data[12]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[28] -to "FT6001_top:inst6|FT_data[13]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[29] -to "FT6001_top:inst6|FT_data[14]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[30] -to "FT6001_top:inst6|FT_data[15]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[31] -to "FT6001_top:inst6|FT_data[16]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[32] -to "FT6001_top:inst6|FT_data[17]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[33] -to "FT6001_top:inst6|FT_data[18]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[34] -to "FT6001_top:inst6|FT_data[19]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[35] -to "FT6001_top:inst6|FT_data[1]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[36] -to "FT6001_top:inst6|FT_data[20]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[37] -to "FT6001_top:inst6|FT_data[21]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[38] -to "FT6001_top:inst6|FT_data[22]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[39] -to "FT6001_top:inst6|FT_data[23]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[40] -to "FT6001_top:inst6|FT_data[24]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[41] -to "FT6001_top:inst6|FT_data[25]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[42] -to "FT6001_top:inst6|FT_data[26]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[43] -to "FT6001_top:inst6|FT_data[27]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[44] -to "FT6001_top:inst6|FT_data[28]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[45] -to "FT6001_top:inst6|FT_data[29]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[46] -to "FT6001_top:inst6|FT_data[2]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[47] -to "FT6001_top:inst6|FT_data[30]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[48] -to "FT6001_top:inst6|FT_data[31]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[49] -to "FT6001_top:inst6|FT_data[3]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[50] -to "FT6001_top:inst6|FT_data[4]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[51] -to "FT6001_top:inst6|FT_data[5]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[52] -to "FT6001_top:inst6|FT_data[6]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[53] -to "FT6001_top:inst6|FT_data[7]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[54] -to "FT6001_top:inst6|FT_data[8]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[55] -to "FT6001_top:inst6|FT_data[9]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[56] -to "FT6001_top:inst6|FT_rxf_n" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[57] -to "FT6001_top:inst6|FT_txe_n" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[58] -to "FT6001_top:inst6|FT_wr_n" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[59] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[0]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[60] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[10]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[61] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[11]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[62] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[12]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[63] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[13]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[64] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[14]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[65] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[15]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[66] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[16]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[67] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[17]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[68] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[18]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[69] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[19]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[70] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[1]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[71] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[20]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[72] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[21]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[73] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[22]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[74] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[23]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[75] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[24]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[76] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[25]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[77] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[26]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[78] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[27]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[79] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[28]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[80] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[29]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[81] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[2]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[82] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[30]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[83] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[31]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[84] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[3]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[85] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[4]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[86] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[5]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[87] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[6]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[88] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[7]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[89] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[8]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[90] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[9]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[91] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|q[0]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[92] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|q[1]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[93] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|q[2]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[94] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|q[3]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[95] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|q[4]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[96] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|q[5]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[97] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|q[6]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[98] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|q[7]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[99] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdempty" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[100] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdreq" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[101] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdusedw[0]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[102] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdusedw[10]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[103] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdusedw[11]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[104] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdusedw[1]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[105] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdusedw[2]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[106] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdusedw[3]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[107] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdusedw[4]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[108] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdusedw[5]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[109] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdusedw[6]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[110] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdusedw[7]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[111] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdusedw[8]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[112] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdusedw[9]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[113] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|reset_n" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[114] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|wrempty" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[115] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|wrfull" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[116] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|wrreq" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[117] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|wrusedw[0]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[118] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|wrusedw[1]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[119] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|wrusedw[2]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[120] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|wrusedw[3]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[121] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|wrusedw[4]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[122] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|wrusedw[5]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[123] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|wrusedw[6]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[124] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|wrusedw[7]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[125] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|wrusedw[8]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[126] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|wrusedw[9]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[127] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|data[0]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[128] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|data[1]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[129] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|data[2]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[130] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|data[3]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[131] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|data[4]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[132] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|data[5]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[133] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|data[6]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[134] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|data[7]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[135] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[0]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[136] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[10]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[137] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[11]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[138] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[12]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[139] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[13]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[140] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[14]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[141] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[15]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[142] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[16]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[143] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[17]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[144] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[18]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[145] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[19]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[146] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[1]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[147] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[20]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[148] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[21]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[149] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[22]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[150] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[23]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[151] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[24]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[152] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[25]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[153] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[26]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[154] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[27]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[155] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[28]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[156] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[29]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[157] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[2]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[158] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[30]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[159] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[31]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[160] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[3]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[161] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[4]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[162] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[5]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[163] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[6]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[164] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[7]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[165] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[8]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[166] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[9]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[167] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|rdempty" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[168] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|rdreq" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[169] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|rdusedw[0]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[170] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|rdusedw[1]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[171] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|rdusedw[2]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[172] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|rdusedw[3]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[173] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|rdusedw[4]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[174] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|rdusedw[5]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[175] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|rdusedw[6]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[176] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|rdusedw[7]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[177] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|rdusedw[8]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[178] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|rdusedw[9]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[179] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|reset_n" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[180] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrempty" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[181] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrfull" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[182] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrreq" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[183] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrusedw[0]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[184] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrusedw[10]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[185] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrusedw[11]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[186] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrusedw[1]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[187] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrusedw[2]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[188] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrusedw[3]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[189] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrusedw[4]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[190] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrusedw[5]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[191] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrusedw[6]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[192] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrusedw[7]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[193] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrusedw[8]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[194] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrusedw[9]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[195] -to "FT6001_top:inst6|reset_n" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[0] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.bus_turn0" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[1] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.bus_turn1" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[2] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.cmd" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[3] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.command" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[4] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.data_trnsf" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[5] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.idle" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[6] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.master_rd" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[7] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.master_wr" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[8] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.rd_ch1" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[9] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.rd_ch2" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[10] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.check_ep02" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[11] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.check_ep03" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[12] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.check_ep82" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[13] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.check_ep83" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[14] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.check_priority" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[15] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.go_ep02" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[16] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.go_ep03" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[17] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.go_ep82" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[18] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.go_ep83" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[19] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.idle" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[20] -to "FT6001_top:inst6|FT_be[0]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[21] -to "FT6001_top:inst6|FT_be[1]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[22] -to "FT6001_top:inst6|FT_be[2]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[23] -to "FT6001_top:inst6|FT_be[3]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[24] -to "FT6001_top:inst6|FT_data[0]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[25] -to "FT6001_top:inst6|FT_data[10]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[26] -to "FT6001_top:inst6|FT_data[11]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[27] -to "FT6001_top:inst6|FT_data[12]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[28] -to "FT6001_top:inst6|FT_data[13]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[29] -to "FT6001_top:inst6|FT_data[14]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[30] -to "FT6001_top:inst6|FT_data[15]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[31] -to "FT6001_top:inst6|FT_data[16]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[32] -to "FT6001_top:inst6|FT_data[17]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[33] -to "FT6001_top:inst6|FT_data[18]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[34] -to "FT6001_top:inst6|FT_data[19]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[35] -to "FT6001_top:inst6|FT_data[1]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[36] -to "FT6001_top:inst6|FT_data[20]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[37] -to "FT6001_top:inst6|FT_data[21]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[38] -to "FT6001_top:inst6|FT_data[22]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[39] -to "FT6001_top:inst6|FT_data[23]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[40] -to "FT6001_top:inst6|FT_data[24]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[41] -to "FT6001_top:inst6|FT_data[25]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[42] -to "FT6001_top:inst6|FT_data[26]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[43] -to "FT6001_top:inst6|FT_data[27]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[44] -to "FT6001_top:inst6|FT_data[28]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[45] -to "FT6001_top:inst6|FT_data[29]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[46] -to "FT6001_top:inst6|FT_data[2]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[47] -to "FT6001_top:inst6|FT_data[30]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[48] -to "FT6001_top:inst6|FT_data[31]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[49] -to "FT6001_top:inst6|FT_data[3]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[50] -to "FT6001_top:inst6|FT_data[4]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[51] -to "FT6001_top:inst6|FT_data[5]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[52] -to "FT6001_top:inst6|FT_data[6]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[53] -to "FT6001_top:inst6|FT_data[7]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[54] -to "FT6001_top:inst6|FT_data[8]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[55] -to "FT6001_top:inst6|FT_data[9]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[56] -to "FT6001_top:inst6|FT_rxf_n" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[57] -to "FT6001_top:inst6|FT_txe_n" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[58] -to "FT6001_top:inst6|FT_wr_n" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[59] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[0]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[60] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[10]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[61] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[11]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[62] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[12]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[63] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[13]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[64] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[14]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[65] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[15]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[66] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[16]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[67] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[17]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[68] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[18]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[69] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[19]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[70] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[1]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[71] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[20]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[72] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[21]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[73] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[22]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[74] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[23]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[75] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[24]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[76] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[25]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[77] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[26]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[78] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[27]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[79] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[28]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[80] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[29]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[81] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[2]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[82] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[30]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[83] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[31]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[84] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[3]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[85] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[4]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[86] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[5]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[87] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[6]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[88] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[7]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[89] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[8]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[90] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|data[9]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[91] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|q[0]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[92] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|q[1]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[93] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|q[2]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[94] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|q[3]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[95] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|q[4]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[96] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|q[5]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[97] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|q[6]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[98] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|q[7]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[99] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdempty" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[100] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdreq" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[101] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdusedw[0]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[102] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdusedw[10]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[103] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdusedw[11]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[104] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdusedw[1]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[105] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdusedw[2]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[106] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdusedw[3]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[107] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdusedw[4]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[108] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdusedw[5]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[109] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdusedw[6]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[110] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdusedw[7]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[111] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdusedw[8]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[112] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|rdusedw[9]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[113] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|reset_n" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[114] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|wrempty" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[115] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|wrfull" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[116] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|wrreq" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[117] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|wrusedw[0]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[118] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|wrusedw[1]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[119] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|wrusedw[2]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[120] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|wrusedw[3]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[121] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|wrusedw[4]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[122] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|wrusedw[5]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[123] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|wrusedw[6]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[124] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|wrusedw[7]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[125] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|wrusedw[8]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[126] -to "FT6001_top:inst6|fifo_inst:EP02_fifo|wrusedw[9]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[127] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|data[0]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[128] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|data[1]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[129] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|data[2]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[130] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|data[3]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[131] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|data[4]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[132] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|data[5]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[133] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|data[6]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[134] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|data[7]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[135] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[0]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[136] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[10]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[137] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[11]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[138] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[12]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[139] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[13]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[140] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[14]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[141] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[15]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[142] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[16]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[143] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[17]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[144] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[18]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[145] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[19]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[146] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[1]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[147] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[20]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[148] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[21]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[149] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[22]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[150] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[23]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[151] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[24]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[152] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[25]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[153] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[26]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[154] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[27]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[155] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[28]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[156] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[29]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[157] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[2]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[158] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[30]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[159] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[31]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[160] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[3]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[161] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[4]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[162] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[5]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[163] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[6]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[164] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[7]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[165] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[8]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[166] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|q[9]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[167] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|rdempty" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[168] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|rdreq" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[169] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|rdusedw[0]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[170] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|rdusedw[1]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[171] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|rdusedw[2]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[172] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|rdusedw[3]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[173] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|rdusedw[4]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[174] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|rdusedw[5]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[175] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|rdusedw[6]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[176] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|rdusedw[7]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[177] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|rdusedw[8]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[178] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|rdusedw[9]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[179] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|reset_n" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[180] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrempty" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[181] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrfull" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[182] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrreq" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[183] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrusedw[0]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[184] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrusedw[10]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[185] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrusedw[11]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[186] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrusedw[1]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[187] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrusedw[2]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[188] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrusedw[3]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[189] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrusedw[4]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[190] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrusedw[5]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[191] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrusedw[6]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[192] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrusedw[7]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[193] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrusedw[8]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[194] -to "FT6001_top:inst6|fifo_inst:EP82_fifo|wrusedw[9]" -section_id FT602_top
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[195] -to "FT6001_top:inst6|reset_n" -section_id FT602_top
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_RAM_BLOCK_TYPE=AUTO" -section_id FT602_top
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_DATA_BITS=196" -section_id FT602_top
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_BITS=196" -section_id FT602_top
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_BITS=196" -section_id FT602_top
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_NODE_INFO=805334528" -section_id FT602_top
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_POWER_UP_TRIGGER=0" -section_id FT602_top
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK=000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" -section_id FT602_top
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK_LENGTH=609" -section_id FT602_top
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_INVERSION_MASK_LENGTH=0" -section_id FT602_top
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SEGMENT_SIZE=128" -section_id FT602_top
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ATTRIBUTE_MEM_MODE=OFF" -section_id FT602_top
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STATE_FLOW_USE_GENERATED=0" -section_id FT602_top
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STATE_BITS=11" -section_id FT602_top
@@ -521,39 +123,20 @@ set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_BUFFER_FULL_STOP=
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_CURRENT_RESOURCE_WIDTH=1" -section_id FT602_top
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INCREMENTAL_ROUTING=1" -section_id FT602_top
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[0] -to FT602_top|vcc -section_id FT602_top
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[1] -to FT602_top|vcc -section_id FT602_top
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[2] -to FT602_top|gnd -section_id FT602_top
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[3] -to FT602_top|gnd -section_id FT602_top
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[4] -to FT602_top|gnd -section_id FT602_top
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[5] -to FT602_top|vcc -section_id FT602_top
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[6] -to FT602_top|gnd -section_id FT602_top
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[7] -to FT602_top|gnd -section_id FT602_top
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[8] -to FT602_top|vcc -section_id FT602_top
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[9] -to FT602_top|vcc -section_id FT602_top
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[10] -to FT602_top|vcc -section_id FT602_top
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[11] -to FT602_top|vcc -section_id FT602_top
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[12] -to FT602_top|vcc -section_id FT602_top
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[13] -to FT602_top|vcc -section_id FT602_top
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[14] -to FT602_top|vcc -section_id FT602_top
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[15] -to FT602_top|vcc -section_id FT602_top
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[16] -to FT602_top|gnd -section_id FT602_top
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[17] -to FT602_top|gnd -section_id FT602_top
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[18] -to FT602_top|gnd -section_id FT602_top
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[19] -to FT602_top|vcc -section_id FT602_top
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[20] -to FT602_top|vcc -section_id FT602_top
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[21] -to FT602_top|vcc -section_id FT602_top
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[22] -to FT602_top|vcc -section_id FT602_top
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[23] -to FT602_top|gnd -section_id FT602_top
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[24] -to FT602_top|gnd -section_id FT602_top
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[25] -to FT602_top|vcc -section_id FT602_top
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[26] -to FT602_top|gnd -section_id FT602_top
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[27] -to FT602_top|vcc -section_id FT602_top
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[28] -to FT602_top|gnd -section_id FT602_top
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[29] -to FT602_top|gnd -section_id FT602_top
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[30] -to FT602_top|vcc -section_id FT602_top
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[31] -to FT602_top|gnd -section_id FT602_top
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL=1" -section_id FT602_top
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SAMPLE_DEPTH=128" -section_id FT602_top
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_IN_ENABLED=0" -section_id FT602_top
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ADVANCED_TRIGGER_ENTITY=basic,1," -section_id FT602_top
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL_PIPELINE=1" -section_id FT602_top
@@ -640,30 +223,6 @@ set_location_assignment PIN_J6 -to FPGA_SPI_MISO
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_SPI_MISO
 set_global_assignment -name EXTERNAL_FLASH_FALLBACK_ADDRESS 00000000
 set_global_assignment -name INTERNAL_FLASH_UPDATE_MODE "SINGLE IMAGE WITH ERAM"
-set_global_assignment -name VHDL_FILE src/spi/pllcfg_top.vhd
-set_global_assignment -name VHDL_FILE src/spi/pllcfg.vhd
-set_global_assignment -name VHDL_FILE src/spi/miso_mux.vhd
-set_global_assignment -name VHDL_FILE src/spi/mem_package.vhd
-set_global_assignment -name VHDL_FILE src/spi/mcfg32wm_fsm.vhd
-set_global_assignment -name VHDL_FILE src/spi/mcfg_components.vhd
-set_global_assignment -name VHDL_FILE src/spi/fpgacfg.vhd
-set_global_assignment -name QIP_FILE software/lms_ctr_app/mem_init/meminit.qip
-set_global_assignment -name VHDL_FILE src/nios_cpu/nios_cpu.vhd
-set_global_assignment -name QIP_FILE lms_ctr/synthesis/lms_ctr.qip
-set_global_assignment -name VHDL_FILE src/general/simple_reg.vhd
-set_global_assignment -name VHDL_FILE src/fifo/fifo_inst.vhd
-set_global_assignment -name VHDL_FILE src/general/alive.vhd
-set_global_assignment -name SDC_FILE timing.sdc
-set_global_assignment -name VHDL_FILE src/FT6001/FT6001.vhd
-set_global_assignment -name SIGNALTAP_FILE signal_tap/debug.stp
-set_global_assignment -name VHDL_FILE src/FT6001/FT6001_arb.vhd
-set_global_assignment -name QIP_FILE ip/fifo/fifo.qip
-set_global_assignment -name VHDL_FILE src/FT6001/FT6001_top.vhd
-set_global_assignment -name VHDL_FILE src/fifo/fifo_inst_max10.vhd
-set_global_assignment -name BDF_FILE lms7_trx_top.bdf
-set_global_assignment -name QIP_FILE ip/pll/pll.qip
-set_global_assignment -name QIP_FILE ip/ddrix13/ddrix13.qip
-set_global_assignment -name SIP_FILE ip/ddrix13/ddrix13.sip
 set_location_assignment PIN_M3 -to LMS_FCLK2
 set_location_assignment PIN_H4 -to LMS_MCLK2
 set_location_assignment PIN_L3 -to LMS_FCLK1
@@ -680,117 +239,6 @@ set_location_assignment PIN_N4 -to LMS_DIQ2_D[8]
 set_location_assignment PIN_K2 -to LMS_DIQ2_D[9]
 set_location_assignment PIN_L5 -to LMS_DIQ2_D[10]
 set_location_assignment PIN_L4 -to LMS_DIQ2_D[11]
-set_global_assignment -name SLD_NODE_CREATOR_ID 110 -section_id lmsDIQ2
-set_global_assignment -name SLD_NODE_ENTITY_NAME sld_signaltap -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_clk -to "ddrix13:inst12|inclock" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[0] -to "ddrix13:inst12|aclr" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[1] -to "ddrix13:inst12|dout[0]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[2] -to "ddrix13:inst12|dout[10]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[3] -to "ddrix13:inst12|dout[11]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[4] -to "ddrix13:inst12|dout[12]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[5] -to "ddrix13:inst12|dout[13]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[6] -to "ddrix13:inst12|dout[14]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[7] -to "ddrix13:inst12|dout[15]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[8] -to "ddrix13:inst12|dout[16]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[9] -to "ddrix13:inst12|dout[17]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[10] -to "ddrix13:inst12|dout[18]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[11] -to "ddrix13:inst12|dout[19]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[12] -to "ddrix13:inst12|dout[1]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[13] -to "ddrix13:inst12|dout[20]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[14] -to "ddrix13:inst12|dout[21]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[15] -to "ddrix13:inst12|dout[22]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[16] -to "ddrix13:inst12|dout[23]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[17] -to "ddrix13:inst12|dout[24]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[18] -to "ddrix13:inst12|dout[25]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[19] -to "ddrix13:inst12|dout[2]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[20] -to "ddrix13:inst12|dout[3]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[21] -to "ddrix13:inst12|dout[4]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[22] -to "ddrix13:inst12|dout[5]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[23] -to "ddrix13:inst12|dout[6]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[24] -to "ddrix13:inst12|dout[7]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[25] -to "ddrix13:inst12|dout[8]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[26] -to "ddrix13:inst12|dout[9]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[0] -to "ddrix13:inst12|aclr" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[1] -to "ddrix13:inst12|dout[0]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[2] -to "ddrix13:inst12|dout[10]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[3] -to "ddrix13:inst12|dout[11]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[4] -to "ddrix13:inst12|dout[12]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[5] -to "ddrix13:inst12|dout[13]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[6] -to "ddrix13:inst12|dout[14]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[7] -to "ddrix13:inst12|dout[15]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[8] -to "ddrix13:inst12|dout[16]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[9] -to "ddrix13:inst12|dout[17]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[10] -to "ddrix13:inst12|dout[18]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[11] -to "ddrix13:inst12|dout[19]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[12] -to "ddrix13:inst12|dout[1]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[13] -to "ddrix13:inst12|dout[20]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[14] -to "ddrix13:inst12|dout[21]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[15] -to "ddrix13:inst12|dout[22]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[16] -to "ddrix13:inst12|dout[23]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[17] -to "ddrix13:inst12|dout[24]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[18] -to "ddrix13:inst12|dout[25]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[19] -to "ddrix13:inst12|dout[2]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[20] -to "ddrix13:inst12|dout[3]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[21] -to "ddrix13:inst12|dout[4]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[22] -to "ddrix13:inst12|dout[5]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[23] -to "ddrix13:inst12|dout[6]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[24] -to "ddrix13:inst12|dout[7]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[25] -to "ddrix13:inst12|dout[8]" -section_id lmsDIQ2
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[26] -to "ddrix13:inst12|dout[9]" -section_id lmsDIQ2
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_RAM_BLOCK_TYPE=AUTO" -section_id lmsDIQ2
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_DATA_BITS=27" -section_id lmsDIQ2
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_BITS=27" -section_id lmsDIQ2
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_BITS=27" -section_id lmsDIQ2
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_NODE_INFO=805334529" -section_id lmsDIQ2
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_POWER_UP_TRIGGER=0" -section_id lmsDIQ2
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK=00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" -section_id lmsDIQ2
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK_LENGTH=101" -section_id lmsDIQ2
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_INVERSION_MASK_LENGTH=0" -section_id lmsDIQ2
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SEGMENT_SIZE=64" -section_id lmsDIQ2
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ATTRIBUTE_MEM_MODE=OFF" -section_id lmsDIQ2
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STATE_FLOW_USE_GENERATED=0" -section_id lmsDIQ2
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STATE_BITS=11" -section_id lmsDIQ2
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_BUFFER_FULL_STOP=1" -section_id lmsDIQ2
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_CURRENT_RESOURCE_WIDTH=1" -section_id lmsDIQ2
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INCREMENTAL_ROUTING=1" -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[0] -to lmsDIQ2|gnd -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[1] -to lmsDIQ2|vcc -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[2] -to lmsDIQ2|gnd -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[3] -to lmsDIQ2|vcc -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[4] -to lmsDIQ2|vcc -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[5] -to lmsDIQ2|vcc -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[6] -to lmsDIQ2|gnd -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[7] -to lmsDIQ2|gnd -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[8] -to lmsDIQ2|gnd -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[9] -to lmsDIQ2|vcc -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[10] -to lmsDIQ2|gnd -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[11] -to lmsDIQ2|vcc -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[12] -to lmsDIQ2|vcc -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[13] -to lmsDIQ2|vcc -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[14] -to lmsDIQ2|gnd -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[15] -to lmsDIQ2|vcc -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[16] -to lmsDIQ2|vcc -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[17] -to lmsDIQ2|vcc -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[18] -to lmsDIQ2|gnd -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[19] -to lmsDIQ2|gnd -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[20] -to lmsDIQ2|vcc -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[21] -to lmsDIQ2|gnd -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[22] -to lmsDIQ2|vcc -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[23] -to lmsDIQ2|gnd -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[24] -to lmsDIQ2|gnd -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[25] -to lmsDIQ2|vcc -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[26] -to lmsDIQ2|gnd -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[27] -to lmsDIQ2|vcc -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[28] -to lmsDIQ2|vcc -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[29] -to lmsDIQ2|vcc -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[30] -to lmsDIQ2|vcc -section_id lmsDIQ2
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[31] -to lmsDIQ2|gnd -section_id lmsDIQ2
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL=1" -section_id lmsDIQ2
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SAMPLE_DEPTH=64" -section_id lmsDIQ2
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_IN_ENABLED=0" -section_id lmsDIQ2
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ADVANCED_TRIGGER_ENTITY=basic,1," -section_id lmsDIQ2
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL_PIPELINE=1" -section_id lmsDIQ2
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ENABLE_ADVANCED_TRIGGER=0" -section_id lmsDIQ2
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_MCLK2
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_FCLK2
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_FCLK1
@@ -807,8 +255,6 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ2_D[1]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ2_D[8]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ2_D[10]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ2_D[11]
-set_global_assignment -name QIP_FILE ip/ddrox13/ddrox13.qip
-set_global_assignment -name SIP_FILE ip/ddrox13/ddrox13.sip
 set_location_assignment PIN_M12 -to LMS_DIQ1[0]
 set_location_assignment PIN_N12 -to LMS_DIQ1[1]
 set_location_assignment PIN_N10 -to LMS_DIQ1[2]
@@ -835,5 +281,310 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[8]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[9]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[10]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[11]
+set_global_assignment -name VHDL_FILE src/general/my_busmux.vhd
+set_global_assignment -name VHDL_FILE src/testing/test_data_dd.vhd
+set_global_assignment -name VHDL_FILE src/rx_modules/wr_rx_fifo_v3.vhd
+set_global_assignment -name VHDL_FILE src/rx_modules/rx_pct_data_v2.vhd
+set_global_assignment -name VHDL_FILE src/rx_modules/compress_v2.vhd
+set_global_assignment -name VHDL_FILE src/general/synchronizer.vhd
+set_global_assignment -name BDF_FILE symbols/rx_synchronizers.bdf
+set_global_assignment -name BDF_FILE symbols/LTE_rx_path.bdf
+set_global_assignment -name VHDL_FILE src/spi/pllcfg_top.vhd
+set_global_assignment -name VHDL_FILE src/spi/pllcfg.vhd
+set_global_assignment -name VHDL_FILE src/spi/miso_mux.vhd
+set_global_assignment -name VHDL_FILE src/spi/mem_package.vhd
+set_global_assignment -name VHDL_FILE src/spi/mcfg32wm_fsm.vhd
+set_global_assignment -name VHDL_FILE src/spi/mcfg_components.vhd
+set_global_assignment -name VHDL_FILE src/spi/fpgacfg.vhd
+set_global_assignment -name QIP_FILE software/lms_ctr_app/mem_init/meminit.qip
+set_global_assignment -name VHDL_FILE src/nios_cpu/nios_cpu.vhd
+set_global_assignment -name QIP_FILE lms_ctr/synthesis/lms_ctr.qip
+set_global_assignment -name VHDL_FILE src/general/simple_reg.vhd
+set_global_assignment -name VHDL_FILE src/fifo/fifo_inst.vhd
+set_global_assignment -name VHDL_FILE src/general/alive.vhd
+set_global_assignment -name SDC_FILE timing.sdc
+set_global_assignment -name VHDL_FILE src/FT6001/FT6001.vhd
+set_global_assignment -name SIGNALTAP_FILE signal_tap/debug.stp
+set_global_assignment -name VHDL_FILE src/FT6001/FT6001_arb.vhd
+set_global_assignment -name QIP_FILE ip/fifo/fifo.qip
+set_global_assignment -name VHDL_FILE src/FT6001/FT6001_top.vhd
+set_global_assignment -name VHDL_FILE src/fifo/fifo_inst_max10.vhd
+set_global_assignment -name BDF_FILE lms7_trx_top.bdf
+set_global_assignment -name QIP_FILE ip/pll/pll.qip
+set_global_assignment -name QIP_FILE ip/ddrix13/ddrix13.qip
+set_global_assignment -name SIP_FILE ip/ddrix13/ddrix13.sip
+set_global_assignment -name QIP_FILE ip/ddrox13/ddrox13.qip
+set_global_assignment -name SIP_FILE ip/ddrox13/ddrox13.sip
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[5] -to FT602_top|gnd -section_id FT602_top
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[10] -to FT602_top|gnd -section_id FT602_top
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[12] -to FT602_top|gnd -section_id FT602_top
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[20] -to FT602_top|gnd -section_id FT602_top
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[22] -to FT602_top|gnd -section_id FT602_top
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[25] -to FT602_top|gnd -section_id FT602_top
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[29] -to FT602_top|vcc -section_id FT602_top
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[31] -to FT602_top|vcc -section_id FT602_top
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SEGMENT_SIZE=64" -section_id FT602_top
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[21] -to FT602_top|gnd -section_id FT602_top
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[28] -to FT602_top|vcc -section_id FT602_top
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SAMPLE_DEPTH=64" -section_id FT602_top
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[4] -to FT602_top|vcc -section_id FT602_top
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[14] -to FT602_top|gnd -section_id FT602_top
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[18] -to FT602_top|vcc -section_id FT602_top
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[19] -to FT602_top|gnd -section_id FT602_top
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[23] -to FT602_top|vcc -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[0] -to "FT6001_top:inst6|EP03_rd" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[1] -to "FT6001_top:inst6|EP03_rempty" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[2] -to "FT6001_top:inst6|EP83_aclrn" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[3] -to "FT6001_top:inst6|EP83_wfull" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[4] -to "FT6001_top:inst6|EP83_wr" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[5] -to "FT6001_top:inst6|EP83_wrusedw[0]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[6] -to "FT6001_top:inst6|EP83_wrusedw[10]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[7] -to "FT6001_top:inst6|EP83_wrusedw[1]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[8] -to "FT6001_top:inst6|EP83_wrusedw[2]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[9] -to "FT6001_top:inst6|EP83_wrusedw[3]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[10] -to "FT6001_top:inst6|EP83_wrusedw[4]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[11] -to "FT6001_top:inst6|EP83_wrusedw[5]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[12] -to "FT6001_top:inst6|EP83_wrusedw[6]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[13] -to "FT6001_top:inst6|EP83_wrusedw[7]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[14] -to "FT6001_top:inst6|EP83_wrusedw[8]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[15] -to "FT6001_top:inst6|EP83_wrusedw[9]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[16] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.bus_turn0" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[17] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.bus_turn1" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[18] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.cmd" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[19] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.command" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[20] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.data_trnsf" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[21] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.idle" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[22] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.master_rd" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[23] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.master_wr" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[24] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.rd_ch1" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[25] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.rd_ch2" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[26] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP03_fifo_wr" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[27] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP03_fifo_wrempty" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[28] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP83_fifo_rd" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[29] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP83_fifo_rdusedw[0]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[30] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP83_fifo_rdusedw[10]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[31] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP83_fifo_rdusedw[11]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[32] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP83_fifo_rdusedw[1]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[33] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP83_fifo_rdusedw[2]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[34] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP83_fifo_rdusedw[3]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[35] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP83_fifo_rdusedw[4]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[36] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP83_fifo_rdusedw[5]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[37] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP83_fifo_rdusedw[6]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[38] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP83_fifo_rdusedw[7]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[39] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP83_fifo_rdusedw[8]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[40] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP83_fifo_rdusedw[9]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[41] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.check_ep02" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[42] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.check_ep03" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[43] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.check_ep82" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[44] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.check_ep83" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[45] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.check_priority" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[46] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.go_ep02" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[47] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.go_ep03" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[48] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.go_ep82" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[49] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.go_ep83" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[50] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.idle" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[51] -to "FT6001_top:inst6|FT_be[0]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[52] -to "FT6001_top:inst6|FT_be[1]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[53] -to "FT6001_top:inst6|FT_be[2]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[54] -to "FT6001_top:inst6|FT_be[3]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[55] -to "FT6001_top:inst6|FT_data[0]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[56] -to "FT6001_top:inst6|FT_data[10]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[57] -to "FT6001_top:inst6|FT_data[11]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[58] -to "FT6001_top:inst6|FT_data[12]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[59] -to "FT6001_top:inst6|FT_data[13]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[60] -to "FT6001_top:inst6|FT_data[14]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[61] -to "FT6001_top:inst6|FT_data[15]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[62] -to "FT6001_top:inst6|FT_data[16]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[63] -to "FT6001_top:inst6|FT_data[17]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[64] -to "FT6001_top:inst6|FT_data[18]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[65] -to "FT6001_top:inst6|FT_data[19]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[66] -to "FT6001_top:inst6|FT_data[1]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[67] -to "FT6001_top:inst6|FT_data[20]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[68] -to "FT6001_top:inst6|FT_data[21]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[69] -to "FT6001_top:inst6|FT_data[22]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[70] -to "FT6001_top:inst6|FT_data[23]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[71] -to "FT6001_top:inst6|FT_data[24]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[72] -to "FT6001_top:inst6|FT_data[25]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[73] -to "FT6001_top:inst6|FT_data[26]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[74] -to "FT6001_top:inst6|FT_data[27]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[75] -to "FT6001_top:inst6|FT_data[28]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[76] -to "FT6001_top:inst6|FT_data[29]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[77] -to "FT6001_top:inst6|FT_data[2]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[78] -to "FT6001_top:inst6|FT_data[30]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[79] -to "FT6001_top:inst6|FT_data[31]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[80] -to "FT6001_top:inst6|FT_data[3]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[81] -to "FT6001_top:inst6|FT_data[4]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[82] -to "FT6001_top:inst6|FT_data[5]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[83] -to "FT6001_top:inst6|FT_data[6]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[84] -to "FT6001_top:inst6|FT_data[7]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[85] -to "FT6001_top:inst6|FT_data[8]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[86] -to "FT6001_top:inst6|FT_data[9]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[87] -to "FT6001_top:inst6|FT_rxf_n" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[88] -to "FT6001_top:inst6|FT_txe_n" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[89] -to "FT6001_top:inst6|FT_wr_n" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[90] -to "FT6001_top:inst6|reset_n" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[0] -to "FT6001_top:inst6|EP03_rd" -section_id FT602_top
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_BITS=91" -section_id FT602_top
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK=00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" -section_id FT602_top
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK_LENGTH=293" -section_id FT602_top
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[1] -to FT602_top|gnd -section_id FT602_top
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[11] -to FT602_top|gnd -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[1] -to "FT6001_top:inst6|EP03_rempty" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[2] -to "FT6001_top:inst6|EP83_aclrn" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[3] -to "FT6001_top:inst6|EP83_wdata[0]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[4] -to "FT6001_top:inst6|EP83_wdata[10]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[5] -to "FT6001_top:inst6|EP83_wdata[11]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[6] -to "FT6001_top:inst6|EP83_wdata[12]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[7] -to "FT6001_top:inst6|EP83_wdata[13]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[8] -to "FT6001_top:inst6|EP83_wdata[14]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[9] -to "FT6001_top:inst6|EP83_wdata[15]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[10] -to "FT6001_top:inst6|EP83_wdata[16]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[11] -to "FT6001_top:inst6|EP83_wdata[17]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[12] -to "FT6001_top:inst6|EP83_wdata[18]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[13] -to "FT6001_top:inst6|EP83_wdata[19]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[14] -to "FT6001_top:inst6|EP83_wdata[1]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[15] -to "FT6001_top:inst6|EP83_wdata[20]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[16] -to "FT6001_top:inst6|EP83_wdata[21]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[17] -to "FT6001_top:inst6|EP83_wdata[22]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[18] -to "FT6001_top:inst6|EP83_wdata[23]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[19] -to "FT6001_top:inst6|EP83_wdata[24]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[20] -to "FT6001_top:inst6|EP83_wdata[25]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[21] -to "FT6001_top:inst6|EP83_wdata[26]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[22] -to "FT6001_top:inst6|EP83_wdata[27]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[23] -to "FT6001_top:inst6|EP83_wdata[28]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[24] -to "FT6001_top:inst6|EP83_wdata[29]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[25] -to "FT6001_top:inst6|EP83_wdata[2]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[26] -to "FT6001_top:inst6|EP83_wdata[30]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[27] -to "FT6001_top:inst6|EP83_wdata[31]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[28] -to "FT6001_top:inst6|EP83_wdata[32]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[29] -to "FT6001_top:inst6|EP83_wdata[33]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[30] -to "FT6001_top:inst6|EP83_wdata[34]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[31] -to "FT6001_top:inst6|EP83_wdata[35]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[32] -to "FT6001_top:inst6|EP83_wdata[36]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[33] -to "FT6001_top:inst6|EP83_wdata[37]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[34] -to "FT6001_top:inst6|EP83_wdata[38]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[35] -to "FT6001_top:inst6|EP83_wdata[39]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[36] -to "FT6001_top:inst6|EP83_wdata[3]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[37] -to "FT6001_top:inst6|EP83_wdata[40]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[38] -to "FT6001_top:inst6|EP83_wdata[41]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[39] -to "FT6001_top:inst6|EP83_wdata[42]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[40] -to "FT6001_top:inst6|EP83_wdata[43]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[41] -to "FT6001_top:inst6|EP83_wdata[44]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[42] -to "FT6001_top:inst6|EP83_wdata[45]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[43] -to "FT6001_top:inst6|EP83_wdata[46]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[44] -to "FT6001_top:inst6|EP83_wdata[47]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[45] -to "FT6001_top:inst6|EP83_wdata[48]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[46] -to "FT6001_top:inst6|EP83_wdata[49]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[47] -to "FT6001_top:inst6|EP83_wdata[4]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[48] -to "FT6001_top:inst6|EP83_wdata[50]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[49] -to "FT6001_top:inst6|EP83_wdata[51]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[50] -to "FT6001_top:inst6|EP83_wdata[52]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[51] -to "FT6001_top:inst6|EP83_wdata[53]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[52] -to "FT6001_top:inst6|EP83_wdata[54]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[53] -to "FT6001_top:inst6|EP83_wdata[55]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[54] -to "FT6001_top:inst6|EP83_wdata[56]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[55] -to "FT6001_top:inst6|EP83_wdata[57]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[56] -to "FT6001_top:inst6|EP83_wdata[58]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[57] -to "FT6001_top:inst6|EP83_wdata[59]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[58] -to "FT6001_top:inst6|EP83_wdata[5]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[59] -to "FT6001_top:inst6|EP83_wdata[60]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[60] -to "FT6001_top:inst6|EP83_wdata[61]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[61] -to "FT6001_top:inst6|EP83_wdata[62]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[62] -to "FT6001_top:inst6|EP83_wdata[63]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[63] -to "FT6001_top:inst6|EP83_wdata[6]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[64] -to "FT6001_top:inst6|EP83_wdata[7]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[65] -to "FT6001_top:inst6|EP83_wdata[8]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[66] -to "FT6001_top:inst6|EP83_wdata[9]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[67] -to "FT6001_top:inst6|EP83_wfull" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[68] -to "FT6001_top:inst6|EP83_wr" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[69] -to "FT6001_top:inst6|EP83_wrusedw[0]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[70] -to "FT6001_top:inst6|EP83_wrusedw[10]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[71] -to "FT6001_top:inst6|EP83_wrusedw[1]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[72] -to "FT6001_top:inst6|EP83_wrusedw[2]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[73] -to "FT6001_top:inst6|EP83_wrusedw[3]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[74] -to "FT6001_top:inst6|EP83_wrusedw[4]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[75] -to "FT6001_top:inst6|EP83_wrusedw[5]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[76] -to "FT6001_top:inst6|EP83_wrusedw[6]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[77] -to "FT6001_top:inst6|EP83_wrusedw[7]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[78] -to "FT6001_top:inst6|EP83_wrusedw[8]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[79] -to "FT6001_top:inst6|EP83_wrusedw[9]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[80] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.bus_turn0" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[81] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.bus_turn1" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[82] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.cmd" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[83] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.command" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[84] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.data_trnsf" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[85] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.idle" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[86] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.master_rd" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[87] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.master_wr" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[88] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.rd_ch1" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[89] -to "FT6001_top:inst6|FT6001:ft_fsm|current_state.rd_ch2" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[90] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP03_fifo_wr" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[91] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP03_fifo_wrempty" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[92] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP83_fifo_rd" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[93] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP83_fifo_rdusedw[0]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[94] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP83_fifo_rdusedw[10]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[95] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP83_fifo_rdusedw[11]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[96] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP83_fifo_rdusedw[1]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[97] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP83_fifo_rdusedw[2]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[98] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP83_fifo_rdusedw[3]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[99] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP83_fifo_rdusedw[4]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[100] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP83_fifo_rdusedw[5]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[101] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP83_fifo_rdusedw[6]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[102] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP83_fifo_rdusedw[7]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[103] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP83_fifo_rdusedw[8]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[104] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|EP83_fifo_rdusedw[9]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[105] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.check_ep02" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[106] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.check_ep03" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[107] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.check_ep82" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[108] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.check_ep83" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[109] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.check_priority" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[110] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.go_ep02" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[111] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.go_ep03" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[112] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.go_ep82" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[113] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.go_ep83" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[114] -to "FT6001_top:inst6|FT6001_arb:ftdi_arbiter|current_state.idle" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[115] -to "FT6001_top:inst6|FT_be[0]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[116] -to "FT6001_top:inst6|FT_be[1]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[117] -to "FT6001_top:inst6|FT_be[2]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[118] -to "FT6001_top:inst6|FT_be[3]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[119] -to "FT6001_top:inst6|FT_data[0]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[120] -to "FT6001_top:inst6|FT_data[10]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[121] -to "FT6001_top:inst6|FT_data[11]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[122] -to "FT6001_top:inst6|FT_data[12]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[123] -to "FT6001_top:inst6|FT_data[13]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[124] -to "FT6001_top:inst6|FT_data[14]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[125] -to "FT6001_top:inst6|FT_data[15]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[126] -to "FT6001_top:inst6|FT_data[16]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[127] -to "FT6001_top:inst6|FT_data[17]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[128] -to "FT6001_top:inst6|FT_data[18]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[129] -to "FT6001_top:inst6|FT_data[19]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[130] -to "FT6001_top:inst6|FT_data[1]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[131] -to "FT6001_top:inst6|FT_data[20]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[132] -to "FT6001_top:inst6|FT_data[21]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[133] -to "FT6001_top:inst6|FT_data[22]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[134] -to "FT6001_top:inst6|FT_data[23]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[135] -to "FT6001_top:inst6|FT_data[24]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[136] -to "FT6001_top:inst6|FT_data[25]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[137] -to "FT6001_top:inst6|FT_data[26]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[138] -to "FT6001_top:inst6|FT_data[27]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[139] -to "FT6001_top:inst6|FT_data[28]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[140] -to "FT6001_top:inst6|FT_data[29]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[141] -to "FT6001_top:inst6|FT_data[2]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[142] -to "FT6001_top:inst6|FT_data[30]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[143] -to "FT6001_top:inst6|FT_data[31]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[144] -to "FT6001_top:inst6|FT_data[3]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[145] -to "FT6001_top:inst6|FT_data[4]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[146] -to "FT6001_top:inst6|FT_data[5]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[147] -to "FT6001_top:inst6|FT_data[6]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[148] -to "FT6001_top:inst6|FT_data[7]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[149] -to "FT6001_top:inst6|FT_data[8]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[150] -to "FT6001_top:inst6|FT_data[9]" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[151] -to "FT6001_top:inst6|FT_rxf_n" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[152] -to "FT6001_top:inst6|FT_txe_n" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[153] -to "FT6001_top:inst6|FT_wr_n" -section_id FT602_top
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[154] -to "FT6001_top:inst6|reset_n" -section_id FT602_top
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_DATA_BITS=155" -section_id FT602_top
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_BITS=155" -section_id FT602_top
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[9] -to FT602_top|gnd -section_id FT602_top
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
 set_global_assignment -name SLD_FILE db/debug_auto_stripped.stp

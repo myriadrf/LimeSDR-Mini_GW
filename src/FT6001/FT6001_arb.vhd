@@ -43,7 +43,7 @@ entity FT6001_arb is
 			--stream EP FPGA->PC
 			EP83_fifo_data		: in std_logic_vector(31 downto 0);
 			EP83_fifo_rd 		: out std_logic;
-			EP83_fifo_rdusedw	: in std_logic_vector(EP82_fifo_rwidth-1 downto 0);
+			EP83_fifo_rdusedw	: in std_logic_vector(EP83_fifo_rwidth-1 downto 0);
 			--fsm controll signals
 			fsm_epgo				: out std_logic;
 			fsm_rdwr				: out std_logic; 		-- 0- MASTER RD (PC->FPGA), 1-MASTER WR (FPGA->PC)

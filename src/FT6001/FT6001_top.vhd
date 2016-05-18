@@ -70,7 +70,7 @@ signal EP02_wrempty			: std_logic;
 signal EP02_wr					: std_logic; 
 signal EP02_wdata				: std_logic_vector(31 downto 0);
 --EP82 fifo signals
-signal EP82_fifo_rdusedw	: std_logic_vector(9 downto 0);
+signal EP82_fifo_rdusedw	: std_logic_vector(8 downto 0);
 signal EP82_fifo_q			: std_logic_vector(31 downto 0);
 signal EP82_fifo_rdreq		: std_logic;
 
@@ -126,7 +126,7 @@ end component;
 --FT6001 arbiter component
 component FT6001_arb is
 	generic(	
-			EP82_fifo_rwidth	: integer := 10;
+			EP82_fifo_rwidth	: integer := 9;
 			EP82_wsize       	: integer := 64;  --packet size in bytes, has to be multiple of 4 bytes
 			EP83_fifo_rwidth	: integer := 11;
 			EP83_wsize       	: integer := 2048 --packet size in bytes, has to be multiple of 4 bytes
@@ -231,9 +231,9 @@ EP82_fifo : fifo_inst
 generic map(
 		dev_family		=> "Cyclone IV",
 		wrwidth			=> EP82_wwidth,
-		wrusedw_witdth	=> 12, 						--12=2048 words (2048kB)
+		wrusedw_witdth	=> 11, 						--12=2048 words (2048kB)
 		rdwidth			=> 32,						--32 bits ftdi side, 
-		rdusedw_width	=> 10,				
+		rdusedw_width	=> 9,				
 		show_ahead		=> "ON"
 )
 port map(
@@ -306,7 +306,7 @@ port map(
 -- ----------------------------------------------------------------------------		
 	ftdi_arbiter : FT6001_arb
 	generic map(	
-			EP82_fifo_rwidth	=> 10,
+			EP82_fifo_rwidth	=> 9,
 			EP82_wsize       	=> EP82_wsize,
 			EP83_fifo_rwidth	=> 12,
 			EP83_wsize       	=> EP83_wsize

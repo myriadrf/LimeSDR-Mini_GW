@@ -315,14 +315,14 @@ begin
 
       when rd_en=>
         --if rd_en_cnt=decopr_min-1 and unsigned(decompr_wusedw)>=254 then
-        if rd_en_cnt=decopr_min-1 and unsigned(decompr_wusedw)>=498 then --249 
+        if rd_en_cnt=decopr_min-1 and unsigned(decompr_wusedw)>=249 then --249 
             next_readen_state<=wait_rd;
         else
             next_readen_state<=rd_en; 
         end if;
       when wait_rd=>
 				--if  unsigned(decompr_wusedw)<254 then
-				if  unsigned(decompr_wusedw)<498 then  
+				if  unsigned(decompr_wusedw)<249 then  
 					next_readen_state<=rd_en;    
 				else
 					next_readen_state<=wait_rd;

@@ -865,6 +865,67 @@ agreement for further details.
 	(annotation_block (parameter)(rect 1232 168 1443 210))
 )
 (symbol
+	(rect 1392 984 1584 1096)
+	(text "ddrox13" (rect 5 0 62 14)(font "Arial" ))
+	(text "inst6" (rect 8 96 49 110)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "outclock" (rect 0 0 66 14)(font "Arial" ))
+		(text "outclock" (rect 21 27 87 41)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "din[25..0]" (rect 0 0 82 14)(font "Arial" ))
+		(text "din[25..0]" (rect 21 43 103 57)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48)(line_width 3))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "aclr" (rect 0 0 33 14)(font "Arial" ))
+		(text "aclr" (rect 21 59 54 73)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64))
+	)
+	(port
+		(pt 192 32)
+		(output)
+		(text "pad_out[12..0]" (rect 0 0 115 14)(font "Arial" ))
+		(text "pad_out[12..0]" (rect 74 27 189 41)(font "Arial" ))
+		(line (pt 192 32)(pt 176 32)(line_width 3))
+	)
+	(drawing
+		(rectangle (rect 16 16 176 96))
+	)
+)
+(symbol
+	(rect 1192 1032 1240 1064)
+	(text "NOT" (rect 1 0 25 11)(font "Arial" (font_size 6)))
+	(text "inst7" (rect 3 21 44 35)(font "Arial" ))
+	(port
+		(pt 0 16)
+		(input)
+		(text "IN" (rect 2 7 13 21)(font "Courier New" (bold))(invisible))
+		(text "IN" (rect 2 7 13 21)(font "Courier New" (bold))(invisible))
+		(line (pt 0 16)(pt 13 16))
+	)
+	(port
+		(pt 48 16)
+		(output)
+		(text "OUT" (rect 32 7 49 21)(font "Courier New" (bold))(invisible))
+		(text "OUT" (rect 32 7 49 21)(font "Courier New" (bold))(invisible))
+		(line (pt 39 16)(pt 48 16))
+	)
+	(drawing
+		(line (pt 13 25)(pt 13 7))
+		(line (pt 13 7)(pt 31 16))
+		(line (pt 13 25)(pt 31 16))
+		(circle (rect 31 12 39 20))
+	)
+)
+(symbol
 	(rect 1272 488 1552 760)
 	(text "tx_pct_data_mimo_v3" (rect 5 0 161 14)(font "Arial" ))
 	(text "inst9" (rect 8 256 49 270)(font "Arial" ))
@@ -1016,7 +1077,7 @@ agreement for further details.
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
 		"dcmpr_fifo"
-		"10"
+		"9"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
@@ -1027,68 +1088,7 @@ agreement for further details.
 	(drawing
 		(rectangle (rect 16 16 264 256))
 	)
-	(annotation_block (parameter)(rect 1552 384 1778 482))
-)
-(symbol
-	(rect 1392 984 1584 1096)
-	(text "ddrox13" (rect 5 0 62 14)(font "Arial" ))
-	(text "inst6" (rect 8 96 49 110)(font "Arial" ))
-	(port
-		(pt 0 32)
-		(input)
-		(text "outclock" (rect 0 0 66 14)(font "Arial" ))
-		(text "outclock" (rect 21 27 87 41)(font "Arial" ))
-		(line (pt 0 32)(pt 16 32))
-	)
-	(port
-		(pt 0 48)
-		(input)
-		(text "din[25..0]" (rect 0 0 82 14)(font "Arial" ))
-		(text "din[25..0]" (rect 21 43 103 57)(font "Arial" ))
-		(line (pt 0 48)(pt 16 48)(line_width 3))
-	)
-	(port
-		(pt 0 64)
-		(input)
-		(text "aclr" (rect 0 0 33 14)(font "Arial" ))
-		(text "aclr" (rect 21 59 54 73)(font "Arial" ))
-		(line (pt 0 64)(pt 16 64))
-	)
-	(port
-		(pt 192 32)
-		(output)
-		(text "pad_out[12..0]" (rect 0 0 115 14)(font "Arial" ))
-		(text "pad_out[12..0]" (rect 74 27 189 41)(font "Arial" ))
-		(line (pt 192 32)(pt 176 32)(line_width 3))
-	)
-	(drawing
-		(rectangle (rect 16 16 176 96))
-	)
-)
-(symbol
-	(rect 1192 1032 1240 1064)
-	(text "NOT" (rect 1 0 25 11)(font "Arial" (font_size 6)))
-	(text "inst7" (rect 3 21 44 35)(font "Arial" ))
-	(port
-		(pt 0 16)
-		(input)
-		(text "IN" (rect 2 7 13 21)(font "Courier New" (bold))(invisible))
-		(text "IN" (rect 2 7 13 21)(font "Courier New" (bold))(invisible))
-		(line (pt 0 16)(pt 13 16))
-	)
-	(port
-		(pt 48 16)
-		(output)
-		(text "OUT" (rect 32 7 49 21)(font "Courier New" (bold))(invisible))
-		(text "OUT" (rect 32 7 49 21)(font "Courier New" (bold))(invisible))
-		(line (pt 39 16)(pt 48 16))
-	)
-	(drawing
-		(line (pt 13 25)(pt 13 7))
-		(line (pt 13 7)(pt 31 16))
-		(line (pt 13 25)(pt 31 16))
-		(circle (rect 31 12 39 20))
-	)
+	(annotation_block (parameter)(rect 1552 296 1934 443))
 )
 (connector
 	(text "lte_ch_en_mclk2rx_pll[15..0]" (rect 294 376 525 390)(font "Arial" ))

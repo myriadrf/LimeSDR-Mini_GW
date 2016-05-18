@@ -580,7 +580,7 @@ fsm : process(current_state, infifo_rdusedw, allpct_wr_cnt, outfifo_wrusedw, out
   case current_state is
     when idle =>
 		--if unsigned(infifo_rdusedw)>30719 then --detect when infifo is about to become full(change this value depending on fifo size)
-		if unsigned(infifo_rdusedw)>512 then --detect when infifo is about to become full(change this value depending on fifo size)
+		if unsigned(infifo_rdusedw)>128 then --detect when infifo is about to become full(change this value depending on fifo size)
 			next_state<=wait_pct_end;
 		else 
 			next_state<=idle;
@@ -594,7 +594,7 @@ fsm : process(current_state, infifo_rdusedw, allpct_wr_cnt, outfifo_wrusedw, out
 			end if;
 	when skip_packets =>								--skip some packets to freeup some space in outfifo and infifo 
 			--if allpct_wr_cnt>=pct_size/2-1 and unsigned(infifo_rdusedw)<256 and unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/2 then 
-			if allpct_wr_cnt>=pct_size/8-1 and unsigned(infifo_rdusedw)<256 and unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/8 then
+			if allpct_wr_cnt>=pct_size/8-1 and unsigned(infifo_rdusedw)<64 and unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/8 then
 					next_state<=idle;
 			else 
 					next_state<=skip_packets;

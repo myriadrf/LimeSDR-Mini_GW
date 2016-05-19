@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>May 17, 2016 3:43:15 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1463488995956</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>May 19, 2016 10:42:53 AM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1463643773139</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>H:\working_dir\altera\uLimeSDR\uLimeSDR_lms7_trx\software\lms_ctr_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\lms_ctr.sopcinfo</SopcDesignFile>
@@ -888,61 +888,61 @@
         </Setting>
         <MemoryMap>
                 <slaveDescriptor>oc_mem</slaveDescriptor>
-                <addressRange>0x00008000 - 0x0000FFFF</addressRange>
-                <addressSpan>32768</addressSpan>
+                <addressRange>0x00004000 - 0x00007FFF</addressRange>
+                <addressSpan>16384</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>dac_spi</slaveDescriptor>
-                <addressRange>0x00011020 - 0x0001103F</addressRange>
+                <addressRange>0x00009000 - 0x0000901F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>fpga_spi</slaveDescriptor>
-                <addressRange>0x00011040 - 0x0001105F</addressRange>
+                <addressRange>0x00009020 - 0x0000903F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>lms_ctr_gpio</slaveDescriptor>
-                <addressRange>0x00011060 - 0x0001107F</addressRange>
+                <addressRange>0x00009040 - 0x0000905F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>uart</slaveDescriptor>
-                <addressRange>0x00011080 - 0x0001109F</addressRange>
+                <addressRange>0x00009060 - 0x0000907F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>i2c_opencores_0</slaveDescriptor>
-                <addressRange>0x000110A0 - 0x000110BF</addressRange>
+                <addressRange>0x00009080 - 0x0000909F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>leds</slaveDescriptor>
-                <addressRange>0x000110C0 - 0x000110CF</addressRange>
+                <addressRange>0x000090A0 - 0x000090AF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>switch</slaveDescriptor>
-                <addressRange>0x000110D0 - 0x000110DF</addressRange>
+                <addressRange>0x000090B0 - 0x000090BF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>Av_FIFO_Int_0</slaveDescriptor>
-                <addressRange>0x000110E0 - 0x000110EF</addressRange>
+                <addressRange>0x000090C0 - 0x000090CF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>sysid_qsys_0</slaveDescriptor>
-                <addressRange>0x000110F0 - 0x000110F7</addressRange>
+                <addressRange>0x000090D0 - 0x000090D7</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes/>
         </MemoryMap>

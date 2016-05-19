@@ -28,7 +28,7 @@
 // ------------------------------------------
 // Generation parameters:
 //   output_name:         lms_ctr_mm_interconnect_0_cmd_demux_001
-//   ST_DATA_W:           95
+//   ST_DATA_W:           94
 //   ST_CHANNEL_W:        11
 //   NUM_OUTPUTS:         2
 //   VALID_WIDTH:         1
@@ -46,7 +46,7 @@ module lms_ctr_mm_interconnect_0_cmd_demux_001
     // Sink
     // -------------------
     input  [1-1      : 0]   sink_valid,
-    input  [95-1    : 0]   sink_data, // ST_DATA_W=95
+    input  [94-1    : 0]   sink_data, // ST_DATA_W=94
     input  [11-1 : 0]   sink_channel, // ST_CHANNEL_W=11
     input                         sink_startofpacket,
     input                         sink_endofpacket,
@@ -56,14 +56,14 @@ module lms_ctr_mm_interconnect_0_cmd_demux_001
     // Sources 
     // -------------------
     output reg                      src0_valid,
-    output reg [95-1    : 0] src0_data, // ST_DATA_W=95
+    output reg [94-1    : 0] src0_data, // ST_DATA_W=94
     output reg [11-1 : 0] src0_channel, // ST_CHANNEL_W=11
     output reg                      src0_startofpacket,
     output reg                      src0_endofpacket,
     input                           src0_ready,
 
     output reg                      src1_valid,
-    output reg [95-1    : 0] src1_data, // ST_DATA_W=95
+    output reg [94-1    : 0] src1_data, // ST_DATA_W=94
     output reg [11-1 : 0] src1_channel, // ST_CHANNEL_W=11
     output reg                      src1_startofpacket,
     output reg                      src1_endofpacket,

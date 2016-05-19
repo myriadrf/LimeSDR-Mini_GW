@@ -59,7 +59,7 @@ module lms_ctr_nios2_cpu_cpu_test_bench (
   input   [  5: 0] D_iw_opx;
   input            D_valid;
   input            E_valid;
-  input   [ 16: 0] F_pcb;
+  input   [ 15: 0] F_pcb;
   input            F_valid;
   input            R_ctrl_ld;
   input            R_ctrl_ld_non_io;
@@ -70,11 +70,11 @@ module lms_ctr_nios2_cpu_cpu_test_bench (
   input   [ 31: 0] W_wr_data;
   input   [ 31: 0] av_ld_data_aligned_unfiltered;
   input            clk;
-  input   [ 16: 0] d_address;
+  input   [ 15: 0] d_address;
   input   [  3: 0] d_byteenable;
   input            d_read;
   input            d_write;
-  input   [ 16: 0] i_address;
+  input   [ 15: 0] i_address;
   input            i_read;
   input   [ 31: 0] i_readdata;
   input            i_waitrequest;

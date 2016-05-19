@@ -141,7 +141,7 @@ architecture rtl of lms_ctr is
 			clk                                 : in  std_logic                     := 'X';             -- clk
 			reset_n                             : in  std_logic                     := 'X';             -- reset_n
 			reset_req                           : in  std_logic                     := 'X';             -- reset_req
-			d_address                           : out std_logic_vector(16 downto 0);                    -- address
+			d_address                           : out std_logic_vector(15 downto 0);                    -- address
 			d_byteenable                        : out std_logic_vector(3 downto 0);                     -- byteenable
 			d_read                              : out std_logic;                                        -- read
 			d_readdata                          : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
@@ -149,7 +149,7 @@ architecture rtl of lms_ctr is
 			d_write                             : out std_logic;                                        -- write
 			d_writedata                         : out std_logic_vector(31 downto 0);                    -- writedata
 			debug_mem_slave_debugaccess_to_roms : out std_logic;                                        -- debugaccess
-			i_address                           : out std_logic_vector(16 downto 0);                    -- address
+			i_address                           : out std_logic_vector(15 downto 0);                    -- address
 			i_read                              : out std_logic;                                        -- read
 			i_readdata                          : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			i_waitrequest                       : in  std_logic                     := 'X';             -- waitrequest
@@ -192,7 +192,7 @@ architecture rtl of lms_ctr is
 	component lms_ctr_oc_mem is
 		port (
 			clk        : in  std_logic                     := 'X';             -- clk
-			address    : in  std_logic_vector(12 downto 0) := (others => 'X'); -- address
+			address    : in  std_logic_vector(11 downto 0) := (others => 'X'); -- address
 			clken      : in  std_logic                     := 'X';             -- clken
 			chipselect : in  std_logic                     := 'X';             -- chipselect
 			write      : in  std_logic                     := 'X';             -- write
@@ -385,7 +385,7 @@ architecture rtl of lms_ctr is
 		port (
 			clk_main_clk_clk                            : in  std_logic                     := 'X';             -- clk
 			nios2_cpu_reset_reset_bridge_in_reset_reset : in  std_logic                     := 'X';             -- reset
-			nios2_cpu_data_master_address               : in  std_logic_vector(16 downto 0) := (others => 'X'); -- address
+			nios2_cpu_data_master_address               : in  std_logic_vector(15 downto 0) := (others => 'X'); -- address
 			nios2_cpu_data_master_waitrequest           : out std_logic;                                        -- waitrequest
 			nios2_cpu_data_master_byteenable            : in  std_logic_vector(3 downto 0)  := (others => 'X'); -- byteenable
 			nios2_cpu_data_master_read                  : in  std_logic                     := 'X';             -- read
@@ -393,7 +393,7 @@ architecture rtl of lms_ctr is
 			nios2_cpu_data_master_write                 : in  std_logic                     := 'X';             -- write
 			nios2_cpu_data_master_writedata             : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
 			nios2_cpu_data_master_debugaccess           : in  std_logic                     := 'X';             -- debugaccess
-			nios2_cpu_instruction_master_address        : in  std_logic_vector(16 downto 0) := (others => 'X'); -- address
+			nios2_cpu_instruction_master_address        : in  std_logic_vector(15 downto 0) := (others => 'X'); -- address
 			nios2_cpu_instruction_master_waitrequest    : out std_logic;                                        -- waitrequest
 			nios2_cpu_instruction_master_read           : in  std_logic                     := 'X';             -- read
 			nios2_cpu_instruction_master_readdata       : out std_logic_vector(31 downto 0);                    -- readdata
@@ -439,7 +439,7 @@ architecture rtl of lms_ctr is
 			nios2_cpu_debug_mem_slave_byteenable        : out std_logic_vector(3 downto 0);                     -- byteenable
 			nios2_cpu_debug_mem_slave_waitrequest       : in  std_logic                     := 'X';             -- waitrequest
 			nios2_cpu_debug_mem_slave_debugaccess       : out std_logic;                                        -- debugaccess
-			oc_mem_s1_address                           : out std_logic_vector(12 downto 0);                    -- address
+			oc_mem_s1_address                           : out std_logic_vector(11 downto 0);                    -- address
 			oc_mem_s1_write                             : out std_logic;                                        -- write
 			oc_mem_s1_readdata                          : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			oc_mem_s1_writedata                         : out std_logic_vector(31 downto 0);                    -- writedata
@@ -581,14 +581,14 @@ architecture rtl of lms_ctr is
 	signal nios2_cpu_data_master_readdata                                              : std_logic_vector(31 downto 0); -- mm_interconnect_0:nios2_cpu_data_master_readdata -> nios2_cpu:d_readdata
 	signal nios2_cpu_data_master_waitrequest                                           : std_logic;                     -- mm_interconnect_0:nios2_cpu_data_master_waitrequest -> nios2_cpu:d_waitrequest
 	signal nios2_cpu_data_master_debugaccess                                           : std_logic;                     -- nios2_cpu:debug_mem_slave_debugaccess_to_roms -> mm_interconnect_0:nios2_cpu_data_master_debugaccess
-	signal nios2_cpu_data_master_address                                               : std_logic_vector(16 downto 0); -- nios2_cpu:d_address -> mm_interconnect_0:nios2_cpu_data_master_address
+	signal nios2_cpu_data_master_address                                               : std_logic_vector(15 downto 0); -- nios2_cpu:d_address -> mm_interconnect_0:nios2_cpu_data_master_address
 	signal nios2_cpu_data_master_byteenable                                            : std_logic_vector(3 downto 0);  -- nios2_cpu:d_byteenable -> mm_interconnect_0:nios2_cpu_data_master_byteenable
 	signal nios2_cpu_data_master_read                                                  : std_logic;                     -- nios2_cpu:d_read -> mm_interconnect_0:nios2_cpu_data_master_read
 	signal nios2_cpu_data_master_write                                                 : std_logic;                     -- nios2_cpu:d_write -> mm_interconnect_0:nios2_cpu_data_master_write
 	signal nios2_cpu_data_master_writedata                                             : std_logic_vector(31 downto 0); -- nios2_cpu:d_writedata -> mm_interconnect_0:nios2_cpu_data_master_writedata
 	signal nios2_cpu_instruction_master_readdata                                       : std_logic_vector(31 downto 0); -- mm_interconnect_0:nios2_cpu_instruction_master_readdata -> nios2_cpu:i_readdata
 	signal nios2_cpu_instruction_master_waitrequest                                    : std_logic;                     -- mm_interconnect_0:nios2_cpu_instruction_master_waitrequest -> nios2_cpu:i_waitrequest
-	signal nios2_cpu_instruction_master_address                                        : std_logic_vector(16 downto 0); -- nios2_cpu:i_address -> mm_interconnect_0:nios2_cpu_instruction_master_address
+	signal nios2_cpu_instruction_master_address                                        : std_logic_vector(15 downto 0); -- nios2_cpu:i_address -> mm_interconnect_0:nios2_cpu_instruction_master_address
 	signal nios2_cpu_instruction_master_read                                           : std_logic;                     -- nios2_cpu:i_read -> mm_interconnect_0:nios2_cpu_instruction_master_read
 	signal mm_interconnect_0_av_fifo_int_0_avalon_slave_0_chipselect                   : std_logic;                     -- mm_interconnect_0:Av_FIFO_Int_0_avalon_slave_0_chipselect -> Av_FIFO_Int_0:chipselect
 	signal mm_interconnect_0_av_fifo_int_0_avalon_slave_0_readdata                     : std_logic_vector(31 downto 0); -- Av_FIFO_Int_0:readdata -> mm_interconnect_0:Av_FIFO_Int_0_avalon_slave_0_readdata
@@ -614,7 +614,7 @@ architecture rtl of lms_ctr is
 	signal mm_interconnect_0_nios2_cpu_debug_mem_slave_writedata                       : std_logic_vector(31 downto 0); -- mm_interconnect_0:nios2_cpu_debug_mem_slave_writedata -> nios2_cpu:debug_mem_slave_writedata
 	signal mm_interconnect_0_oc_mem_s1_chipselect                                      : std_logic;                     -- mm_interconnect_0:oc_mem_s1_chipselect -> oc_mem:chipselect
 	signal mm_interconnect_0_oc_mem_s1_readdata                                        : std_logic_vector(31 downto 0); -- oc_mem:readdata -> mm_interconnect_0:oc_mem_s1_readdata
-	signal mm_interconnect_0_oc_mem_s1_address                                         : std_logic_vector(12 downto 0); -- mm_interconnect_0:oc_mem_s1_address -> oc_mem:address
+	signal mm_interconnect_0_oc_mem_s1_address                                         : std_logic_vector(11 downto 0); -- mm_interconnect_0:oc_mem_s1_address -> oc_mem:address
 	signal mm_interconnect_0_oc_mem_s1_byteenable                                      : std_logic_vector(3 downto 0);  -- mm_interconnect_0:oc_mem_s1_byteenable -> oc_mem:byteenable
 	signal mm_interconnect_0_oc_mem_s1_write                                           : std_logic;                     -- mm_interconnect_0:oc_mem_s1_write -> oc_mem:write
 	signal mm_interconnect_0_oc_mem_s1_writedata                                       : std_logic_vector(31 downto 0); -- mm_interconnect_0:oc_mem_s1_writedata -> oc_mem:writedata

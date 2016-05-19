@@ -326,7 +326,7 @@ port map(
 			EP03_dstsel			=> '0', -- 0 - to external buffer
 			EP03_fifo_data		=> EP03_wdata,
 			EP03_fifo_wr		=> EP03_wr,
-			EP03_fifo_wrempty	=> '1', --EP03_wrempty, fifo is not used
+			EP03_fifo_wrempty	=> '0', --EP03_wrempty, fifo is not used
 			extbuff_rdy			=> ext_buff_rdy,
 			extbuff_wr			=> ext_buff_wr,
 			EP83_fifo_data		=> EP83_fifo_q,

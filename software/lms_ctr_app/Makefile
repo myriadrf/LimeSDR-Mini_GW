@@ -147,7 +147,6 @@ C_SRCS += spi_flash_lib.c
 C_SRCS += i2c_opencores.c
 CXX_SRCS :=
 ASM_SRCS :=
-#C_SRCS += main - Copy.c
 
 
 # Path to root of object file tree.
@@ -165,8 +164,8 @@ CREATE_LINKER_MAP := 1
 # Common arguments for ALT_CFLAGSs
 APP_CFLAGS_DEFINED_SYMBOLS :=
 APP_CFLAGS_UNDEFINED_SYMBOLS :=
-APP_CFLAGS_OPTIMIZATION := -O0
-APP_CFLAGS_DEBUG_LEVEL := -g
+APP_CFLAGS_OPTIMIZATION := -Os
+APP_CFLAGS_DEBUG_LEVEL :=
 APP_CFLAGS_WARNINGS := -Wall
 APP_CFLAGS_USER_FLAGS :=
 

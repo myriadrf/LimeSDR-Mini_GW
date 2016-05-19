@@ -3,7 +3,7 @@
 # Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'lms_ctr'
 # SOPC Builder design path: ../../lms_ctr.sopcinfo
 #
-# Generated: Tue May 10 09:50:36 EEST 2016
+# Generated: Thu May 19 10:42:53 EEST 2016
 
 # DO NOT MODIFY THIS FILE
 #
@@ -47,4 +47,4 @@
 # by allowing GDB to cache memory contents on the host.
 
 # oc_mem
-memory 0x8000 0x10000 cache
+memory 0x4000 0x8000 cache

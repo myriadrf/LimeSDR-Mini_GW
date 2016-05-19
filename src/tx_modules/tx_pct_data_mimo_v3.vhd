@@ -221,7 +221,7 @@ begin
               "111" when sample_width="01" else
               "100";
 
-fifo_rdreq<=rdreq0 or rdreq1 or rdreq2 or rdreq3;
+fifo_rdreq<=rdreq0 or rdreq1;
 --diq_ready<=fifo0_data_rdy or fifo1_data_rdy or fifo2_data_rdy or fifo3_data_rdy;
 
 
@@ -348,9 +348,9 @@ end process;
 -------------------------------------------------------------------------------
 --fifo read machine combo
 -------------------------------------------------------------------------------
-read_fsm : process(current_read_state, fifo0_data_rdy, fifo1_data_rdy, fifo2_data_rdy, fifo3_data_rdy,
-							fifo_rd_cnt, pct_samplenr, fifo0_samplenr_d1, fifo1_samplenr_d1, fifo2_samplenr_d1, fifo3_samplenr_d1, lte_synch_dis,
-							fifo0_pctrsvd_d1(4), fifo1_pctrsvd_d1(4), fifo2_pctrsvd_d1(4), fifo3_pctrsvd_d1(4)) 
+read_fsm : process(current_read_state, fifo0_data_rdy, fifo1_data_rdy,
+							fifo_rd_cnt, pct_samplenr, fifo0_samplenr_d1, fifo1_samplenr_d1, lte_synch_dis,
+							fifo0_pctrsvd_d1(4), fifo1_pctrsvd_d1(4)) 
 begin
     next_read_state <= current_read_state;
     
@@ -405,7 +405,7 @@ end process;
 -------------------------------------------------------------------------------
 --fifo state machine combo
 -------------------------------------------------------------------------------
-fifo_fsm : process(current_fifo_st, wrempty0, wrempty1, wrempty2, wrempty3, wrreq_cnt) 
+fifo_fsm : process(current_fifo_st, wrempty0, wrempty1, wrreq_cnt) 
 begin
     nex_fifo_st <= current_fifo_st;
     
@@ -673,7 +673,7 @@ begin
 -------------------------------------------------------------------------------
 --misc combinational signals
 ------------------------------------------------------------------------------   
-tx_outfifo_rdy	<=  wrempty0 or wrempty1 or wr_status;
+tx_outfifo_rdy	<=  wrempty0 or wrempty1; --or wr_status;
 wr_status		<= '1' when unsigned(wrreq_cnt)>0 else '0';
 --wreq_en			<= '1' when  (wrreq_cnt>=8) else '0'; 
 wreq_en			<= '1' when  (wrreq_cnt>=4) else '0'; 
@@ -839,8 +839,8 @@ rd_fifo : rd_tx_fifo
       diq_l			=> diq_l
         );
 
-dd_data_h<=diq_l(smpl_width downto 0);
-dd_data_l<=diq_h(smpl_width downto 0);
+dd_data_h<=diq_h(smpl_width downto 0);
+dd_data_l<=diq_l(smpl_width downto 0);
 
         
 end arch;   

@@ -21,9 +21,9 @@ agreement for further details.
 */
 (header "symbol" (version "1.1"))
 (symbol
-	(rect 16 16 352 352)
+	(rect 16 16 352 320)
 	(text "FT6001_top" (rect 5 0 52 12)(font "Arial" ))
-	(text "inst" (rect 8 320 20 332)(font "Arial" ))
+	(text "inst" (rect 8 288 20 300)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -97,51 +97,37 @@ agreement for further details.
 	(port
 		(pt 0 192)
 		(input)
-		(text "EP03_rdclk" (rect 0 0 47 12)(font "Arial" ))
-		(text "EP03_rdclk" (rect 21 187 68 199)(font "Arial" ))
+		(text "ext_buff_rdy" (rect 0 0 54 12)(font "Arial" ))
+		(text "ext_buff_rdy" (rect 21 187 75 199)(font "Arial" ))
 		(line (pt 0 192)(pt 16 192)(line_width 1))
 	)
 	(port
 		(pt 0 208)
 		(input)
-		(text "EP03_rd" (rect 0 0 36 12)(font "Arial" ))
-		(text "EP03_rd" (rect 21 203 57 215)(font "Arial" ))
+		(text "EP83_wclk" (rect 0 0 44 12)(font "Arial" ))
+		(text "EP83_wclk" (rect 21 203 65 215)(font "Arial" ))
 		(line (pt 0 208)(pt 16 208)(line_width 1))
 	)
 	(port
 		(pt 0 224)
 		(input)
-		(text "ext_buff_rdy" (rect 0 0 54 12)(font "Arial" ))
-		(text "ext_buff_rdy" (rect 21 219 75 231)(font "Arial" ))
+		(text "EP83_aclrn" (rect 0 0 47 12)(font "Arial" ))
+		(text "EP83_aclrn" (rect 21 219 68 231)(font "Arial" ))
 		(line (pt 0 224)(pt 16 224)(line_width 1))
 	)
 	(port
 		(pt 0 240)
 		(input)
-		(text "EP83_wclk" (rect 0 0 44 12)(font "Arial" ))
-		(text "EP83_wclk" (rect 21 235 65 247)(font "Arial" ))
+		(text "EP83_wr" (rect 0 0 37 12)(font "Arial" ))
+		(text "EP83_wr" (rect 21 235 58 247)(font "Arial" ))
 		(line (pt 0 240)(pt 16 240)(line_width 1))
 	)
 	(port
 		(pt 0 256)
 		(input)
-		(text "EP83_aclrn" (rect 0 0 47 12)(font "Arial" ))
-		(text "EP83_aclrn" (rect 21 251 68 263)(font "Arial" ))
-		(line (pt 0 256)(pt 16 256)(line_width 1))
-	)
-	(port
-		(pt 0 272)
-		(input)
-		(text "EP83_wr" (rect 0 0 37 12)(font "Arial" ))
-		(text "EP83_wr" (rect 21 267 58 279)(font "Arial" ))
-		(line (pt 0 272)(pt 16 272)(line_width 1))
-	)
-	(port
-		(pt 0 288)
-		(input)
 		(text "EP83_wdata[ep83_wwidth-1..0]" (rect 0 0 121 12)(font "Arial" ))
-		(text "EP83_wdata[ep83_wwidth-1..0]" (rect 21 283 142 295)(font "Arial" ))
-		(line (pt 0 288)(pt 16 288)(line_width 3))
+		(text "EP83_wdata[ep83_wwidth-1..0]" (rect 21 251 142 263)(font "Arial" ))
+		(line (pt 0 256)(pt 16 256)(line_width 3))
 	)
 	(port
 		(pt 336 32)
@@ -174,15 +160,15 @@ agreement for further details.
 	(port
 		(pt 336 128)
 		(output)
-		(text "EP03_rdata[ep03_rwidth-1..0]" (rect 0 0 116 12)(font "Arial" ))
-		(text "EP03_rdata[ep03_rwidth-1..0]" (rect 199 123 315 135)(font "Arial" ))
+		(text "ext_buff_data[31..0]" (rect 0 0 80 12)(font "Arial" ))
+		(text "ext_buff_data[31..0]" (rect 235 123 315 135)(font "Arial" ))
 		(line (pt 336 128)(pt 320 128)(line_width 3))
 	)
 	(port
 		(pt 336 144)
 		(output)
-		(text "EP03_rempty" (rect 0 0 57 12)(font "Arial" ))
-		(text "EP03_rempty" (rect 258 139 315 151)(font "Arial" ))
+		(text "ext_buff_wr" (rect 0 0 49 12)(font "Arial" ))
+		(text "ext_buff_wr" (rect 266 139 315 151)(font "Arial" ))
 		(line (pt 336 144)(pt 320 144)(line_width 1))
 	)
 	(port
@@ -244,7 +230,7 @@ agreement for further details.
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
-		(rectangle (rect 16 16 320 320)(line_width 1))
+		(rectangle (rect 16 16 320 288)(line_width 1))
 	)
 	(annotation_block (parameter)(rect 352 -64 452 16))
 )

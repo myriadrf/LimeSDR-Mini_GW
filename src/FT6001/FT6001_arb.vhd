@@ -79,7 +79,7 @@ begin
 --endpoint ready signals, indicates when transfer can occur
 en_ep02<='1' when EP02_fifo_wrempty='1'							and ep_status(4)='0'	and fsm_rdy='1' else '0';
 en_ep82<='1' when unsigned(EP82_fifo_rdusedw)>=EP82_wsize/4	and ep_status(0)='0'	and fsm_rdy='1' else '0';
-en_ep03<='1' when EP03_fifo_wrempty='1'							and ep_status(5)='0'	and fsm_rdy='1' else '0';
+en_ep03<='1' when (EP03_fifo_wrempty='1' or (extbuff_rdy='1' and EP03_dstsel='0'))	and ep_status(5)='0'	and fsm_rdy='1' else '0';
 en_ep83<='1' when unsigned(EP83_fifo_rdusedw)>=EP83_wsize/4	and ep_status(1)='0'	and fsm_rdy='1' else '0';
 
 --indicates when endpoint status was checked

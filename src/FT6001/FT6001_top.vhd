@@ -43,11 +43,13 @@ entity FT6001_top is
 			EP82_wdata		: in std_logic_vector(EP82_wwidth-1 downto 0);
 			EP82_wfull		: out std_logic;
 			--stream endpoint fifo PC->FPGA
-			EP03_rdclk		: in std_logic;
-			EP03_rd			: in std_logic;
-			EP03_rdata		: out std_logic_vector(EP03_rwidth-1 downto 0);
-			EP03_rempty		: out std_logic;
-			ext_buff_rdy	: in std_logic; 
+--			EP03_rdclk		: in std_logic;
+--			EP03_rd			: in std_logic;
+--			EP03_rdata		: out std_logic_vector(EP03_rwidth-1 downto 0);
+--			EP03_rempty		: out std_logic;
+			ext_buff_rdy	: in std_logic;
+			ext_buff_data	: out std_logic_vector(31 downto 0);
+			ext_buff_wr		: out std_logic;
 			--stream endpoint fifo FPGA->PC
 			EP83_wclk		: in std_logic;
 			EP83_aclrn		: in std_logic;
@@ -252,29 +254,29 @@ port map(
         );
 
 --stream PC->FPGA		  
-EP03_fifo : fifo_inst		
-generic map(
-		dev_family		=> "Cyclone IV",
-		wrwidth			=> 32,						--32 bits ftdi side, 
-		wrusedw_witdth	=> 10, 						--10=512 words (2048kB)
-		rdwidth			=> EP03_rwidth,
-		rdusedw_width	=> 10,				
-		show_ahead     => "OFF"
-)
-port map(
-      reset_n       	=> reset_n, 
-      wrclk         	=> clk,
-      wrreq         	=> EP03_wr,
-      data          	=> EP03_wdata,
-      wrfull        	=> open,
-		wrempty		  	=> EP03_wrempty,
-      wrusedw       	=> open,
-      rdclk 	     	=> EP03_rdclk,
-      rdreq         	=> EP03_rd,
-      q             	=> EP03_rdata,
-      rdempty       	=> EP03_rempty,
-      rdusedw       	=> open             
-        );	
+--EP03_fifo : fifo_inst		
+--generic map(
+--		dev_family		=> "Cyclone IV",
+--		wrwidth			=> 32,						--32 bits ftdi side, 
+--		wrusedw_witdth	=> 10, 						--10=512 words (2048kB)
+--		rdwidth			=> EP03_rwidth,
+--		rdusedw_width	=> 10,				
+--		show_ahead     => "OFF"
+--)
+--port map(
+--      reset_n       	=> reset_n, 
+--      wrclk         	=> clk,
+--      wrreq         	=> EP03_wr,
+--      data          	=> EP03_wdata,
+--      wrfull        	=> open,
+--		wrempty		  	=> EP03_wrempty,
+--      wrusedw       	=> open,
+--      rdclk 	     	=> EP03_rdclk,
+--      rdreq         	=> EP03_rd,
+--      q             	=> EP03_rdata,
+--      rdempty       	=> EP03_rempty,
+--      rdusedw       	=> open             
+--        );	
 	
 -- stream FPGA->PC
 EP83_fifo : fifo_inst		
@@ -321,12 +323,12 @@ port map(
 			EP82_fifo_data		=> EP82_fifo_q,
 			EP82_fifo_rd 		=> EP82_fifo_rdreq,
 			EP82_fifo_rdusedw	=> EP82_fifo_rdusedw,
-			EP03_dstsel			=> '1',
+			EP03_dstsel			=> '0', -- 0 - to external buffer
 			EP03_fifo_data		=> EP03_wdata,
 			EP03_fifo_wr		=> EP03_wr,
-			EP03_fifo_wrempty	=> EP03_wrempty,
+			EP03_fifo_wrempty	=> '1', --EP03_wrempty, fifo is not used
 			extbuff_rdy			=> ext_buff_rdy,
-			extbuff_wr			=> open,
+			extbuff_wr			=> ext_buff_wr,
 			EP83_fifo_data		=> EP83_fifo_q,
 			EP83_fifo_rd 		=> EP83_fifo_rdreq,	
 			EP83_fifo_rdusedw	=> EP83_fifo_rdusedw,
@@ -340,6 +342,8 @@ port map(
 			fsm_wrdata			=> fsm_wr_data,
 			ep_status			=> FT_data(15 downto 8)       
 			);
+			
+ext_buff_data<=EP03_wdata;			
 		  
 -- ----------------------------------------------------------------------------
 -- FTDI fsm 

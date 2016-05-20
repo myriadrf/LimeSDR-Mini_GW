@@ -432,7 +432,7 @@ begin
           	  
       when check1 => -- select fifo1 for writting
 				if wrreq_cnt=pct_size/2-1 then
-              if wrempty2='1' then 
+              if wrempty0='1' then 
                   nex_fifo_st<=check0;
               else
                  nex_fifo_st<=idle;

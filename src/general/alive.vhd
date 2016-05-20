@@ -24,7 +24,7 @@ end alive;
 -- Architecture
 --=============================================
 architecture alive_arch of alive is
-	signal cnt: unsigned (23 downto 0);
+	signal cnt: unsigned (24 downto 0);
 begin
 
 	cntp: process (clk, nrst)
@@ -36,7 +36,7 @@ begin
 		end if;
 	end process cntp;
 	
-	beat <= cnt(23);
+	beat <= cnt(24);
 
 
 end alive_arch;

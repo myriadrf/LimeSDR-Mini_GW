@@ -20,3 +20,17 @@ set_output_delay -clock [get_clocks FT_CLK] -add_delay -max 0.5 [get_ports {FT_B
 
 derive_clock_uncertainty
 derive_pll_clocks
+
+#====================Asyncronous clocks==========================================
+
+# Set to be mutually exclusive clocks.
+set_clock_groups -asynchronous 	-group {LMK_CLK} \
+											-group {FT_CLK} \
+											-group {LMS_MCLK2}
+											
+#============================false paths========================================
+#set false paths between low speed signals
+# LED's
+set_false_path -from * -to [get_ports FPGA_LED_* ]
+set_false_path -from * -to [get_ports RFSW*]
+set_false_path -from [get_ports SPARE_IO_PULL_UP*] -to *

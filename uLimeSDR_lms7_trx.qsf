@@ -246,6 +246,13 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[8]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[9]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[10]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[11]
+set_location_assignment PIN_K7 -to FPGA_LED_R
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_LED_R
+set_location_assignment PIN_A11 -to FPGA_GPIO0
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_GPIO0
+set_global_assignment -name VHDL_FILE src/FT601/FT601_top.vhd
+set_global_assignment -name VHDL_FILE src/FT601/FT601_arb.vhd
+set_global_assignment -name VHDL_FILE src/FT601/FT601.vhd
 set_global_assignment -name VHDL_FILE src/general/my_sw.vhd
 set_global_assignment -name VHDL_FILE src/tx_modules/rd_tx_fifo.vhd
 set_global_assignment -name VHDL_FILE src/tx_modules/decompress.vhd
@@ -280,11 +287,8 @@ set_global_assignment -name VHDL_FILE src/general/simple_reg.vhd
 set_global_assignment -name VHDL_FILE src/fifo/fifo_inst.vhd
 set_global_assignment -name VHDL_FILE src/general/alive.vhd
 set_global_assignment -name SDC_FILE timing.sdc
-set_global_assignment -name VHDL_FILE src/FT6001/FT6001.vhd
 set_global_assignment -name SIGNALTAP_FILE signal_tap/debug.stp
-set_global_assignment -name VHDL_FILE src/FT6001/FT6001_arb.vhd
 set_global_assignment -name QIP_FILE ip/fifo/fifo.qip
-set_global_assignment -name VHDL_FILE src/FT6001/FT6001_top.vhd
 set_global_assignment -name VHDL_FILE src/fifo/fifo_inst_max10.vhd
 set_global_assignment -name BDF_FILE lms7_trx_top.bdf
 set_global_assignment -name QIP_FILE ip/pll/pll.qip
@@ -298,8 +302,4 @@ set_global_assignment -name SIP_FILE ip/ddrox1/ddrox1.sip
 set_global_assignment -name BDF_FILE symbols/tx_synchronizers.bdf
 set_global_assignment -name VHDL_FILE src/tx_modules/sync_fifo_rw.vhd
 set_global_assignment -name VHDL_FILE src/tx_modules/sample_nr_cnt_mimo.vhd
-set_location_assignment PIN_K7 -to FPGA_LED_R
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_LED_R
-set_location_assignment PIN_A11 -to FPGA_GPIO0
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_GPIO0
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

@@ -1,5 +1,5 @@
 -- ----------------------------------------------------------------------------	
--- FILE: 	FT6001_top.vhd
+-- FILE: 	FT601_top.vhd
 -- DESCRIPTION:	top module for FT601
 -- DATE:	May 13, 2016
 -- AUTHOR(s):	Lime Microsystems
@@ -12,7 +12,7 @@ use ieee.numeric_std.all;
 -- ----------------------------------------------------------------------------
 -- Entity declaration
 -- ----------------------------------------------------------------------------
-entity FT6001_top is
+entity FT601_top is
 	generic(
 			EP02_rwidth		: integer := 8;
 			EP82_wwidth		: integer := 8;
@@ -59,12 +59,12 @@ entity FT6001_top is
 			EP83_wrusedw	: out std_logic_vector(11 downto 0)
         
         );
-end FT6001_top;
+end FT601_top;
 
 -- ----------------------------------------------------------------------------
 -- Architecture
 -- ----------------------------------------------------------------------------
-architecture arch of FT6001_top is
+architecture arch of FT601_top is
 --declare signals,  components here
 
 --EP02 fifo signals 
@@ -126,7 +126,7 @@ component fifo_inst is
 end component;
 
 --FT6001 arbiter component
-component FT6001_arb is
+component FT601_arb is
 	generic(	
 			EP82_fifo_rwidth	: integer := 9;
 			EP82_wsize       	: integer := 64;  --packet size in bytes, has to be multiple of 4 bytes
@@ -173,7 +173,7 @@ component FT6001_arb is
 end component;
 
 --FT601 fsm component 
-component FT6001 is
+component FT601 is
     generic(
 			EP82_wsize       : integer := 64;  	--packet size in bytes, has to be multiple of 4 bytes
 			EP83_wsize       : integer := 2048 	--packet size in bytes, has to be multiple of 4 bytes
@@ -269,9 +269,9 @@ port map(
 --      wrreq         	=> EP03_wr,
 --      data          	=> EP03_wdata,
 --      wrfull        	=> open,
---		  wrempty		  	=> EP03_wrempty,
+--		wrempty		  	=> EP03_wrempty,
 --      wrusedw       	=> open,
---      rdclk 	     		=> EP03_rdclk,
+--      rdclk 	     	=> EP03_rdclk,
 --      rdreq         	=> EP03_rd,
 --      q             	=> EP03_rdata,
 --      rdempty       	=> EP03_rempty,
@@ -306,7 +306,7 @@ port map(
 -- ----------------------------------------------------------------------------
 -- FTDI arbiter
 -- ----------------------------------------------------------------------------		
-	ftdi_arbiter : FT6001_arb
+	ftdi_arbiter : FT601_arb
 	generic map(	
 			EP82_fifo_rwidth	=> 9,
 			EP82_wsize       	=> EP82_wsize,
@@ -348,7 +348,7 @@ ext_buff_data<=EP03_wdata;
 -- ----------------------------------------------------------------------------
 -- FTDI fsm 
 -- ----------------------------------------------------------------------------		  
-ft_fsm : FT6001
+ft_fsm : FT601
 generic map(
 			EP82_wsize	=> EP82_wsize,
 			EP83_wsize	=> EP83_wsize 

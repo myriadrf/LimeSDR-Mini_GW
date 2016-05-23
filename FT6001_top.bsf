@@ -181,8 +181,8 @@ agreement for further details.
 	(port
 		(pt 336 176)
 		(output)
-		(text "EP83_wrusedw[10..0]" (rect 0 0 86 12)(font "Arial" ))
-		(text "EP83_wrusedw[10..0]" (rect 229 171 315 183)(font "Arial" ))
+		(text "EP83_wrusedw[11..0]" (rect 0 0 84 12)(font "Arial" ))
+		(text "EP83_wrusedw[11..0]" (rect 231 171 315 183)(font "Arial" ))
 		(line (pt 336 176)(pt 320 176)(line_width 3))
 	)
 	(port

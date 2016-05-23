@@ -56,7 +56,7 @@ entity FT6001_top is
 			EP83_wr			: in std_logic;
 			EP83_wdata		: in std_logic_vector(EP83_wwidth-1 downto 0);
 			EP83_wfull		: out std_logic;
-			EP83_wrusedw	: out std_logic_vector(10 downto 0)
+			EP83_wrusedw	: out std_logic_vector(11 downto 0)
         
         );
 end FT6001_top;
@@ -82,7 +82,7 @@ signal EP03_wr					: std_logic;
 signal EP03_wdata				: std_logic_vector(31 downto 0);
 
 --EP83 fifo signals
-signal EP83_fifo_rdusedw	: std_logic_vector(11 downto 0);
+signal EP83_fifo_rdusedw	: std_logic_vector(12 downto 0);
 signal EP83_fifo_q			: std_logic_vector(31 downto 0);
 signal EP83_fifo_rdreq		: std_logic;
 
@@ -208,9 +208,9 @@ EP02_fifo : fifo_inst
 generic map(
 		dev_family		=> "Cyclone IV",
 		wrwidth			=> 32,						--32 bits ftdi side, 
-		wrusedw_witdth	=> 10, 						--10=512 words (2048kB)
+		wrusedw_witdth	=> 9, 						--10=512 words (2048kB)
 		rdwidth			=> EP02_rwidth,
-		rdusedw_width	=> 12,				
+		rdusedw_width	=> 11,				
 		show_ahead     => "OFF"
 )
 port map(
@@ -283,9 +283,9 @@ EP83_fifo : fifo_inst
 generic map(
 		dev_family		=> "Cyclone IV",
 		wrwidth			=> EP83_wwidth,
-		wrusedw_witdth	=> 11, 			--11=1024 words x EP83_wwidth (8192KB)
+		wrusedw_witdth	=> 12, 			--11=1024 words x EP83_wwidth (8192KB)
 		rdwidth			=> 32,			--32 bits ftdi side, 
-		rdusedw_width	=> 12,				
+		rdusedw_width	=> 13,				
 		show_ahead		=> "ON"
 )
 port map(
@@ -310,7 +310,7 @@ port map(
 	generic map(	
 			EP82_fifo_rwidth	=> 9,
 			EP82_wsize       	=> EP82_wsize,
-			EP83_fifo_rwidth	=> 12,
+			EP83_fifo_rwidth	=> 13,
 			EP83_wsize       	=> EP83_wsize
 	)
   port map(

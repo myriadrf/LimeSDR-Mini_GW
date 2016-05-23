@@ -1127,7 +1127,7 @@
         <trigger_in_editor/>
         <trigger_out_editor/>
       </presentation>
-      <trigger CRC="2BDDDA87" attribute_mem_mode="false" gap_record="true" global_temp="1" is_expanded="true" name="trigger: 2016/05/19 11:28:01  #0" position="center" power_up_trigger_mode="false" record_data_gap="true" segment_size="64" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="false" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
+      <trigger CRC="2BDDDA87" attribute_mem_mode="false" gap_record="true" global_temp="1" is_expanded="true" name="trigger: 2016/05/19 11:28:01  #0" position="center" power_up_trigger_mode="false" record_data_gap="true" segment_size="64" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="true" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
         <power_up_trigger position="pre" storage_qualifier_disabled="no"/>
         <events use_custom_flow_control="no">
           <level enabled="yes" name="condition1" type="basic">'FT6001_top:inst6|ext_buff_rdy' == rising edge
@@ -1221,6 +1221,11 @@
       <symbol name="idle" value="001"/>
       <symbol name="tx_A" value="010"/>
       <symbol name="tx_B" value="100"/>
+    </table>
+    <table name="current_state_table (5)" width="3">
+      <symbol name="idle" value="001"/>
+      <symbol name="skip_packets" value="010"/>
+      <symbol name="wait_pct_end" value="100"/>
     </table>
   </mnemonics>
   <embedded_sof_files>
@@ -7590,6 +7595,7 @@ zFJzMg==
 
     
     
+    
     </embedded_sof_file>
   </embedded_sof_files>
   <static_plugin_mnemonics/>
@@ -7789,7 +7795,7 @@ zFJzMg==
         <trigger_in_editor/>
         <trigger_out_editor/>
       </presentation>
-      <trigger CRC="7A53F754" attribute_mem_mode="false" gap_record="true" global_temp="1" is_expanded="true" name="trigger: 2016/05/18 17:25:06  #1" position="center" power_up_trigger_mode="false" record_data_gap="true" segment_size="64" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="false" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
+      <trigger CRC="7A53F754" attribute_mem_mode="false" gap_record="true" global_temp="1" is_expanded="true" name="trigger: 2016/05/18 17:25:06  #1" position="center" power_up_trigger_mode="false" record_data_gap="true" segment_size="64" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="true" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
         <power_up_trigger position="pre" storage_qualifier_disabled="no"/>
         <events use_custom_flow_control="no">
           <level enabled="yes" name="condition1" type="basic">
@@ -8263,7 +8269,7 @@ zFJzMg==
         <trigger_in_editor/>
         <trigger_out_editor/>
       </presentation>
-      <trigger CRC="5C92DCF3" attribute_mem_mode="false" gap_record="true" global_temp="1" is_expanded="true" name="trigger: 2016/05/18 17:41:59  #0" position="center" power_up_trigger_mode="false" record_data_gap="true" segment_size="64" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="false" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
+      <trigger CRC="5C92DCF3" attribute_mem_mode="false" gap_record="true" global_temp="1" is_expanded="true" name="trigger: 2016/05/18 17:41:59  #0" position="center" power_up_trigger_mode="false" record_data_gap="true" segment_size="64" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="true" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
         <power_up_trigger position="pre" storage_qualifier_disabled="no"/>
         <events use_custom_flow_control="no">
           <level enabled="yes" name="condition1" type="basic">'LTE_rx_path:inst7|wr_rx_fifo_v3:inst2|fifo_wr' == rising edge
@@ -8309,9 +8315,14 @@ zFJzMg==
       <single attribute="zoom offset numerator" value="32752"/>
     </position_info>
   </instance>
-  <instance enabled="false" entity_name="sld_signaltap" is_auto_node="yes" is_expanded="true" name="rxpath_infifo" source_file="sld_signaltap.vhd">
+  <instance enabled="true" entity_name="sld_signaltap" is_auto_node="yes" is_expanded="true" name="rxpath_infifo" source_file="sld_signaltap.vhd">
     <node_ip_info instance_id="3" mfg_id="110" node_id="0" version="6"/>
-    <signal_set global_temp="1" is_expanded="true" name="signal_set: 2016/05/18 17:38:47  #2">
+    <position_info>
+      <single attribute="active tab" value="1"/>
+      <single attribute="setup horizontal scroll position" value="0"/>
+      <single attribute="setup vertical scroll position" value="0"/>
+    </position_info>
+    <signal_set global_temp="1" name="signal_set: 2016/05/23 10:43:00  #0">
       <clock name="LTE_rx_path:inst7|fifo_inst:inst8|wrclk" polarity="posedge" tap_mode="classic"/>
       <config ram_type="AUTO" reserved_data_nodes="0" reserved_storage_qualifier_nodes="0" reserved_trigger_nodes="0" sample_depth="64" trigger_in_enable="no" trigger_out_enable="no"/>
       <top_entity/>
@@ -8331,6 +8342,9 @@ zFJzMg==
           <wire name="LTE_rx_path:inst7|fifo_inst:inst8|wrusedw[7]" tap_mode="classic"/>
           <wire name="LTE_rx_path:inst7|fifo_inst:inst8|wrusedw[8]" tap_mode="classic"/>
           <wire name="LTE_rx_path:inst7|fifo_inst:inst8|wrusedw[9]" tap_mode="classic"/>
+          <wire name="LTE_rx_path:inst7|rx_pct_data_v2:inst|current_state.idle" tap_mode="classic"/>
+          <wire name="LTE_rx_path:inst7|rx_pct_data_v2:inst|current_state.skip_packets" tap_mode="classic"/>
+          <wire name="LTE_rx_path:inst7|rx_pct_data_v2:inst|current_state.wait_pct_end" tap_mode="classic"/>
         </trigger_input_vec>
         <data_input_vec>
           <wire name="LTE_rx_path:inst7|fifo_inst:inst8|data[0]" tap_mode="classic"/>
@@ -8371,6 +8385,9 @@ zFJzMg==
           <wire name="LTE_rx_path:inst7|fifo_inst:inst8|wrusedw[7]" tap_mode="classic"/>
           <wire name="LTE_rx_path:inst7|fifo_inst:inst8|wrusedw[8]" tap_mode="classic"/>
           <wire name="LTE_rx_path:inst7|fifo_inst:inst8|wrusedw[9]" tap_mode="classic"/>
+          <wire name="LTE_rx_path:inst7|rx_pct_data_v2:inst|current_state.idle" tap_mode="classic"/>
+          <wire name="LTE_rx_path:inst7|rx_pct_data_v2:inst|current_state.skip_packets" tap_mode="classic"/>
+          <wire name="LTE_rx_path:inst7|rx_pct_data_v2:inst|current_state.wait_pct_end" tap_mode="classic"/>
         </data_input_vec>
         <storage_qualifier_input_vec>
           <wire name="LTE_rx_path:inst7|fifo_inst:inst8|data[0]" tap_mode="classic"/>
@@ -8411,6 +8428,9 @@ zFJzMg==
           <wire name="LTE_rx_path:inst7|fifo_inst:inst8|wrusedw[7]" tap_mode="classic"/>
           <wire name="LTE_rx_path:inst7|fifo_inst:inst8|wrusedw[8]" tap_mode="classic"/>
           <wire name="LTE_rx_path:inst7|fifo_inst:inst8|wrusedw[9]" tap_mode="classic"/>
+          <wire name="LTE_rx_path:inst7|rx_pct_data_v2:inst|current_state.idle" tap_mode="classic"/>
+          <wire name="LTE_rx_path:inst7|rx_pct_data_v2:inst|current_state.skip_packets" tap_mode="classic"/>
+          <wire name="LTE_rx_path:inst7|rx_pct_data_v2:inst|current_state.wait_pct_end" tap_mode="classic"/>
         </storage_qualifier_input_vec>
       </signal_vec>
       <presentation>
@@ -8457,6 +8477,11 @@ zFJzMg==
             <node data_index="0" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="false" name="LTE_rx_path:inst7|fifo_inst:inst8|data[0]" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="0" tap_mode="classic" type="unknown"/>
           </node>
           <node data_index="24" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="LTE_rx_path:inst7|fifo_inst:inst8|reset_n" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="24" tap_mode="classic" trigger_index="0" type="unknown"/>
+          <node is_selected="false" level-0="alt_or" mnemonics="current_state_table (5)" name="LTE_rx_path:inst7|rx_pct_data_v2:inst|current_state" order="lsb_to_msb" radix="mnemonics" type="state machine">
+            <node data_index="38" duplicate_name_allowed="true" is_data_input="true" is_selected="false" is_storage_input="true" is_trigger_input="true" name="LTE_rx_path:inst7|rx_pct_data_v2:inst|current_state.idle" storage_index="38" tap_mode="classic" trigger_index="14" type="unknown"/>
+            <node data_index="39" duplicate_name_allowed="true" is_data_input="true" is_selected="false" is_storage_input="true" is_trigger_input="true" name="LTE_rx_path:inst7|rx_pct_data_v2:inst|current_state.skip_packets" storage_index="39" tap_mode="classic" trigger_index="15" type="unknown"/>
+            <node data_index="40" duplicate_name_allowed="true" is_data_input="true" is_selected="false" is_storage_input="true" is_trigger_input="true" name="LTE_rx_path:inst7|rx_pct_data_v2:inst|current_state.wait_pct_end" storage_index="40" tap_mode="classic" trigger_index="16" type="unknown"/>
+          </node>
         </unified_setup_data_view>
         <data_view>
           <net data_index="27" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="LTE_rx_path:inst7|fifo_inst:inst8|wrreq" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="27" tap_mode="classic" trigger_index="3" type="unknown"/>
@@ -8501,6 +8526,11 @@ zFJzMg==
             <net data_index="0" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="false" name="LTE_rx_path:inst7|fifo_inst:inst8|data[0]" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="0" tap_mode="classic" type="unknown"/>
           </bus>
           <net data_index="24" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="LTE_rx_path:inst7|fifo_inst:inst8|reset_n" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="24" tap_mode="classic" trigger_index="0" type="unknown"/>
+          <bus is_selected="false" level-0="alt_or" mnemonics="current_state_table (5)" name="LTE_rx_path:inst7|rx_pct_data_v2:inst|current_state" order="lsb_to_msb" radix="mnemonics" type="state machine">
+            <net data_index="38" duplicate_name_allowed="true" is_data_input="true" is_selected="false" is_storage_input="true" is_trigger_input="true" name="LTE_rx_path:inst7|rx_pct_data_v2:inst|current_state.idle" storage_index="38" tap_mode="classic" trigger_index="14" type="unknown"/>
+            <net data_index="39" duplicate_name_allowed="true" is_data_input="true" is_selected="false" is_storage_input="true" is_trigger_input="true" name="LTE_rx_path:inst7|rx_pct_data_v2:inst|current_state.skip_packets" storage_index="39" tap_mode="classic" trigger_index="15" type="unknown"/>
+            <net data_index="40" duplicate_name_allowed="true" is_data_input="true" is_selected="false" is_storage_input="true" is_trigger_input="true" name="LTE_rx_path:inst7|rx_pct_data_v2:inst|current_state.wait_pct_end" storage_index="40" tap_mode="classic" trigger_index="16" type="unknown"/>
+          </bus>
         </data_view>
         <setup_view>
           <net data_index="27" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="LTE_rx_path:inst7|fifo_inst:inst8|wrreq" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="27" tap_mode="classic" trigger_index="3" type="unknown"/>
@@ -8545,21 +8575,27 @@ zFJzMg==
             <net data_index="0" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="false" name="LTE_rx_path:inst7|fifo_inst:inst8|data[0]" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="0" tap_mode="classic" type="unknown"/>
           </bus>
           <net data_index="24" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="LTE_rx_path:inst7|fifo_inst:inst8|reset_n" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="24" tap_mode="classic" trigger_index="0" type="unknown"/>
+          <bus is_selected="false" level-0="alt_or" mnemonics="current_state_table (5)" name="LTE_rx_path:inst7|rx_pct_data_v2:inst|current_state" order="lsb_to_msb" radix="mnemonics" type="state machine">
+            <net data_index="38" duplicate_name_allowed="true" is_data_input="true" is_selected="false" is_storage_input="true" is_trigger_input="true" name="LTE_rx_path:inst7|rx_pct_data_v2:inst|current_state.idle" storage_index="38" tap_mode="classic" trigger_index="14" type="unknown"/>
+            <net data_index="39" duplicate_name_allowed="true" is_data_input="true" is_selected="false" is_storage_input="true" is_trigger_input="true" name="LTE_rx_path:inst7|rx_pct_data_v2:inst|current_state.skip_packets" storage_index="39" tap_mode="classic" trigger_index="15" type="unknown"/>
+            <net data_index="40" duplicate_name_allowed="true" is_data_input="true" is_selected="false" is_storage_input="true" is_trigger_input="true" name="LTE_rx_path:inst7|rx_pct_data_v2:inst|current_state.wait_pct_end" storage_index="40" tap_mode="classic" trigger_index="16" type="unknown"/>
+          </bus>
         </setup_view>
         <trigger_in_editor/>
         <trigger_out_editor/>
       </presentation>
-      <trigger CRC="B5F7A8DA" attribute_mem_mode="false" gap_record="true" global_temp="1" is_expanded="true" name="trigger: 2016/05/18 17:38:47  #3" position="pre" power_up_trigger_mode="false" record_data_gap="true" segment_size="64" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="false" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
+      <trigger attribute_mem_mode="false" gap_record="true" global_temp="1" name="trigger: 2016/05/23 10:43:00  #1" position="pre" power_up_trigger_mode="false" record_data_gap="true" segment_size="64" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="true" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
         <power_up_trigger position="pre" storage_qualifier_disabled="no"/>
         <events use_custom_flow_control="no">
           <level enabled="yes" name="condition1" type="basic">
             <power_up enabled="yes">
-            </power_up><op_node/>
+            </power_up>
+            <op_node/>
           </level>
         </events>
         <storage_qualifier_events>
-          <transitional>11111111111111111111111111111111111111
-            <pwr_up_transitional>11111111111111111111111111111111111111</pwr_up_transitional>
+          <transitional>11111111111111111111111111111111111111111
+            <pwr_up_transitional>11111111111111111111111111111111111111111</pwr_up_transitional>
           </transitional>
           <storage_qualifier_level type="basic">
             <power_up>
@@ -8579,11 +8615,6 @@ zFJzMg==
         </storage_qualifier_events>
       </trigger>
     </signal_set>
-    <position_info>
-      <single attribute="active tab" value="1"/>
-      <single attribute="setup horizontal scroll position" value="0"/>
-      <single attribute="setup vertical scroll position" value="0"/>
-    </position_info>
   </instance>
   <instance enabled="false" entity_name="sld_signaltap" is_auto_node="yes" is_expanded="true" name="tx_pct_data_mimo_v3" source_file="sld_signaltap.vhd">
     <node_ip_info instance_id="4" mfg_id="110" node_id="0" version="6"/>
@@ -9919,7 +9950,7 @@ zFJzMg==
         <trigger_in_editor/>
         <trigger_out_editor/>
       </presentation>
-      <trigger CRC="AD0DEA46" attribute_mem_mode="false" gap_record="true" global_temp="1" is_expanded="true" name="trigger: 2016/05/19 11:26:34  #0" position="center" power_up_trigger_mode="false" record_data_gap="true" segment_size="64" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="true" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
+      <trigger CRC="AD0DEA46" attribute_mem_mode="false" gap_record="true" global_temp="1" is_expanded="true" name="trigger: 2016/05/19 11:26:34  #0" position="center" power_up_trigger_mode="false" record_data_gap="true" segment_size="64" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="false" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
         <power_up_trigger position="pre" storage_qualifier_disabled="no"/>
         <events use_custom_flow_control="no">
           <level enabled="yes" name="condition1" type="basic">'LTE_tx_path:inst8|tx_pct_data_mimo_v3:inst9|fifo_inst:fifo0|wrreq' == rising edge
@@ -10161,7 +10192,7 @@ zFJzMg==
         <trigger_in_editor/>
         <trigger_out_editor/>
       </presentation>
-      <trigger CRC="7A530106" attribute_mem_mode="false" gap_record="true" global_temp="1" is_expanded="true" name="trigger: 2016/05/19 11:30:23  #1" position="pre" power_up_trigger_mode="false" record_data_gap="true" segment_size="64" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="false" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
+      <trigger CRC="7A530106" attribute_mem_mode="false" gap_record="true" global_temp="1" is_expanded="true" name="trigger: 2016/05/19 11:30:23  #1" position="pre" power_up_trigger_mode="false" record_data_gap="true" segment_size="64" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="true" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
         <power_up_trigger position="pre" storage_qualifier_disabled="no"/>
         <events use_custom_flow_control="no">
           <level enabled="yes" name="condition1" type="basic">
@@ -10197,7 +10228,7 @@ zFJzMg==
       <single attribute="setup vertical scroll position" value="0"/>
     </position_info>
   </instance>
-  <instance enabled="true" entity_name="sld_signaltap" is_auto_node="yes" is_expanded="true" name="pllcfg_top" source_file="sld_signaltap.vhd">
+  <instance enabled="false" entity_name="sld_signaltap" is_auto_node="yes" is_expanded="true" name="pllcfg_top" source_file="sld_signaltap.vhd">
     <node_ip_info instance_id="6" mfg_id="110" node_id="0" version="6"/>
     <signal_set global_temp="1" is_expanded="true" name="signal_set: 2016/05/19 14:37:37  #0">
       <clock name="LMK_CLK" polarity="posedge" tap_mode="classic"/>
@@ -12213,7 +12244,7 @@ zFJzMg==
         <trigger_in_editor/>
         <trigger_out_editor/>
       </presentation>
-      <trigger CRC="F4D234A8" attribute_mem_mode="false" gap_record="true" global_temp="1" is_expanded="true" name="trigger: 2016/05/19 14:37:37  #1" position="center" power_up_trigger_mode="false" record_data_gap="true" segment_size="64" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="true" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
+      <trigger CRC="F4D234A8" attribute_mem_mode="false" gap_record="true" global_temp="1" is_expanded="true" name="trigger: 2016/05/19 14:37:37  #1" position="center" power_up_trigger_mode="false" record_data_gap="true" segment_size="64" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="false" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
         <power_up_trigger position="pre" storage_qualifier_disabled="no"/>
         <events use_custom_flow_control="no">
           <level enabled="yes" name="condition1" type="basic">'pllcfg_top:inst9|pllrst_start[0]' == rising edge
@@ -12248,7 +12279,7 @@ zFJzMg==
       <single attribute="data horizontal scroll position" value="0"/>
       <single attribute="data vertical scroll position" value="0"/>
       <single attribute="setup horizontal scroll position" value="0"/>
-      <single attribute="setup vertical scroll position" value="0"/>
+      <single attribute="setup vertical scroll position" value="23"/>
       <single attribute="zoom level denominator" value="1"/>
       <single attribute="zoom level numerator" value="2"/>
       <single attribute="zoom offset denominator" value="1"/>
@@ -12765,13 +12796,12 @@ zFJzMg==
         <trigger_in_editor/>
         <trigger_out_editor/>
       </presentation>
-      <trigger attribute_mem_mode="false" gap_record="true" global_temp="1" name="trigger: 2016/05/20 14:49:00  #0" position="pre" power_up_trigger_mode="false" record_data_gap="true" segment_size="64" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="false" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
+      <trigger CRC="3F8602C6" attribute_mem_mode="false" gap_record="true" global_temp="1" is_expanded="true" name="trigger: 2016/05/20 14:49:00  #0" position="pre" power_up_trigger_mode="false" record_data_gap="true" segment_size="64" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="true" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
         <power_up_trigger position="pre" storage_qualifier_disabled="no"/>
         <events use_custom_flow_control="no">
           <level enabled="yes" name="condition1" type="basic">
             <power_up enabled="yes">
-            </power_up>
-            <op_node/>
+            </power_up><op_node/>
           </level>
         </events>
         <storage_qualifier_events>
@@ -12803,7 +12833,7 @@ zFJzMg==
     </position_info>
   </instance>
   <global_info>
-    <single attribute="active instance" value="6"/>
+    <single attribute="active instance" value="3"/>
     <single attribute="config widget visible" value="1"/>
     <single attribute="data log widget visible" value="1"/>
     <single attribute="hierarchy widget visible" value="1"/>

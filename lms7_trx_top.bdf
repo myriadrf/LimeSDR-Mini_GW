@@ -1507,7 +1507,7 @@ agreement for further details.
 	(drawing
 		(rectangle (rect 16 16 352 304))
 	)
-	(annotation_block (parameter)(rect -512 1744 -216 1792))
+	(annotation_block (parameter)(rect -520 1680 -224 1792))
 )
 (symbol
 	(rect -2664 1848 -2328 2152)

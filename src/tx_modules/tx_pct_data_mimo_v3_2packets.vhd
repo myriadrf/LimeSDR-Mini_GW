@@ -221,7 +221,7 @@ begin
               "111" when sample_width="01" else
               "100";
 
-fifo_rdreq<=rdreq0 or rdreq1 or rdreq2 or rdreq3;
+fifo_rdreq<=rdreq0 or rdreq1;
 --diq_ready<=fifo0_data_rdy or fifo1_data_rdy or fifo2_data_rdy or fifo3_data_rdy;
 
 
@@ -249,22 +249,22 @@ process(current_read_state, fifo_read_en) begin
 end process;
  
 --fifo2
-process(current_read_state, fifo_read_en) begin
-	if (current_read_state=read2 and fifo_read_en='1') then
-			rdreq2 <= '1'; 
-	else
-		  rdreq2<='0';
-	end if;	
-end process; 
-
---fifo3
-process(current_read_state, fifo_read_en) begin
-	if (current_read_state=read3 and fifo_read_en='1') then
-			rdreq3 <= '1'; 
-	else
-		  rdreq3<='0';
-	end if;	
-end process;
+--process(current_read_state, fifo_read_en) begin
+--	if (current_read_state=read2 and fifo_read_en='1') then
+--			rdreq2 <= '1'; 
+--	else
+--		  rdreq2<='0';
+--	end if;	
+--end process; 
+--
+----fifo3
+--process(current_read_state, fifo_read_en) begin
+--	if (current_read_state=read3 and fifo_read_en='1') then
+--			rdreq3 <= '1'; 
+--	else
+--		  rdreq3<='0';
+--	end if;	
+--end process;
 
 --read enable
 
@@ -348,9 +348,9 @@ end process;
 -------------------------------------------------------------------------------
 --fifo read machine combo
 -------------------------------------------------------------------------------
-read_fsm : process(current_read_state, fifo0_data_rdy, fifo1_data_rdy, fifo2_data_rdy, fifo3_data_rdy,
-							fifo_rd_cnt, pct_samplenr, fifo0_samplenr_d1, fifo1_samplenr_d1, fifo2_samplenr_d1, fifo3_samplenr_d1, lte_synch_dis,
-							fifo0_pctrsvd_d1(4), fifo1_pctrsvd_d1(4), fifo2_pctrsvd_d1(4), fifo3_pctrsvd_d1(4)) 
+read_fsm : process(current_read_state, fifo0_data_rdy, fifo1_data_rdy,
+							fifo_rd_cnt, pct_samplenr, fifo0_samplenr_d1, fifo1_samplenr_d1, lte_synch_dis,
+							fifo0_pctrsvd_d1(4), fifo1_pctrsvd_d1(4)) 
 begin
     next_read_state <= current_read_state;
     
@@ -359,24 +359,15 @@ begin
         if fifo0_data_rdy='1'  and (unsigned(fifo0_samplenr_d1)=unsigned(pct_samplenr)+1 or lte_synch_dis='1' or fifo0_pctrsvd_d1(4)='1') then 
             next_read_state<=read0;
         elsif fifo1_data_rdy='1'  and (unsigned(fifo1_samplenr_d1)=unsigned(pct_samplenr)+1 or lte_synch_dis='1' or fifo1_pctrsvd_d1(4)='1') then 
-            next_read_state<=read1;
-        elsif fifo2_data_rdy='1'  and (unsigned(fifo2_samplenr_d1)=unsigned(pct_samplenr)+1 or lte_synch_dis='1' or fifo2_pctrsvd_d1(4)='1')then 
-            next_read_state<=read2; 
-	     elsif fifo3_data_rdy='1'  and (unsigned(fifo3_samplenr_d1)=unsigned(pct_samplenr)+1 or lte_synch_dis='1' or fifo3_pctrsvd_d1(4)='1') then 
-            next_read_state<=read3; 			
+            next_read_state<=read1;		
         else
             next_read_state<=idle;
         end if;
         
       when read0 => 
-           --if fifo_rd_cnt=pct_size-9 then --??
            if fifo_rd_cnt=((pct_size-8)/2-1) then --??
               if fifo1_data_rdy='1' and (unsigned(fifo1_samplenr_d1)=unsigned(pct_samplenr)+1 or lte_synch_dis='1' or fifo1_pctrsvd_d1(4)='1') then 
                 next_read_state<=read1;
-              elsif fifo2_data_rdy='1' and (unsigned(fifo2_samplenr_d1)=unsigned(pct_samplenr)+1 or lte_synch_dis='1' or fifo2_pctrsvd_d1(4)='1') then
-                next_read_state<=read2;
-				 elsif fifo3_data_rdy='1' and (unsigned(fifo3_samplenr_d1)=unsigned(pct_samplenr)+1 or lte_synch_dis='1' or fifo3_pctrsvd_d1(4)='1') then
-                next_read_state<=read3;
               else
                next_read_state<=idle;
               end if;     
@@ -387,11 +378,7 @@ begin
       when read1 =>   
           --if fifo_rd_cnt=pct_size-9 then --??
           if fifo_rd_cnt=((pct_size-8)/2-1) then --??
-              if fifo2_data_rdy='1' and (unsigned(fifo2_samplenr_d1)=unsigned(pct_samplenr)+1 or lte_synch_dis='1' or fifo2_pctrsvd_d1(4)='1')then 
-                next_read_state<=read2;
-				  elsif fifo3_data_rdy='1' and (unsigned(fifo3_samplenr_d1)=unsigned(pct_samplenr)+1 or lte_synch_dis='1' or fifo3_pctrsvd_d1(4)='1') then
-                next_read_state<=read3; 
-              elsif fifo0_data_rdy='1'  and (unsigned(fifo0_samplenr_d1)=unsigned(pct_samplenr)+1 or lte_synch_dis='1' or fifo0_pctrsvd_d1(4)='1') then
+              if fifo0_data_rdy='1'  and (unsigned(fifo0_samplenr_d1)=unsigned(pct_samplenr)+1 or lte_synch_dis='1' or fifo0_pctrsvd_d1(4)='1') then
                 next_read_state<=read0;
               else
                next_read_state<=idle;
@@ -399,39 +386,6 @@ begin
           else 
               next_read_state<=read1;
           end if;
-			 
-      when read2 =>   
-          --if fifo_rd_cnt=pct_size-9 then --??
-          if fifo_rd_cnt=((pct_size-8)/2-1) then --??
-			 	  if fifo3_data_rdy='1' and (unsigned(fifo3_samplenr_d1)=unsigned(pct_samplenr)+1 or lte_synch_dis='1' or fifo3_pctrsvd_d1(4)='1') then
-                next_read_state<=read3;
-              elsif fifo0_data_rdy='1' and (unsigned(fifo0_samplenr_d1)=unsigned(pct_samplenr)+1 or lte_synch_dis='1' or fifo0_pctrsvd_d1(4)='1') then 
-                next_read_state<=read0;
-              elsif fifo1_data_rdy='1' and (unsigned(fifo1_samplenr_d1)=unsigned(pct_samplenr)+1 or lte_synch_dis='1' or fifo1_pctrsvd_d1(4)='1') then
-                next_read_state<=read1;
-              else
-               next_read_state<=idle;
-              end if;   
-          else 
-              next_read_state<=read2;
-          end if;
-			 
-		when read3 =>   
-          --if fifo_rd_cnt=pct_size-9 then --??
-          if fifo_rd_cnt=((pct_size-8)/2-1) then --??
-              if fifo0_data_rdy='1' and (unsigned(fifo0_samplenr_d1)=unsigned(pct_samplenr)+1 or lte_synch_dis='1' or fifo0_pctrsvd_d1(4)='1') then 
-                next_read_state<=read0;
-              elsif fifo1_data_rdy='1' and (unsigned(fifo1_samplenr_d1)=unsigned(pct_samplenr)+1 or lte_synch_dis='1' or fifo1_pctrsvd_d1(4)='1') then
-                next_read_state<=read1;
-				  elsif fifo2_data_rdy='1' and (unsigned(fifo2_samplenr_d1)=unsigned(pct_samplenr)+1 or lte_synch_dis='1' or fifo2_pctrsvd_d1(4)='1') then
-                next_read_state<=read2; 
-              else
-               next_read_state<=idle;
-              end if;   
-          else 
-              next_read_state<=read3;
-          end if;
-			 
       when others => 
       end case;
 end process;
@@ -451,7 +405,7 @@ end process;
 -------------------------------------------------------------------------------
 --fifo state machine combo
 -------------------------------------------------------------------------------
-fifo_fsm : process(current_fifo_st, wrempty0, wrempty1, wrempty2, wrempty3, wrreq_cnt) 
+fifo_fsm : process(current_fifo_st, wrempty0, wrempty1, wrreq_cnt) 
 begin
     nex_fifo_st <= current_fifo_st;
     
@@ -460,24 +414,15 @@ begin
             if wrempty0='1' then 
               nex_fifo_st<=check0;
             elsif wrempty1='1' then 
-              nex_fifo_st<=check1;
-            elsif wrempty2='1' then
-               nex_fifo_st<=check2;
-            elsif wrempty3='1' then
-               nex_fifo_st<=check3; 					
+              nex_fifo_st<=check1;				
             else 
               nex_fifo_st<=idle;
             end if;
             
       when check0 => -- select fifo0 for writting
-				--if wrreq_cnt=pct_size-1  then
             if wrreq_cnt=pct_size/2-1  then 
               if wrempty1='1' then 
                   nex_fifo_st<=check1;
-              elsif wrempty2='1' then 
-                  nex_fifo_st<=check2;
-				  elsif wrempty3='1' then 
-                  nex_fifo_st<=check3;
               else
                  nex_fifo_st<=idle;
               end if;  
@@ -486,13 +431,8 @@ begin
           	 end if;
           	  
       when check1 => -- select fifo1 for writting
-            --if wrreq_cnt=pct_size-1 then 
 				if wrreq_cnt=pct_size/2-1 then
-              if wrempty2='1' then 
-                  nex_fifo_st<=check2;
-				  elsif wrempty3='1' then 
-                  nex_fifo_st<=check3;	
-              elsif wrempty0='1' then 
+              if wrempty0='1' then 
                   nex_fifo_st<=check0;
               else
                  nex_fifo_st<=idle;
@@ -500,39 +440,7 @@ begin
             else
               nex_fifo_st<=check1;
           	 end if;
-          	 
-      when check2 => -- select fifo2 for writting
-            --if wrreq_cnt=pct_size-1 then
-				if wrreq_cnt=pct_size/2-1 then
-			     if wrempty3='1' then 
-                  nex_fifo_st<=check3;	
-              elsif wrempty0='1' then 
-                  nex_fifo_st<=check0;
-              elsif wrempty1='1' then 
-                  nex_fifo_st<=check1;
-              else
-                 nex_fifo_st<=idle;
-              end if;
-            else
-              nex_fifo_st<=check2;
-          	end if;
-
-
-      when check3 => -- select fifo3 for writting
-            --if wrreq_cnt=pct_size-1 then
-				if wrreq_cnt=pct_size/2-1 then
-              if wrempty0='1' then 
-                  nex_fifo_st<=check0;
-              elsif wrempty1='1' then 
-                  nex_fifo_st<=check1;
-				  elsif wrempty2='1' then 
-                  nex_fifo_st<=check2;		
-              else
-                 nex_fifo_st<=idle;
-              end if;             
-            else
-              nex_fifo_st<=check3;
-          	end if; 				 
+          					 
         
      when others =>
      end case;
@@ -572,49 +480,39 @@ begin
 		  
 		   fifo0_samplenr_d0<=(others=>'0');
 			fifo1_samplenr_d0<=(others=>'0');
-			fifo2_samplenr_d0<=(others=>'0');
-			fifo3_samplenr_d0<=(others=>'0');
+
 			
 			
 			fifo0_samplenr_d1<=(others=>'0');
 			fifo1_samplenr_d1<=(others=>'0');
-			fifo2_samplenr_d1<=(others=>'0');
-			fifo3_samplenr_d1<=(others=>'0');
+
 			
 			fifo0_pctrsvd_d0<=(others=>'0');
 			fifo1_pctrsvd_d0<=(others=>'0');
-			fifo2_pctrsvd_d0<=(others=>'0');
-			fifo3_pctrsvd_d0<=(others=>'0');
+
 			
 			fifo0_pctrsvd_d1<=(others=>'0');
 			fifo1_pctrsvd_d1<=(others=>'0');
-			fifo2_pctrsvd_d1<=(others=>'0');
-			fifo3_pctrsvd_d1<=(others=>'0');
+
 			
  	    elsif (fifo_rclk'event and fifo_rclk = '1') then
 			--synchronize pct_samplenr to fifo_rclk
-		   --pct_samplenr_d0<=pct_samplenr;
-			--pct_samplenr_d1<=pct_samplenr_d0;
 			--synchronize fifox_samplenr to fifo_rclk
 			fifo0_samplenr_d0<=fifo0_samplenr;
 			fifo1_samplenr_d0<=fifo1_samplenr;
-			fifo2_samplenr_d0<=fifo2_samplenr;
-			fifo3_samplenr_d0<=fifo3_samplenr;
+
 			
 			fifo0_samplenr_d1<=fifo0_samplenr_d0;
 			fifo1_samplenr_d1<=fifo1_samplenr_d0;
-			fifo2_samplenr_d1<=fifo2_samplenr_d0;
-			fifo3_samplenr_d1<=fifo3_samplenr_d0;
+
 			
 			fifo0_pctrsvd_d0<=fifo0_pctrsvd;
 			fifo1_pctrsvd_d0<=fifo1_pctrsvd;
-			fifo2_pctrsvd_d0<=fifo2_pctrsvd;
-			fifo3_pctrsvd_d0<=fifo3_pctrsvd;
+
 			
 			fifo0_pctrsvd_d1<=fifo0_pctrsvd_d0;
 			fifo1_pctrsvd_d1<=fifo1_pctrsvd_d0;
-			fifo2_pctrsvd_d1<=fifo2_pctrsvd_d0;
-			fifo3_pctrsvd_d1<=fifo3_pctrsvd_d0;
+
 			
  	      if fifo_rdreq='1' then 
  	          --if fifo_rd_cnt<pct_size-9 then 
@@ -639,20 +537,10 @@ begin
       if reset_n_fifo_wclk='0' then
         fifo0_samplenr<=(others=>'0');
         fifo1_samplenr<=(others=>'0');
-        fifo2_samplenr<=(others=>'0');
-		  fifo3_samplenr<=(others=>'0');
+
  	    elsif (fifo_wclk'event and fifo_wclk = '1') then
 		 
  	      --fifo0
--- 	      if (wrreq_cnt=4 and current_fifo_st=check0) then 
--- 	        fifo0_samplenr(15 downto 0) <= fifo_data;
--- 	      elsif (wrreq_cnt=5 and current_fifo_st=check0) then
--- 	        fifo0_samplenr(31 downto 16) <= fifo_data;
--- 	      elsif (wrreq_cnt=6 and current_fifo_st=check0) then
--- 	        fifo0_samplenr(47 downto 32) <= fifo_data; 
--- 	      elsif (wrreq_cnt=7 and current_fifo_st=check0) then
--- 	        fifo0_samplenr(63 downto 48) <= fifo_data;    
--- 	      else
  	      if (wrreq_cnt=2 and current_fifo_st=check0) then 
  	        fifo0_samplenr(31 downto 0) <= fifo_data;
  	      elsif (wrreq_cnt=3 and current_fifo_st=check0) then
@@ -666,15 +554,6 @@ begin
  	      end if;
 			
  	      --fifo1 	      	      
--- 	      if (wrreq_cnt=4 and current_fifo_st=check1) then 
--- 	        fifo1_samplenr(15 downto 0) <= fifo_data;
--- 	      elsif (wrreq_cnt=5 and current_fifo_st=check1) then
--- 	        fifo1_samplenr(31 downto 16) <= fifo_data;
--- 	      elsif (wrreq_cnt=6 and current_fifo_st=check1) then
--- 	        fifo1_samplenr(47 downto 32) <= fifo_data; 
--- 	      elsif (wrreq_cnt=7 and current_fifo_st=check1) then
--- 	        fifo1_samplenr(63 downto 48) <= fifo_data; 
--- 	      else 
  	      if (wrreq_cnt=2 and current_fifo_st=check1) then 
  	        fifo1_samplenr(31 downto 0) <= fifo_data;
  	      elsif (wrreq_cnt=3 and current_fifo_st=check1) then
@@ -685,51 +564,7 @@ begin
  	        else 
  	          fifo1_samplenr<=fifo1_samplenr;
  	        end if;
- 	      end if;
- 	      
- 	      --fifo2			
--- 	      if (wrreq_cnt=4 and current_fifo_st=check2) then 
--- 	        fifo2_samplenr(15 downto 0) <= fifo_data;
--- 	      elsif (wrreq_cnt=5 and current_fifo_st=check2) then
--- 	        fifo2_samplenr(31 downto 16) <= fifo_data;
--- 	      elsif (wrreq_cnt=6 and current_fifo_st=check2) then
--- 	        fifo2_samplenr(47 downto 32) <= fifo_data; 
--- 	      elsif (wrreq_cnt=7 and current_fifo_st=check2) then
--- 	        fifo2_samplenr(63 downto 48) <= fifo_data; 
--- 	      else
-	      if (wrreq_cnt=2 and current_fifo_st=check2) then 
- 	        fifo2_samplenr(31 downto 0) <= fifo_data;
- 	      elsif (wrreq_cnt=3 and current_fifo_st=check2) then
- 	        fifo2_samplenr(63 downto 32) <= fifo_data; 
- 	      else
- 	       	if aclr2='1' then 
- 	          fifo2_samplenr<=(others=>'0');
- 	        else  
- 	          fifo2_samplenr<=fifo2_samplenr;
- 	        end if;
- 	      end if;
-			
- 	      --fifo3						
--- 	      if (wrreq_cnt=4 and current_fifo_st=check3) then 
--- 	        fifo3_samplenr(15 downto 0) <= fifo_data;
--- 	      elsif (wrreq_cnt=5 and current_fifo_st=check3) then
--- 	        fifo3_samplenr(31 downto 16) <= fifo_data;
--- 	      elsif (wrreq_cnt=6 and current_fifo_st=check3) then
--- 	        fifo3_samplenr(47 downto 32) <= fifo_data; 
--- 	      elsif (wrreq_cnt=7 and current_fifo_st=check3) then
--- 	        fifo3_samplenr(63 downto 48) <= fifo_data; 
--- 	      else
- 	      if (wrreq_cnt=2 and current_fifo_st=check3) then 
- 	        fifo3_samplenr(31 downto 0) <= fifo_data;
- 	      elsif (wrreq_cnt=3 and current_fifo_st=check3) then
- 	        fifo3_samplenr(63 downto 32) <= fifo_data; 
- 	      else
- 	       	if aclr3='1' then 
- 	          fifo3_samplenr<=(others=>'0');
- 	        else  
- 	          fifo3_samplenr<=fifo3_samplenr;
- 	        end if;
- 	      end if;			
+ 	      end if;		
 
  	    end if;
     end process;
@@ -744,8 +579,6 @@ begin
       if reset_n_fifo_wclk='0' then
         fifo0_pctrsvd<=(others=>'0');
         fifo1_pctrsvd<=(others=>'0');
-        fifo2_pctrsvd<=(others=>'0');
-		  fifo3_pctrsvd<=(others=>'0');
  	    elsif (fifo_wclk'event and fifo_wclk = '1') then
 		 
  	      if (wrreq_cnt=0 and current_fifo_st=check0) then 
@@ -771,30 +604,7 @@ begin
  	          fifo1_pctrsvd<=fifo1_pctrsvd;
  	        end if;
  	      end if;
- 	      
-	      if (wrreq_cnt=0 and current_fifo_st=check2) then 
- 	        fifo2_pctrsvd(31 downto 0) <= fifo_data;
- 	      elsif (wrreq_cnt=1 and current_fifo_st=check2) then
- 	        fifo2_pctrsvd(63 downto 32) <= fifo_data; 
- 	      else
- 	       	if aclr2='1' then 
- 	          fifo2_pctrsvd<=(others=>'0');
- 	        else  
- 	          fifo2_pctrsvd<=fifo2_pctrsvd;
- 	        end if;
- 	      end if;
-			
- 	      if (wrreq_cnt=0 and current_fifo_st=check3) then 
- 	        fifo3_pctrsvd(31 downto 0) <= fifo_data;
- 	      elsif (wrreq_cnt=1 and current_fifo_st=check3) then
- 	        fifo3_pctrsvd(63 downto 32) <= fifo_data; 
- 	      else
- 	       	if aclr3='1' then 
- 	          fifo3_pctrsvd<=(others=>'0');
- 	        else  
- 	          fifo3_pctrsvd<=fifo3_pctrsvd;
- 	        end if;
- 	      end if;			
+		
 
  	    end if;
     end process;	  
@@ -855,57 +665,6 @@ begin
   
   
   
-      fifo2 :  fifo_inst 
-  generic map (
-			dev_family	    => dev_family, 
-			wrwidth         => 32, 
-			wrusedw_witdth  => 11, 
-			rdwidth         => 32, 
-			rdusedw_width   => 11,
-			show_ahead      => "OFF"
-  )  
-  port map (
-      --input ports 
-      reset_n       => not aclr2, 
-      wrclk         => fifo_wclk,
-      wrreq         => wrreq2,
-      data          => fifo_data, 
-      wrfull        => open,
-		wrempty		  => wrempty2, 
-      wrusedw       => open,
-      rdclk 	     => fifo_rclk,
-      rdreq         => rdreq2,
-      q             => q2,
-      rdempty       => open,
-      rdusedw       => rdusedw2     		
-        );
-
-
-    fifo3 :  fifo_inst 
-  generic map (
-			dev_family	    => dev_family, 
-			wrwidth         => 32, 
-			wrusedw_witdth  => 11, 
-			rdwidth         => 32, 
-			rdusedw_width   => 11,
-			show_ahead      => "OFF"
-  )  
-  port map (
-      --input ports 
-      reset_n       => not aclr3, 
-      wrclk         => fifo_wclk,
-      wrreq         => wrreq3,
-      data          => fifo_data, 
-      wrfull        => open,
-		wrempty		  => wrempty3, 
-      wrusedw       => open,
-      rdclk 	     => fifo_rclk,
-      rdreq         => rdreq3,
-      q             => q3,
-      rdempty       => open,
-      rdusedw       => rdusedw3     		
-        );
-  
 --   rdusedw_mux<=rdusedw0 when current_read_state=read0 else 
 --                rdusedw1 when current_read_state=read1 else 
 --                rdusedw2 when current_read_state=read2 else 
@@ -914,7 +673,7 @@ begin
 -------------------------------------------------------------------------------
 --misc combinational signals
 ------------------------------------------------------------------------------   
-tx_outfifo_rdy	<=  wrempty0 or wrempty1 or wrempty2 or wrempty3;-- or wr_status;
+tx_outfifo_rdy	<=  wrempty0 or wrempty1; --or wr_status;
 wr_status		<= '1' when unsigned(wrreq_cnt)>0 else '0';
 --wreq_en			<= '1' when  (wrreq_cnt>=8) else '0'; 
 wreq_en			<= '1' when  (wrreq_cnt>=4) else '0'; 
@@ -924,8 +683,6 @@ wreq_en			<= '1' when  (wrreq_cnt>=4) else '0';
 -------------------------------------------------------------------------------
 wrreq0<=(fifo_wrreq and wreq_en) when current_fifo_st=check0 else '0';
 wrreq1<=(fifo_wrreq and wreq_en) when current_fifo_st=check1 else '0';
-wrreq2<=(fifo_wrreq and wreq_en) when current_fifo_st=check2 else '0';
-wrreq3<=(fifo_wrreq and wreq_en) when current_fifo_st=check3 else '0';
 
 
   process(reset_n, fifo_rclk)
@@ -948,18 +705,15 @@ wrreq3<=(fifo_wrreq and wreq_en) when current_fifo_st=check3 else '0';
       if reset_n='0' then
         aclr0<='1';
         aclr1<='1';
-        aclr2<='1';
-		  aclr3<='1';
+
         rdusedw0_reg<=(others=>'0');
         rdusedw1_reg<=(others=>'0'); 
-        rdusedw2_reg<=(others=>'0'); 
-		  rdusedw3_reg<=(others=>'0');
+
  	    elsif (fifo_rclk'event and fifo_rclk = '1') then
 
  	     rdusedw0_reg<=rdusedw0;
         rdusedw1_reg<=rdusedw1;
-        rdusedw2_reg<=rdusedw2;
-		  rdusedw3_reg<=rdusedw3;
+
          
 			--fifo0
  	      --if unsigned(rdusedw0)=pct_size-8 and unsigned(fifo0_samplenr_d1)<unsigned(pct_samplenr) and rdreq0='0' and lte_synch_dis='0' then 
@@ -977,22 +731,6 @@ wrreq3<=(fifo_wrreq and wreq_en) when current_fifo_st=check3 else '0';
  	          aclr1<='0';
  	      end if;
  	      
-			--fifo2
- 	      --if unsigned(rdusedw2)=pct_size-8 and unsigned(fifo2_samplenr_d1)<unsigned(pct_samplenr) and rdreq2='0' and lte_synch_dis='0' then 
- 	        if unsigned(rdusedw2)=(pct_size-8)/2 and unsigned(fifo2_samplenr_d1)<unsigned(pct_samplenr) and rdreq2='0' and lte_synch_dis='0' and fifo2_pctrsvd_d1(4)='0' then   
- 	          aclr2<='1';
- 	      else 
- 	          aclr2<='0';
- 	      end if;
-			
-			--fifo3
-			--if unsigned(rdusedw3)=pct_size-8 and unsigned(fifo3_samplenr_d1)<unsigned(pct_samplenr) and rdreq3='0' and lte_synch_dis='0' then 
- 	      if unsigned(rdusedw3)=(pct_size-8)/2 and unsigned(fifo3_samplenr_d1)<unsigned(pct_samplenr) and rdreq3='0' and lte_synch_dis='0' and fifo3_pctrsvd_d1(4)='0' then     
- 	          aclr3<='1';
- 	      else 
- 	          aclr3<='0';
- 	      end if;
- 	      
  	    end if;
     end process;
     
@@ -1006,8 +744,6 @@ wrreq3<=(fifo_wrreq and wreq_en) when current_fifo_st=check3 else '0';
 
         fifo0_data_rdy<='0';
         fifo1_data_rdy<='0';
-        fifo2_data_rdy<='0';
-		  fifo3_data_rdy<='0';
         tx_mux_sel_d<=(others=>'0');
  	    elsif (fifo_rclk'event and fifo_rclk = '1') then
         tx_mux_sel_d<=tx_mux_sel;
@@ -1027,22 +763,6 @@ wrreq3<=(fifo_wrreq and wreq_en) when current_fifo_st=check3 else '0';
         else 
             fifo1_data_rdy<='0';
         end if;
-		  
-        --fifo2
-        --if unsigned(rdusedw2_reg)=pct_size-8 and aclr2='0' then
-        if unsigned(rdusedw2_reg)=(pct_size-8)/2 and aclr2='0' then 
-            fifo2_data_rdy<='1';
-        else 
-            fifo2_data_rdy<='0';
-        end if;
-		  
-		  --fifo3
-		  --if unsigned(rdusedw3_reg)=pct_size-8 and aclr3='0' then
-		  if unsigned(rdusedw3_reg)=(pct_size-8)/2 and aclr3='0' then 
-            fifo3_data_rdy<='1';
-        else 
-            fifo3_data_rdy<='0';
-        end if;
  	      
  	    end if;
     end process;
@@ -1050,18 +770,15 @@ wrreq3<=(fifo_wrreq and wreq_en) when current_fifo_st=check3 else '0';
 -------------------------------------------------------------------------------
 --TX mux and mux sel signal
 -------------------------------------------------------------------------------  
-   tx_mux_sel<="11" when   rdreq3='1' else
-					"10" when   rdreq2='1' else                         
-               "01" when  	rdreq1='1' else
+   tx_mux_sel<="01" when  	rdreq1='1' else
                "00";
               
 	compressed_data<= q0 when tx_mux_sel_d="00" else
-				q1 when tx_mux_sel_d="01" else
-				q2 when tx_mux_sel_d="10" else
-				q3;
+							q1;
+
 		  			  
 				  
-aclr<= aclr0 or aclr1 or aclr2 or aclr3;
+aclr<= aclr0 or aclr1;
 tst_aclr_ext<= aclr;
 
 

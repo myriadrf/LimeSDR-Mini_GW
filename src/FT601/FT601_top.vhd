@@ -14,12 +14,14 @@ use ieee.numeric_std.all;
 -- ----------------------------------------------------------------------------
 entity FT601_top is
 	generic(
-			EP02_rwidth		: integer := 8;
-			EP82_wwidth		: integer := 8;
-			EP82_wsize  	: integer := 64;  --packet size in bytes, has to be multiple of 4 bytes				
-			EP03_rwidth		: integer := 32;
-			EP83_wwidth		: integer := 64;
-			EP83_wsize  	: integer := 2048 --packet size in bytes, has to be multiple of 4 bytes	
+			EP02_rdusedw_width	: integer := 11; 
+			EP02_rwidth				: integer := 8;
+			EP82_wrusedw_width	: integer := 11;
+			EP82_wwidth				: integer := 8;
+			EP82_wsize  			: integer := 64;  --packet size in bytes, has to be multiple of 4 bytes				
+			EP03_rwidth				: integer := 32;
+			EP83_wwidth				: integer := 64;
+			EP83_wsize  			: integer := 2048 --packet size in bytes, has to be multiple of 4 bytes	
 	);
 	port (
 			--input ports 
@@ -72,7 +74,7 @@ signal EP02_wrempty			: std_logic;
 signal EP02_wr					: std_logic; 
 signal EP02_wdata				: std_logic_vector(31 downto 0);
 --EP82 fifo signals
-signal EP82_fifo_rdusedw	: std_logic_vector(8 downto 0);
+signal EP82_fifo_rdusedw	: std_logic_vector(EP82_wrusedw_width-3 downto 0);
 signal EP82_fifo_q			: std_logic_vector(31 downto 0);
 signal EP82_fifo_rdreq		: std_logic;
 
@@ -207,10 +209,10 @@ begin
 EP02_fifo : fifo_inst		
 generic map(
 		dev_family		=> "Cyclone IV",
-		wrwidth			=> 32,						--32 bits ftdi side, 
-		wrusedw_witdth	=> 9, 						--10=512 words (2048kB)
+		wrwidth			=> 32,								--32 bits ftdi side, 
+		wrusedw_witdth	=> EP02_rdusedw_width-2, 		--10=512 words (2048kB)
 		rdwidth			=> EP02_rwidth,
-		rdusedw_width	=> 11,				
+		rdusedw_width	=> EP02_rdusedw_width,				
 		show_ahead     => "OFF"
 )
 port map(
@@ -233,9 +235,9 @@ EP82_fifo : fifo_inst
 generic map(
 		dev_family		=> "Cyclone IV",
 		wrwidth			=> EP82_wwidth,
-		wrusedw_witdth	=> 11, 						--12=2048 words (2048kB)
+		wrusedw_witdth	=> EP82_wrusedw_width, 						--12=2048 words (2048kB)
 		rdwidth			=> 32,						--32 bits ftdi side, 
-		rdusedw_width	=> 9,				
+		rdusedw_width	=> EP82_wrusedw_width-2,				
 		show_ahead		=> "ON"
 )
 port map(
@@ -308,7 +310,7 @@ port map(
 -- ----------------------------------------------------------------------------		
 	ftdi_arbiter : FT601_arb
 	generic map(	
-			EP82_fifo_rwidth	=> 9,
+			EP82_fifo_rwidth	=> EP82_wrusedw_width-2,
 			EP82_wsize       	=> EP82_wsize,
 			EP83_fifo_rwidth	=> 13,
 			EP83_wsize       	=> EP83_wsize

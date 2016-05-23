@@ -200,6 +200,11 @@ agreement for further details.
 		(line (pt 336 64)(pt 320 64)(line_width 3))
 	)
 	(parameter
+		"EP02_rdusedw_width"
+		"11"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
 		"EP02_rwidth"
 		"8"
 		""

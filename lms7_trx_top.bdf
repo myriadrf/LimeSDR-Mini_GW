@@ -1211,167 +1211,6 @@ agreement for further details.
 	)
 )
 (symbol
-	(rect -880 1792 -512 2112)
-	(text "LTE_tx_path" (rect 5 0 108 16)(font "Arial" (font_size 8)))
-	(text "inst8" (rect 8 302 49 316)(font "Arial" ))
-	(port
-		(pt 0 32)
-		(input)
-		(text "RX_clk" (rect 0 0 56 16)(font "Arial" (font_size 8)))
-		(text "RX_clk" (rect 21 27 77 43)(font "Arial" (font_size 8)))
-		(line (pt 0 32)(pt 16 32))
-	)
-	(port
-		(pt 0 48)
-		(input)
-		(text "rxpll_locked" (rect 0 0 113 16)(font "Arial" (font_size 8)))
-		(text "rxpll_locked" (rect 21 43 134 59)(font "Arial" (font_size 8)))
-		(line (pt 0 48)(pt 16 48))
-	)
-	(port
-		(pt 0 64)
-		(input)
-		(text "TX_clk" (rect 0 0 56 16)(font "Arial" (font_size 8)))
-		(text "TX_clk" (rect 21 59 77 75)(font "Arial" (font_size 8)))
-		(line (pt 0 64)(pt 16 64))
-	)
-	(port
-		(pt 0 80)
-		(input)
-		(text "txpll_locked" (rect 0 0 113 16)(font "Arial" (font_size 8)))
-		(text "txpll_locked" (rect 21 75 134 91)(font "Arial" (font_size 8)))
-		(line (pt 0 80)(pt 16 80))
-	)
-	(port
-		(pt 0 96)
-		(input)
-		(text "pct_wrclk" (rect 0 0 84 16)(font "Arial" (font_size 8)))
-		(text "pct_wrclk" (rect 21 91 105 107)(font "Arial" (font_size 8)))
-		(line (pt 0 96)(pt 16 96))
-	)
-	(port
-		(pt 0 112)
-		(input)
-		(text "pct_wr" (rect 0 0 56 16)(font "Arial" (font_size 8)))
-		(text "pct_wr" (rect 21 107 77 123)(font "Arial" (font_size 8)))
-		(line (pt 0 112)(pt 16 112))
-	)
-	(port
-		(pt 0 128)
-		(input)
-		(text "pct_data[31..0]" (rect 0 0 141 16)(font "Arial" (font_size 8)))
-		(text "pct_data[31..0]" (rect 21 123 162 139)(font "Arial" (font_size 8)))
-		(line (pt 0 128)(pt 16 128)(line_width 3))
-	)
-	(port
-		(pt 0 144)
-		(input)
-		(text "rxpath_wr" (rect 0 0 84 16)(font "Arial" (font_size 8)))
-		(text "rxpath_wr" (rect 21 139 105 155)(font "Arial" (font_size 8)))
-		(line (pt 0 144)(pt 16 144))
-	)
-	(port
-		(pt 0 160)
-		(input)
-		(text "lte_ch_en[15..0]" (rect 0 0 151 16)(font "Arial" (font_size 8)))
-		(text "lte_ch_en[15..0]" (rect 21 155 172 171)(font "Arial" (font_size 8)))
-		(line (pt 0 160)(pt 16 160)(line_width 3))
-	)
-	(port
-		(pt 0 176)
-		(input)
-		(text "lte_smpl_width[1..0]" (rect 0 0 188 16)(font "Arial" (font_size 8)))
-		(text "lte_smpl_width[1..0]" (rect 21 171 209 187)(font "Arial" (font_size 8)))
-		(line (pt 0 176)(pt 16 176)(line_width 3))
-	)
-	(port
-		(pt 0 192)
-		(input)
-		(text "stream_rxen" (rect 0 0 103 16)(font "Arial" (font_size 8)))
-		(text "stream_rxen" (rect 21 187 124 203)(font "Arial" (font_size 8)))
-		(line (pt 0 192)(pt 16 192))
-	)
-	(port
-		(pt 0 208)
-		(input)
-		(text "lte_synch_dis" (rect 0 0 122 16)(font "Arial" (font_size 8)))
-		(text "lte_synch_dis" (rect 21 203 143 219)(font "Arial" (font_size 8)))
-		(line (pt 0 208)(pt 16 208))
-	)
-	(port
-		(pt 0 224)
-		(input)
-		(text "lte_mimo_en" (rect 0 0 103 16)(font "Arial" (font_size 8)))
-		(text "lte_mimo_en" (rect 21 219 124 235)(font "Arial" (font_size 8)))
-		(line (pt 0 224)(pt 16 224))
-	)
-	(port
-		(pt 0 240)
-		(input)
-		(text "lte_clr_smpl_nr" (rect 0 0 141 16)(font "Arial" (font_size 8)))
-		(text "lte_clr_smpl_nr" (rect 21 235 162 251)(font "Arial" (font_size 8)))
-		(line (pt 0 240)(pt 16 240))
-	)
-	(port
-		(pt 0 256)
-		(input)
-		(text "fr_start" (rect 0 0 75 16)(font "Arial" (font_size 8)))
-		(text "fr_start" (rect 21 251 96 267)(font "Arial" (font_size 8)))
-		(line (pt 0 256)(pt 16 256))
-	)
-	(port
-		(pt 0 272)
-		(input)
-		(text "rx_cap_en" (rect 0 0 84 16)(font "Arial" (font_size 8)))
-		(text "rx_cap_en" (rect 21 267 105 283)(font "Arial" (font_size 8)))
-		(line (pt 0 272)(pt 16 272))
-	)
-	(port
-		(pt 0 288)
-		(input)
-		(text "tx_reset_req" (rect 0 0 113 16)(font "Arial" (font_size 8)))
-		(text "tx_reset_req" (rect 21 283 134 299)(font "Arial" (font_size 8)))
-		(line (pt 0 288)(pt 16 288))
-	)
-	(port
-		(pt 368 32)
-		(output)
-		(text "pct_fifo_rdy" (rect 0 0 113 16)(font "Arial" (font_size 8)))
-		(text "pct_fifo_rdy" (rect 234 27 347 43)(font "Arial" (font_size 8)))
-		(line (pt 368 32)(pt 352 32))
-	)
-	(port
-		(pt 368 48)
-		(output)
-		(text "pct_cleared" (rect 0 0 103 16)(font "Arial" (font_size 8)))
-		(text "pct_cleared" (rect 244 43 347 59)(font "Arial" (font_size 8)))
-		(line (pt 368 48)(pt 352 48))
-	)
-	(port
-		(pt 368 64)
-		(output)
-		(text "DIQ1_D[11..0]" (rect 0 0 122 16)(font "Arial" (font_size 8)))
-		(text "DIQ1_D[11..0]" (rect 225 59 347 75)(font "Arial" (font_size 8)))
-		(line (pt 368 64)(pt 352 64)(line_width 3))
-	)
-	(port
-		(pt 368 80)
-		(output)
-		(text "DIQ1_IQSEL" (rect 0 0 94 16)(font "Arial" (font_size 8)))
-		(text "DIQ1_IQSEL" (rect 253 75 347 91)(font "Arial" (font_size 8)))
-		(line (pt 368 80)(pt 352 80))
-	)
-	(parameter
-		"dev_family"
-		"Cyclone IV E"
-		""
-		(type "PARAMETER_STRING")	)
-	(drawing
-		(rectangle (rect 16 16 352 304))
-	)
-	(annotation_block (parameter)(rect -520 1680 -224 1792))
-)
-(symbol
 	(rect -816 -424 -544 -184)
 	(text "pllcfg_top" (rect 5 0 87 14)(font "Arial" ))
 	(text "inst9" (rect 8 224 49 238)(font "Arial" ))
@@ -1813,161 +1652,6 @@ agreement for further details.
 	)
 )
 (symbol
-	(rect -360 824 184 1112)
-	(text "LTE_rx_path" (rect 5 0 108 16)(font "Arial" (font_size 8)))
-	(text "inst7" (rect 8 270 49 284)(font "Arial" ))
-	(port
-		(pt 0 32)
-		(input)
-		(text "clk" (rect 0 0 28 16)(font "Arial" (font_size 8)))
-		(text "clk" (rect 21 27 49 43)(font "Arial" (font_size 8)))
-		(line (pt 0 32)(pt 16 32))
-	)
-	(port
-		(pt 0 48)
-		(input)
-		(text "reset" (rect 0 0 47 16)(font "Arial" (font_size 8)))
-		(text "reset" (rect 21 43 68 59)(font "Arial" (font_size 8)))
-		(line (pt 0 48)(pt 16 48))
-	)
-	(port
-		(pt 0 64)
-		(input)
-		(text "en" (rect 0 0 18 16)(font "Arial" (font_size 8)))
-		(text "en" (rect 21 59 39 75)(font "Arial" (font_size 8)))
-		(line (pt 0 64)(pt 16 64))
-	)
-	(port
-		(pt 0 80)
-		(input)
-		(text "DIQ2_D[diq_width-1..0]" (rect 0 0 207 16)(font "Arial" (font_size 8)))
-		(text "DIQ2_D[diq_width-1..0]" (rect 21 75 228 91)(font "Arial" (font_size 8)))
-		(line (pt 0 80)(pt 16 80)(line_width 3))
-	)
-	(port
-		(pt 0 96)
-		(input)
-		(text "DIQ2_IQSEL2" (rect 0 0 103 16)(font "Arial" (font_size 8)))
-		(text "DIQ2_IQSEL2" (rect 21 91 124 107)(font "Arial" (font_size 8)))
-		(line (pt 0 96)(pt 16 96))
-	)
-	(port
-		(pt 0 112)
-		(input)
-		(text "outfifo_full" (rect 0 0 113 16)(font "Arial" (font_size 8)))
-		(text "outfifo_full" (rect 21 107 134 123)(font "Arial" (font_size 8)))
-		(line (pt 0 112)(pt 16 112))
-	)
-	(port
-		(pt 0 128)
-		(input)
-		(text "outfifo_wusedw[outfifo_size-1..0]" (rect 0 0 311 16)(font "Arial" (font_size 8)))
-		(text "outfifo_wusedw[outfifo_size-1..0]" (rect 21 123 332 139)(font "Arial" (font_size 8)))
-		(line (pt 0 128)(pt 16 128)(line_width 3))
-	)
-	(port
-		(pt 0 144)
-		(input)
-		(text "ch_en[15..0]" (rect 0 0 113 16)(font "Arial" (font_size 8)))
-		(text "ch_en[15..0]" (rect 21 139 134 155)(font "Arial" (font_size 8)))
-		(line (pt 0 144)(pt 16 144)(line_width 3))
-	)
-	(port
-		(pt 0 160)
-		(input)
-		(text "mimo_en" (rect 0 0 66 16)(font "Arial" (font_size 8)))
-		(text "mimo_en" (rect 21 155 87 171)(font "Arial" (font_size 8)))
-		(line (pt 0 160)(pt 16 160))
-	)
-	(port
-		(pt 0 176)
-		(input)
-		(text "smpl_width[1..0]" (rect 0 0 151 16)(font "Arial" (font_size 8)))
-		(text "smpl_width[1..0]" (rect 21 171 172 187)(font "Arial" (font_size 8)))
-		(line (pt 0 176)(pt 16 176)(line_width 3))
-	)
-	(port
-		(pt 0 192)
-		(input)
-		(text "pct_clr_detect" (rect 0 0 132 16)(font "Arial" (font_size 8)))
-		(text "pct_clr_detect" (rect 21 187 153 203)(font "Arial" (font_size 8)))
-		(line (pt 0 192)(pt 16 192))
-	)
-	(port
-		(pt 0 208)
-		(input)
-		(text "clr_pct_los_flg" (rect 0 0 141 16)(font "Arial" (font_size 8)))
-		(text "clr_pct_los_flg" (rect 21 203 162 219)(font "Arial" (font_size 8)))
-		(line (pt 0 208)(pt 16 208))
-	)
-	(port
-		(pt 0 224)
-		(input)
-		(text "clr_smpl_nr" (rect 0 0 103 16)(font "Arial" (font_size 8)))
-		(text "clr_smpl_nr" (rect 21 219 124 235)(font "Arial" (font_size 8)))
-		(line (pt 0 224)(pt 16 224))
-	)
-	(port
-		(pt 0 240)
-		(input)
-		(text "fr_start" (rect 0 0 75 16)(font "Arial" (font_size 8)))
-		(text "fr_start" (rect 21 235 96 251)(font "Arial" (font_size 8)))
-		(line (pt 0 240)(pt 16 240))
-	)
-	(port
-		(pt 0 256)
-		(input)
-		(text "data_src" (rect 0 0 75 16)(font "Arial" (font_size 8)))
-		(text "data_src" (rect 21 251 96 267)(font "Arial" (font_size 8)))
-		(line (pt 0 256)(pt 16 256))
-	)
-	(port
-		(pt 544 32)
-		(output)
-		(text "outfifo_wr" (rect 0 0 94 16)(font "Arial" (font_size 8)))
-		(text "outfifo_wr" (rect 429 27 523 43)(font "Arial" (font_size 8)))
-		(line (pt 544 32)(pt 528 32))
-	)
-	(port
-		(pt 544 48)
-		(output)
-		(text "outfifo_data[63..0]" (rect 0 0 179 16)(font "Arial" (font_size 8)))
-		(text "outfifo_data[63..0]" (rect 344 43 523 59)(font "Arial" (font_size 8)))
-		(line (pt 544 48)(pt 528 48)(line_width 3))
-	)
-	(port
-		(pt 544 64)
-		(output)
-		(text "wrrxfifo_wr" (rect 0 0 103 16)(font "Arial" (font_size 8)))
-		(text "wrrxfifo_wr" (rect 420 59 523 75)(font "Arial" (font_size 8)))
-		(line (pt 544 64)(pt 528 64))
-	)
-	(parameter
-		"outfifo_size"
-		"12"
-		""
-	)
-	(parameter
-		"dev_family"
-		"MAX 10"
-		""
-		(type "PARAMETER_STRING")	)
-	(parameter
-		"diq_width"
-		"12"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"infifo_wrsize"
-		"10"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(drawing
-		(rectangle (rect 16 16 528 272))
-	)
-	(annotation_block (parameter)(rect 184 712 526 817))
-)
-(symbol
 	(rect -2664 1848 -2328 2152)
 	(text "FT601_top" (rect 5 0 79 14)(font "Arial" ))
 	(text "inst" (rect 8 288 41 302)(font "Arial" ))
@@ -2180,6 +1864,322 @@ agreement for further details.
 		(rectangle (rect 16 16 320 288))
 	)
 	(annotation_block (parameter)(rect -2664 1688 -2352 1840))
+)
+(symbol
+	(rect -360 824 184 1112)
+	(text "rx_path" (rect 5 0 71 16)(font "Arial" (font_size 8)))
+	(text "inst7" (rect 8 270 49 284)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk" (rect 0 0 28 16)(font "Arial" (font_size 8)))
+		(text "clk" (rect 21 27 49 43)(font "Arial" (font_size 8)))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "reset" (rect 0 0 47 16)(font "Arial" (font_size 8)))
+		(text "reset" (rect 21 43 68 59)(font "Arial" (font_size 8)))
+		(line (pt 0 48)(pt 16 48))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "en" (rect 0 0 18 16)(font "Arial" (font_size 8)))
+		(text "en" (rect 21 59 39 75)(font "Arial" (font_size 8)))
+		(line (pt 0 64)(pt 16 64))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "DIQ2_D[diq_width-1..0]" (rect 0 0 207 16)(font "Arial" (font_size 8)))
+		(text "DIQ2_D[diq_width-1..0]" (rect 21 75 228 91)(font "Arial" (font_size 8)))
+		(line (pt 0 80)(pt 16 80)(line_width 3))
+	)
+	(port
+		(pt 0 96)
+		(input)
+		(text "DIQ2_IQSEL2" (rect 0 0 103 16)(font "Arial" (font_size 8)))
+		(text "DIQ2_IQSEL2" (rect 21 91 124 107)(font "Arial" (font_size 8)))
+		(line (pt 0 96)(pt 16 96))
+	)
+	(port
+		(pt 0 112)
+		(input)
+		(text "outfifo_full" (rect 0 0 113 16)(font "Arial" (font_size 8)))
+		(text "outfifo_full" (rect 21 107 134 123)(font "Arial" (font_size 8)))
+		(line (pt 0 112)(pt 16 112))
+	)
+	(port
+		(pt 0 128)
+		(input)
+		(text "outfifo_wusedw[outfifo_size-1..0]" (rect 0 0 311 16)(font "Arial" (font_size 8)))
+		(text "outfifo_wusedw[outfifo_size-1..0]" (rect 21 123 332 139)(font "Arial" (font_size 8)))
+		(line (pt 0 128)(pt 16 128)(line_width 3))
+	)
+	(port
+		(pt 0 144)
+		(input)
+		(text "ch_en[15..0]" (rect 0 0 113 16)(font "Arial" (font_size 8)))
+		(text "ch_en[15..0]" (rect 21 139 134 155)(font "Arial" (font_size 8)))
+		(line (pt 0 144)(pt 16 144)(line_width 3))
+	)
+	(port
+		(pt 0 160)
+		(input)
+		(text "mimo_en" (rect 0 0 66 16)(font "Arial" (font_size 8)))
+		(text "mimo_en" (rect 21 155 87 171)(font "Arial" (font_size 8)))
+		(line (pt 0 160)(pt 16 160))
+	)
+	(port
+		(pt 0 176)
+		(input)
+		(text "smpl_width[1..0]" (rect 0 0 151 16)(font "Arial" (font_size 8)))
+		(text "smpl_width[1..0]" (rect 21 171 172 187)(font "Arial" (font_size 8)))
+		(line (pt 0 176)(pt 16 176)(line_width 3))
+	)
+	(port
+		(pt 0 192)
+		(input)
+		(text "pct_clr_detect" (rect 0 0 132 16)(font "Arial" (font_size 8)))
+		(text "pct_clr_detect" (rect 21 187 153 203)(font "Arial" (font_size 8)))
+		(line (pt 0 192)(pt 16 192))
+	)
+	(port
+		(pt 0 208)
+		(input)
+		(text "clr_pct_los_flg" (rect 0 0 141 16)(font "Arial" (font_size 8)))
+		(text "clr_pct_los_flg" (rect 21 203 162 219)(font "Arial" (font_size 8)))
+		(line (pt 0 208)(pt 16 208))
+	)
+	(port
+		(pt 0 224)
+		(input)
+		(text "clr_smpl_nr" (rect 0 0 103 16)(font "Arial" (font_size 8)))
+		(text "clr_smpl_nr" (rect 21 219 124 235)(font "Arial" (font_size 8)))
+		(line (pt 0 224)(pt 16 224))
+	)
+	(port
+		(pt 0 240)
+		(input)
+		(text "fr_start" (rect 0 0 75 16)(font "Arial" (font_size 8)))
+		(text "fr_start" (rect 21 235 96 251)(font "Arial" (font_size 8)))
+		(line (pt 0 240)(pt 16 240))
+	)
+	(port
+		(pt 0 256)
+		(input)
+		(text "data_src" (rect 0 0 75 16)(font "Arial" (font_size 8)))
+		(text "data_src" (rect 21 251 96 267)(font "Arial" (font_size 8)))
+		(line (pt 0 256)(pt 16 256))
+	)
+	(port
+		(pt 544 32)
+		(output)
+		(text "outfifo_wr" (rect 0 0 94 16)(font "Arial" (font_size 8)))
+		(text "outfifo_wr" (rect 429 27 523 43)(font "Arial" (font_size 8)))
+		(line (pt 544 32)(pt 528 32))
+	)
+	(port
+		(pt 544 48)
+		(output)
+		(text "outfifo_data[63..0]" (rect 0 0 179 16)(font "Arial" (font_size 8)))
+		(text "outfifo_data[63..0]" (rect 344 43 523 59)(font "Arial" (font_size 8)))
+		(line (pt 544 48)(pt 528 48)(line_width 3))
+	)
+	(port
+		(pt 544 64)
+		(output)
+		(text "wrrxfifo_wr" (rect 0 0 103 16)(font "Arial" (font_size 8)))
+		(text "wrrxfifo_wr" (rect 420 59 523 75)(font "Arial" (font_size 8)))
+		(line (pt 544 64)(pt 528 64))
+	)
+	(parameter
+		"outfifo_size"
+		"12"
+		""
+	)
+	(parameter
+		"dev_family"
+		"MAX 10"
+		""
+		(type "PARAMETER_STRING")	)
+	(parameter
+		"diq_width"
+		"12"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"infifo_wrsize"
+		"10"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(drawing
+		(rectangle (rect 16 16 528 272))
+	)
+	(annotation_block (parameter)(rect -360 712 -18 817))
+)
+(symbol
+	(rect -880 1792 -512 2112)
+	(text "tx_path" (rect 5 0 71 16)(font "Arial" (font_size 8)))
+	(text "inst8" (rect 8 302 49 316)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "RX_clk" (rect 0 0 56 16)(font "Arial" (font_size 8)))
+		(text "RX_clk" (rect 21 27 77 43)(font "Arial" (font_size 8)))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "rxpll_locked" (rect 0 0 113 16)(font "Arial" (font_size 8)))
+		(text "rxpll_locked" (rect 21 43 134 59)(font "Arial" (font_size 8)))
+		(line (pt 0 48)(pt 16 48))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "TX_clk" (rect 0 0 56 16)(font "Arial" (font_size 8)))
+		(text "TX_clk" (rect 21 59 77 75)(font "Arial" (font_size 8)))
+		(line (pt 0 64)(pt 16 64))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "txpll_locked" (rect 0 0 113 16)(font "Arial" (font_size 8)))
+		(text "txpll_locked" (rect 21 75 134 91)(font "Arial" (font_size 8)))
+		(line (pt 0 80)(pt 16 80))
+	)
+	(port
+		(pt 0 96)
+		(input)
+		(text "pct_wrclk" (rect 0 0 84 16)(font "Arial" (font_size 8)))
+		(text "pct_wrclk" (rect 21 91 105 107)(font "Arial" (font_size 8)))
+		(line (pt 0 96)(pt 16 96))
+	)
+	(port
+		(pt 0 112)
+		(input)
+		(text "pct_wr" (rect 0 0 56 16)(font "Arial" (font_size 8)))
+		(text "pct_wr" (rect 21 107 77 123)(font "Arial" (font_size 8)))
+		(line (pt 0 112)(pt 16 112))
+	)
+	(port
+		(pt 0 128)
+		(input)
+		(text "pct_data[31..0]" (rect 0 0 141 16)(font "Arial" (font_size 8)))
+		(text "pct_data[31..0]" (rect 21 123 162 139)(font "Arial" (font_size 8)))
+		(line (pt 0 128)(pt 16 128)(line_width 3))
+	)
+	(port
+		(pt 0 144)
+		(input)
+		(text "rxpath_wr" (rect 0 0 84 16)(font "Arial" (font_size 8)))
+		(text "rxpath_wr" (rect 21 139 105 155)(font "Arial" (font_size 8)))
+		(line (pt 0 144)(pt 16 144))
+	)
+	(port
+		(pt 0 160)
+		(input)
+		(text "lte_ch_en[15..0]" (rect 0 0 151 16)(font "Arial" (font_size 8)))
+		(text "lte_ch_en[15..0]" (rect 21 155 172 171)(font "Arial" (font_size 8)))
+		(line (pt 0 160)(pt 16 160)(line_width 3))
+	)
+	(port
+		(pt 0 176)
+		(input)
+		(text "lte_smpl_width[1..0]" (rect 0 0 188 16)(font "Arial" (font_size 8)))
+		(text "lte_smpl_width[1..0]" (rect 21 171 209 187)(font "Arial" (font_size 8)))
+		(line (pt 0 176)(pt 16 176)(line_width 3))
+	)
+	(port
+		(pt 0 192)
+		(input)
+		(text "stream_rxen" (rect 0 0 103 16)(font "Arial" (font_size 8)))
+		(text "stream_rxen" (rect 21 187 124 203)(font "Arial" (font_size 8)))
+		(line (pt 0 192)(pt 16 192))
+	)
+	(port
+		(pt 0 208)
+		(input)
+		(text "lte_synch_dis" (rect 0 0 122 16)(font "Arial" (font_size 8)))
+		(text "lte_synch_dis" (rect 21 203 143 219)(font "Arial" (font_size 8)))
+		(line (pt 0 208)(pt 16 208))
+	)
+	(port
+		(pt 0 224)
+		(input)
+		(text "lte_mimo_en" (rect 0 0 103 16)(font "Arial" (font_size 8)))
+		(text "lte_mimo_en" (rect 21 219 124 235)(font "Arial" (font_size 8)))
+		(line (pt 0 224)(pt 16 224))
+	)
+	(port
+		(pt 0 240)
+		(input)
+		(text "lte_clr_smpl_nr" (rect 0 0 141 16)(font "Arial" (font_size 8)))
+		(text "lte_clr_smpl_nr" (rect 21 235 162 251)(font "Arial" (font_size 8)))
+		(line (pt 0 240)(pt 16 240))
+	)
+	(port
+		(pt 0 256)
+		(input)
+		(text "fr_start" (rect 0 0 75 16)(font "Arial" (font_size 8)))
+		(text "fr_start" (rect 21 251 96 267)(font "Arial" (font_size 8)))
+		(line (pt 0 256)(pt 16 256))
+	)
+	(port
+		(pt 0 272)
+		(input)
+		(text "rx_cap_en" (rect 0 0 84 16)(font "Arial" (font_size 8)))
+		(text "rx_cap_en" (rect 21 267 105 283)(font "Arial" (font_size 8)))
+		(line (pt 0 272)(pt 16 272))
+	)
+	(port
+		(pt 0 288)
+		(input)
+		(text "tx_reset_req" (rect 0 0 113 16)(font "Arial" (font_size 8)))
+		(text "tx_reset_req" (rect 21 283 134 299)(font "Arial" (font_size 8)))
+		(line (pt 0 288)(pt 16 288))
+	)
+	(port
+		(pt 368 32)
+		(output)
+		(text "pct_fifo_rdy" (rect 0 0 113 16)(font "Arial" (font_size 8)))
+		(text "pct_fifo_rdy" (rect 234 27 347 43)(font "Arial" (font_size 8)))
+		(line (pt 368 32)(pt 352 32))
+	)
+	(port
+		(pt 368 48)
+		(output)
+		(text "pct_cleared" (rect 0 0 103 16)(font "Arial" (font_size 8)))
+		(text "pct_cleared" (rect 244 43 347 59)(font "Arial" (font_size 8)))
+		(line (pt 368 48)(pt 352 48))
+	)
+	(port
+		(pt 368 64)
+		(output)
+		(text "DIQ1_D[11..0]" (rect 0 0 122 16)(font "Arial" (font_size 8)))
+		(text "DIQ1_D[11..0]" (rect 225 59 347 75)(font "Arial" (font_size 8)))
+		(line (pt 368 64)(pt 352 64)(line_width 3))
+	)
+	(port
+		(pt 368 80)
+		(output)
+		(text "DIQ1_IQSEL" (rect 0 0 94 16)(font "Arial" (font_size 8)))
+		(text "DIQ1_IQSEL" (rect 253 75 347 91)(font "Arial" (font_size 8)))
+		(line (pt 368 80)(pt 352 80))
+	)
+	(parameter
+		"dev_family"
+		"Cyclone IV E"
+		""
+		(type "PARAMETER_STRING")	)
+	(drawing
+		(rectangle (rect 16 16 352 304))
+	)
+	(annotation_block (parameter)(rect -512 1744 -216 1792))
 )
 (connector
 	(text "rst" (rect -2497 -752 -2473 -738)(font "Arial" ))
@@ -2395,16 +2395,6 @@ agreement for further details.
 	(pt -2328 1976)
 	(pt -2200 1976)
 	(bus)
-)
-(connector
-	(text "pct_buff_aclr" (rect -494 1824 -387 1838)(font "Arial" ))
-	(pt -512 1840)
-	(pt -376 1840)
-)
-(connector
-	(text "tx_outfifo_rdy" (rect -491 1808 -376 1822)(font "Arial" ))
-	(pt -512 1824)
-	(pt -376 1824)
 )
 (connector
 	(text "nios_exfifo_of_wr" (rect -1862 3088 -1722 3102)(font "Arial" ))
@@ -2645,94 +2635,6 @@ agreement for further details.
 	(text "L" (rect -495 1064 -487 1078)(font "Arial" ))
 	(pt -512 1080)
 	(pt -360 1080)
-)
-(connector
-	(text "lmsrx_clk" (rect -992 1808 -918 1822)(font "Arial" ))
-	(pt -1040 1824)
-	(pt -880 1824)
-)
-(connector
-	(text "pll_locked" (rect -990 1824 -908 1838)(font "Arial" ))
-	(pt -1040 1840)
-	(pt -880 1840)
-)
-(connector
-	(text "lmstx_clk" (rect -991 1840 -917 1854)(font "Arial" ))
-	(pt -1040 1856)
-	(pt -880 1856)
-)
-(connector
-	(text "pll_locked" (rect -990 1856 -908 1870)(font "Arial" ))
-	(pt -1040 1872)
-	(pt -880 1872)
-)
-(connector
-	(text "FT_CLK" (rect -974 1872 -925 1886)(font "Arial" ))
-	(pt -1040 1888)
-	(pt -880 1888)
-)
-(connector
-	(text "EP03_wr" (rect -991 1888 -934 1902)(font "Arial" ))
-	(pt -1040 1904)
-	(pt -880 1904)
-)
-(connector
-	(text "EP03_data[31..0]" (rect -979 1904 -847 1918)(font "Arial" ))
-	(pt -1040 1920)
-	(pt -880 1920)
-	(bus)
-)
-(connector
-	(text "wrrxfifo_wr" (rect -1018 1920 -928 1934)(font "Arial" ))
-	(pt -1040 1936)
-	(pt -880 1936)
-)
-(connector
-	(text "lte_ch_en[15..0]" (rect -1010 1936 -878 1950)(font "Arial" ))
-	(pt -1040 1952)
-	(pt -880 1952)
-	(bus)
-)
-(connector
-	(text "lte_smpl_width[1..0]" (rect -1015 1952 -850 1966)(font "Arial" ))
-	(pt -1040 1968)
-	(pt -880 1968)
-	(bus)
-)
-(connector
-	(text "stream_rxen" (rect -1007 1968 -917 1982)(font "Arial" ))
-	(pt -1040 1984)
-	(pt -880 1984)
-)
-(connector
-	(text "lte_synch_dis" (rect -1006 1984 -899 1998)(font "Arial" ))
-	(pt -1040 2000)
-	(pt -880 2000)
-)
-(connector
-	(text "lte_mimo_en" (rect -1005 2000 -915 2014)(font "Arial" ))
-	(pt -1040 2016)
-	(pt -880 2016)
-)
-(connector
-	(text "lte_clr_smpl_nr" (rect -1006 2016 -883 2030)(font "Arial" ))
-	(pt -1040 2032)
-	(pt -880 2032)
-)
-(connector
-	(text "L" (rect -1005 2032 -997 2046)(font "Arial" ))
-	(pt -1040 2048)
-	(pt -880 2048)
-)
-(connector
-	(text "H" (rect -1009 2048 -1001 2062)(font "Arial" ))
-	(pt -1040 2064)
-	(pt -880 2064)
-)
-(connector
-	(text "L" (rect -1009 2064 -1001 2078)(font "Arial" ))
-	(pt -1040 2080)
-	(pt -880 2080)
 )
 (connector
 	(text "FT_CLK" (rect -2758 1864 -2709 1878)(font "Arial" ))
@@ -3005,15 +2907,6 @@ agreement for further details.
 	(pt -1624 3080)
 )
 (connector
-	(pt -512 1856)
-	(pt -376 1856)
-	(bus)
-)
-(connector
-	(pt -512 1872)
-	(pt -376 1872)
-)
-(connector
 	(pt -424 -768)
 	(pt -264 -768)
 )
@@ -3095,6 +2988,113 @@ agreement for further details.
 	(pt -512 952)
 	(pt -360 952)
 	(bus)
+)
+(connector
+	(text "pct_buff_aclr" (rect -494 1824 -387 1838)(font "Arial" ))
+	(pt -512 1840)
+	(pt -376 1840)
+)
+(connector
+	(text "tx_outfifo_rdy" (rect -491 1808 -376 1822)(font "Arial" ))
+	(pt -512 1824)
+	(pt -376 1824)
+)
+(connector
+	(text "lmsrx_clk" (rect -992 1808 -918 1822)(font "Arial" ))
+	(pt -1040 1824)
+	(pt -880 1824)
+)
+(connector
+	(text "pll_locked" (rect -990 1824 -908 1838)(font "Arial" ))
+	(pt -1040 1840)
+	(pt -880 1840)
+)
+(connector
+	(text "lmstx_clk" (rect -991 1840 -917 1854)(font "Arial" ))
+	(pt -1040 1856)
+	(pt -880 1856)
+)
+(connector
+	(text "pll_locked" (rect -990 1856 -908 1870)(font "Arial" ))
+	(pt -1040 1872)
+	(pt -880 1872)
+)
+(connector
+	(text "FT_CLK" (rect -974 1872 -925 1886)(font "Arial" ))
+	(pt -1040 1888)
+	(pt -880 1888)
+)
+(connector
+	(text "EP03_wr" (rect -991 1888 -934 1902)(font "Arial" ))
+	(pt -1040 1904)
+	(pt -880 1904)
+)
+(connector
+	(text "EP03_data[31..0]" (rect -979 1904 -847 1918)(font "Arial" ))
+	(pt -1040 1920)
+	(pt -880 1920)
+	(bus)
+)
+(connector
+	(text "wrrxfifo_wr" (rect -1018 1920 -928 1934)(font "Arial" ))
+	(pt -1040 1936)
+	(pt -880 1936)
+)
+(connector
+	(text "lte_ch_en[15..0]" (rect -1010 1936 -878 1950)(font "Arial" ))
+	(pt -1040 1952)
+	(pt -880 1952)
+	(bus)
+)
+(connector
+	(text "lte_smpl_width[1..0]" (rect -1015 1952 -850 1966)(font "Arial" ))
+	(pt -1040 1968)
+	(pt -880 1968)
+	(bus)
+)
+(connector
+	(text "stream_rxen" (rect -1007 1968 -917 1982)(font "Arial" ))
+	(pt -1040 1984)
+	(pt -880 1984)
+)
+(connector
+	(text "lte_synch_dis" (rect -1006 1984 -899 1998)(font "Arial" ))
+	(pt -1040 2000)
+	(pt -880 2000)
+)
+(connector
+	(text "lte_mimo_en" (rect -1005 2000 -915 2014)(font "Arial" ))
+	(pt -1040 2016)
+	(pt -880 2016)
+)
+(connector
+	(text "lte_clr_smpl_nr" (rect -1006 2016 -883 2030)(font "Arial" ))
+	(pt -1040 2032)
+	(pt -880 2032)
+)
+(connector
+	(text "L" (rect -1005 2032 -997 2046)(font "Arial" ))
+	(pt -1040 2048)
+	(pt -880 2048)
+)
+(connector
+	(text "H" (rect -1009 2048 -1001 2062)(font "Arial" ))
+	(pt -1040 2064)
+	(pt -880 2064)
+)
+(connector
+	(text "L" (rect -1009 2064 -1001 2078)(font "Arial" ))
+	(pt -1040 2080)
+	(pt -880 2080)
+)
+(connector
+	(pt -512 1856)
+	(pt -376 1856)
+	(bus)
+)
+(connector
+	(pt -512 1872)
+	(pt -376 1872)
 )
 (text "General I/O, clock pins, ect" (rect -3032 -904 -2438 -879)(font "Arial" (font_size 14)(bold)))
 (text "PLL`s and pll control" (rect -1256 -912 -810 -884)(font "Arial" (font_size 16)(bold)))

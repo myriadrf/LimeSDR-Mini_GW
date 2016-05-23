@@ -258,7 +258,6 @@ set_global_assignment -name VHDL_FILE src/tx_modules/rd_tx_fifo.vhd
 set_global_assignment -name VHDL_FILE src/tx_modules/decompress.vhd
 set_global_assignment -name VHDL_FILE src/general/bus_synch.vhd
 set_global_assignment -name VHDL_FILE src/tx_modules/tx_pct_data_mimo_v3.vhd
-set_global_assignment -name BDF_FILE symbols/LTE_tx_path.bdf
 set_global_assignment -name VHDL_FILE src/reg_phase_shift/simple_reg.vhd
 set_global_assignment -name VHDL_FILE src/reg_phase_shift/phase_shift.vhd
 set_global_assignment -name VHDL_FILE src/dyn_ps/pll_ps_cntrl.vhd
@@ -272,7 +271,6 @@ set_global_assignment -name VHDL_FILE src/rx_modules/rx_pct_data_v2.vhd
 set_global_assignment -name VHDL_FILE src/rx_modules/compress_v2.vhd
 set_global_assignment -name VHDL_FILE src/general/synchronizer.vhd
 set_global_assignment -name BDF_FILE symbols/rx_synchronizers.bdf
-set_global_assignment -name BDF_FILE symbols/LTE_rx_path.bdf
 set_global_assignment -name VHDL_FILE src/spi/pllcfg_top.vhd
 set_global_assignment -name VHDL_FILE src/spi/pllcfg.vhd
 set_global_assignment -name VHDL_FILE src/spi/miso_mux.vhd
@@ -302,4 +300,6 @@ set_global_assignment -name SIP_FILE ip/ddrox1/ddrox1.sip
 set_global_assignment -name BDF_FILE symbols/tx_synchronizers.bdf
 set_global_assignment -name VHDL_FILE src/tx_modules/sync_fifo_rw.vhd
 set_global_assignment -name VHDL_FILE src/tx_modules/sample_nr_cnt_mimo.vhd
+set_global_assignment -name BDF_FILE symbols/rx_path.bdf
+set_global_assignment -name BDF_FILE symbols/tx_path.bdf
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

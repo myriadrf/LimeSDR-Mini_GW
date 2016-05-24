@@ -174,7 +174,7 @@ set_location_assignment PIN_B9 -to RFSW1_VCTL2
 set_location_assignment PIN_D8 -to RFSW1_VCTL1
 set_location_assignment PIN_K6 -to LMS_TXEN
 set_location_assignment PIN_M11 -to LMS_RXEN
-set_location_assignment PIN_L12 -to LMS_RESET
+set_location_assignment PIN_L1 -to LMS_RESET
 set_location_assignment PIN_N11 -to LMS_CORE_LDO_EN
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_CORE_LDO_EN
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RFSW2_VCTL2

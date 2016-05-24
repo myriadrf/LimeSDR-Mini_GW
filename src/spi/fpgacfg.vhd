@@ -64,13 +64,14 @@ entity fpgacfg is
 		LMS1_TXNRX1			: out std_logic;
 		LMS1_TXNRX2			: out std_logic;
 		LMS1_TXEN			: out std_logic;
-		LMS1_RXEN			: out std_logic
+		LMS1_RXEN			: out std_logic;
 --		LMS2_RESET			: out std_logic;
 --		LMS2_CORE_LDO_EN	: out std_logic;
 --		LMS2_TXNRX1			: out std_logic;
 --		LMS2_TXNRX2			: out std_logic;
 --		LMS2_TXEN			: out std_logic;
---		LMS2_RXEN			: out std_logic
+--		LMS2_RXEN			: out std_logic;
+		GPIO					: out std_logic_vector(3 downto 0)
 
 	);
 end fpgacfg;
@@ -212,7 +213,7 @@ begin
 			mem(20)	<= "0000000000000011"; --  0 free, (Reserved LMS control)
 			mem(21)	<= "0000000000000000"; --  0 free, (Reserved LMS control)
 			mem(22)	<= "0000000000000000"; --  0 free, (Reserved LMS control)
-			mem(23)	<= "0000000000000000"; --  0 free, (Reserved)		
+			mem(23)	<= "0000000000000101"; --  0 free, (Reserved), GPIO[3:0]	
 
 		elsif sclk'event and sclk = '1' then
 				if mem_we = '1' then
@@ -268,6 +269,7 @@ begin
 --		LMS2_TXNRX2			<= mem(19)(12);
 --		LMS2_TXEN			<= mem(19)(13);
 --		LMS2_RXEN			<= mem(19)(14);
+		GPIO					<= mem(23)(3 downto 0);
 
 
 end fpgacfg_arch;

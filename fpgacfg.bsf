@@ -248,6 +248,13 @@ agreement for further details.
 		(text "LMS1_RXEN" (rect 186 411 243 423)(font "Arial" ))
 		(line (pt 264 416)(pt 248 416)(line_width 1))
 	)
+	(port
+		(pt 264 432)
+		(output)
+		(text "GPIO[3..0]" (rect 0 0 42 12)(font "Arial" ))
+		(text "GPIO[3..0]" (rect 201 427 243 439)(font "Arial" ))
+		(line (pt 264 432)(pt 248 432)(line_width 3))
+	)
 	(drawing
 		(rectangle (rect 16 16 248 448)(line_width 1))
 	)

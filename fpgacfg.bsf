@@ -251,8 +251,8 @@ agreement for further details.
 	(port
 		(pt 264 432)
 		(output)
-		(text "GPIO[3..0]" (rect 0 0 42 12)(font "Arial" ))
-		(text "GPIO[3..0]" (rect 201 427 243 439)(font "Arial" ))
+		(text "GPIO[1..0]" (rect 0 0 41 12)(font "Arial" ))
+		(text "GPIO[1..0]" (rect 202 427 243 439)(font "Arial" ))
 		(line (pt 264 432)(pt 248 432)(line_width 3))
 	)
 	(drawing

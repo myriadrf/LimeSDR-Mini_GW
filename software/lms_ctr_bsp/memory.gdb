@@ -3,7 +3,7 @@
 # Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'lms_ctr'
 # SOPC Builder design path: ../../lms_ctr.sopcinfo
 #
-# Generated: Thu May 19 10:42:53 EEST 2016
+# Generated: Wed May 25 10:47:03 EEST 2016
 
 # DO NOT MODIFY THIS FILE
 #
@@ -46,5 +46,8 @@
 # The cache attribute is specified which improves GDB performance
 # by allowing GDB to cache memory contents on the host.
 
-# oc_mem
-memory 0x4000 0x8000 cache
+# onchip_flash_0_data
+memory 0x100000 0x18c000 cache
+
+# onchip_memory2_0
+memory 0x200000 0x201000 cache

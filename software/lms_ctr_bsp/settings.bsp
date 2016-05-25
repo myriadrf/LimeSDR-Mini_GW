@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>May 19, 2016 10:42:53 AM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1463643773139</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>May 25, 2016 10:46:58 AM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1464162418674</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>H:\working_dir\altera\uLimeSDR\uLimeSDR_lms7_trx\software\lms_ctr_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\lms_ctr.sopcinfo</SopcDesignFile>
@@ -86,7 +86,7 @@
                 <SettingName>hal.linker.enable_alt_load_copy_rodata</SettingName>
                 <Identifier>none</Identifier>
                 <Type>Boolean</Type>
-                <Value>0</Value>
+                <Value>1</Value>
                 <DefaultValue>0</DefaultValue>
                 <DestinationFile>none</DestinationFile>
                 <Description>Causes the alt_load() facility to copy the .rodata section. If true, this setting defines the macro ALT_LOAD_COPY_RODATA in linker.h.</Description>
@@ -146,7 +146,7 @@
                 <SettingName>hal.linker.exception_stack_memory_region_name</SettingName>
                 <Identifier>none</Identifier>
                 <Type>UnquotedString</Type>
-                <Value>oc_mem</Value>
+                <Value>onchip_memory2_0</Value>
                 <DefaultValue>none</DefaultValue>
                 <DestinationFile>none</DestinationFile>
                 <Description>Name of the existing memory region that will be divided up to create the 'exception_stack' memory region. The selected region name will be adjusted automatically when the BSP is generated to create the 'exception_stack' memory region.</Description>
@@ -182,7 +182,7 @@
                 <SettingName>hal.linker.interrupt_stack_memory_region_name</SettingName>
                 <Identifier>none</Identifier>
                 <Type>UnquotedString</Type>
-                <Value>oc_mem</Value>
+                <Value>onchip_memory2_0</Value>
                 <DefaultValue>none</DefaultValue>
                 <DestinationFile>none</DestinationFile>
                 <Description>Name of the existing memory region that will be divided up to create the 'interrupt_stack' memory region. The selected region name will be adjusted automatically when the BSP is generated to create the 'interrupt_stack' memory region.</Description>
@@ -887,87 +887,105 @@
                 <Group xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </Setting>
         <MemoryMap>
-                <slaveDescriptor>oc_mem</slaveDescriptor>
-                <addressRange>0x00004000 - 0x00007FFF</addressRange>
-                <addressSpan>16384</addressSpan>
+                <slaveDescriptor>onchip_flash_0_data</slaveDescriptor>
+                <addressRange>0x00100000 - 0x0018BFFF</addressRange>
+                <addressSpan>573440</addressSpan>
+                <attributes>flash, memory, non-volatile</attributes>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>onchip_memory2_0</slaveDescriptor>
+                <addressRange>0x00200000 - 0x00200FFF</addressRange>
+                <addressSpan>4096</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>dac_spi</slaveDescriptor>
-                <addressRange>0x00009000 - 0x0000901F</addressRange>
+                <addressRange>0x00202000 - 0x0020201F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>fpga_spi</slaveDescriptor>
-                <addressRange>0x00009020 - 0x0000903F</addressRange>
+                <addressRange>0x00202020 - 0x0020203F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>lms_ctr_gpio</slaveDescriptor>
-                <addressRange>0x00009040 - 0x0000905F</addressRange>
+                <addressRange>0x00202040 - 0x0020205F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>uart</slaveDescriptor>
-                <addressRange>0x00009060 - 0x0000907F</addressRange>
+                <addressRange>0x00202060 - 0x0020207F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>i2c_opencores_0</slaveDescriptor>
-                <addressRange>0x00009080 - 0x0000909F</addressRange>
+                <addressRange>0x00202080 - 0x0020209F</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>dual_boot_0</slaveDescriptor>
+                <addressRange>0x002020A0 - 0x002020BF</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>leds</slaveDescriptor>
-                <addressRange>0x000090A0 - 0x000090AF</addressRange>
+                <addressRange>0x002020C0 - 0x002020CF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>switch</slaveDescriptor>
-                <addressRange>0x000090B0 - 0x000090BF</addressRange>
+                <addressRange>0x002020D0 - 0x002020DF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>Av_FIFO_Int_0</slaveDescriptor>
-                <addressRange>0x000090C0 - 0x000090CF</addressRange>
+                <addressRange>0x002020E0 - 0x002020EF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>onchip_flash_0_csr</slaveDescriptor>
+                <addressRange>0x002020F0 - 0x002020F7</addressRange>
+                <addressSpan>8</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>sysid_qsys_0</slaveDescriptor>
-                <addressRange>0x000090D0 - 0x000090D7</addressRange>
+                <addressRange>0x002020F8 - 0x002020FF</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes/>
         </MemoryMap>
         <LinkerSection>
                 <sectionName>.text</sectionName>
-                <regionName>oc_mem</regionName>
+                <regionName>onchip_flash_0_data</regionName>
         </LinkerSection>
         <LinkerSection>
                 <sectionName>.rodata</sectionName>
-                <regionName>oc_mem</regionName>
+                <regionName>onchip_memory2_0</regionName>
         </LinkerSection>
         <LinkerSection>
                 <sectionName>.rwdata</sectionName>
-                <regionName>oc_mem</regionName>
+                <regionName>onchip_memory2_0</regionName>
         </LinkerSection>
         <LinkerSection>
                 <sectionName>.bss</sectionName>
-                <regionName>oc_mem</regionName>
+                <regionName>onchip_memory2_0</regionName>
         </LinkerSection>
         <LinkerSection>
                 <sectionName>.heap</sectionName>
-                <regionName>oc_mem</regionName>
+                <regionName>onchip_memory2_0</regionName>
         </LinkerSection>
         <LinkerSection>
                 <sectionName>.stack</sectionName>
-                <regionName>oc_mem</regionName>
+                <regionName>onchip_memory2_0</regionName>
         </LinkerSection>
 </sch:Settings>

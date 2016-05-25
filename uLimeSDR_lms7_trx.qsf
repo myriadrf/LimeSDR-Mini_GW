@@ -187,7 +187,7 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_RESET
 set_location_assignment PIN_J6 -to FPGA_SPI_MISO
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_SPI_MISO
 set_global_assignment -name EXTERNAL_FLASH_FALLBACK_ADDRESS 00000000
-set_global_assignment -name INTERNAL_FLASH_UPDATE_MODE "SINGLE IMAGE WITH ERAM"
+set_global_assignment -name INTERNAL_FLASH_UPDATE_MODE "DUAL IMAGES"
 set_location_assignment PIN_M3 -to LMS_FCLK2
 set_location_assignment PIN_H4 -to LMS_MCLK2
 set_location_assignment PIN_L3 -to LMS_FCLK1

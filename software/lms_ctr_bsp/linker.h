@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'lms_ctr'
  * SOPC Builder design path: ../../lms_ctr.sopcinfo
  *
- * Generated: Thu May 19 10:42:53 EEST 2016
+ * Generated: Wed May 25 10:47:03 EEST 2016
  */
 
 /*
@@ -65,9 +65,11 @@
  *
  */
 
-#define OC_MEM_REGION_BASE 0x4020
-#define OC_MEM_REGION_SPAN 16352
-#define RESET_REGION_BASE 0x4000
+#define ONCHIP_FLASH_0_DATA_REGION_BASE 0x100020
+#define ONCHIP_FLASH_0_DATA_REGION_SPAN 573408
+#define ONCHIP_MEMORY2_0_REGION_BASE 0x200000
+#define ONCHIP_MEMORY2_0_REGION_SPAN 4096
+#define RESET_REGION_BASE 0x100000
 #define RESET_REGION_SPAN 32
 
 
@@ -76,11 +78,11 @@
  *
  */
 
-#define ALT_EXCEPTIONS_DEVICE OC_MEM
-#define ALT_RESET_DEVICE OC_MEM
-#define ALT_RODATA_DEVICE OC_MEM
-#define ALT_RWDATA_DEVICE OC_MEM
-#define ALT_TEXT_DEVICE OC_MEM
+#define ALT_EXCEPTIONS_DEVICE ONCHIP_FLASH_0_DATA
+#define ALT_RESET_DEVICE ONCHIP_FLASH_0_DATA
+#define ALT_RODATA_DEVICE ONCHIP_MEMORY2_0
+#define ALT_RWDATA_DEVICE ONCHIP_MEMORY2_0
+#define ALT_TEXT_DEVICE ONCHIP_FLASH_0_DATA
 
 
 /*
@@ -96,6 +98,7 @@
  *
  */
 
+#define ALT_LOAD_COPY_RODATA
 #define ALT_LOAD_COPY_RWDATA
 
 #endif /* __LINKER_H_ */

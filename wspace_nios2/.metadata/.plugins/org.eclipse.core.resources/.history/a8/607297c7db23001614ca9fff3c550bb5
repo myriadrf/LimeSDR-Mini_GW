@@ -696,10 +696,10 @@ int main()
 								}
 							}
 							*/
-
-							/*set CONFIG_SEL overwrite to 1 and CONFIG_SEL to image 1*/
 							IOWR(DUAL_BOOT_0_BASE, 1, 0x00000003);
-							/*wait while core is busy*/
+
+
+
 							while(IORD(DUAL_BOOT_0_BASE,3) == 1)
 							{
 							}

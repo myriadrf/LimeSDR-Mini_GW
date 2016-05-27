@@ -377,7 +377,7 @@
   <parameter name="width" value="32" />
  </module>
  <module name="clk_main" kind="clock_source" version="15.1" enabled="1">
-  <parameter name="clockFrequency" value="100000000" />
+  <parameter name="clockFrequency" value="30720000" />
   <parameter name="clockFrequencyKnown" value="true" />
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
@@ -388,7 +388,7 @@
   <parameter name="clockPolarity" value="0" />
   <parameter name="dataWidth" value="8" />
   <parameter name="disableAvalonFlowControl" value="false" />
-  <parameter name="inputClockRate" value="100000000" />
+  <parameter name="inputClockRate" value="30720000" />
   <parameter name="insertDelayBetweenSlaveSelectAndSClk" value="false" />
   <parameter name="insertSync" value="false" />
   <parameter name="lsbOrderedFirst" value="false" />
@@ -408,7 +408,7 @@
   <parameter name="clockPolarity" value="0" />
   <parameter name="dataWidth" value="8" />
   <parameter name="disableAvalonFlowControl" value="false" />
-  <parameter name="inputClockRate" value="100000000" />
+  <parameter name="inputClockRate" value="30720000" />
   <parameter name="insertDelayBetweenSlaveSelectAndSClk" value="true" />
   <parameter name="insertSync" value="false" />
   <parameter name="lsbOrderedFirst" value="false" />
@@ -427,7 +427,7 @@
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
-  <parameter name="clockRate" value="100000000" />
+  <parameter name="clockRate" value="30720000" />
   <parameter name="direction" value="Output" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -445,7 +445,7 @@
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="true" />
   <parameter name="captureEdge" value="false" />
-  <parameter name="clockRate" value="100000000" />
+  <parameter name="clockRate" value="30720000" />
   <parameter name="direction" value="Output" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -464,7 +464,7 @@
   <parameter name="breakOffset" value="32" />
   <parameter name="breakSlave" value="None" />
   <parameter name="cdx_enabled" value="false" />
-  <parameter name="clockFrequency" value="100000000" />
+  <parameter name="clockFrequency" value="30720000" />
   <parameter name="cpuArchRev" value="1" />
   <parameter name="cpuID" value="0" />
   <parameter name="cpuReset" value="false" />
@@ -643,7 +643,7 @@
    kind="altera_onchip_flash"
    version="15.1.1"
    enabled="1">
-  <parameter name="AUTO_CLOCK_RATE" value="100000000" />
+  <parameter name="AUTO_CLOCK_RATE" value="30720000" />
   <parameter name="CLOCK_FREQUENCY" value="30.72" />
   <parameter name="CONFIGURATION_MODE">Dual Compressed Images</parameter>
   <parameter name="CONFIGURATION_SCHEME">Internal Configuration</parameter>
@@ -692,7 +692,7 @@
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
-  <parameter name="clockRate" value="100000000" />
+  <parameter name="clockRate" value="30720000" />
   <parameter name="direction" value="Input" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -712,7 +712,7 @@
  </module>
  <module name="uart" kind="altera_avalon_uart" version="15.1" enabled="1">
   <parameter name="baud" value="115200" />
-  <parameter name="clockRate" value="100000000" />
+  <parameter name="clockRate" value="30720000" />
   <parameter name="dataBits" value="8" />
   <parameter name="fixedBaud" value="true" />
   <parameter name="parity" value="NONE" />

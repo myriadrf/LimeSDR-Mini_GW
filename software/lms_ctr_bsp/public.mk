@@ -157,9 +157,9 @@ SOPC_SYSID_FLAG += --sidp=0x2020f8
 ELF_PATCH_FLAG  += --sidp 0x2020f8
 
 # The SOPC Timestamp 
-# setting SOPC_TIMESTAMP is 1464161941
-SOPC_SYSID_FLAG += --timestamp=1464161941
-ELF_PATCH_FLAG  += --timestamp 1464161941
+# setting SOPC_TIMESTAMP is 1464332621
+SOPC_SYSID_FLAG += --timestamp=1464332621
+ELF_PATCH_FLAG  += --timestamp 1464332621
 
 # Enable driver ioctl() support. This feature is not compatible with the 
 # 'small' driver; ioctl() support will not be compiled if either the UART 

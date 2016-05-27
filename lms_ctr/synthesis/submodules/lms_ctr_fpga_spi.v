@@ -27,7 +27,7 @@
 //4         reserved
 //5         slave-enable  r/w
 //6         end-of-packet-value r/w
-//INPUT_CLOCK: 100000000
+//INPUT_CLOCK: 30720000
 //ISMASTER: 1
 //DATABITS: 8
 //TARGETCLOCK: 2000000
@@ -114,7 +114,7 @@ module lms_ctr_fpga_spi (
   wire    [ 15: 0] p1_data_to_cpu;
   wire             p1_data_wr_strobe;
   wire             p1_rd_strobe;
-  wire    [  4: 0] p1_slowcount;
+  wire    [  3: 0] p1_slowcount;
   wire             p1_wr_strobe;
   reg              rd_strobe;
   wire             readyfordata;
@@ -122,7 +122,7 @@ module lms_ctr_fpga_spi (
   reg     [  7: 0] shift_reg;
   wire             slaveselect_wr_strobe;
   wire             slowclock;
-  reg     [  4: 0] slowcount;
+  reg     [  3: 0] slowcount;
   wire    [ 10: 0] spi_control;
   reg     [ 15: 0] spi_slave_select_holding_reg;
   reg     [ 15: 0] spi_slave_select_reg;
@@ -254,11 +254,11 @@ module lms_ctr_fpga_spi (
     end
 
 
-  // slowclock is active once every 25 system clock pulses.
-  assign slowclock = slowcount == 5'h18;
+  // slowclock is active once every 8 system clock pulses.
+  assign slowclock = slowcount == 4'h7;
 
-  assign p1_slowcount = ({5 {(transmitting && !slowclock)}} & (slowcount + 1)) |
-    ({5 {(~((transmitting && !slowclock)))}} & 0);
+  assign p1_slowcount = ({4 {(transmitting && !slowclock)}} & (slowcount + 1)) |
+    ({4 {(~((transmitting && !slowclock)))}} & 0);
 
   // Divide counter for SPI clock.
   always @(posedge clk or negedge reset_n)

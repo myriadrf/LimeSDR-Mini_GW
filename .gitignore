@@ -58,3 +58,5 @@ alt_sld_fab_wrapper_hw.tcl
 #--------------
 simulation/
 incremental_db/
+wspace_nios2/
+wspace_nios

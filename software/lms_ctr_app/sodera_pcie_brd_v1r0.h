@@ -15,45 +15,14 @@
 
 #pragma message ("**** sodera_pcie_brd_v1r0 ****")
 
-//LMS control pins
-#define FX3_GPIO42			42 //LMS reset through FPGA
-#define FX3_GPIO43			43 //FMC adf4002 SNN
-#define FX3_GPIO44			44 //rfdio exp brd ssn
-
-#define FX3_FLASH1_SNN		54
-#define FX3_FLASH2_SNN		45
-
-#define FX3_SPI_CS			46 //LMS CS
-#define FX3_FPGA_SNN		47
-#define FX3_ADF_SNN			57 //onboard ADF SS
-
-#define FX3_LED0			39
-#define FX3_LED1			40
-#define FX3_LED2			41
-
-#define FX3_GPIO0			33
-#define FX3_GPIO1			34
-#define FX3_GPIO2			35
-#define FX3_GPIO3			36
-#define FX3_GPIO5			37
-#define FX3_GPIO4			38
-
-//FPGA Passive serial interface configuration
-#define FPGA_PS_METHOD_SPI //select PS programming method - FPGA PS over SPI
-
-#define FPGA_PS_NCONFIG		51
-#define FPGA_PS_NSTATUS		49
-#define FPGA_PS_CONFDONE	48
-#define FPGA_PS_OE			50
-
 //I2C devices
 #define   LM75_I2C_ADDR		0x48 //0x90
 #define EEPROM_I2C_ADDR		0x50 //0xA0
 
 //get info
 #define DEV_TYPE			LMS_DEV_ULIMESDR
-#define HW_VER				1
-#define EXP_BOARD			EXP_BOARD_UNKNOWN
+#define HW_VER				0
+#define EXP_BOARD			EXP_BOARD_UNSUPPORTED
 
 //FPGA Cyclone IV GX (EP4GX30F23C7N) bitstream (RBF) size in bytes
 #define FPGA_SIZE 			2751361 //1191788

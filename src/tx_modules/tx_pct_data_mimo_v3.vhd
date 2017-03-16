@@ -315,14 +315,14 @@ begin
 
       when rd_en=>
         --if rd_en_cnt=decopr_min-1 and unsigned(decompr_wusedw)>=254 then
-        if rd_en_cnt=decopr_min-1 and unsigned(decompr_wusedw)>=249 then --249 
+        if rd_en_cnt=decopr_min-1 and unsigned(decompr_wusedw)>=498 then --249 
             next_readen_state<=wait_rd;
         else
             next_readen_state<=rd_en; 
         end if;
       when wait_rd=>
 				--if  unsigned(decompr_wusedw)<254 then
-				if  unsigned(decompr_wusedw)<249 then  
+				if  unsigned(decompr_wusedw)<498 then  
 					next_readen_state<=rd_en;    
 				else
 					next_readen_state<=wait_rd;
@@ -914,7 +914,7 @@ begin
 -------------------------------------------------------------------------------
 --misc combinational signals
 ------------------------------------------------------------------------------   
-tx_outfifo_rdy	<=  wrempty0 or wrempty1 or wrempty2 or wrempty3;-- or wr_status;
+tx_outfifo_rdy	<=  wrempty0 or wrempty1 or wrempty2 or wrempty3;
 wr_status		<= '1' when unsigned(wrreq_cnt)>0 else '0';
 --wreq_en			<= '1' when  (wrreq_cnt>=8) else '0'; 
 wreq_en			<= '1' when  (wrreq_cnt>=4) else '0'; 
@@ -1122,8 +1122,8 @@ rd_fifo : rd_tx_fifo
       diq_l			=> diq_l
         );
 
-dd_data_h<=diq_h(smpl_width downto 0);
-dd_data_l<=diq_l(smpl_width downto 0);
+dd_data_h<=diq_l(smpl_width downto 0);
+dd_data_l<=diq_h(smpl_width downto 0);
 
         
 end arch;   

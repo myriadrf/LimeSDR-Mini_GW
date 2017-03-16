@@ -21,7 +21,7 @@ agreement for further details.
 */
 (header "symbol" (version "1.2"))
 (symbol
-	(rect 16 16 384 336)
+	(rect 16 16 408 336)
 	(text "LTE_tx_path" (rect 5 0 108 16)(font "Arial" (font_size 8)))
 	(text "inst" (rect 8 302 41 316)(font "Arial" ))
 	(port
@@ -144,32 +144,32 @@ agreement for further details.
 		(line (pt 0 288)(pt 16 288))
 	)
 	(port
-		(pt 368 32)
+		(pt 392 32)
 		(output)
 		(text "pct_fifo_rdy" (rect 0 0 113 16)(font "Arial" (font_size 8)))
-		(text "pct_fifo_rdy" (rect 234 27 347 43)(font "Arial" (font_size 8)))
-		(line (pt 368 32)(pt 352 32))
+		(text "pct_fifo_rdy" (rect 258 27 371 43)(font "Arial" (font_size 8)))
+		(line (pt 392 32)(pt 376 32))
 	)
 	(port
-		(pt 368 48)
+		(pt 392 48)
 		(output)
 		(text "pct_cleared" (rect 0 0 103 16)(font "Arial" (font_size 8)))
-		(text "pct_cleared" (rect 244 43 347 59)(font "Arial" (font_size 8)))
-		(line (pt 368 48)(pt 352 48))
+		(text "pct_cleared" (rect 268 43 371 59)(font "Arial" (font_size 8)))
+		(line (pt 392 48)(pt 376 48))
 	)
 	(port
-		(pt 368 64)
+		(pt 392 64)
 		(output)
-		(text "DIQ1_D[11..0]" (rect 0 0 122 16)(font "Arial" (font_size 8)))
-		(text "DIQ1_D[11..0]" (rect 225 59 347 75)(font "Arial" (font_size 8)))
-		(line (pt 368 64)(pt 352 64)(line_width 3))
+		(text "dd_data_h[12..0]" (rect 0 0 151 16)(font "Arial" (font_size 8)))
+		(text "dd_data_h[12..0]" (rect 220 59 371 75)(font "Arial" (font_size 8)))
+		(line (pt 392 64)(pt 376 64)(line_width 3))
 	)
 	(port
-		(pt 368 80)
+		(pt 392 80)
 		(output)
-		(text "DIQ1_IQSEL" (rect 0 0 94 16)(font "Arial" (font_size 8)))
-		(text "DIQ1_IQSEL" (rect 253 75 347 91)(font "Arial" (font_size 8)))
-		(line (pt 368 80)(pt 352 80))
+		(text "dd_data_l[12..0]" (rect 0 0 151 16)(font "Arial" (font_size 8)))
+		(text "dd_data_l[12..0]" (rect 220 75 371 91)(font "Arial" (font_size 8)))
+		(line (pt 392 80)(pt 376 80)(line_width 3))
 	)
 	(parameter
 		"dev_family"
@@ -177,7 +177,7 @@ agreement for further details.
 		""
 		(type "PARAMETER_STRING")	)
 	(drawing
-		(rectangle (rect 16 16 352 304))
+		(rectangle (rect 16 16 376 304))
 	)
-	(annotation_block (parameter)(rect 384 -64 484 16))
+	(annotation_block (parameter)(rect 408 -64 508 16))
 )

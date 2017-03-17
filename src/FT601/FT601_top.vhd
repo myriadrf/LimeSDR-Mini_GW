@@ -74,7 +74,7 @@ signal EP02_wrempty			: std_logic;
 signal EP02_wr					: std_logic; 
 signal EP02_wdata				: std_logic_vector(31 downto 0);
 --EP82 fifo signals
-signal EP82_fifo_rdusedw	: std_logic_vector(EP82_wrusedw_width-3 downto 0);
+signal EP82_fifo_rdusedw	: std_logic_vector(EP82_wrusedw_width-1 downto 0);
 signal EP82_fifo_q			: std_logic_vector(31 downto 0);
 signal EP82_fifo_rdreq		: std_logic;
 
@@ -210,7 +210,7 @@ EP02_fifo : fifo_inst
 generic map(
 		dev_family		=> "Cyclone IV",
 		wrwidth			=> 32,								--32 bits ftdi side, 
-		wrusedw_witdth	=> EP02_rdusedw_width-2, 		--10=512 words (2048kB)
+		wrusedw_witdth	=> EP02_rdusedw_width, 		--10=512 words (2048kB)
 		rdwidth			=> EP02_rwidth,
 		rdusedw_width	=> EP02_rdusedw_width,				
 		show_ahead     => "OFF"
@@ -237,7 +237,7 @@ generic map(
 		wrwidth			=> EP82_wwidth,
 		wrusedw_witdth	=> EP82_wrusedw_width, 						--12=2048 words (2048kB)
 		rdwidth			=> 32,						--32 bits ftdi side, 
-		rdusedw_width	=> EP82_wrusedw_width-2,				
+		rdusedw_width	=> EP82_wrusedw_width,				
 		show_ahead		=> "ON"
 )
 port map(
@@ -310,7 +310,7 @@ port map(
 -- ----------------------------------------------------------------------------		
 	ftdi_arbiter : FT601_arb
 	generic map(	
-			EP82_fifo_rwidth	=> EP82_wrusedw_width-2,
+			EP82_fifo_rwidth	=> EP82_wrusedw_width,
 			EP82_wsize       	=> EP82_wsize,
 			EP83_fifo_rwidth	=> 13,
 			EP83_wsize       	=> EP83_wsize

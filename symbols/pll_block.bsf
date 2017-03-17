@@ -21,9 +21,9 @@ agreement for further details.
 */
 (header "symbol" (version "1.2"))
 (symbol
-	(rect 16 16 408 304)
+	(rect 16 16 408 240)
 	(text "pll_block" (rect 5 0 89 16)(font "Arial" (font_size 8)))
-	(text "inst" (rect 8 270 41 284)(font "Arial" ))
+	(text "inst" (rect 8 206 41 220)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -97,37 +97,9 @@ agreement for further details.
 	(port
 		(pt 0 192)
 		(input)
-		(text "ovrsmpl_clk" (rect 0 0 103 16)(font "Arial" (font_size 8)))
-		(text "ovrsmpl_clk" (rect 21 187 124 203)(font "Arial" (font_size 8)))
-		(line (pt 0 192)(pt 16 192))
-	)
-	(port
-		(pt 0 208)
-		(input)
-		(text "ovrsmpl_reset_n" (rect 0 0 141 16)(font "Arial" (font_size 8)))
-		(text "ovrsmpl_reset_n" (rect 21 203 162 219)(font "Arial" (font_size 8)))
-		(line (pt 0 208)(pt 16 208))
-	)
-	(port
-		(pt 0 224)
-		(input)
 		(text "drct_clk_en" (rect 0 0 103 16)(font "Arial" (font_size 8)))
-		(text "drct_clk_en" (rect 21 219 124 235)(font "Arial" (font_size 8)))
-		(line (pt 0 224)(pt 16 224))
-	)
-	(port
-		(pt 0 240)
-		(input)
-		(text "load_phreg" (rect 0 0 94 16)(font "Arial" (font_size 8)))
-		(text "load_phreg" (rect 21 235 115 251)(font "Arial" (font_size 8)))
-		(line (pt 0 240)(pt 16 240))
-	)
-	(port
-		(pt 0 256)
-		(input)
-		(text "phase_reg_sel[7..0]" (rect 0 0 179 16)(font "Arial" (font_size 8)))
-		(text "phase_reg_sel[7..0]" (rect 21 251 200 267)(font "Arial" (font_size 8)))
-		(line (pt 0 256)(pt 16 256)(line_width 3))
+		(text "drct_clk_en" (rect 21 187 124 203)(font "Arial" (font_size 8)))
+		(line (pt 0 192)(pt 16 192))
 	)
 	(port
 		(pt 392 32)
@@ -179,6 +151,6 @@ agreement for further details.
 		(line (pt 392 128)(pt 376 128))
 	)
 	(drawing
-		(rectangle (rect 16 16 376 272))
+		(rectangle (rect 16 16 376 208))
 	)
 )

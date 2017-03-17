@@ -8,29 +8,29 @@ use IEEE.numeric_std.all;
 
 entity lms_ctr is
 	port (
-		clk_clk                                 : in    std_logic                    := '0';             --                              clk.clk
-		dac_spi_ext_MISO                        : in    std_logic                    := '0';             --                      dac_spi_ext.MISO
-		dac_spi_ext_MOSI                        : out   std_logic;                                       --                                 .MOSI
-		dac_spi_ext_SCLK                        : out   std_logic;                                       --                                 .SCLK
-		dac_spi_ext_SS_n                        : out   std_logic;                                       --                                 .SS_n
-		exfifo_if_d_export                      : in    std_logic_vector(7 downto 0) := (others => '0'); --                      exfifo_if_d.export
-		exfifo_if_rd_export                     : out   std_logic;                                       --                     exfifo_if_rd.export
-		exfifo_if_rdempty_export                : in    std_logic                    := '0';             --                exfifo_if_rdempty.export
-		exfifo_of_d_export                      : out   std_logic_vector(7 downto 0);                    --                      exfifo_of_d.export
-		exfifo_of_wr_export                     : out   std_logic;                                       --                     exfifo_of_wr.export
-		exfifo_of_wrfull_export                 : in    std_logic                    := '0';             --                 exfifo_of_wrfull.export
-		exfifo_rst_export                       : out   std_logic;                                       --                       exfifo_rst.export
-		fpga_spi_ext_MISO                       : in    std_logic                    := '0';             --                     fpga_spi_ext.MISO
-		fpga_spi_ext_MOSI                       : out   std_logic;                                       --                                 .MOSI
-		fpga_spi_ext_SCLK                       : out   std_logic;                                       --                                 .SCLK
-		fpga_spi_ext_SS_n                       : out   std_logic_vector(1 downto 0);                    --                                 .SS_n
-		i2c_scl_export                          : inout std_logic                    := '0';             --                          i2c_scl.export
-		i2c_sda_export                          : inout std_logic                    := '0';             --                          i2c_sda.export
-		leds_external_connection_export         : out   std_logic_vector(7 downto 0);                    --         leds_external_connection.export
-		lms_ctr_gpio_external_connection_export : out   std_logic_vector(3 downto 0);                    -- lms_ctr_gpio_external_connection.export
-		switch_external_connection_export       : in    std_logic_vector(7 downto 0) := (others => '0'); --       switch_external_connection.export
-		uart_external_connection_rxd            : in    std_logic                    := '0';             --         uart_external_connection.rxd
-		uart_external_connection_txd            : out   std_logic                                        --                                 .txd
+		clk_clk                                 : in    std_logic                     := '0';             --                              clk.clk
+		dac_spi_ext_MISO                        : in    std_logic                     := '0';             --                      dac_spi_ext.MISO
+		dac_spi_ext_MOSI                        : out   std_logic;                                        --                                 .MOSI
+		dac_spi_ext_SCLK                        : out   std_logic;                                        --                                 .SCLK
+		dac_spi_ext_SS_n                        : out   std_logic;                                        --                                 .SS_n
+		exfifo_if_d_export                      : in    std_logic_vector(31 downto 0) := (others => '0'); --                      exfifo_if_d.export
+		exfifo_if_rd_export                     : out   std_logic;                                        --                     exfifo_if_rd.export
+		exfifo_if_rdempty_export                : in    std_logic                     := '0';             --                exfifo_if_rdempty.export
+		exfifo_of_d_export                      : out   std_logic_vector(31 downto 0);                    --                      exfifo_of_d.export
+		exfifo_of_wr_export                     : out   std_logic;                                        --                     exfifo_of_wr.export
+		exfifo_of_wrfull_export                 : in    std_logic                     := '0';             --                 exfifo_of_wrfull.export
+		exfifo_rst_export                       : out   std_logic;                                        --                       exfifo_rst.export
+		fpga_spi_ext_MISO                       : in    std_logic                     := '0';             --                     fpga_spi_ext.MISO
+		fpga_spi_ext_MOSI                       : out   std_logic;                                        --                                 .MOSI
+		fpga_spi_ext_SCLK                       : out   std_logic;                                        --                                 .SCLK
+		fpga_spi_ext_SS_n                       : out   std_logic_vector(1 downto 0);                     --                                 .SS_n
+		i2c_scl_export                          : inout std_logic                     := '0';             --                          i2c_scl.export
+		i2c_sda_export                          : inout std_logic                     := '0';             --                          i2c_sda.export
+		leds_external_connection_export         : out   std_logic_vector(7 downto 0);                     --         leds_external_connection.export
+		lms_ctr_gpio_external_connection_export : out   std_logic_vector(3 downto 0);                     -- lms_ctr_gpio_external_connection.export
+		switch_external_connection_export       : in    std_logic_vector(7 downto 0)  := (others => '0'); --       switch_external_connection.export
+		uart_external_connection_rxd            : in    std_logic                     := '0';             --         uart_external_connection.rxd
+		uart_external_connection_txd            : out   std_logic                                         --                                 .txd
 	);
 end entity lms_ctr;
 
@@ -48,11 +48,11 @@ architecture rtl of lms_ctr is
 			read           : in  std_logic                     := 'X';             -- read
 			readdata       : out std_logic_vector(31 downto 0);                    -- readdata
 			rsi_nrst       : in  std_logic                     := 'X';             -- reset_n
-			coe_if_d       : in  std_logic_vector(7 downto 0)  := (others => 'X'); -- export
+			coe_if_d       : in  std_logic_vector(31 downto 0) := (others => 'X'); -- export
 			coe_if_rd      : out std_logic;                                        -- export
 			coe_of_wrfull  : in  std_logic                     := 'X';             -- export
 			coe_of_wr      : out std_logic;                                        -- export
-			coe_of_d       : out std_logic_vector(7 downto 0);                     -- export
+			coe_of_d       : out std_logic_vector(31 downto 0);                    -- export
 			coe_if_rdempty : in  std_logic                     := 'X';             -- export
 			coe_fifo_rst   : out std_logic                                         -- export
 		);

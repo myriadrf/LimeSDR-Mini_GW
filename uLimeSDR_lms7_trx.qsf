@@ -309,4 +309,14 @@ set_global_assignment -name SIP_FILE ip/ddrox1/ddrox1.sip
 set_global_assignment -name BDF_FILE symbols/tx_synchronizers.bdf
 set_global_assignment -name VHDL_FILE src/tx_modules/sync_fifo_rw.vhd
 set_global_assignment -name VHDL_FILE src/tx_modules/sample_nr_cnt_mimo.vhd
+set_global_assignment -name AUTO_MERGE_PLLS OFF
+set_global_assignment -name ROUTER_TIMING_OPTIMIZATION_LEVEL NORMAL
+set_global_assignment -name AUTO_GLOBAL_CLOCK ON
+set_global_assignment -name AUTO_GLOBAL_REGISTER_CONTROLS ON
+set_global_assignment -name OPTIMIZATION_MODE "HIGH PERFORMANCE EFFORT"
+set_instance_assignment -name IO_STANDARD "2.5 V" -to altera_reserved_tms
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_TXNRX2
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_TXNRX1
+set_location_assignment PIN_J8 -to LMS_TXNRX1
+set_location_assignment PIN_H5 -to LMS_TXNRX2
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

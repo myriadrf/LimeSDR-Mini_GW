@@ -15,18 +15,14 @@ read_sdc LMS7002_timing.sdc
 create_clock -name FT_CLK_VIRT				-period 10
 
 #// Inputs
-set_input_delay -clock [get_clocks FT_CLK_VIRT] -max 7.0 [get_ports {FT_RXFn}]
-set_input_delay -clock [get_clocks FT_CLK_VIRT] -max 7.0  [get_ports {FT_BE[*] FT_D[*]}]
-set_input_delay -clock [get_clocks FT_CLK_VIRT] -min 4.0 [get_ports FT_RXFn]
-set_input_delay -clock [get_clocks FT_CLK_VIRT] -min 4.0  [get_ports {FT_BE[*] FT_D[*]}]
+set_input_delay -clock [get_clocks FT_CLK] -max 7.0 [get_ports {FT_RXFn}]
+set_input_delay -clock [get_clocks FT_CLK] -max 7.0  [get_ports {FT_BE[*] FT_D[*]}]
+set_input_delay -clock [get_clocks FT_CLK] -min 4.0 [get_ports FT_RXFn] -add_delay
+set_input_delay -clock [get_clocks FT_CLK] -min 4.0  [get_ports {FT_BE[*] FT_D[*]}] -add_delay
 
 #// outputs
-set_output_delay -clock [get_clocks FT_CLK_VIRT] -max 2.3 [get_ports FT_WRn]
-set_output_delay -clock [get_clocks FT_CLK_VIRT] -min -3.8 [get_ports FT_WRn]
-
-
-set_output_delay -clock [get_clocks FT_CLK_VIRT] -max 2.3 [get_ports {FT_BE[*] FT_D[*]}]
-set_output_delay -clock [get_clocks FT_CLK_VIRT] -min -3.8 [get_ports {FT_BE[*] FT_D[*]}]
+set_output_delay -clock [get_clocks FT_CLK]  -add_delay -max 0.5 [get_ports FT_WRn]
+set_output_delay -clock [get_clocks FT_CLK]  -add_delay -max 0.5 [get_ports {FT_BE[*] FT_D[*]}]
 
 #// multicycle paths
 #set_false_path -from {fifo_mst_fsm:i_fifo_mst_fsm|tp_be_oe*} -to [get_ports {FT_D[*] FT_BE}]

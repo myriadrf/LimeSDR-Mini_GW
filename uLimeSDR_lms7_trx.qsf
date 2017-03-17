@@ -36,7 +36,7 @@
 #
 # -------------------------------------------------------------------------- #
 
-
+set_global_assignment -name PRE_FLOW_SCRIPT_FILE "quartus_sh:gui.tcl"
 set_global_assignment -name FAMILY "MAX 10"
 set_global_assignment -name DEVICE 10M16SAU169C8G
 set_global_assignment -name TOP_LEVEL_ENTITY lms7_trx_top
@@ -248,9 +248,29 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[10]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[11]
 set_location_assignment PIN_K7 -to FPGA_LED_R
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_LED_R
-set_location_assignment PIN_A11 -to FPGA_GPIO0
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_GPIO0
 set_global_assignment -name POST_FLOW_SCRIPT_FILE "quartus_sh:gen_prg_files.tcl"
+set_global_assignment -name AUTO_MERGE_PLLS OFF
+set_global_assignment -name ROUTER_TIMING_OPTIMIZATION_LEVEL NORMAL
+set_global_assignment -name AUTO_GLOBAL_CLOCK ON
+set_global_assignment -name AUTO_GLOBAL_REGISTER_CONTROLS ON
+set_global_assignment -name OPTIMIZATION_MODE "HIGH PERFORMANCE EFFORT"
+set_instance_assignment -name IO_STANDARD "2.5 V" -to altera_reserved_tms
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_TXNRX2
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_TXNRX1
+set_location_assignment PIN_J8 -to LMS_TXNRX1
+set_location_assignment PIN_H5 -to LMS_TXNRX2
+set_global_assignment -name VHDL_FILE src/general/gpio_ctrl.vhd
+set_global_assignment -name VHDL_FILE src/revision/revision.vhd
+set_global_assignment -name VHDL_FILE src/self_test/tstcfg.vhd
+set_global_assignment -name VHDL_FILE src/self_test/transition_count.vhd
+set_global_assignment -name VHDL_FILE src/self_test/singl_clk_with_ref_test.vhd
+set_global_assignment -name VHDL_FILE src/self_test/clock_test.vhd
+set_global_assignment -name VHDL_FILE src/self_test/clk_with_ref_test.vhd
+set_global_assignment -name VHDL_FILE src/self_test/clk_no_ref_test.vhd
+set_global_assignment -name VHDL_FILE src/general/sync_reg.vhd
+set_global_assignment -name VHDL_FILE src/general/bus_sync_reg.vhd
+set_global_assignment -name VHDL_FILE src/txiqmux/synth/txiqmux.vhd
+set_global_assignment -name VHDL_FILE src/txiqmux/synth/txiq_tst_ptrn.vhd
 set_global_assignment -name BDF_FILE symbols/LTE_tx_path.bdf
 set_global_assignment -name VHDL_FILE src/rx_modules/diq2_sampling.vhd
 set_global_assignment -name VHDL_FILE src/rx_modules/lms7002_ddin.vhd
@@ -309,14 +329,22 @@ set_global_assignment -name SIP_FILE ip/ddrox1/ddrox1.sip
 set_global_assignment -name BDF_FILE symbols/tx_synchronizers.bdf
 set_global_assignment -name VHDL_FILE src/tx_modules/sync_fifo_rw.vhd
 set_global_assignment -name VHDL_FILE src/tx_modules/sample_nr_cnt_mimo.vhd
-set_global_assignment -name AUTO_MERGE_PLLS OFF
-set_global_assignment -name ROUTER_TIMING_OPTIMIZATION_LEVEL NORMAL
-set_global_assignment -name AUTO_GLOBAL_CLOCK ON
-set_global_assignment -name AUTO_GLOBAL_REGISTER_CONTROLS ON
-set_global_assignment -name OPTIMIZATION_MODE "HIGH PERFORMANCE EFFORT"
-set_instance_assignment -name IO_STANDARD "2.5 V" -to altera_reserved_tms
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_TXNRX2
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_TXNRX1
-set_location_assignment PIN_J8 -to LMS_TXNRX1
-set_location_assignment PIN_H5 -to LMS_TXNRX2
+set_global_assignment -name VHDL_FILE src/general/FPGA_LED_cntrl.vhd
+set_location_assignment PIN_A11 -to FPGA_GPIO[0]
+set_location_assignment PIN_B10 -to FPGA_GPIO[1]
+set_location_assignment PIN_C10 -to FPGA_GPIO[2]
+set_location_assignment PIN_D11 -to FPGA_GPIO[3]
+set_location_assignment PIN_E13 -to FPGA_GPIO[4]
+set_location_assignment PIN_F13 -to FPGA_GPIO[5]
+set_location_assignment PIN_F10 -to FPGA_GPIO[6]
+set_location_assignment PIN_G10 -to FPGA_GPIO[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_GPIO[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_GPIO[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_GPIO[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_GPIO[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_GPIO[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_GPIO[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_GPIO[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_GPIO[6]
+set_global_assignment -name VHDL_FILE src/general/gpio_ctrl_top.vhd
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

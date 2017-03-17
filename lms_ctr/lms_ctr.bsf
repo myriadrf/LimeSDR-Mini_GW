@@ -41,8 +41,8 @@ agreement for further details.
 	(port
 		(pt 0 200)
 		(input)
-		(text "exfifo_if_d_export[7..0]" (rect 0 0 94 12)(font "Arial" (font_size 8)))
-		(text "exfifo_if_d_export[7..0]" (rect 4 189 148 200)(font "Arial" (font_size 8)))
+		(text "exfifo_if_d_export[31..0]" (rect 0 0 97 12)(font "Arial" (font_size 8)))
+		(text "exfifo_if_d_export[31..0]" (rect 4 189 154 200)(font "Arial" (font_size 8)))
 		(line (pt 0 200)(pt 240 200)(line_width 3))
 	)
 	(port
@@ -111,8 +111,8 @@ agreement for further details.
 	(port
 		(pt 0 320)
 		(output)
-		(text "exfifo_of_d_export[7..0]" (rect 0 0 97 12)(font "Arial" (font_size 8)))
-		(text "exfifo_of_d_export[7..0]" (rect 4 309 148 320)(font "Arial" (font_size 8)))
+		(text "exfifo_of_d_export[31..0]" (rect 0 0 101 12)(font "Arial" (font_size 8)))
+		(text "exfifo_of_d_export[31..0]" (rect 4 309 154 320)(font "Arial" (font_size 8)))
 		(line (pt 0 320)(pt 240 320)(line_width 3))
 	)
 	(port

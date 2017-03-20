@@ -34,7 +34,6 @@ entity fpgacfg is
 		HW_VER	: in std_logic_vector(3 downto 0);
 		BOM_VER	: in std_logic_vector(2 downto 0);
 		PWR_SRC	: in std_logic;
-		GPIO_IN 	: in std_logic_vector(15 downto 0);
 		
 		oen: out std_logic; --nc
 		stateo: out std_logic_vector(5 downto 0);
@@ -85,9 +84,7 @@ entity fpgacfg is
 		FPGA_LED1_CTRL		: out std_logic_vector(2 downto 0);
 		FPGA_LED2_CTRL		: out std_logic_vector(2 downto 0);
 		FX3_LED_CTRL		: out std_logic_vector(2 downto 0);
-		FCLK_ENA				: out std_logic_vector(1 downto 0);
-		GPIO_DIR				: out std_logic_vector(15 downto 0);
-		GPIO_VAL				: out std_logic_vector(15 downto 0)
+		FCLK_ENA				: out std_logic_vector(1 downto 0)
 		
 
 
@@ -186,7 +183,6 @@ begin
 					when "00001" => dout_reg <= x"0001";
 					when "00010" => dout_reg <= (15 downto 8 => '0') & std_logic_vector(to_unsigned(COMPILE_REV, 8));
 					when "00011" => dout_reg <= (15 downto 8 => '0') & PWR_SRC & BOM_VER & HW_VER;
-					when "10100" => dout_reg <= GPIO_IN;
 					when others  => dout_reg <= mem(to_integer(unsigned(inst_reg(4 downto 0))));
 				end case;
 			end if;			      
@@ -309,9 +305,6 @@ begin
 		FPGA_LED2_CTRL		<= mem(26)(6 downto 4);
 		FX3_LED_CTRL		<= mem(28)(2 downto 0);
 		FCLK_ENA				<= mem(29)(1 downto 0);
-		
-		GPIO_DIR				<= mem(21)(15 downto 0);
-		GPIO_VAL				<= mem(22)(15 downto 0);
 
 
 end fpgacfg_arch;

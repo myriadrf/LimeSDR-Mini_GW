@@ -73,7 +73,7 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
  28 .sopc_system_name 00000007  00000000  00000000  00018d8d  2**0
                   CONTENTS, READONLY
- 29 .sopcinfo     0007038e  00000000  00000000  00018d94  2**0
+ 29 .sopcinfo     0007038c  00000000  00000000  00018d94  2**0
                   CONTENTS, READONLY
 SYMBOL TABLE:
 00100000 l    d  .entry	00000000 .entry
@@ -759,10 +759,10 @@ Disassembly of section .text:
   10068c:	98800045 	stb	r2,1(r19)
   100690:	01018800 	call	101880 <alt_avalon_spi_command>
   100694:	01000834 	movhi	r4,32
-  100698:	01407574 	movhi	r5,469
+  100698:	0140c674 	movhi	r5,793
   10069c:	018000b4 	movhi	r6,2
   1006a0:	21082004 	addi	r4,r4,8320
-  1006a4:	29700004 	addi	r5,r5,-16384
+  1006a4:	295d4004 	addi	r5,r5,29952
   1006a8:	31a1a804 	addi	r6,r6,-31072
   1006ac:	05000834 	movhi	r20,32
   1006b0:	d4201644 	addi	r16,gp,-32679
@@ -3674,8 +3674,8 @@ Disassembly of section .text:
   1032c0:	014003f4 	movhi	r5,15
   1032c4:	29509004 	addi	r5,r5,16960
   1032c8:	01014f80 	call	1014f8 <__mulsi3>
-  1032cc:	01007574 	movhi	r4,469
-  1032d0:	21300004 	addi	r4,r4,-16384
+  1032cc:	0100c674 	movhi	r4,793
+  1032d0:	211d4004 	addi	r4,r4,29952
   1032d4:	100b883a 	mov	r5,r2
   1032d8:	01014e80 	call	1014e8 <__udivsi3>
   1032dc:	01200034 	movhi	r4,32768
@@ -3698,8 +3698,8 @@ Disassembly of section .text:
   103320:	014003f4 	movhi	r5,15
   103324:	29509004 	addi	r5,r5,16960
   103328:	01014f80 	call	1014f8 <__mulsi3>
-  10332c:	01007574 	movhi	r4,469
-  103330:	21300004 	addi	r4,r4,-16384
+  10332c:	0100c674 	movhi	r4,793
+  103330:	211d4004 	addi	r4,r4,29952
   103334:	100b883a 	mov	r5,r2
   103338:	01014e80 	call	1014e8 <__udivsi3>
   10333c:	01200034 	movhi	r4,32768
@@ -3720,8 +3720,8 @@ Disassembly of section .text:
   103378:	014003f4 	movhi	r5,15
   10337c:	29509004 	addi	r5,r5,16960
   103380:	01014f80 	call	1014f8 <__mulsi3>
-  103384:	01007574 	movhi	r4,469
-  103388:	21300004 	addi	r4,r4,-16384
+  103384:	0100c674 	movhi	r4,793
+  103388:	211d4004 	addi	r4,r4,29952
   10338c:	100b883a 	mov	r5,r2
   103390:	01014e80 	call	1014e8 <__udivsi3>
   103394:	1009883a 	mov	r4,r2
@@ -3734,8 +3734,8 @@ Disassembly of section .text:
   1033b0:	014003f4 	movhi	r5,15
   1033b4:	29509004 	addi	r5,r5,16960
   1033b8:	01014f80 	call	1014f8 <__mulsi3>
-  1033bc:	01007574 	movhi	r4,469
-  1033c0:	21300004 	addi	r4,r4,-16384
+  1033bc:	0100c674 	movhi	r4,793
+  1033c0:	211d4004 	addi	r4,r4,29952
   1033c4:	100b883a 	mov	r5,r2
   1033c8:	01014e80 	call	1014e8 <__udivsi3>
   1033cc:	1009883a 	mov	r4,r2
@@ -4559,7 +4559,7 @@ Disassembly of section .text:
   103fbc:	d9400015 	stw	r5,0(sp)
   103fc0:	d9800115 	stw	r6,4(sp)
   103fc4:	d9c00215 	stw	r7,8(sp)
-  103fc8:	00000000 	call	0 <__reset-0x100000>
+  103fc8:	00000000 	call	0 <__alt_mem_onchip_flash_0_data-0x100000>
   103fcc:	d9400017 	ldw	r5,0(sp)
   103fd0:	d9800117 	ldw	r6,4(sp)
   103fd4:	d9c00217 	ldw	r7,8(sp)
@@ -4645,7 +4645,7 @@ Disassembly of section .text:
   10410c:	10003426 	beq	r2,zero,1041e0 <__call_exitprocs+0x18c>
   104110:	9809883a 	mov	r4,r19
   104114:	a8800015 	stw	r2,0(r21)
-  104118:	00000000 	call	0 <__reset-0x100000>
+  104118:	00000000 	call	0 <__alt_mem_onchip_flash_0_data-0x100000>
   10411c:	acc00017 	ldw	r19,0(r21)
   104120:	983fe41e 	bne	r19,zero,1040b4 <_gp+0xffefb8ec>
   104124:	dfc00b17 	ldw	ra,44(sp)

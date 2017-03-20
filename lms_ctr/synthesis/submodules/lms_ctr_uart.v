@@ -772,7 +772,7 @@ ie_parity_error} = control_reg;
 
 //synthesis translate_on
 //synthesis read_comments_as_HDL on
-//  assign divisor_constant = 267;
+//  assign divisor_constant = 451;
 //synthesis read_comments_as_HDL off
 
 endmodule

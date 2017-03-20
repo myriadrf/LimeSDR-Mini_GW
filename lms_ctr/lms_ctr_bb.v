@@ -29,10 +29,10 @@ module lms_ctr (
 	output		dac_spi_ext_MOSI;
 	output		dac_spi_ext_SCLK;
 	output		dac_spi_ext_SS_n;
-	input	[7:0]	exfifo_if_d_export;
+	input	[31:0]	exfifo_if_d_export;
 	output		exfifo_if_rd_export;
 	input		exfifo_if_rdempty_export;
-	output	[7:0]	exfifo_of_d_export;
+	output	[31:0]	exfifo_of_d_export;
 	output		exfifo_of_wr_export;
 	input		exfifo_of_wrfull_export;
 	output		exfifo_rst_export;

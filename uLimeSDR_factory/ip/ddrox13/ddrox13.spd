@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="ddrox13_sim/altera_gpio_lite/altera_gpio_lite.sv"
+   type="SYSTEM_VERILOG"
+   library="ddrox13" />
+ <file
+   path="ddrox13_sim/altera_gpio_lite/mentor/altera_gpio_lite.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="ddrox13"
+   simulator="modelsim" />
+ <file path="ddrox13_sim/ddrox13.vhd" type="VHDL" />
+ <topLevel name="ddrox13" />
+ <deviceFamily name="max10" />
+</simPackage>

@@ -65,6 +65,15 @@ unsigned char flash_page_data[FLASH_PAGE_SIZE];
 tBoard_Config_FPGA *Board_Config_FPGA = (tBoard_Config_FPGA*) flash_page_data;
 unsigned long int fpga_byte;
 
+// Used for MAX10 Flash programming
+uint32_t CFM0StartAddress = 0x04A000;
+uint32_t CFM0EndAddress   = 0x08BFFF;
+uint32_t address = 0x0;
+uint32_t byte = 0;
+uint32_t byte1;
+uint32_t word = 0x0;
+uint8_t state, Flash = 0x0;
+
 
 
 /**	This function checks if all blocks could fit in data field.
@@ -609,120 +618,155 @@ int main()
 						break;
 
 						case 1: //write data to Flash from PC
-							//Flash_ID();
-							//Reconfigure_SPI_for_Flash ();
-/*
-							if(current_portion == 0)//beginning
-							{
-								flash_page = 0;
-								flash_page_data_cnt = 0;
-								flash_data_counter_to_copy = 0;
-								fpga_byte = 0;
 
-								//**status = FlashSpiEraseSector(CyTrue, FLASH_LAYOUT_FPGA_METADATA); //erase sector for FPGA autoload metadata
+							current_portion = (LMS_Ctrl_Packet_Rx->Data_field[1] << 24) | (LMS_Ctrl_Packet_Rx->Data_field[2] << 16) | (LMS_Ctrl_Packet_Rx->Data_field[3] << 8) | (LMS_Ctrl_Packet_Rx->Data_field[4]);
+							data_cnt = LMS_Ctrl_Packet_Rx->Data_field[5];
+
+							if (current_portion == 0) state = 10;
+							if (data_cnt        == 0)
+							{
+								state = 30;
 							}
+							Flash = 1;
 
-							flash_data_cnt_free = FLASH_PAGE_SIZE - flash_page_data_cnt;
-
-							if (flash_data_cnt_free > 0)
+							while(Flash)
 							{
-								if (flash_data_cnt_free > data_cnt)
-									flash_data_counter_to_copy = data_cnt; //copy all data if fits to free page space
-								else
-									flash_data_counter_to_copy = flash_data_cnt_free; //copy only amount of data that fits in to free page size
-
-								memcpy(&flash_page_data[flash_page_data_cnt], &LMS_Ctrl_Packet_Rx->Data_field[24], flash_data_counter_to_copy);
-
-								flash_page_data_cnt = flash_page_data_cnt + flash_data_counter_to_copy;
-								flash_data_cnt_free = FLASH_PAGE_SIZE - flash_page_data_cnt;
-
-								if (data_cnt == 0)//all bytes transmitted, end of programming
+								switch (state)
 								{
-									if (flash_page_data_cnt > 0)
-										flash_page_data_cnt = FLASH_PAGE_SIZE; //finish page
-								}
+									//Init
+									case 10:
+										//Set Flash memory addresses
+										CFM0StartAddress = 0x04A000;
+										CFM0EndAddress   = 0x08BFFF;
 
-								flash_data_cnt_free = FLASH_PAGE_SIZE - flash_page_data_cnt;
+										address = CFM0StartAddress;
 
-							}
+										//Write Control Register of On-Chip Flash IP to un-protect and erase operation
+										IOWR(ONCHIP_FLASH_0_CSR_BASE, 1, 0xf7ffffff);
+										IOWR(ONCHIP_FLASH_0_CSR_BASE, 1, 0xf7dfffff);
 
-							//Write data
-							if (flash_page_data_cnt >= FLASH_PAGE_SIZE)
-							{
-								status = 0;
-								if ((flash_page % (FLASH_SECTOR_SIZE/FLASH_PAGE_SIZE)) == 0) //need to erase sector? reached number of pages in block?
-									status = FlashSpiEraseSector(SPI_FPGA_AS_BASE, SPI_NR_FLASH, CyTrue, FLASH_LAYOUT_FPGA_BITSTREAM + flash_page/(FLASH_SECTOR_SIZE/FLASH_PAGE_SIZE));
+										state = 11;
+										Flash = 1;
 
-								status += FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, (FLASH_LAYOUT_FPGA_BITSTREAM * FLASH_SECTOR_SIZE/FLASH_PAGE_SIZE) + flash_page, FLASH_PAGE_SIZE, flash_page_data, CyFalse);//write to flash
+									case 11:
+										//Start erase CFM0
+										if((IORD(ONCHIP_FLASH_0_CSR_BASE, 0) & 0x13) == 0x10)
+										{
+											IOWR(ONCHIP_FLASH_0_CSR_BASE, 1, 0xf7ffffff);
+											//printf("CFM0 Erased\n");
+											//printf("Enter Programming file.\n");
+											state = 20;
+											Flash = 1;
+										}
+										if((IORD(ONCHIP_FLASH_0_CSR_BASE, 0) & 0x13) == 0x01)
+										{
+											//printf("Erasing CFM0\n");
+											state = 11;
+											Flash = 1;
+										}
+										if((IORD(ONCHIP_FLASH_0_CSR_BASE, 0) & 0x13) == 0x00)
+										{
+											//printf("Erase CFM0 Failed\n");
+											state = 0;
+										}
 
-								//Break the loop and issue an error if something went wrong in FLASH sector erase or programming commands
-								if(status)
-								{
-									LMS_Ctrl_Packet_Tx->Header.Status = STATUS_ERROR_CMD;
 									break;
-								}
 
-								flash_page++;
+									//Program
+									case 20:
+										for(byte = 24; byte <= 52; byte += 4)
+										{
+											//Take word
+											//word = (LMS_Ctrl_Packet_Rx->Data_field[byte+0]<<24)|(LMS_Ctrl_Packet_Rx->Data_field[byte+1]<<16)|(LMS_Ctrl_Packet_Rx->Data_field[byte+2]<<8)|(LMS_Ctrl_Packet_Rx->Data_field[byte+3]);
+											word  = (ALT_CI_NIOS_CUSTOM_INSTR_BITSWAP_0(LMS_Ctrl_Packet_Rx->Data_field[byte+0]) >>  0) & 0xFF000000;
+											word |= (ALT_CI_NIOS_CUSTOM_INSTR_BITSWAP_0(LMS_Ctrl_Packet_Rx->Data_field[byte+1]) >>  8) & 0x00FF0000;
+											word |= (ALT_CI_NIOS_CUSTOM_INSTR_BITSWAP_0(LMS_Ctrl_Packet_Rx->Data_field[byte+2]) >> 16) & 0x0000FF00;
+											word |= (ALT_CI_NIOS_CUSTOM_INSTR_BITSWAP_0(LMS_Ctrl_Packet_Rx->Data_field[byte+3]) >> 24) & 0x000000FF;
 
-								flash_page_data_cnt = 0;
-								flash_data_cnt_free = FLASH_PAGE_SIZE; // - flash_page_data_cnt;
-							}
 
-							//if not all bytes written to flash page
-							if (data_cnt > flash_data_counter_to_copy)
-							{
-								flash_data_counter_to_copy = data_cnt - flash_data_counter_to_copy;
+								  		  	//for(byte1=byte; byte1<byte+4; byte1++)
+								  		  	//{
+								  		  	//	LMS_Ctrl_Packet_Rx->Data_field[byte1] = (((LMS_Ctrl_Packet_Rx->Data_field[byte1] & 0xaa)>>1)|((LMS_Ctrl_Packet_Rx->Data_field[byte1] & 0x55)<<1));		/*Swap LSB with MSB before write into CFM*/
+								  		  	//	LMS_Ctrl_Packet_Rx->Data_field[byte1] = (((LMS_Ctrl_Packet_Rx->Data_field[byte1] & 0xcc)>>2)|((LMS_Ctrl_Packet_Rx->Data_field[byte1] & 0x33)<<2));
+								  		  	// 	LMS_Ctrl_Packet_Rx->Data_field[byte1] = (((LMS_Ctrl_Packet_Rx->Data_field[byte1] & 0xf0)>>4)|((LMS_Ctrl_Packet_Rx->Data_field[byte1] & 0x0f)<<4));
+								  		  	//}
 
-								memcpy(&flash_page_data[flash_page_data_cnt], &LMS_Ctrl_Packet_Rx->Data_field[24], data_cnt);
+											//Swap bits using hardware accelerator
+											//word = ALT_CI_NIOS_CUSTOM_INSTR_BITSWAP_0(word);
 
-								flash_page_data_cnt = flash_page_data_cnt + flash_data_counter_to_copy;
-								flash_data_cnt_free = FLASH_PAGE_SIZE - flash_page_data_cnt;
-							}
+											//Command to write into On-Chip Flash IP
+											if(address <= CFM0EndAddress)
+											{
+												IOWR_32DIRECT(ONCHIP_FLASH_0_DATA_BASE, address, word);
 
-							fpga_byte = fpga_byte + data_cnt;
+												address += 4;
 
-							if (fpga_byte <= FPGA_SIZE) //correct bitream size?
-							{
-								if (data_cnt == 0)//end of programming
-								{
-									Board_Config_FPGA->Bitream_size = fpga_byte; //bitsream ok
-									Board_Config_FPGA->Autoload = 1; //autoload
-									//**status = FlashSpiEraseSector(CyTrue, FLASH_LAYOUT_FPGA_METADATA); //erase sector for FPGA autoload metadata
-									//**FlashSpiTransfer((FLASH_LAYOUT_FPGA_METADATA * FLASH_SECTOR_SIZE/FLASH_PAGE_SIZE), FLASH_PAGE_SIZE, flash_page_data, CyFalse);//write to flash
-								}
 
-								LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
-							}
-							else //not correct bitsream size
-								LMS_Ctrl_Packet_Tx->Header.Status = STATUS_ERROR_CMD;
-*/
+												while((IORD(ONCHIP_FLASH_0_CSR_BASE, 0) & 0x0b) == 0x02)
+												{
+													//printf("Writing CFM0(%d)\n", address);
+												}
+												if((IORD(ONCHIP_FLASH_0_CSR_BASE, 0) & 0x0b) == 0x00)
+												{
+													//printf("Write to %d failed\n", address);
+													state = 0;
+													address = 700000;
+												}
+												if((IORD(ONCHIP_FLASH_0_CSR_BASE, 0) & 0x0b) == 0x08)
+												{
+												};
+											}
+											else
+											{
+												LMS_Ctrl_Packet_Tx->Header.Status = STATUS_ERROR_CMD;
+											};
+										};
+
+										state = 20;
+										Flash = 0;
+										LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
+
+									break;
+
+									//Finish
+									case 30:
+										//Re-protect the sector
+										IOWR(ONCHIP_FLASH_0_CSR_BASE, 1, 0xffffffff);
+
+										state = 0;
+										Flash = 0;
+
+										LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
+
+									break;
+
+									default:
+										LMS_Ctrl_Packet_Tx->Header.Status = STATUS_ERROR_CMD;
+										state = 0;
+										Flash = 0;
+								};
+							};
+
 						break;
 
 						case 2: //configure FPGA from flash
-							/*
-							if (FPGA_config_thread_runnning == 0)
-							{
-								Reconfigure_SPI_for_Flash ();
-								FlashSpiTransfer((FLASH_LAYOUT_FPGA_METADATA * FLASH_SECTOR_SIZE/FLASH_PAGE_SIZE), FLASH_PAGE_SIZE, flash_page_data, CyTrue); //read from flash
 
-								if(Board_Config_FPGA->Bitream_size <= FPGA_SIZE) //bitsream size ok?
-								{
-									fpga_bitstream_size = Board_Config_FPGA->Bitream_size;
-									FPGA_config_thread_start ();
-									LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
-									break;
-								}
-							}
-							*/
+							//set CONFIG_SEL overwrite to 1 and CONFIG_SEL to Image 1
+							//IOWR(DUAL_BOOT_0_BASE, 1, 0x00000003);
 
-							/*set CONFIG_SEL overwrite to 1 and CONFIG_SEL to image 1*/
-							IOWR(DUAL_BOOT_0_BASE, 1, 0x00000003);
+							//set CONFIG_SEL overwrite to 1 and CONFIG_SEL to Image 0
+							IOWR(DUAL_BOOT_0_BASE, 1, 0x00000001);
+
+
 							/*wait while core is busy*/
-							while(IORD(DUAL_BOOT_0_BASE,3) == 1)
-							{
-							}
-							/*Trigger reconfiguration to Image 1*/
+							while(IORD(DUAL_BOOT_0_BASE, 3) == 1) {}
+
+							//Trigger reconfiguration to Image 1
+							//IOWR(DUAL_BOOT_0_BASE, 0, 0x00000001);
+
+							//Trigger reconfiguration to Image 0
 							IOWR(DUAL_BOOT_0_BASE, 0, 0x00000001);
+
 							LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
 
 

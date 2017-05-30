@@ -1,0 +1,25 @@
+BLOCK		START ADDRESS		END ADDRESS
+
+ICB			0x00000000			0x00000FFF
+UFM			0x00001000			0x00008FFF
+CFM0		0x0004B000			0x0008CFFF (0x00076ECF)
+CFM1		0x00009000			0x0004AFFF (0x00034E1B)
+
+
+Max 10 Setting:
+
+	EPOF: OFF
+	Verify protect: OFF
+	Watchdog value: Not activated
+	Configure device from CFM0 only: OFF
+	POR: Instant ON
+	IO Pullup: ON
+	SPI IO Pullup: ON
+
+
+
+Notes:
+
+- Data checksum for this conversion is 0x04D86FC1
+
+- All the addresses in this file are byte addresses

@@ -1,5 +1,5 @@
 #=======================Base clocks=====================================
-create_clock -period "52MHz"		-name LMK_CLK 		[get_ports LMK_CLK]
+create_clock -period "40MHz"		-name LMK_CLK 		[get_ports LMK_CLK]
 create_clock -period "100MHz"		-name FT_CLK		[get_ports FT_CLK]
 
 

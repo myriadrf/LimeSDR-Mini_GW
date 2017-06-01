@@ -61,7 +61,7 @@ set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name FLOW_ENABLE_POWER_ANALYZER ON
 set_global_assignment -name POWER_DEFAULT_INPUT_IO_TOGGLE_RATE "50 %"
 set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "2.5 V"
-set_location_assignment PIN_A10 -to FPGA_LED_G
+set_location_assignment PIN_D8 -to FPGA_LED_G
 set_location_assignment PIN_H6 -to LMK_CLK
 set_location_assignment PIN_D1 -to SPARE_IO_PULL_UP
 set_global_assignment -name RESERVE_ALL_UNUSED_PINS_WEAK_PULLUP "AS INPUT TRI-STATED"
@@ -168,19 +168,11 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_SPI_MOSI
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_SPI_SCLK
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_I2C_SCL
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_I2C_SDA
-set_location_assignment PIN_C4 -to RFSW2_VCTL2
-set_location_assignment PIN_C5 -to RFSW2_VCTL1
-set_location_assignment PIN_B9 -to RFSW1_VCTL2
-set_location_assignment PIN_D8 -to RFSW1_VCTL1
 set_location_assignment PIN_K6 -to LMS_TXEN
 set_location_assignment PIN_M11 -to LMS_RXEN
 set_location_assignment PIN_L1 -to LMS_RESET
 set_location_assignment PIN_N11 -to LMS_CORE_LDO_EN
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_CORE_LDO_EN
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RFSW2_VCTL2
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RFSW2_VCTL1
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RFSW1_VCTL2
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RFSW1_VCTL1
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_TXEN
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_RXEN
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_RESET
@@ -246,7 +238,7 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[8]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[9]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[10]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[11]
-set_location_assignment PIN_K7 -to FPGA_LED_R
+set_location_assignment PIN_B9 -to FPGA_LED_R
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_LED_R
 set_global_assignment -name POST_FLOW_SCRIPT_FILE "quartus_sh:gen_prg_files.tcl"
 set_global_assignment -name AUTO_MERGE_PLLS OFF
@@ -348,4 +340,16 @@ set_global_assignment -name VHDL_FILE src/tx_modules/sync_fifo_rw.vhd
 set_global_assignment -name VHDL_FILE src/tx_modules/sample_nr_cnt_mimo.vhd
 set_global_assignment -name VHDL_FILE src/general/FPGA_LED_cntrl.vhd
 set_global_assignment -name VHDL_FILE src/general/gpio_ctrl_top.vhd
+set_location_assignment PIN_C5 -to FAN_CTRL
+set_location_assignment PIN_H2 -to LM75_OS
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LM75_OS
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FAN_CTRL
+set_location_assignment PIN_A10 -to FPGA_EGPIO[3]
+set_location_assignment PIN_D6 -to FPGA_EGPIO[2]
+set_location_assignment PIN_B7 -to FPGA_EGPIO[1]
+set_location_assignment PIN_C9 -to FPGA_EGPIO[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_EGPIO[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_EGPIO[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_EGPIO[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_EGPIO[0]
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

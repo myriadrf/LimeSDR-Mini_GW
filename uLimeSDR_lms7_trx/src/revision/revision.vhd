@@ -14,10 +14,10 @@ package revisions is
 	constant MAJOR_REV : INTEGER := 1;
 	constant MINOR_REV : INTEGER := 1;
 	constant BETA_REV : INTEGER := 1;
-	constant COMPILE_REV : INTEGER := 5;
+	constant COMPILE_REV : INTEGER := 6;
 	constant COMPILE_YEAR_STAMP : INTEGER := 17;
 	constant COMPILE_MONTH_STAMP : INTEGER := 05;
-	constant COMPILE_DAY_STAMP : INTEGER := 30;
+	constant COMPILE_DAY_STAMP : INTEGER := 31;
 	constant COMPILE_HOUR_STAMP : INTEGER := 11;
 	
 	constant MAGIC_NUM : STD_LOGIC_VECTOR(31 downto 0) := X"D8A5F009";

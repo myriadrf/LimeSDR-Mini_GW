@@ -399,7 +399,7 @@
   <parameter name="targetSlaveSelectToSClkDelay" value="0.0" />
  </module>
  <module name="dual_boot_0" kind="altera_dual_boot" version="15.1" enabled="1">
-  <parameter name="CLOCK_FREQUENCY" value="30.72" />
+  <parameter name="CLOCK_FREQUENCY" value="40.0" />
   <parameter name="INTENDED_DEVICE_FAMILY" value="MAX 10" />
  </module>
  <module name="fpga_spi" kind="altera_avalon_spi" version="15.1" enabled="1">

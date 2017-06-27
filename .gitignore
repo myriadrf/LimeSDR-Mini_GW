@@ -52,6 +52,7 @@ alt_sld_fab_wrapper_hw.tcl
 *.bak
 *.html
 *.xml
+*.wlf
 
 #--------------
 # generated folders

@@ -30,7 +30,7 @@
 //INPUT_CLOCK: 40000000
 //ISMASTER: 1
 //DATABITS: 8
-//TARGETCLOCK: 20000000
+//TARGETCLOCK: 10000000
 //NUMSLAVES: 2
 //CPOL: 0
 //CPHA: 0
@@ -80,6 +80,7 @@ module lms_ctr_fpga_spi (
 
   wire             E;
   reg              EOP;
+  reg              MISO_reg;
   wire             MOSI;
   reg              ROE;
   reg              RRDY;
@@ -95,7 +96,7 @@ module lms_ctr_fpga_spi (
   reg     [ 15: 0] data_to_cpu;
   reg              data_wr_strobe;
   wire             dataavailable;
-  reg     [  3: 0] delayCounter;
+  reg     [  2: 0] delayCounter;
   wire             ds_MISO;
   wire             enableSS;
   wire             endofpacket;
@@ -114,6 +115,7 @@ module lms_ctr_fpga_spi (
   wire    [ 15: 0] p1_data_to_cpu;
   wire             p1_data_wr_strobe;
   wire             p1_rd_strobe;
+  wire    [  1: 0] p1_slowcount;
   wire             p1_wr_strobe;
   reg              rd_strobe;
   wire             readyfordata;
@@ -121,6 +123,7 @@ module lms_ctr_fpga_spi (
   reg     [  7: 0] shift_reg;
   wire             slaveselect_wr_strobe;
   wire             slowclock;
+  reg     [  1: 0] slowcount;
   wire    [ 10: 0] spi_control;
   reg     [ 15: 0] spi_slave_select_holding_reg;
   reg     [ 15: 0] spi_slave_select_reg;
@@ -251,8 +254,21 @@ module lms_ctr_fpga_spi (
     end
 
 
-  // SPI clock is sys_clk/2.
-  assign slowclock = 1;
+  // slowclock is active once every 2 system clock pulses.
+  assign slowclock = slowcount == 2'h1;
+
+  assign p1_slowcount = ({2 {(transmitting && !slowclock)}} & (slowcount + 1)) |
+    ({2 {(~((transmitting && !slowclock)))}} & 0);
+
+  // Divide counter for SPI clock.
+  always @(posedge clk or negedge reset_n)
+    begin
+      if (reset_n == 0)
+          slowcount <= 0;
+      else 
+        slowcount <= p1_slowcount;
+    end
+
 
   // End-of-packet value register.
   always @(posedge clk or negedge reset_n)
@@ -285,11 +301,11 @@ module lms_ctr_fpga_spi (
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
-          delayCounter <= 8;
+          delayCounter <= 4;
       else 
         begin
           if (write_shift_reg)
-              delayCounter <= 8;
+              delayCounter <= 4;
           if (transmitting & slowclock & (delayCounter != 0))
               delayCounter <= delayCounter - 1;
         end
@@ -309,7 +325,7 @@ module lms_ctr_fpga_spi (
     end
 
 
-  assign enableSS = transmitting & (delayCounter != 8);
+  assign enableSS = transmitting & (delayCounter != 4);
   assign MOSI = shift_reg[7];
   assign SS_n = (enableSS | SSO_reg) ? ~spi_slave_select_reg : {2 {1'b1} };
   assign SCLK = SCLK_reg;
@@ -337,6 +353,7 @@ module lms_ctr_fpga_spi (
           tx_holding_primed <= 0;
           transmitting <= 0;
           SCLK_reg <= 0;
+          MISO_reg <= 0;
         end
       else 
         begin
@@ -389,8 +406,12 @@ module lms_ctr_fpga_spi (
                   if (transmitting)
                       SCLK_reg <= ~SCLK_reg;
               if (SCLK_reg ^ 0 ^ 0)
+                begin
                   if (1)
-                      shift_reg <= {shift_reg[6 : 0], ds_MISO};
+                      shift_reg <= {shift_reg[6 : 0], MISO_reg};
+                end
+              else 
+                MISO_reg <= ds_MISO;
             end
         end
     end

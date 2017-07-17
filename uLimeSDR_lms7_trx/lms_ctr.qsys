@@ -395,7 +395,7 @@
   <parameter name="masterSPI" value="true" />
   <parameter name="numberOfSlaves" value="1" />
   <parameter name="syncRegDepth" value="2" />
-  <parameter name="targetClockRate" value="20000000" />
+  <parameter name="targetClockRate" value="10000000" />
   <parameter name="targetSlaveSelectToSClkDelay" value="0.0" />
  </module>
  <module name="dual_boot_0" kind="altera_dual_boot" version="15.1" enabled="1">
@@ -415,7 +415,7 @@
   <parameter name="masterSPI" value="true" />
   <parameter name="numberOfSlaves" value="2" />
   <parameter name="syncRegDepth" value="2" />
-  <parameter name="targetClockRate" value="20000000" />
+  <parameter name="targetClockRate" value="10000000" />
   <parameter name="targetSlaveSelectToSClkDelay" value="200.0" />
  </module>
  <module

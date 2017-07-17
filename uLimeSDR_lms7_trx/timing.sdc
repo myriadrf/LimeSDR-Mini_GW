@@ -9,9 +9,9 @@ create_clock -period "100MHz"		-name FT_CLK		[get_ports FT_CLK]
 create_clock -name FT_CLK_VIRT				-period 10
 
 #// Inputs
-set_input_delay -clock [get_clocks FT_CLK] -max 7.0 [get_ports {FT_RXFn}]
+set_input_delay -clock [get_clocks FT_CLK] -max 7.0 [get_ports {FT_RXFn FT_TXEn}]
 set_input_delay -clock [get_clocks FT_CLK] -max 7.0  [get_ports {FT_BE[*] FT_D[*]}]
-set_input_delay -clock [get_clocks FT_CLK] -min 4.0 [get_ports FT_RXFn] -add_delay
+set_input_delay -clock [get_clocks FT_CLK] -min 4.0 [get_ports {FT_RXFn FT_TXEn}] -add_delay
 set_input_delay -clock [get_clocks FT_CLK] -min 4.0  [get_ports {FT_BE[*] FT_D[*]}] -add_delay
 
 #// outputs
@@ -27,7 +27,7 @@ derive_clock_uncertainty
 #NIOS spi
 create_generated_clock 	-name FPGA_SPI_SCLK \
 								-source [get_ports {LMK_CLK}] \
-								-divide_by 2 \
+								-divide_by 4 \
 								[get_registers {nios_cpu:inst10|lms_ctr:u0|lms_ctr_dac_spi:dac_spi|SCLK_reg}]
 
 create_generated_clock 	-name FPGA_SPI_SCLK_out \
@@ -41,7 +41,7 @@ create_generated_clock 	-name DUAL_BOOT_CLK \
 
 create_generated_clock 	-name ONCHIP_FLASH_CLK \
 								-source [get_ports {LMK_CLK}] \
-								-divide_by 2 \
+								-divide_by 4 \
 								[get_registers {nios_cpu:inst10|lms_ctr:u0|altera_onchip_flash:onchip_flash_0|altera_onchip_flash_avmm_data_controller:avmm_data_controller|flash_se_neg_reg}]
 
 #NIOS SPI0
@@ -57,11 +57,11 @@ if {$::quartus(nameofexecutable) ne "quartus_sta"} {
 set_output_delay -clock [get_clocks FPGA_SPI_SCLK_out] -max 15 [get_ports {FPGA_SPI_MOSI FPGA_SPI_DAC_SS FPGA_SPI_LMS_SS}] 
 set_output_delay -clock [get_clocks FPGA_SPI_SCLK_out] -min -15 [get_ports {FPGA_SPI_MOSI FPGA_SPI_DAC_SS FPGA_SPI_LMS_SS}]
 
-set_multicycle_path -setup -end -from [get_clocks {FPGA_SPI_SCLK_out}] -to [get_clocks {LMK_CLK}] [expr 1]
-set_multicycle_path -hold -end -from [get_clocks {FPGA_SPI_SCLK_out}] -to [get_clocks {LMK_CLK}] [expr 1]
+set_multicycle_path -setup -end -from [get_clocks {FPGA_SPI_SCLK_out}] -to [get_clocks {LMK_CLK}] [expr 2]
+set_multicycle_path -hold -end -from [get_clocks {FPGA_SPI_SCLK_out}] -to [get_clocks {LMK_CLK}] [expr 3]
 
-set_multicycle_path -setup -start -from [get_clocks LMK_CLK] -to [get_clocks FPGA_SPI_SCLK_out] 1
-set_multicycle_path -hold -start -from [get_clocks LMK_CLK] -to [get_clocks FPGA_SPI_SCLK_out] 1
+set_multicycle_path -setup -start -from [get_clocks LMK_CLK] -to [get_clocks FPGA_SPI_SCLK_out] 2
+set_multicycle_path -hold -start -from [get_clocks LMK_CLK] -to [get_clocks FPGA_SPI_SCLK_out] 3
 
 set_false_path -to [get_ports FPGA_SPI_SCLK]
 

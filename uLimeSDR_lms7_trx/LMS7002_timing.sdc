@@ -10,7 +10,7 @@ set LMS_LMS7_Tsu				1.20
 set LMS_LMS7_Th				1.00
 
 	#Measured Tco_min and Tco_max values
-set LMS_Tco_max				4.05
+set LMS_Tco_max				1.00
 set LMS_Tco_min				2.90
 
 	#Tco based
@@ -38,7 +38,7 @@ create_generated_clock 	-name  TX_C0 \
 								
 create_generated_clock 	-name   TX_C1 \
 								-source [get_pins inst11|inst5|altpll_component|auto_generated|pll1|inclk[0]] \
-								-phase 0 [get_pins inst11|inst5|altpll_component|auto_generated|pll1|clk[1]]
+								-phase 90 [get_pins inst11|inst5|altpll_component|auto_generated|pll1|clk[1]]
 								
 create_generated_clock 	-name   RX_C2 \
 								-source [get_pins inst11|inst5|altpll_component|auto_generated|pll1|inclk[0]] \
@@ -46,7 +46,7 @@ create_generated_clock 	-name   RX_C2 \
 
 create_generated_clock 	-name   RX_C3 \
 								-source [get_pins inst11|inst5|altpll_component|auto_generated|pll1|inclk[0]] \
-								-phase 0 [get_pins inst11|inst5|altpll_component|auto_generated|pll1|clk[3]]
+								-phase 90 [get_pins inst11|inst5|altpll_component|auto_generated|pll1|clk[3]]
 								
 #LMS1_FCLK1 clock output pin 
 create_generated_clock 	-name LMS_FCLK1 \
@@ -130,14 +130,15 @@ set_output_delay	-min -$LMS_LMS7_Th \
 #												[get_clocks RX_PLLCLK_C1]	
 												
 #Between Edge aligned same edge transfers in DIQ2 interface (When sampling with direct LMS_MCLK2 clock <5MHz)
-set_false_path -setup 	-rise_from 	[get_clocks LMS_MCLK2_VIRT] -rise_to \
+set_false_path -setup 	-fall_from 	[get_clocks LMS_MCLK2_VIRT] -rise_to \
 												[get_clocks RX_C3]
-set_false_path -setup 	-fall_from 	[get_clocks LMS_MCLK2_VIRT] -fall_to \
+set_false_path -setup 	-rise_from 	[get_clocks LMS_MCLK2_VIRT] -fall_to \
 												[get_clocks RX_C3]
-set_false_path -hold 	-rise_from 	[get_clocks LMS_MCLK2_VIRT] -fall_to \
+set_false_path -hold 	-rise_from 	[get_clocks LMS_MCLK2_VIRT] -rise_to \
 												[get_clocks RX_C3]
-set_false_path -hold 	-fall_from 	[get_clocks LMS_MCLK2_VIRT] -rise_to \
+set_false_path -hold 	-fall_from 	[get_clocks LMS_MCLK2_VIRT] -fall_to \
 												[get_clocks RX_C3]
+											
 												
 set_false_path -setup 	-rise_from 	[get_clocks LMS_MCLK2_VIRT] -rise_to \
 												[get_clocks LMS_MCLK2]
@@ -148,7 +149,7 @@ set_false_path -hold 	-rise_from 	[get_clocks LMS_MCLK2_VIRT] -fall_to \
 set_false_path -hold 	-fall_from 	[get_clocks LMS_MCLK2_VIRT] -rise_to \
 												[get_clocks LMS_MCLK2]
 												
-#set_multicycle_path -hold -end -from [get_clocks {LMS_MCLK2_VIRT}] -to [get_clocks {RX_PLLCLK_C1}] [expr -1]
+#set_multicycle_path -hold -end -from [get_clocks {LMS_MCLK2_VIRT}] -to [get_clocks {RX_C3}] [expr -1]
 
 #Between Center aligned same edge transfers in DIQ1 interface
 set_false_path -setup 	-rise_from 	[get_clocks TX_C1] -rise_to \

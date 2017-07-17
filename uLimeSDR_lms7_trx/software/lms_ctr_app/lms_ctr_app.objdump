@@ -35,45 +35,45 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   9 .debug_aranges 000005b8  00000000  00000000  00006838  2**3
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_info   00007341  00000000  00000000  00006df0  2**0
+ 10 .debug_info   00007365  00000000  00000000  00006df0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_abbrev 00002656  00000000  00000000  0000e131  2**0
+ 11 .debug_abbrev 00002656  00000000  00000000  0000e155  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_line   00002a43  00000000  00000000  00010787  2**0
+ 12 .debug_line   00002a43  00000000  00000000  000107ab  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_frame  00000c20  00000000  00000000  000131cc  2**2
+ 13 .debug_frame  00000c20  00000000  00000000  000131f0  2**2
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_str    0000208d  00000000  00000000  00013dec  2**0
+ 14 .debug_str    00002099  00000000  00000000  00013e10  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_loc    00000c1a  00000000  00000000  00015e79  2**0
+ 15 .debug_loc    00000c1a  00000000  00000000  00015ea9  2**0
                   CONTENTS, READONLY, DEBUGGING
- 16 .debug_alt_sim_info 00000040  00000000  00000000  00016a94  2**2
+ 16 .debug_alt_sim_info 00000040  00000000  00000000  00016ac4  2**2
                   CONTENTS, READONLY, DEBUGGING
- 17 .debug_ranges 00000138  00000000  00000000  00016ad8  2**3
+ 17 .debug_ranges 00000138  00000000  00000000  00016b08  2**3
                   CONTENTS, READONLY, DEBUGGING
- 18 .thread_model 00000003  00000000  00000000  00018e93  2**0
+ 18 .thread_model 00000003  00000000  00000000  00018ec3  2**0
                   CONTENTS, READONLY
- 19 .cpu          00000009  00000000  00000000  00018e96  2**0
+ 19 .cpu          00000009  00000000  00000000  00018ec6  2**0
                   CONTENTS, READONLY
- 20 .qsys         00000001  00000000  00000000  00018e9f  2**0
+ 20 .qsys         00000001  00000000  00000000  00018ecf  2**0
                   CONTENTS, READONLY
- 21 .simulation_enabled 00000001  00000000  00000000  00018ea0  2**0
+ 21 .simulation_enabled 00000001  00000000  00000000  00018ed0  2**0
                   CONTENTS, READONLY
- 22 .sysid_hash   00000004  00000000  00000000  00018ea1  2**0
+ 22 .sysid_hash   00000004  00000000  00000000  00018ed1  2**0
                   CONTENTS, READONLY
- 23 .sysid_base   00000004  00000000  00000000  00018ea5  2**0
+ 23 .sysid_base   00000004  00000000  00000000  00018ed5  2**0
                   CONTENTS, READONLY
- 24 .sysid_time   00000004  00000000  00000000  00018ea9  2**0
+ 24 .sysid_time   00000004  00000000  00000000  00018ed9  2**0
                   CONTENTS, READONLY
- 25 .stderr_dev   00000004  00000000  00000000  00018ead  2**0
+ 25 .stderr_dev   00000004  00000000  00000000  00018edd  2**0
                   CONTENTS, READONLY
- 26 .stdin_dev    00000004  00000000  00000000  00018eb1  2**0
+ 26 .stdin_dev    00000004  00000000  00000000  00018ee1  2**0
                   CONTENTS, READONLY
- 27 .stdout_dev   00000004  00000000  00000000  00018eb5  2**0
+ 27 .stdout_dev   00000004  00000000  00000000  00018ee5  2**0
                   CONTENTS, READONLY
- 28 .sopc_system_name 00000007  00000000  00000000  00018eb9  2**0
+ 28 .sopc_system_name 00000007  00000000  00000000  00018ee9  2**0
                   CONTENTS, READONLY
- 29 .sopcinfo     000741f0  00000000  00000000  00018ec0  2**0
+ 29 .sopcinfo     00070383  00000000  00000000  00018ef0  2**0
                   CONTENTS, READONLY
 SYMBOL TABLE:
 00100000 l    d  .entry	00000000 .entry
@@ -768,10 +768,10 @@ Disassembly of section .text:
   100690:	d0e01d05 	stb	r3,-32652(gp)
   100694:	0101aa80 	call	101aa8 <alt_avalon_spi_command>
   100698:	01000834 	movhi	r4,32
-  10069c:	0140c674 	movhi	r5,793
+  10069c:	014098b4 	movhi	r5,610
   1006a0:	018000b4 	movhi	r6,2
   1006a4:	21082004 	addi	r4,r4,8320
-  1006a8:	295d4004 	addi	r5,r5,29952
+  1006a8:	29568004 	addi	r5,r5,23040
   1006ac:	31a1a804 	addi	r6,r6,-31072
   1006b0:	d4201dc4 	addi	r16,gp,-32649
   1006b4:	d8800315 	stw	r2,12(sp)
@@ -3820,8 +3820,8 @@ Disassembly of section .text:
   1034e8:	014003f4 	movhi	r5,15
   1034ec:	29509004 	addi	r5,r5,16960
   1034f0:	01017200 	call	101720 <__mulsi3>
-  1034f4:	0100c674 	movhi	r4,793
-  1034f8:	211d4004 	addi	r4,r4,29952
+  1034f4:	010098b4 	movhi	r4,610
+  1034f8:	21168004 	addi	r4,r4,23040
   1034fc:	100b883a 	mov	r5,r2
   103500:	01017100 	call	101710 <__udivsi3>
   103504:	01200034 	movhi	r4,32768
@@ -3844,8 +3844,8 @@ Disassembly of section .text:
   103548:	014003f4 	movhi	r5,15
   10354c:	29509004 	addi	r5,r5,16960
   103550:	01017200 	call	101720 <__mulsi3>
-  103554:	0100c674 	movhi	r4,793
-  103558:	211d4004 	addi	r4,r4,29952
+  103554:	010098b4 	movhi	r4,610
+  103558:	21168004 	addi	r4,r4,23040
   10355c:	100b883a 	mov	r5,r2
   103560:	01017100 	call	101710 <__udivsi3>
   103564:	01200034 	movhi	r4,32768
@@ -3866,8 +3866,8 @@ Disassembly of section .text:
   1035a0:	014003f4 	movhi	r5,15
   1035a4:	29509004 	addi	r5,r5,16960
   1035a8:	01017200 	call	101720 <__mulsi3>
-  1035ac:	0100c674 	movhi	r4,793
-  1035b0:	211d4004 	addi	r4,r4,29952
+  1035ac:	010098b4 	movhi	r4,610
+  1035b0:	21168004 	addi	r4,r4,23040
   1035b4:	100b883a 	mov	r5,r2
   1035b8:	01017100 	call	101710 <__udivsi3>
   1035bc:	1009883a 	mov	r4,r2
@@ -3880,8 +3880,8 @@ Disassembly of section .text:
   1035d8:	014003f4 	movhi	r5,15
   1035dc:	29509004 	addi	r5,r5,16960
   1035e0:	01017200 	call	101720 <__mulsi3>
-  1035e4:	0100c674 	movhi	r4,793
-  1035e8:	211d4004 	addi	r4,r4,29952
+  1035e4:	010098b4 	movhi	r4,610
+  1035e8:	21168004 	addi	r4,r4,23040
   1035ec:	100b883a 	mov	r5,r2
   1035f0:	01017100 	call	101710 <__udivsi3>
   1035f4:	1009883a 	mov	r4,r2
@@ -4705,7 +4705,7 @@ Disassembly of section .text:
   1041e4:	d9400015 	stw	r5,0(sp)
   1041e8:	d9800115 	stw	r6,4(sp)
   1041ec:	d9c00215 	stw	r7,8(sp)
-  1041f0:	00000000 	call	0 <__alt_mem_onchip_flash_0_data-0x100000>
+  1041f0:	00000000 	call	0 <__reset-0x100000>
   1041f4:	d9400017 	ldw	r5,0(sp)
   1041f8:	d9800117 	ldw	r6,4(sp)
   1041fc:	d9c00217 	ldw	r7,8(sp)
@@ -4791,7 +4791,7 @@ Disassembly of section .text:
   104334:	10003426 	beq	r2,zero,104408 <__call_exitprocs+0x18c>
   104338:	9809883a 	mov	r4,r19
   10433c:	a8800015 	stw	r2,0(r21)
-  104340:	00000000 	call	0 <__alt_mem_onchip_flash_0_data-0x100000>
+  104340:	00000000 	call	0 <__reset-0x100000>
   104344:	acc00017 	ldw	r19,0(r21)
   104348:	983fe41e 	bne	r19,zero,1042dc <_gp+0xffefbb14>
   10434c:	dfc00b17 	ldw	ra,44(sp)

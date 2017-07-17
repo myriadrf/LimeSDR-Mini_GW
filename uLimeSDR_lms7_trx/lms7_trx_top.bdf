@@ -124,7 +124,7 @@ agreement for further details.
 )
 (pin
 	(input)
-	(rect 128 984 368 1000)
+	(rect -360 1080 -120 1096)
 	(text "INPUT" (rect 197 0 238 11)(font "Arial" (font_size 6)))
 	(text "LMS_DIQ2_D[11..0]" (rect 5 0 145 14)(font "Arial" ))
 	(pt 240 8)
@@ -137,11 +137,11 @@ agreement for further details.
 		(line (pt 181 12)(pt 185 8))
 	)
 	(text "VCC" (rect 200 7 224 18)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect -80 976 0 1008))
+	(annotation_block (location)(rect -568 1072 -488 1104))
 )
 (pin
 	(input)
-	(rect 128 1000 368 1016)
+	(rect -360 1096 -120 1112)
 	(text "INPUT" (rect 197 0 238 11)(font "Arial" (font_size 6)))
 	(text "LMS_ENABLE_IQSEL2" (rect 5 0 145 14)(font "Arial" ))
 	(pt 240 8)
@@ -154,7 +154,7 @@ agreement for further details.
 		(line (pt 181 12)(pt 185 8))
 	)
 	(text "VCC" (rect 200 7 224 18)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect -80 1016 0 1048))
+	(annotation_block (location)(rect -568 1112 -488 1144))
 )
 (pin
 	(input)
@@ -601,6 +601,7 @@ agreement for further details.
 		(line (pt 52 8)(pt 56 12))
 	)
 	(text "VCC" (rect 4 7 28 18)(font "Arial" (font_size 6)))
+	(annotation_block (location)(rect -1373 -496 -1285 -464))
 )
 (symbol
 	(rect -2576 -752 -2528 -720)
@@ -2230,7 +2231,7 @@ agreement for further details.
 	(drawing
 		(rectangle (rect 16 16 320 288))
 	)
-	(annotation_block (parameter)(rect -2664 1512 -2282 1701))
+	(annotation_block (parameter)(rect -2664 1512 -2280 1784))
 )
 (symbol
 	(rect -2736 1136 -2352 1344)
@@ -2857,7 +2858,7 @@ agreement for further details.
 	)
 )
 (symbol
-	(rect 528 736 936 1232)
+	(rect 40 832 448 1328)
 	(text "limelight_top" (rect 5 0 112 14)(font "Arial" ))
 	(text "inst12" (rect 8 480 57 494)(font "Arial" ))
 	(port
@@ -3198,10 +3199,10 @@ agreement for further details.
 	(drawing
 		(rectangle (rect 16 16 392 480))
 	)
-	(annotation_block (parameter)(rect 944 232 1376 552))
+	(annotation_block (parameter)(rect 456 328 888 648))
 )
 (symbol
-	(rect 312 944 344 976)
+	(rect -176 1040 -144 1072)
 	(text "GND" (rect 8 5 32 16)(font "Arial" (font_size 6)))
 	(text "inst23" (rect 3 -3 52 11)(font "Arial" )(invisible))
 	(port
@@ -3219,7 +3220,7 @@ agreement for further details.
 	(flipx)
 )
 (symbol
-	(rect 312 1024 344 1056)
+	(rect -176 1120 -144 1152)
 	(text "GND" (rect 8 5 32 16)(font "Arial" (font_size 6)))
 	(text "inst29" (rect 3 -3 52 11)(font "Arial" )(invisible))
 	(port
@@ -3237,7 +3238,7 @@ agreement for further details.
 	(flipx)
 )
 (symbol
-	(rect 1088 864 1136 896)
+	(rect 600 960 648 992)
 	(text "NOT" (rect 1 0 25 11)(font "Arial" (font_size 6)))
 	(text "inst31" (rect 3 21 52 35)(font "Arial" ))
 	(port
@@ -4475,313 +4476,205 @@ agreement for further details.
 	(bus)
 )
 (connector
-	(pt 528 800)
-	(pt 512 800)
-)
-(connector
-	(pt 528 864)
-	(pt 512 864)
-)
-(connector
-	(pt 512 784)
-	(pt 512 800)
-)
-(connector
-	(pt 512 800)
-	(pt 512 864)
-)
-(connector
 	(text "rx_ptrn_en" (rect -2420 696 -2338 710)(font "Arial" ))
 	(pt -2456 712)
 	(pt -2296 712)
 )
 (connector
-	(text "rx_ptrn_en" (rect 404 912 486 926)(font "Arial" ))
-	(pt 368 928)
-	(pt 528 928)
-)
-(connector
-	(text "L" (rect 395 928 403 942)(font "Arial" ))
-	(pt 528 944)
-	(pt 368 944)
-)
-(connector
-	(text "L" (rect 397 944 405 958)(font "Arial" ))
-	(pt 528 960)
-	(pt 368 960)
-)
-(connector
-	(pt 528 976)
-	(pt 328 976)
-	(bus)
-)
-(connector
-	(pt 528 992)
-	(pt 368 992)
-	(bus)
-)
-(connector
-	(pt 528 1008)
-	(pt 368 1008)
-)
-(connector
-	(text "L" (rect 415 1024 423 1038)(font "Arial" ))
-	(pt 528 1040)
-	(pt 368 1040)
-)
-(connector
-	(text "lte_clr_smpl_nr" (rect 386 1008 509 1022)(font "Arial" ))
-	(pt 528 1024)
-	(pt 368 1024)
-)
-(connector
-	(pt 528 1056)
-	(pt 328 1056)
-	(bus)
-)
-(connector
-	(text "rx_pct_data[63..0]" (rect 955 848 1103 862)(font "Arial" ))
-	(pt 936 864)
-	(pt 1088 864)
-	(bus)
-)
-(connector
-	(text "LMS_MCLK2" (rect -807 856 -733 870)(font "Arial" ))
-	(pt -696 872)
-	(pt -848 872)
-)
-(connector
-	(text "LMS_MCLK2" (rect -796 840 -722 854)(font "Arial" ))
-	(pt -696 856)
-	(pt -848 856)
-)
-(connector
-	(text "pll_locked" (rect -809 872 -727 886)(font "Arial" ))
-	(pt -848 888)
-	(pt -696 888)
-)
-(connector
-	(text "stream_rxen_lmsrxclk" (rect -823 888 -658 902)(font "Arial" ))
-	(pt -848 904)
-	(pt -696 904)
-)
-(connector
-	(text "lte_ch_en[15..0]" (rect -834 984 -702 998)(font "Arial" ))
-	(pt -848 1000)
-	(pt -696 1000)
-	(bus)
-)
-(connector
-	(text "EP83_wfull" (rect -794 1064 -712 1078)(font "Arial" ))
-	(pt -848 1080)
-	(pt -696 1080)
-)
-(connector
-	(text "pct_buff_aclr" (rect -814 1016 -707 1030)(font "Arial" ))
-	(pt -848 1032)
-	(pt -696 1032)
-)
-(connector
-	(text "L" (rect -841 952 -833 966)(font "Arial" ))
-	(pt -848 968)
-	(pt -696 968)
-)
-(connector
-	(text "drc_clk_en[1]" (rect -826 936 -719 950)(font "Arial" ))
-	(pt -696 952)
-	(pt -848 952)
-)
-(connector
-	(text "pct_buff_aclr" (rect 946 1400 1053 1414)(font "Arial" ))
-	(pt 928 1416)
-	(pt 1064 1416)
-)
-(connector
-	(text "lmsrx_clk" (rect 424 1384 498 1398)(font "Arial" ))
-	(pt 376 1400)
-	(pt 536 1400)
-)
-(connector
-	(text "pll_locked" (rect 426 1400 508 1414)(font "Arial" ))
-	(pt 376 1416)
-	(pt 536 1416)
-)
-(connector
-	(text "pll_locked" (rect 426 1432 508 1446)(font "Arial" ))
-	(pt 376 1448)
-	(pt 536 1448)
-)
-(connector
-	(text "wrrxfifo_wr" (rect 398 1496 488 1510)(font "Arial" ))
-	(pt 376 1512)
-	(pt 536 1512)
-)
-(connector
-	(text "lte_ch_en[15..0]" (rect 406 1512 538 1526)(font "Arial" ))
-	(pt 376 1528)
-	(pt 536 1528)
-	(bus)
-)
-(connector
-	(text "lte_smpl_width[1..0]" (rect 401 1528 566 1542)(font "Arial" ))
-	(pt 376 1544)
-	(pt 536 1544)
-	(bus)
-)
-(connector
-	(text "lte_mimo_en" (rect 411 1576 501 1590)(font "Arial" ))
-	(pt 376 1592)
-	(pt 536 1592)
-)
-(connector
-	(text "lte_clr_smpl_nr" (rect 410 1592 533 1606)(font "Arial" ))
-	(pt 376 1608)
-	(pt 536 1608)
-)
-(connector
-	(text "L" (rect 411 1608 419 1622)(font "Arial" ))
-	(pt 376 1624)
-	(pt 536 1624)
-)
-(connector
-	(text "H" (rect 407 1624 415 1638)(font "Arial" ))
-	(pt 376 1640)
-	(pt 536 1640)
-)
-(connector
-	(text "L" (rect 407 1640 415 1654)(font "Arial" ))
-	(pt 376 1656)
-	(pt 536 1656)
-)
-(connector
-	(text "lmstx_clk" (rect 417 1088 491 1102)(font "Arial" ))
-	(pt 368 1104)
-	(pt 528 1104)
-)
-(connector
-	(text "FT_CLK" (rect 434 1104 483 1118)(font "Arial" ))
-	(pt 368 1120)
-	(pt 528 1120)
-)
-(connector
-	(text "EP03_wr" (rect 417 1168 474 1182)(font "Arial" ))
-	(pt 368 1184)
-	(pt 528 1184)
-)
-(connector
-	(text "EP03_data[31..0]" (rect 429 1184 561 1198)(font "Arial" ))
-	(pt 368 1200)
-	(pt 528 1200)
-	(bus)
-)
-(connector
-	(pt 528 1152)
-	(pt 504 1152)
-)
-(connector
-	(pt 504 1152)
-	(pt 504 1136)
-)
-(connector
-	(text "stream_rxen" (rect 401 1120 491 1134)(font "Arial" ))
-	(pt 368 1136)
-	(pt 504 1136)
-)
-(connector
-	(pt 504 1136)
-	(pt 528 1136)
-)
-(connector
-	(text "lte_synch_dis" (rect 402 1152 509 1166)(font "Arial" ))
-	(pt 368 1168)
-	(pt 528 1168)
-)
-(connector
-	(text "dd_data_h[12..0]" (rect 967 912 1099 926)(font "Arial" ))
-	(pt 936 928)
-	(pt 1072 928)
-	(bus)
-)
-(connector
-	(text "dd_data_l[12..0]" (rect 974 928 1106 942)(font "Arial" ))
-	(pt 1072 944)
-	(pt 936 944)
-	(bus)
-)
-(connector
-	(text "tx_outfifo_rdy" (rect 1165 864 1280 878)(font "Arial" ))
-	(pt 1136 880)
-	(pt 1280 880)
-)
-(connector
-	(pt 1088 880)
-	(pt 936 880)
-)
-(connector
-	(text "pll_locked" (rect 418 880 500 894)(font "Arial" ))
-	(pt 368 896)
-	(pt 528 896)
-)
-(connector
-	(text "stream_rxen" (rect 401 896 491 910)(font "Arial" ))
-	(pt 368 912)
-	(pt 528 912)
-)
-(connector
-	(text "lmsrx_clk" (rect 416 864 490 878)(font "Arial" ))
-	(pt 368 880)
-	(pt 528 880)
-)
-(connector
-	(text "lte_ch_en[1..0]" (rect 390 832 513 846)(font "Arial" ))
-	(pt 368 848)
-	(pt 528 848)
-	(bus)
-)
-(connector
-	(text "lte_mimo_en" (rect 387 816 477 830)(font "Arial" ))
-	(pt 368 832)
-	(pt 528 832)
-)
-(connector
-	(text "H" (rect 391 800 399 814)(font "Arial" ))
-	(pt 528 816)
-	(pt 368 816)
-)
-(connector
-	(text "L" (rect 404 768 412 782)(font "Arial" ))
-	(pt 368 784)
-	(pt 512 784)
-)
-(connector
-	(pt 512 784)
-	(pt 528 784)
-)
-(connector
-	(text "lte_smpl_width[1..0]" (rect 385 752 550 766)(font "Arial" ))
-	(pt 368 768)
-	(pt 528 768)
-	(bus)
-)
-(connector
-	(text "lte_txpct_loss_clr" (rect 382 1056 530 1070)(font "Arial" ))
-	(pt 368 1072)
-	(pt 528 1072)
-)
-(connector
-	(text "EP83_wrusedw[11..0]" (rect 396 1072 552 1086)(font "Arial" ))
-	(pt 368 1088)
-	(pt 528 1088)
-	(bus)
-)
-(connector
-	(text "rxpct_outfifowr" (rect 952 832 1075 846)(font "Arial" ))
-	(pt 1088 848)
-	(pt 936 848)
-)
-(connector
 	(pt -1592 -504)
 	(pt -1712 -504)
+	(bus)
+)
+(connector
+	(pt 40 896)
+	(pt 24 896)
+)
+(connector
+	(pt 40 960)
+	(pt 24 960)
+)
+(connector
+	(text "rx_ptrn_en" (rect -84 1008 -2 1022)(font "Arial" ))
+	(pt -120 1024)
+	(pt 40 1024)
+)
+(connector
+	(text "L" (rect -93 1024 -85 1038)(font "Arial" ))
+	(pt 40 1040)
+	(pt -120 1040)
+)
+(connector
+	(text "L" (rect -91 1040 -83 1054)(font "Arial" ))
+	(pt 40 1056)
+	(pt -120 1056)
+)
+(connector
+	(pt 40 1072)
+	(pt -160 1072)
+	(bus)
+)
+(connector
+	(pt 40 1088)
+	(pt -120 1088)
+	(bus)
+)
+(connector
+	(pt 40 1104)
+	(pt -120 1104)
+)
+(connector
+	(text "L" (rect -73 1120 -65 1134)(font "Arial" ))
+	(pt 40 1136)
+	(pt -120 1136)
+)
+(connector
+	(text "lte_clr_smpl_nr" (rect -102 1104 21 1118)(font "Arial" ))
+	(pt 40 1120)
+	(pt -120 1120)
+)
+(connector
+	(pt 40 1152)
+	(pt -160 1152)
+	(bus)
+)
+(connector
+	(text "lmstx_clk" (rect -71 1184 3 1198)(font "Arial" ))
+	(pt -120 1200)
+	(pt 40 1200)
+)
+(connector
+	(text "FT_CLK" (rect -54 1200 -5 1214)(font "Arial" ))
+	(pt -120 1216)
+	(pt 40 1216)
+)
+(connector
+	(text "EP03_wr" (rect -71 1264 -14 1278)(font "Arial" ))
+	(pt -120 1280)
+	(pt 40 1280)
+)
+(connector
+	(text "EP03_data[31..0]" (rect -59 1280 73 1294)(font "Arial" ))
+	(pt -120 1296)
+	(pt 40 1296)
+	(bus)
+)
+(connector
+	(pt 40 1248)
+	(pt 16 1248)
+)
+(connector
+	(pt 16 1248)
+	(pt 16 1232)
+)
+(connector
+	(text "lte_synch_dis" (rect -86 1248 21 1262)(font "Arial" ))
+	(pt -120 1264)
+	(pt 40 1264)
+)
+(connector
+	(text "tx_outfifo_rdy" (rect 677 960 792 974)(font "Arial" ))
+	(pt 648 976)
+	(pt 792 976)
+)
+(connector
+	(text "pll_locked" (rect -70 976 12 990)(font "Arial" ))
+	(pt -120 992)
+	(pt 40 992)
+)
+(connector
+	(text "stream_rxen" (rect -87 992 3 1006)(font "Arial" ))
+	(pt -120 1008)
+	(pt 40 1008)
+)
+(connector
+	(text "lmsrx_clk" (rect -72 960 2 974)(font "Arial" ))
+	(pt -120 976)
+	(pt 40 976)
+)
+(connector
+	(text "lte_ch_en[1..0]" (rect -98 928 25 942)(font "Arial" ))
+	(pt -120 944)
+	(pt 40 944)
+	(bus)
+)
+(connector
+	(text "lte_mimo_en" (rect -101 912 -11 926)(font "Arial" ))
+	(pt -120 928)
+	(pt 40 928)
+)
+(connector
+	(text "H" (rect -97 896 -89 910)(font "Arial" ))
+	(pt 40 912)
+	(pt -120 912)
+)
+(connector
+	(text "lte_smpl_width[1..0]" (rect -103 848 62 862)(font "Arial" ))
+	(pt -120 864)
+	(pt 40 864)
+	(bus)
+)
+(connector
+	(text "lte_txpct_loss_clr" (rect -106 1152 42 1166)(font "Arial" ))
+	(pt -120 1168)
+	(pt 40 1168)
+)
+(connector
+	(text "EP83_wrusedw[11..0]" (rect -92 1168 64 1182)(font "Arial" ))
+	(pt -120 1184)
+	(pt 40 1184)
+	(bus)
+)
+(connector
+	(pt 24 880)
+	(pt 24 896)
+)
+(connector
+	(pt 24 896)
+	(pt 24 960)
+)
+(connector
+	(text "stream_rxen" (rect -87 1216 3 1230)(font "Arial" ))
+	(pt -120 1232)
+	(pt 16 1232)
+)
+(connector
+	(pt 16 1232)
+	(pt 40 1232)
+)
+(connector
+	(text "L" (rect -84 864 -76 878)(font "Arial" ))
+	(pt -120 880)
+	(pt 24 880)
+)
+(connector
+	(pt 24 880)
+	(pt 40 880)
+)
+(connector
+	(text "rxpct_outfifowr" (rect 464 928 587 942)(font "Arial" ))
+	(pt 448 944)
+	(pt 600 944)
+)
+(connector
+	(text "rx_pct_data[63..0]" (rect 467 944 615 958)(font "Arial" ))
+	(pt 448 960)
+	(pt 600 960)
+	(bus)
+)
+(connector
+	(pt 448 976)
+	(pt 600 976)
+)
+(connector
+	(text "dd_data_h[12..0]" (rect 479 1008 611 1022)(font "Arial" ))
+	(pt 448 1024)
+	(pt 584 1024)
+	(bus)
+)
+(connector
+	(text "dd_data_l[12..0]" (rect 486 1024 618 1038)(font "Arial" ))
+	(pt 448 1040)
+	(pt 584 1040)
 	(bus)
 )
 (junction (pt -2624 4472))
@@ -4795,9 +4688,9 @@ agreement for further details.
 (junction (pt -1880 4632))
 (junction (pt -1880 4648))
 (junction (pt -1880 4408))
-(junction (pt 512 784))
-(junction (pt 512 800))
-(junction (pt 504 1136))
+(junction (pt 24 896))
+(junction (pt 16 1232))
+(junction (pt 24 880))
 (text "General I/O, clock pins, ect" (rect -3032 -904 -2438 -879)(font "Arial" (font_size 14)(bold)))
 (text "PLL`s and pll control" (rect -1256 -912 -810 -884)(font "Arial" (font_size 16)(bold)))
 (text "Board SPI" (rect -3024 336 -2833 361)(font "Arial" (font_size 14)(bold)))

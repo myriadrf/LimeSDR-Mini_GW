@@ -25,6 +25,7 @@
 *.sci
 *.qmsg
 *.tmw_info
+*.nvd
 
 #--------------
 #output files

@@ -13,47 +13,44 @@ use ieee.numeric_std.all;
 -- Entity declaration
 -- ----------------------------------------------------------------------------
 entity FT601_arb is
-	generic(	
-			EP82_fifo_rwidth	: integer := 10;
-			EP82_wsize       	: integer := 64;		--packet size in bytes, has to be multiple of 4 bytes
-			EP83_fifo_rwidth	: integer := 10;
-			EP83_wsize       	: integer := 2048		--packet size in bytes, has to be multiple of 4 bytes
-	);
+   generic(	
+      EP82_fifo_rwidth  : integer := 10;
+      EP82_wsize        : integer := 64;		--packet size in bytes, has to be multiple of 4 bytes
+      EP83_fifo_rwidth  : integer := 10;
+      EP83_wsize        : integer := 2048		--packet size in bytes, has to be multiple of 4 bytes
+   );
   port (
-			--input ports 
-			clk       			: in std_logic;
-			reset_n   			: in std_logic;
-			enable       		: in std_logic;
-			--control EP PC->FPGA
-			EP02_fifo_data		: out std_logic_vector(31 downto 0);
-			EP02_fifo_wr		: out std_logic;
-			EP02_fifo_wrempty	: in std_logic;
-			--control EP FPGA->PC
-			EP82_fifo_data		: in std_logic_vector(31 downto 0);
-			EP82_fifo_rd 		: out std_logic;
-			EP82_fifo_rdusedw	: in std_logic_vector(EP82_fifo_rwidth-1 downto 0);
-			--stream EP PC->FPGA
-			EP03_dstsel			: in std_logic;		-- 1 - to fifo, 0 - to ext buff;
-			EP03_fifo_data		: out std_logic_vector(31 downto 0);
-			EP03_fifo_wr		: out std_logic;
-			EP03_fifo_wrempty	: in std_logic;
-			--stream EP to ext buffer PC->FPGA
-			extbuff_rdy			: in std_logic;
-			extbuff_wr			: out std_logic;			
-			--stream EP FPGA->PC
-			EP83_fifo_data		: in std_logic_vector(31 downto 0);
-			EP83_fifo_rd 		: out std_logic;
-			EP83_fifo_rdusedw	: in std_logic_vector(EP83_fifo_rwidth-1 downto 0);
-			--fsm controll signals
-			fsm_epgo				: out std_logic;
-			fsm_rdwr				: out std_logic; 		-- 0- MASTER RD (PC->FPGA), 1-MASTER WR (FPGA->PC)
-			fsm_ch				: out std_logic_vector(3 downto 0);
-			fsm_rdy				: in std_logic;
-			fsm_datavalid		: in std_logic;
-			fsm_rddata			: in std_logic_vector(31 downto 0);
-			fsm_wrdata			: out std_logic_vector(31 downto 0);
-			
-			ep_status			: in std_logic_vector(7 downto 0)
+      --input ports 
+      clk               : in std_logic;
+      reset_n           : in std_logic;
+      enable            : in std_logic;
+      --control EP PC->FPGA
+      EP02_fifo_data    : out std_logic_vector(31 downto 0);
+      EP02_fifo_wr      : out std_logic;
+      EP02_fifo_wrempty : in std_logic;
+      --control EP FPGA->PC
+      EP82_fifo_data    : in std_logic_vector(31 downto 0);
+      EP82_fifo_rd      : out std_logic;
+      EP82_fifo_rdusedw : in std_logic_vector(EP82_fifo_rwidth-1 downto 0);
+      --stream EP PC->FPGA
+      EP03_fifo_data    : out std_logic_vector(31 downto 0);
+      EP03_fifo_wr      : out std_logic;
+      EP03_fifo_wrempty : in std_logic;		
+      --stream EP FPGA->PC
+      EP83_fifo_data    : in std_logic_vector(31 downto 0);
+      EP83_fifo_rd      : out std_logic;
+      EP83_fifo_rdusedw : in std_logic_vector(EP83_fifo_rwidth-1 downto 0);
+      --fsm controll signals
+      fsm_epgo          : out std_logic;
+      fsm_rdwr          : out std_logic; 		-- 0- MASTER RD (PC->FPGA), 1-MASTER WR (FPGA->PC)
+      fsm_ch            : out std_logic_vector(3 downto 0);
+      fsm_rdy           : in std_logic;
+      fsm_rddata_valid  : in std_logic;
+      fsm_rddata        : in std_logic_vector(31 downto 0);
+      fsm_wrdata_req    : in std_logic;
+      fsm_wrdata        : out std_logic_vector(31 downto 0);
+      
+      ep_status         : in std_logic_vector(7 downto 0) -- 0 - EP is ready
         
         );
 end FT601_arb;
@@ -77,32 +74,43 @@ signal ep_checked		: std_logic;
 begin
   
 --endpoint ready signals, indicates when transfer can occur
-en_ep02<='1' when EP02_fifo_wrempty='1'							and ep_status(4)='0'	and fsm_rdy='1' else '0';
-en_ep82<='1' when unsigned(EP82_fifo_rdusedw)>=EP82_wsize/4	and ep_status(0)='0'	and fsm_rdy='1' else '0';
-en_ep03<='1' when (EP03_fifo_wrempty='1' or (extbuff_rdy='1' and EP03_dstsel='0'))	and ep_status(5)='0'	and fsm_rdy='1' else '0';
-en_ep83<='1' when unsigned(EP83_fifo_rdusedw)>=EP83_wsize/4	and ep_status(1)='0'	and fsm_rdy='1' else '0';
+en_ep02<='1' when EP02_fifo_wrempty='1'                     and ep_status(4)='0'	and fsm_rdy='1' else '0';
+en_ep82<='1' when unsigned(EP82_fifo_rdusedw)>=EP82_wsize/4 and ep_status(0)='0'	and fsm_rdy='1' else '0';
+en_ep03<='1' when EP03_fifo_wrempty='1'                     and ep_status(5)='0'	and fsm_rdy='1' else '0';
+en_ep83<='1' when unsigned(EP83_fifo_rdusedw)>=EP83_wsize/4 and ep_status(1)='0'	and fsm_rdy='1' else '0';
 
 --indicates when endpoint status was checked
 ep_checked<='1' when current_state=check_ep02 or current_state=check_ep82 or
 							current_state=check_ep03 or current_state=check_ep83 else '0';
 							
 --endpoint fifo signals							
-EP02_fifo_wr    <=fsm_datavalid when ep_priority=1 else '0';
-EP02_fifo_data  <=fsm_rddata    when ep_priority=1 else (others=>'0');
+EP02_fifo_wr      <= fsm_rddata_valid   when ep_priority=1 else '0';
+EP02_fifo_data    <= fsm_rddata;
 
-EP82_fifo_rd 	 <=fsm_datavalid when ep_priority=2 else '0';
+EP82_fifo_rd      <= fsm_wrdata_req     when ep_priority=2 else '0';
 
-EP03_fifo_wr    <=fsm_datavalid when ep_priority=3 and EP03_dstsel='1'  else '0';
-extbuff_wr		 <=fsm_datavalid when ep_priority=3 and EP03_dstsel='0'  else '0';
-EP03_fifo_data  <=fsm_rddata    when ep_priority=3 else (others=>'0');
+EP03_fifo_wr      <= fsm_rddata_valid   when ep_priority=3 else '0';
+EP03_fifo_data    <= fsm_rddata;
 
-EP83_fifo_rd 	 <=fsm_datavalid when ep_priority=0 else '0';
+EP83_fifo_rd      <= fsm_wrdata_req     when ep_priority=0 else '0';
 
 
 --fsm_wrdata		 <=EP82_fifo_data when ep_priority=2 else 
 --						EP83_fifo_data when ep_priority=0 else (others=>'0');
-fsm_wrdata		 <=EP82_fifo_data when ep_priority=2 else 
-						EP83_fifo_data;
+
+fsm_wrdata		   <= EP82_fifo_data when ep_priority=2 else 
+                     EP83_fifo_data;
+
+-- process(clk)
+-- begin 
+   -- if (clk'event AND clk = '1') then 
+      -- if ep_priority=2 then
+         -- fsm_wrdata <= EP82_fifo_data;
+      -- else
+         -- fsm_wrdata <= EP83_fifo_data;
+      -- end if;
+   -- end if;
+-- end process;
 
 -- ----------------------------------------------------------------------------
 --Transfer start signal to FTDI FSM

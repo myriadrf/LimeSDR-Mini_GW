@@ -95,8 +95,9 @@ signal arb_nth_ch				: std_logic_vector(3 downto 0);
 
 --fsm signals
 signal fsm_rdy					: std_logic;
-signal fsm_valid_data		: std_logic; 
+signal fsm_rd_data_valid   : std_logic;
 signal fsm_rd_data			: std_logic_vector(31 downto 0);
+signal fsm_wr_data_req     : std_logic;
 signal fsm_wr_data  			: std_logic_vector(31 downto 0);
 
 --fifo for endpoints component
@@ -149,13 +150,9 @@ component FT601_arb is
 			EP82_fifo_rd 		: out std_logic;
 			EP82_fifo_rdusedw	: in std_logic_vector(EP82_fifo_rwidth-1 downto 0);
 			--stream EP PC->FPGA
-			EP03_dstsel			: in std_logic;		-- 1 - to fifo, 0 - to ext buff;
 			EP03_fifo_data		: out std_logic_vector(31 downto 0);
 			EP03_fifo_wr		: out std_logic;
-			EP03_fifo_wrempty	: in std_logic;
-			--stream EP to ext buffer PC->FPGA
-			extbuff_rdy			: in std_logic;
-			extbuff_wr			: out std_logic;			
+			EP03_fifo_wrempty	: in std_logic;		
 			--stream EP FPGA->PC
 			EP83_fifo_data		: in std_logic_vector(31 downto 0);
 			EP83_fifo_rd 		: out std_logic;
@@ -165,9 +162,10 @@ component FT601_arb is
 			fsm_rdwr				: out std_logic; -- 0- MASTER RD (PC->FPGA), 1-MASTER WR (FPGA->PC)
 			fsm_ch				: out std_logic_vector(3 downto 0);
 			fsm_rdy				: in std_logic;
-			fsm_datavalid		: in std_logic;
-			fsm_rddata			: in std_logic_vector(31 downto 0);
-			fsm_wrdata			: out std_logic_vector(31 downto 0);
+         fsm_rddata_valid  : in std_logic;
+         fsm_rddata        : in std_logic_vector(31 downto 0);
+         fsm_wrdata_req    : in std_logic;
+         fsm_wrdata        : out std_logic_vector(31 downto 0);
 			
 			ep_status			: in std_logic_vector(7 downto 0)
         
@@ -181,21 +179,21 @@ component FT601 is
 			EP83_wsize       : integer := 2048 	--packet size in bytes, has to be multiple of 4 bytes
 			);
   port (
-			clk			: in std_logic;
-			reset_n		: in std_logic;
-			trnsf_en    : in std_logic;
-			ready			: out std_logic;
-			rd_wr    	: in std_logic;     		-- 0- rd, 1-wr
-			ch_n     	: in std_logic_vector(3 downto 0);
-			valid_data 	: out std_logic;  		-- 1- data is valid when MSRD and has to be valid when MSWR, 
-															-- 0 - no incoming data and no data is required. 
-			RD_data   	: out std_logic_vector(31 downto 0);
-			WR_data  	: in std_logic_vector(31 downto 0);  
-			wr_n			: out std_logic;
-			rxf_n			: in std_logic;
-			data			: inout std_logic_vector(31 downto 0);
-			be				: inout std_logic_vector(3 downto 0);
-			txe_n			: in std_logic
+			clk			   : in std_logic;
+			reset_n		   : in std_logic;
+			trnsf_en       : in std_logic;
+			ready			   : out std_logic;
+			rd_wr    	   : in std_logic;     		-- 0- rd, 1-wr
+			ch_n     	   : in std_logic_vector(3 downto 0);
+         RD_data_valid  : out std_logic;
+			RD_data        : out std_logic_vector(31 downto 0);
+         WR_data_req    : out std_logic;     
+			WR_data        : in std_logic_vector(31 downto 0); -- should be 2 cycle latency after WR_data_req   
+			wr_n			   : out std_logic;
+			rxf_n			   : in std_logic;
+			data			   : inout std_logic_vector(31 downto 0);
+			be				   : inout std_logic_vector(3 downto 0);
+			txe_n			   : in std_logic
         );
 end component;
   
@@ -325,12 +323,9 @@ port map(
 			EP82_fifo_data		=> EP82_fifo_q,
 			EP82_fifo_rd 		=> EP82_fifo_rdreq,
 			EP82_fifo_rdusedw	=> EP82_fifo_rdusedw,
-			EP03_dstsel			=> '0', -- 0 - to external buffer
 			EP03_fifo_data		=> EP03_wdata,
 			EP03_fifo_wr		=> EP03_wr,
-			EP03_fifo_wrempty	=> '0', --EP03_wrempty, fifo is not used
-			extbuff_rdy			=> ext_buff_rdy,
-			extbuff_wr			=> ext_buff_wr,
+			EP03_fifo_wrempty	=> ext_buff_rdy, --EP03_wrempty, fifo is not used
 			EP83_fifo_data		=> EP83_fifo_q,
 			EP83_fifo_rd 		=> EP83_fifo_rdreq,	
 			EP83_fifo_rdusedw	=> EP83_fifo_rdusedw,
@@ -339,13 +334,15 @@ port map(
 			fsm_rdwr				=> arb_rd_wr,
 			fsm_ch				=> arb_nth_ch, 		 
 			fsm_rdy				=> fsm_rdy, 
-			fsm_datavalid		=> fsm_valid_data,
+			fsm_rddata_valid	=> fsm_rd_data_valid,
 			fsm_rddata			=> fsm_rd_data,
+         fsm_wrdata_req    => fsm_wr_data_req,
 			fsm_wrdata			=> fsm_wr_data,
 			ep_status			=> FT_data(15 downto 8)       
 			);
 			
-ext_buff_data<=EP03_wdata;			
+ext_buff_data	<=EP03_wdata;	
+ext_buff_wr		<=EP03_wr; 		
 		  
 -- ----------------------------------------------------------------------------
 -- FTDI fsm 
@@ -356,20 +353,21 @@ generic map(
 			EP83_wsize	=> EP83_wsize 
 			)
   port map (
-			clk			=> clk,
-			reset_n		=> reset_n,
-			trnsf_en    => arb_en,
-			ready			=> fsm_rdy,
-			rd_wr    	=> arb_rd_wr,
-			ch_n     	=> arb_nth_ch,
-			valid_data	=> fsm_valid_data, 
-			RD_data   	=> fsm_rd_data, 
-			WR_data  	=> fsm_wr_data,  
-			wr_n			=> FT_wr_n,
-			rxf_n			=> FT_rxf_n,
-			data			=> FT_data,
-			be				=> FT_be,
-			txe_n			=> FT_txe_n
+			clk			   => clk,
+			reset_n		   => reset_n,
+			trnsf_en       => arb_en,
+			ready			   => fsm_rdy,
+			rd_wr    	   => arb_rd_wr,
+			ch_n     	   => arb_nth_ch,
+			RD_data_valid	=> fsm_rd_data_valid, 
+			RD_data   	   => fsm_rd_data,
+         WR_data_req    => fsm_wr_data_req,
+			WR_data  	   => fsm_wr_data,  
+			wr_n			   => FT_wr_n,
+			rxf_n			   => FT_rxf_n,
+			data			   => FT_data,
+			be				   => FT_be,
+			txe_n			   => FT_txe_n
 			);
 		  
   

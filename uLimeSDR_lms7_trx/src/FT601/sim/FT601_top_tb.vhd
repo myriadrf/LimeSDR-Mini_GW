@@ -98,7 +98,7 @@ FT601_top_inst0 :   entity work.FT601_top
          FT_txe_n			=> inst0_FT_txe_n,
          --controll endpoint fifo PC->FPGA 
          EP02_rdclk		=> clk1,
-         EP02_rd			=> inst0_EP02_rd ,
+         EP02_rd			=> inst0_EP02_rd,
          EP02_rdata		=> inst0_EP02_rdata ,
          EP02_rempty		=> inst0_EP02_rempty,
          --controll endpoint fifo FPGA->PC
@@ -124,17 +124,70 @@ FT601_top_inst0 :   entity work.FT601_top
          EP83_wrusedw	=> inst0_EP83_wrusedw      
       );
       
+-- ----------------------------------------------------------------------------
+-- EP02
+-- ----------------------------------------------------------------------------  
+process(clk1, reset_n)
+begin
+   if reset_n = '0' then 
+      inst0_EP02_rd <= '0';
+   elsif (clk1'event AND clk1='1') then 
+      inst0_EP02_rd <= not inst0_EP02_rempty;    
+   end if;
+end process; 
+
+
+-- ----------------------------------------------------------------------------
+-- EP03
+-- ----------------------------------------------------------------------------  
+inst0_ext_buff_rdy <= '1';
+
+-- ----------------------------------------------------------------------------
+-- EP82
+-- ----------------------------------------------------------------------------  
+process(clk1, reset_n)
+begin
+   if reset_n = '0' then 
+      inst0_EP82_wr <= '0';
+      inst0_EP82_wdata <= (others=> '0');
+   elsif (clk1'event AND clk1='1') then 
+      inst0_EP82_wr <= not inst0_EP82_wfull;
+      if inst0_EP82_wr = '1' then 
+         inst0_EP82_wdata <= std_logic_vector(unsigned(inst0_EP82_wdata)+1);
+      else 
+         inst0_EP82_wdata <= inst0_EP82_wdata;
+      end if;
+   end if;
+end process;  
+
+
+-- ----------------------------------------------------------------------------
+-- EP83
+-- ----------------------------------------------------------------------------  
+process(clk1, reset_n)
+begin
+   if reset_n = '0' then 
+      inst0_EP83_wr <= '0';
+      inst0_EP83_wdata <= (others=> '0');
+   elsif (clk1'event AND clk1='1') then 
+      inst0_EP83_wr <= not inst0_EP83_wfull;
+      if inst0_EP83_wr = '1' then 
+         inst0_EP83_wdata <= std_logic_vector(unsigned(inst0_EP83_wdata)+1);
+      else 
+         inst0_EP83_wdata <= inst0_EP83_wdata;
+      end if;
+   end if;
+end process;
       
-      inst0_FT_data(15 downto 8) <= (others=>'0');
       
-      inst0_EP82_wr <= '1';
+      
+      inst0_FT_data(15 downto 8) <= "11101111";
       
       
   process is
 	begin
 		inst0_FT_rxf_n <= '1';
       wait until falling_edge(inst0_FT_wr_n); --wait for FT "Command phase"
-      wait until rising_edge(clk0);
          if inst0_FT_be = "0000" then
             wait until rising_edge(clk0);
             wait until rising_edge(clk0);

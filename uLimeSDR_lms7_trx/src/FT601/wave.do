@@ -1,39 +1,29 @@
 onerror {resume}
 quietly WaveActivateNextPane {} 0
-add wave -noupdate -expand -group arbiter /ft601_top_tb/FT601_top_inst0/ftdi_arbiter/clk
-add wave -noupdate -expand -group arbiter /ft601_top_tb/FT601_top_inst0/ftdi_arbiter/reset_n
-add wave -noupdate -expand -group arbiter /ft601_top_tb/FT601_top_inst0/ftdi_arbiter/enable
-add wave -noupdate -expand -group arbiter /ft601_top_tb/FT601_top_inst0/ftdi_arbiter/fsm_epgo
-add wave -noupdate -expand -group arbiter /ft601_top_tb/FT601_top_inst0/ftdi_arbiter/fsm_rdwr
-add wave -noupdate -expand -group arbiter /ft601_top_tb/FT601_top_inst0/ftdi_arbiter/fsm_ch
-add wave -noupdate -expand -group arbiter /ft601_top_tb/FT601_top_inst0/ftdi_arbiter/fsm_rdy
-add wave -noupdate -expand -group arbiter /ft601_top_tb/FT601_top_inst0/ftdi_arbiter/fsm_datavalid
-add wave -noupdate -expand -group arbiter /ft601_top_tb/FT601_top_inst0/ftdi_arbiter/fsm_rddata
-add wave -noupdate -expand -group arbiter /ft601_top_tb/FT601_top_inst0/ftdi_arbiter/fsm_wrdata
-add wave -noupdate -expand -group arbiter /ft601_top_tb/FT601_top_inst0/ftdi_arbiter/ep_status
-add wave -noupdate -expand -group arbiter /ft601_top_tb/FT601_top_inst0/ftdi_arbiter/current_state
-add wave -noupdate -expand -group fsm /ft601_top_tb/FT601_top_inst0/ft_fsm/clk
-add wave -noupdate -expand -group fsm /ft601_top_tb/FT601_top_inst0/ft_fsm/reset_n
-add wave -noupdate -expand -group fsm /ft601_top_tb/FT601_top_inst0/ft_fsm/trnsf_en
-add wave -noupdate -expand -group fsm /ft601_top_tb/FT601_top_inst0/ft_fsm/ready
-add wave -noupdate -expand -group fsm /ft601_top_tb/FT601_top_inst0/ft_fsm/rd_wr
-add wave -noupdate -expand -group fsm /ft601_top_tb/FT601_top_inst0/ft_fsm/ch_n
-add wave -noupdate -expand -group fsm /ft601_top_tb/FT601_top_inst0/ft_fsm/valid_data
-add wave -noupdate -expand -group fsm /ft601_top_tb/FT601_top_inst0/ft_fsm/RD_data
-add wave -noupdate -expand -group fsm /ft601_top_tb/FT601_top_inst0/ft_fsm/WR_data
-add wave -noupdate -expand -group fsm /ft601_top_tb/FT601_top_inst0/ft_fsm/wr_n
-add wave -noupdate -expand -group fsm /ft601_top_tb/FT601_top_inst0/ft_fsm/rxf_n
-add wave -noupdate -expand -group fsm /ft601_top_tb/FT601_top_inst0/ft_fsm/data
-add wave -noupdate -expand -group fsm /ft601_top_tb/FT601_top_inst0/ft_fsm/be
-add wave -noupdate -expand -group fsm /ft601_top_tb/FT601_top_inst0/ft_fsm/txe_n
-add wave -noupdate -expand -group fsm /ft601_top_tb/FT601_top_inst0/ft_fsm/current_state
-add wave -noupdate -expand -group EP82 /ft601_top_tb/FT601_top_inst0/EP02_fifo/data
-add wave -noupdate -expand -group EP82 /ft601_top_tb/FT601_top_inst0/EP02_fifo/wrreq
-add wave -noupdate -expand -group EP83 /ft601_top_tb/FT601_top_inst0/EP82_fifo/rdclk
-add wave -noupdate -expand -group EP83 /ft601_top_tb/FT601_top_inst0/EP82_fifo/rdreq
-add wave -noupdate -expand -group EP83 /ft601_top_tb/FT601_top_inst0/EP82_fifo/q
+add wave -noupdate /ft601_tb/FT601_inst0/clk
+add wave -noupdate /ft601_tb/FT601_inst0/reset_n
+add wave -noupdate /ft601_tb/FT601_inst0/trnsf_en
+add wave -noupdate /ft601_tb/FT601_inst0/ready
+add wave -noupdate /ft601_tb/FT601_inst0/rd_wr
+add wave -noupdate /ft601_tb/FT601_inst0/ch_n
+add wave -noupdate /ft601_tb/FT601_inst0/RD_data_valid
+add wave -noupdate /ft601_tb/FT601_inst0/RD_data
+add wave -noupdate /ft601_tb/FT601_inst0/WR_data_req
+add wave -noupdate -radix hexadecimal /ft601_tb/FT601_inst0/WR_data
+add wave -noupdate /ft601_tb/FT601_inst0/wr_n
+add wave -noupdate /ft601_tb/FT601_inst0/rxf_n
+add wave -noupdate -radix hexadecimal /ft601_tb/FT601_inst0/data
+add wave -noupdate /ft601_tb/FT601_inst0/be
+add wave -noupdate /ft601_tb/FT601_inst0/txe_n
+add wave -noupdate /ft601_tb/FT601_inst0/current_state
+add wave -noupdate /ft601_tb/FT601_inst0/master_is_writting
+add wave -noupdate /ft601_tb/FT601_inst0/EP82_rd_end
+add wave -noupdate /ft601_tb/FT601_inst0/EP83_rd_end
+add wave -noupdate /ft601_tb/FT601_inst0/EP82_trnsf_end
+add wave -noupdate /ft601_tb/FT601_inst0/EP83_trnsf_end
+add wave -noupdate -radix unsigned /ft601_tb/FT601_inst0/term_cnt
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {553208 ps} 0}
+WaveRestoreCursors {{Cursor 1} {444143 ps} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 150
 configure wave -valuecolwidth 100
@@ -49,4 +39,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ps
 update
-WaveRestoreZoom {388762 ps} {713458 ps}
+WaveRestoreZoom {0 ps} {1707452 ps}

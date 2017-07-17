@@ -37,6 +37,8 @@ set library_file_list {
                                             synth/FT601_arb.vhd
                                             synth/FT601.vhd
                                             synth/FT601_top.vhd
+                                            sim/FT601_arb_tb.vhd
+                                            sim/FT601_tb.vhd
                                             sim/FT601_top_tb.vhd
                                             
                            }

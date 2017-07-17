@@ -61,4 +61,5 @@ simulation/
 incremental_db/
 wspace_nios2/
 wspace_nios
+workspace
 source_library/

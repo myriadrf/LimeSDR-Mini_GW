@@ -15,7 +15,7 @@
 set LMK_CLK_period  		25.00
 
 # ----------------------------------------------------------------------------
-# sBase clocks
+# Base clocks
 # ----------------------------------------------------------------------------
 create_clock	-name LMK_CLK \
 					-period 	$LMK_CLK_period \
@@ -137,7 +137,7 @@ set_output_delay -clock altera_reserved_tck -clock_fall .1 [get_ports altera_res
 # Exceptions
 # ----------------------------------------------------------------------------
 #Force fitter to make interconnect delays between nets  
-set_net_delay 	-max 5 \
+set_net_delay 	-max 5.1 \
 					-from [get_pins -compatibility_mode *pll_top*|*lcell*|combout*] 
 set_net_delay 	-min 4 \
 					-from [get_pins -compatibility_mode *pll_top*|*lcell*|combout*]

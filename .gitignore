@@ -25,6 +25,7 @@
 *.sci
 *.qmsg
 *.tmw_info
+*.nvd
 
 #--------------
 #output files
@@ -52,6 +53,7 @@ alt_sld_fab_wrapper_hw.tcl
 *.bak
 *.html
 *.xml
+*.wlf
 
 #--------------
 # generated folders
@@ -60,3 +62,5 @@ simulation/
 incremental_db/
 wspace_nios2/
 wspace_nios
+workspace
+source_library/

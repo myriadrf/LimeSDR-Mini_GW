@@ -901,8 +901,8 @@ begin
 	dual_boot_0 : component altera_dual_boot
 		generic map (
 			INTENDED_DEVICE_FAMILY => "MAX 10",
-			CONFIG_CYCLE           => 11,
-			RESET_TIMER_CYCLE      => 16
+			CONFIG_CYCLE           => 15,
+			RESET_TIMER_CYCLE      => 21
 		)
 		port map (
 			clk                => clk_clk,                                        --    clk.clk
@@ -1057,10 +1057,10 @@ begin
 			FLASH_SEQ_READ_DATA_COUNT           => 4,
 			FLASH_ADDR_ALIGNMENT_BITS           => 2,
 			FLASH_READ_CYCLE_MAX_INDEX          => 4,
-			FLASH_RESET_CYCLE_MAX_INDEX         => 13,
-			FLASH_BUSY_TIMEOUT_CYCLE_MAX_INDEX  => 62,
-			FLASH_ERASE_TIMEOUT_CYCLE_MAX_INDEX => 18200728,
-			FLASH_WRITE_TIMEOUT_CYCLE_MAX_INDEX => 15860,
+			FLASH_RESET_CYCLE_MAX_INDEX         => 10,
+			FLASH_BUSY_TIMEOUT_CYCLE_MAX_INDEX  => 48,
+			FLASH_ERASE_TIMEOUT_CYCLE_MAX_INDEX => 14000000,
+			FLASH_WRITE_TIMEOUT_CYCLE_MAX_INDEX => 12200,
 			PARALLEL_MODE                       => true,
 			READ_AND_WRITE_MODE                 => true,
 			WRAPPING_BURST_MODE                 => false,

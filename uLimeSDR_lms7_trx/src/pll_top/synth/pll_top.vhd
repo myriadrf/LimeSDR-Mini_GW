@@ -47,8 +47,8 @@ entity pll_top is
    );
    port (
    --PLL input
-	direct_clk			: in std_logic;
-   pll_inclk         : in std_logic;
+	inclk1				: in std_logic;
+   inclk2         	: in std_logic;
    pll_areset        : in std_logic;
    inv_c0            : in std_logic;
    inv_c2            : in std_logic;
@@ -140,8 +140,11 @@ signal inst6_dataout             : std_logic_vector(0 downto 0);
 
 signal drct_c0_dly_chain         : std_logic_vector(drct_c0_ndly-1 downto 0);
 signal drct_c1_dly_chain         : std_logic_vector(drct_c1_ndly-1 downto 0);
-signal drct_c2_dly_chain         : std_logic_vector(drct_c0_ndly-1 downto 0);
-signal drct_c3_dly_chain         : std_logic_vector(drct_c1_ndly-1 downto 0);
+signal drct_c2_dly_chain         : std_logic_vector(drct_c2_ndly-1 downto 0);
+signal drct_c3_dly_chain         : std_logic_vector(drct_c3_ndly-1 downto 0);
+
+--inst10
+signal inst10_clkselect				: std_logic_vector(1 downto 0);
 
 signal c0_mux, c1_mux            : std_logic;
 signal c2_mux, c3_mux            : std_logic;
@@ -345,7 +348,7 @@ pll_ps_cntrl_inst2 : entity work.pll_ps_cntrl
       );   
 
        
-   inst3_inclk <= '0' & pll_inclk;
+   inst3_inclk <= '0' & inclk2;
 ----------------------------------------------------------------------------
 -- PLL instance
 ----------------------------------------------------------------------------      
@@ -545,13 +548,13 @@ end generate c3_dly_instx_gen;
 -- ----------------------------------------------------------------------------
 c0_mux <=   inst3_clk(0) when drct_clk_en(0)='0' else 
             drct_c0_dly_chain(drct_c0_ndly-1);
-
+				
 -- ----------------------------------------------------------------------------
 -- c1 clk MUX
 -- ----------------------------------------------------------------------------
 c1_mux <=   inst3_clk(1) when drct_clk_en(1)='0' else 
             drct_c1_dly_chain(drct_c1_ndly-1);
-            
+				         
 -- ----------------------------------------------------------------------------
 -- c2 clk MUX
 -- ----------------------------------------------------------------------------
@@ -563,6 +566,7 @@ c2_mux <=   inst3_clk(2) when drct_clk_en(2)='0' else
 -- ----------------------------------------------------------------------------
 c3_mux <=   inst3_clk(3) when drct_clk_en(3)='0' else 
             drct_c3_dly_chain(drct_c3_ndly-1);
+				
 
 locked_mux <=  pll_areset_n when (drct_clk_en(0)='1' OR drct_clk_en(1)='1') else
                inst3_locked;
@@ -597,7 +601,7 @@ ddrox1_inst7 : ddrox1
 -- ----------------------------------------------------------------------------
 clkctrl_inst7 : clkctrl 
 port map(
-   inclk    => pll_inclk,
+   inclk    => inclk2,
    ena      => '1',
    outclk   => pll_inclk_global
 );

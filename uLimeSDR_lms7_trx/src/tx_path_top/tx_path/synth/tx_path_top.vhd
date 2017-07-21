@@ -62,6 +62,7 @@ architecture arch of tx_path_top is
 --declare signals,  components here
 
 signal rx_sample_nr_iq_rdclk        : std_logic_vector(63 downto 0);
+signal rx_sample_nr_iq_rdclk_reg    : std_logic_vector(63 downto 0);
 signal en_sync_rx_sample_clk        : std_logic;
 signal en_sync_iq_rdclk             : std_logic;
 signal pct_loss_flg_clr_sync_iq_rdclk : std_logic;
@@ -180,6 +181,14 @@ sync_fifo_rw_inst : entity work.sync_fifo_rw
         sync_q       => rx_sample_nr_iq_rdclk
         );
 
+--extra register stage to help timing		  
+process(iq_rdclk)
+begin
+	if (iq_rdclk'event AND iq_rdclk = '1') then 
+		rx_sample_nr_iq_rdclk_reg <= rx_sample_nr_iq_rdclk;
+	end if;
+end process;
+
 
 -- ----------------------------------------------------------------------------
 -- packets2data_top instance
@@ -208,7 +217,7 @@ sync_fifo_rw_inst : entity work.sync_fifo_rw
       pct_size          => inst0_pct_size,
       
       pct_sync_dis      => pct_sync_dis,
-      sample_nr         => rx_sample_nr_iq_rdclk,
+      sample_nr         => rx_sample_nr_iq_rdclk_reg,
       
       in_pct_wrreq      => in_pct_wrreq,
       in_pct_data       => in_pct_data,

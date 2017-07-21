@@ -50,6 +50,7 @@ architecture arch of diq2fifo is
 --declare signals,  components here
 signal inst0_diq_out_h 	: std_logic_vector (iq_width downto 0); 
 signal inst0_diq_out_l 	: std_logic_vector (iq_width downto 0); 
+signal inst0_diq_out		: std_logic_vector (iq_width*2 downto 0);
 
 signal inst2_data_h		: std_logic_vector (iq_width downto 0);
 signal inst2_data_l		: std_logic_vector (iq_width downto 0); 

@@ -113,7 +113,7 @@ set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_LED_G
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMK_CLK
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMK_CLK
 set_instance_assignment -name IO_STANDARD "1.8 V" -to SPARE_IO_PULL_UP
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to SPARE_IO_PULL_UP
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FT_D[31]
@@ -162,22 +162,22 @@ set_location_assignment PIN_K8 -to FPGA_SPI_DAC_SS
 set_location_assignment PIN_J5 -to FPGA_SPI_LMS_SS
 set_location_assignment PIN_J7 -to FPGA_SPI_MOSI
 set_location_assignment PIN_K5 -to FPGA_SPI_SCLK
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_SPI_DAC_SS
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_SPI_LMS_SS
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_SPI_MOSI
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_SPI_SCLK
+set_instance_assignment -name IO_STANDARD "2.5 V" -to FPGA_SPI_DAC_SS
+set_instance_assignment -name IO_STANDARD "2.5 V" -to FPGA_SPI_LMS_SS
+set_instance_assignment -name IO_STANDARD "2.5 V" -to FPGA_SPI_MOSI
+set_instance_assignment -name IO_STANDARD "2.5 V" -to FPGA_SPI_SCLK
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_I2C_SCL
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_I2C_SDA
 set_location_assignment PIN_K6 -to LMS_TXEN
 set_location_assignment PIN_M11 -to LMS_RXEN
 set_location_assignment PIN_L1 -to LMS_RESET
 set_location_assignment PIN_N11 -to LMS_CORE_LDO_EN
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_CORE_LDO_EN
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_TXEN
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_RXEN
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_RESET
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_CORE_LDO_EN
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_TXEN
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_RXEN
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_RESET
 set_location_assignment PIN_J6 -to FPGA_SPI_MISO
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_SPI_MISO
+set_instance_assignment -name IO_STANDARD "2.5 V" -to FPGA_SPI_MISO
 set_global_assignment -name EXTERNAL_FLASH_FALLBACK_ADDRESS 00000000
 set_global_assignment -name INTERNAL_FLASH_UPDATE_MODE "DUAL IMAGES"
 set_location_assignment PIN_M3 -to LMS_FCLK2
@@ -196,22 +196,22 @@ set_location_assignment PIN_N4 -to LMS_DIQ2_D[8]
 set_location_assignment PIN_K2 -to LMS_DIQ2_D[9]
 set_location_assignment PIN_L5 -to LMS_DIQ2_D[10]
 set_location_assignment PIN_L4 -to LMS_DIQ2_D[11]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_MCLK2
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_FCLK2
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_FCLK1
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_ENABLE_IQSEL2
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ2_D[0]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ2_D[2]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ2_D[3]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ2_D[4]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ2_D[5]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ2_D[6]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ2_D[7]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ2_D[9]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ2_D[1]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ2_D[8]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ2_D[10]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ2_D[11]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_MCLK2
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_FCLK2
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_FCLK1
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_ENABLE_IQSEL2
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_DIQ2_D[0]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_DIQ2_D[2]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_DIQ2_D[3]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_DIQ2_D[4]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_DIQ2_D[5]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_DIQ2_D[6]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_DIQ2_D[7]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_DIQ2_D[9]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_DIQ2_D[1]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_DIQ2_D[8]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_DIQ2_D[10]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_DIQ2_D[11]
 set_location_assignment PIN_M12 -to LMS_DIQ1[0]
 set_location_assignment PIN_N12 -to LMS_DIQ1[1]
 set_location_assignment PIN_N10 -to LMS_DIQ1[2]
@@ -225,19 +225,19 @@ set_location_assignment PIN_N7 -to LMS_DIQ1[9]
 set_location_assignment PIN_M9 -to LMS_DIQ1[10]
 set_location_assignment PIN_N6 -to LMS_DIQ1[11]
 set_location_assignment PIN_M8 -to LMS_ENABLE_IQSEL1
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_ENABLE_IQSEL1
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[0]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[1]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[2]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[3]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[4]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[5]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[6]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[7]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[8]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[9]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[10]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1[11]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_ENABLE_IQSEL1
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_DIQ1[0]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_DIQ1[1]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_DIQ1[2]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_DIQ1[3]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_DIQ1[4]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_DIQ1[5]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_DIQ1[6]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_DIQ1[7]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_DIQ1[8]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_DIQ1[9]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_DIQ1[10]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_DIQ1[11]
 set_location_assignment PIN_B9 -to FPGA_LED_R
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_LED_R
 set_global_assignment -name POST_FLOW_SCRIPT_FILE "quartus_sh:gen_prg_files.tcl"
@@ -247,8 +247,8 @@ set_global_assignment -name AUTO_GLOBAL_CLOCK ON
 set_global_assignment -name AUTO_GLOBAL_REGISTER_CONTROLS OFF
 set_global_assignment -name OPTIMIZATION_MODE "HIGH PERFORMANCE EFFORT"
 set_instance_assignment -name IO_STANDARD "2.5 V" -to altera_reserved_tms
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_TXNRX2
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_TXNRX1
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_TXNRX2
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_TXNRX1
 set_location_assignment PIN_J8 -to LMS_TXNRX1
 set_location_assignment PIN_H5 -to LMS_TXNRX2
 set_location_assignment PIN_A11 -to FPGA_GPIO[0]
@@ -311,19 +311,23 @@ set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to FT_D[3]
 set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to FT_D[2]
 set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to FT_D[1]
 set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to FT_D[0]
-set_global_assignment -name SEED 2
+set_global_assignment -name SEED 1
 set_global_assignment -name FITTER_EFFORT "STANDARD FIT"
+set_global_assignment -name QIP_FILE lms_ctr/synthesis/lms_ctr.qip
+set_global_assignment -name SDC_FILE LMS7002_timing.sdc
+set_global_assignment -name SDC_FILE FT601_timing.sdc
+set_global_assignment -name SDC_FILE timing.sdc
+set_global_assignment -name QIP_FILE ip/clkctrl/clkctrl/synthesis/clkctrl.qip
+set_global_assignment -name VHDL_FILE src/pll_top/synth/pll_top.vhd
 set_global_assignment -name QIP_FILE ip/ddrox13/ddrox13.qip
 set_global_assignment -name VHDL_FILE src/FT601/synth/FT601_top.vhd
 set_global_assignment -name VHDL_FILE src/FT601/synth/FT601_arb.vhd
 set_global_assignment -name VHDL_FILE src/FT601/synth/FT601.vhd
-set_global_assignment -name SDC_FILE LMS7002_timing.sdc
 set_global_assignment -name VHDL_FILE src/altera_inst/lpm_cnt_inst.vhd
 set_global_assignment -name VHDL_FILE src/altera_inst/lms7002_ddout.vhd
 set_global_assignment -name VHDL_FILE src/altera_inst/lms7002_ddin.vhd
 set_global_assignment -name VHDL_FILE src/altera_inst/fifo_inst.vhd
 set_global_assignment -name VHDL_FILE src/limelight_top/synth/limelight_top.vhd
-set_global_assignment -name QIP_FILE lms_ctr/synthesis/lms_ctr.qip
 set_global_assignment -name VHDL_FILE src/spi/periphcfg.vhd
 set_global_assignment -name VHDL_FILE src/general/gpio_ctrl.vhd
 set_global_assignment -name VHDL_FILE src/revision/revision.vhd
@@ -360,7 +364,6 @@ set_global_assignment -name QIP_FILE software/lms_ctr_app/mem_init/meminit.qip
 set_global_assignment -name VHDL_FILE src/nios_cpu/nios_cpu.vhd
 set_global_assignment -name VHDL_FILE src/general/simple_reg.vhd
 set_global_assignment -name VHDL_FILE src/general/alive.vhd
-set_global_assignment -name SDC_FILE timing.sdc
 set_global_assignment -name SIGNALTAP_FILE signal_tap/debug.stp
 set_global_assignment -name QIP_FILE ip/fifo/fifo.qip
 set_global_assignment -name BDF_FILE lms7_trx_top.bdf
@@ -404,4 +407,29 @@ set_global_assignment -name VHDL_FILE src/rx_path_top/bit_pack/synth/pack_48_to_
 set_global_assignment -name VHDL_FILE src/rx_path_top/bit_pack/synth/bit_pack.vhd
 set_global_assignment -name VHDL_FILE src/rx_path_top/smpl_cnt/synth/smpl_cnt.vhd
 set_global_assignment -name VHDL_FILE src/rx_path_top/rx_path/synth/rx_path_top.vhd
+set_global_assignment -name SDC_FILE Clock_groups.sdc
+set_global_assignment -name VHDL_FILE src/general/lms7002_ddin_max10.vhd
+set_location_assignment PIN_G5 -to LMS_MCLK1
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_MCLK1
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[0]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[1]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[2]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[3]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[4]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[5]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[6]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[7]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[8]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[9]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[10]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[11]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MINIMUM CURRENT" -to LMS_CORE_LDO_EN
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_ENABLE_IQSEL1
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MINIMUM CURRENT" -to LMS_TXNRX1
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MINIMUM CURRENT" -to LMS_TXEN
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MINIMUM CURRENT" -to LMS_RXEN
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MINIMUM CURRENT" -to LMS_TXNRX2
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MINIMUM CURRENT" -to LMS_RESET
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_FCLK2
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_FCLK1
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

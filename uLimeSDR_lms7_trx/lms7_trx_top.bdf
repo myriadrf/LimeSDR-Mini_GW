@@ -158,7 +158,7 @@ agreement for further details.
 )
 (pin
 	(input)
-	(rect -2960 -552 -2792 -536)
+	(rect -2952 -496 -2784 -480)
 	(text "INPUT" (rect 125 0 166 11)(font "Arial" (font_size 6)))
 	(text "LM75_OS" (rect 5 0 62 14)(font "Arial" ))
 	(pt 168 8)
@@ -171,7 +171,7 @@ agreement for further details.
 		(line (pt 109 12)(pt 113 8))
 	)
 	(text "VCC" (rect 128 7 152 18)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect -3032 -552 -2976 -528))
+	(annotation_block (location)(rect -3024 -496 -2968 -472))
 )
 (pin
 	(input)
@@ -464,7 +464,7 @@ agreement for further details.
 )
 (pin
 	(output)
-	(rect -2728 -552 -2552 -536)
+	(rect -2456 -480 -2280 -464)
 	(text "OUTPUT" (rect 1 0 50 11)(font "Arial" (font_size 6)))
 	(text "FAN_CTRL" (rect 90 0 156 14)(font "Arial" ))
 	(pt 0 8)
@@ -477,24 +477,7 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect -2536 -552 -2480 -528))
-)
-(pin
-	(output)
-	(rect -2728 -464 -2500 -448)
-	(text "OUTPUT" (rect 1 0 50 11)(font "Arial" (font_size 6)))
-	(text "FPGA_EGPIO[3..0]" (rect 90 0 222 14)(font "Arial" ))
-	(pt 0 8)
-	(drawing
-		(line (pt 0 8)(pt 52 8))
-		(line (pt 52 4)(pt 78 4))
-		(line (pt 52 12)(pt 78 12))
-		(line (pt 52 12)(pt 52 4))
-		(line (pt 78 4)(pt 82 8))
-		(line (pt 82 8)(pt 78 12))
-		(line (pt 78 12)(pt 82 8))
-	)
-	(annotation_block (location)(rect -2488 -464 -2424 -440))
+	(annotation_block (location)(rect -2264 -480 -2208 -456))
 )
 (pin
 	(output)
@@ -619,6 +602,23 @@ agreement for further details.
 	)
 	(text "VCC" (rect 4 7 28 18)(font "Arial" (font_size 6)))
 	(annotation_block (location)(rect -1373 -496 -1285 -464))
+)
+(pin
+	(bidir)
+	(rect -1584 -264 -1356 -248)
+	(text "BIDIR" (rect 1 0 42 11)(font "Arial" (font_size 6)))
+	(text "FPGA_EGPIO[3..0]" (rect 90 0 222 14)(font "Arial" ))
+	(pt 0 8)
+	(drawing
+		(line (pt 56 4)(pt 78 4))
+		(line (pt 0 8)(pt 52 8))
+		(line (pt 56 12)(pt 78 12))
+		(line (pt 78 4)(pt 82 8))
+		(line (pt 78 12)(pt 82 8))
+		(line (pt 56 4)(pt 52 8))
+		(line (pt 52 8)(pt 56 12))
+	)
+	(text "VCC" (rect 4 7 28 18)(font "Arial" (font_size 6)))
 )
 (symbol
 	(rect -2576 -752 -2528 -720)
@@ -1629,23 +1629,6 @@ agreement for further details.
 	(rect -1896 4672 -1864 4704)
 	(text "GND" (rect 8 16 32 27)(font "Arial" (font_size 6)))
 	(text "inst24" (rect 3 21 52 35)(font "Arial" )(invisible))
-	(port
-		(pt 16 0)
-		(output)
-		(text "1" (rect 18 0 23 14)(font "Courier New" (bold))(invisible))
-		(text "1" (rect 18 0 23 14)(font "Courier New" (bold))(invisible))
-		(line (pt 16 8)(pt 16 0))
-	)
-	(drawing
-		(line (pt 8 8)(pt 16 16))
-		(line (pt 16 16)(pt 24 8))
-		(line (pt 8 8)(pt 24 8))
-	)
-)
-(symbol
-	(rect -1984 4408 -1952 4440)
-	(text "GND" (rect 8 16 32 27)(font "Arial" (font_size 6)))
-	(text "inst26" (rect 3 21 52 35)(font "Arial" )(invisible))
 	(port
 		(pt 16 0)
 		(output)
@@ -2692,30 +2675,6 @@ agreement for further details.
 	)
 )
 (symbol
-	(rect -2784 -560 -2736 -528)
-	(text "WIRE" (rect 1 0 34 11)(font "Arial" (font_size 6)))
-	(text "inst6" (rect 3 21 44 35)(font "Arial" ))
-	(port
-		(pt 0 16)
-		(input)
-		(text "IN" (rect 2 7 13 21)(font "Courier New" (bold))(invisible))
-		(text "IN" (rect 2 7 13 21)(font "Courier New" (bold))(invisible))
-		(line (pt 0 16)(pt 14 16))
-	)
-	(port
-		(pt 48 16)
-		(output)
-		(text "OUT" (rect 32 7 49 21)(font "Courier New" (bold))(invisible))
-		(text "OUT" (rect 32 7 49 21)(font "Courier New" (bold))(invisible))
-		(line (pt 32 16)(pt 48 16))
-	)
-	(drawing
-		(line (pt 14 7)(pt 32 16))
-		(line (pt 14 25)(pt 14 7))
-		(line (pt 14 25)(pt 32 16))
-	)
-)
-(symbol
 	(rect 40 832 448 1328)
 	(text "limelight_top" (rect 5 0 112 14)(font "Arial" ))
 	(text "inst12" (rect 8 480 57 494)(font "Arial" ))
@@ -3437,6 +3396,117 @@ agreement for further details.
 		(rectangle (rect 16 16 216 288))
 	)
 	(annotation_block (parameter)(rect 344 -1312 856 -745))
+)
+(symbol
+	(rect -2624 -520 -2512 -432)
+	(text "BUSMUX" (rect 28 0 105 18)(font "Arial" (font_size 10)))
+	(text "inst11" (rect 3 77 52 91)(font "Arial" ))
+	(port
+		(pt 0 64)
+		(input)
+		(text "datab[WIDTH-1..0]" (rect 6 51 166 67)(font "Arial" (font_size 8)))
+		(text "datab[]" (rect 6 51 72 67)(font "Arial" (font_size 8)))
+		(line (pt 0 64)(pt 44 64)(line_width 3))
+	)
+	(port
+		(pt 56 88)
+		(input)
+		(text "sel" (rect 59 70 87 86)(font "Arial" (font_size 8)))
+		(text "sel" (rect 59 70 87 86)(font "Arial" (font_size 8)))
+		(line (pt 56 88)(pt 56 72))
+	)
+	(port
+		(pt 0 32)
+		(input)
+		(text "dataa[WIDTH-1..0]" (rect 6 19 166 35)(font "Arial" (font_size 8)))
+		(text "dataa[]" (rect 6 19 72 35)(font "Arial" (font_size 8)))
+		(line (pt 0 32)(pt 44 32)(line_width 3))
+	)
+	(port
+		(pt 112 48)
+		(output)
+		(text "result[WIDTH-1..0]" (rect 75 35 244 51)(font "Arial" (font_size 8)))
+		(text "result[]" (rect 75 35 150 51)(font "Arial" (font_size 8)))
+		(line (pt 68 48)(pt 112 48)(line_width 3))
+	)
+	(parameter
+		"WIDTH"
+		"1"
+		"Width of I/O, any integer > 0"
+		" 1" " 2" " 3" " 4" " 5" " 6" " 7" " 8" " 9" "10" "11" "12" "13" "14" "15" "16" "20" "24" "28" "32" "40" "48" "56" "64" 
+	)
+	(drawing
+		(text "0" (rect 52 31 60 42)(font "Arial" (font_size 6)))
+		(text "1" (rect 52 55 60 66)(font "Arial" (font_size 6)))
+		(line (pt 68 64)(pt 68 32))
+		(line (pt 44 80)(pt 44 16))
+		(line (pt 44 16)(pt 68 32))
+		(line (pt 44 80)(pt 68 64))
+	)
+	(annotation_block (parameter)(rect -2512 -568 -2320 -526))
+)
+(symbol
+	(rect -2000 -288 -1712 -144)
+	(text "gpio_ctrl_top" (rect 5 0 112 14)(font "Arial" ))
+	(text "inst26" (rect 8 128 57 142)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "mux_sel[bus_width-1..0]" (rect 0 0 189 14)(font "Arial" ))
+		(text "mux_sel[bus_width-1..0]" (rect 21 27 210 41)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32)(line_width 3))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "dir_0[bus_width-1..0]" (rect 0 0 173 14)(font "Arial" ))
+		(text "dir_0[bus_width-1..0]" (rect 21 43 194 57)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48)(line_width 3))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "dir_1[bus_width-1..0]" (rect 0 0 173 14)(font "Arial" ))
+		(text "dir_1[bus_width-1..0]" (rect 21 59 194 73)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64)(line_width 3))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "out_val_0[bus_width-1..0]" (rect 0 0 206 14)(font "Arial" ))
+		(text "out_val_0[bus_width-1..0]" (rect 21 75 227 89)(font "Arial" ))
+		(line (pt 0 80)(pt 16 80)(line_width 3))
+	)
+	(port
+		(pt 0 96)
+		(input)
+		(text "out_val_1[bus_width-1..0]" (rect 0 0 206 14)(font "Arial" ))
+		(text "out_val_1[bus_width-1..0]" (rect 21 91 227 105)(font "Arial" ))
+		(line (pt 0 96)(pt 16 96)(line_width 3))
+	)
+	(port
+		(pt 288 48)
+		(output)
+		(text "gpio_in[bus_width-1..0]" (rect 0 0 189 14)(font "Arial" ))
+		(text "gpio_in[bus_width-1..0]" (rect 107 43 296 57)(font "Arial" ))
+		(line (pt 288 48)(pt 272 48)(line_width 3))
+	)
+	(port
+		(pt 288 32)
+		(bidir)
+		(text "gpio[bus_width-1..0]" (rect 0 0 165 14)(font "Arial" ))
+		(text "gpio[bus_width-1..0]" (rect 192 27 357 41)(font "Arial" ))
+		(line (pt 288 32)(pt 272 32)(line_width 3))
+	)
+	(parameter
+		"bus_width"
+		"4"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(drawing
+		(rectangle (rect 16 16 272 128))
+	)
+	(annotation_block (parameter)(rect -2000 -352 -1708 -310))
 )
 (connector
 	(text "rst" (rect -2497 -752 -2473 -738)(font "Arial" ))
@@ -4220,26 +4290,6 @@ agreement for further details.
 	(bus)
 )
 (connector
-	(pt -1848 4424)
-	(pt -1880 4424)
-	(bus)
-)
-(connector
-	(pt -1880 4424)
-	(pt -1880 4408)
-	(bus)
-)
-(connector
-	(pt -1848 4408)
-	(pt -1880 4408)
-	(bus)
-)
-(connector
-	(pt -1880 4408)
-	(pt -1968 4408)
-	(bus)
-)
-(connector
 	(text "TX_TST_I[15..0]" (rect -20 1976 103 1990)(font "Arial" ))
 	(pt -56 1992)
 	(pt 80 1992)
@@ -4435,12 +4485,6 @@ agreement for further details.
 	(pt -2736 1264)
 )
 (connector
-	(text "L,L,L,L,L,L,L,L,BOARD_GPIO_RD[7..0]" (rect -2917 1264 -2628 1278)(font "Arial" ))
-	(pt -2736 1280)
-	(pt -2928 1280)
-	(bus)
-)
-(connector
 	(text "L,L,L,L,L,L,L,L,L,L,L,L,L,L,L,L" (rect -2896 1280 -2640 1294)(font "Arial" ))
 	(pt -2736 1296)
 	(pt -2928 1296)
@@ -4541,20 +4585,6 @@ agreement for further details.
 	(text "fpgacfg_MISO" (rect -2948 3048 -2849 3062)(font "Arial" ))
 	(pt -3024 3064)
 	(pt -2848 3064)
-)
-(connector
-	(pt -2784 -544)
-	(pt -2792 -544)
-)
-(connector
-	(pt -2736 -544)
-	(pt -2728 -544)
-)
-(connector
-	(text "L,L,L,L" (rect -2816 -472 -2759 -458)(font "Arial" ))
-	(pt -2728 -456)
-	(pt -2824 -456)
-	(bus)
 )
 (connector
 	(text "rx_ptrn_en" (rect -2420 696 -2338 710)(font "Arial" ))
@@ -4878,6 +4908,87 @@ agreement for further details.
 	(pt 112 -696)
 	(pt -24 -696)
 )
+(connector
+	(text "L,L,clk_test_rez[3..0]" (rect -1949 4408 -1768 4422)(font "Arial" ))
+	(pt -1968 4424)
+	(pt -1848 4424)
+	(bus)
+)
+(connector
+	(text "L,L,clk_test_cmplt[3..0]" (rect -1950 4392 -1752 4406)(font "Arial" ))
+	(pt -1968 4408)
+	(pt -1848 4408)
+	(bus)
+)
+(connector
+	(text "PERIPH_OUTPUT_OVRD_0[0]" (rect -2743 -408 -2554 -394)(font "Arial" ))
+	(pt -2568 -392)
+	(pt -2784 -392)
+)
+(connector
+	(pt -2568 -432)
+	(pt -2568 -392)
+)
+(connector
+	(text "PERIPH_OUTPUT_VAL_0[0]" (rect -2761 -472 -2580 -458)(font "Arial" ))
+	(pt -2784 -456)
+	(pt -2624 -456)
+)
+(connector
+	(pt -2512 -472)
+	(pt -2456 -472)
+)
+(connector
+	(pt -2784 -488)
+	(pt -2624 -488)
+)
+(connector
+	(pt -1584 -256)
+	(pt -1712 -256)
+	(bus)
+)
+(connector
+	(text "BOARD_GPIO_OVRD[11..8]" (rect -2120 -272 -1939 -258)(font "Arial" ))
+	(pt -2117 -256)
+	(pt -2000 -256)
+	(bus)
+)
+(connector
+	(text "L,L,L,L" (rect -2076 -256 -2019 -242)(font "Arial" ))
+	(pt -2000 -240)
+	(pt -2120 -240)
+	(bus)
+)
+(connector
+	(text "BOARD_GPIO_DIR[11..8]" (rect -2120 -240 -1947 -226)(font "Arial" ))
+	(pt -2117 -224)
+	(pt -2000 -224)
+	(bus)
+)
+(connector
+	(text "L,L,L,L" (rect -2076 -224 -2019 -210)(font "Arial" ))
+	(pt -2000 -208)
+	(pt -2120 -208)
+	(bus)
+)
+(connector
+	(text "BOARD_GPIO_VAL[11..8]" (rect -2128 -208 -1955 -194)(font "Arial" ))
+	(pt -2122 -192)
+	(pt -2000 -192)
+	(bus)
+)
+(connector
+	(text "BOARD_GPIO_RD[11..8]" (rect -1671 -256 -1506 -242)(font "Arial" ))
+	(pt -1712 -240)
+	(pt -1584 -240)
+	(bus)
+)
+(connector
+	(text "L,L,L,L,BOARD_GPIO_RD[11..0]" (rect -2917 1264 -2686 1278)(font "Arial" ))
+	(pt -2736 1280)
+	(pt -2928 1280)
+	(bus)
+)
 (junction (pt -2624 4472))
 (junction (pt -2624 4488))
 (junction (pt -2624 4504))
@@ -4888,7 +4999,6 @@ agreement for further details.
 (junction (pt -1880 4616))
 (junction (pt -1880 4632))
 (junction (pt -1880 4648))
-(junction (pt -1880 4408))
 (junction (pt 24 896))
 (junction (pt 16 1232))
 (junction (pt 24 880))
@@ -4923,8 +5033,8 @@ agreement for further details.
 (text "- ON" (rect -1744 3832 -1707 3848)(font "Arial" (font_size 8)))
 (text "- OFF" (rect -1704 3832 -1657 3848)(font "Arial" (font_size 8)))
 (text "FPGA registers" (rect -3016 4056 -2719 4084)(font "Arial" (font_size 16)(bold)))
-(text "Fan Control" (rect -2792 -592 -2611 -571)(font "Arial" (font_size 12)))
-(text "Edge GPIO" (rect -2792 -496 -2644 -475)(font "Arial" (font_size 12)))
+(text "Fan Control" (rect -2632 -552 -2451 -531)(font "Arial" (font_size 12)))
+(text "Edge GPIO" (rect -1992 -384 -1844 -363)(font "Arial" (font_size 12)))
 (rectangle (rect -3240 -1056 1352 5984)(color 0 0 0)(line_width 3))
 (rectangle (rect -3048 -920 -1352 272)(color 0 85 0)(line_width 2))
 (rectangle (rect -3048 -920 -1352 -872)(color 0 85 0)(line_width 2))

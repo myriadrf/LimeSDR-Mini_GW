@@ -1,4 +1,4 @@
-# LimeSDR-IoT FPGA gateware
+# LimeSDR-Mini FPGA gateware
 
 This repository contains the FPGA gateware project for the LimeSDR-IoT board.
 

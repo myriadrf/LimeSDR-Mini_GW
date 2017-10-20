@@ -60,6 +60,7 @@ type smpl_nr_array_type  is array (0 to n_buff-1) of std_logic_vector(63 downto 
 signal smpl_nr_array       : smpl_nr_array_type;
 
 signal pct_smpl_nr_less       : std_logic_vector(n_buff-1 downto 0);
+signal pct_smpl_nr_sync_dis   : std_logic_vector(n_buff-1 downto 0);
 
 
 COMPONENT lpm_compare
@@ -123,6 +124,25 @@ LPM_COMPARE_component : LPM_COMPARE
    
 end generate gen_lpm_compare;
 
+
+-- ----------------------------------------------------------------------------
+-- Capture pct synch disable bit
+-- ----------------------------------------------------------------------------
+process(clk, reset_n)
+begin
+   if reset_n = '0' then 
+      pct_smpl_nr_sync_dis <= (others=>'0');
+   elsif (clk'event AND clk='1') then 
+      for i in 0 to n_buff-1 loop
+         if pct_hdr_0_valid(i) = '1' then 
+            pct_smpl_nr_sync_dis(i)<= pct_hdr_0(4);
+         else 
+            pct_smpl_nr_sync_dis(i)<=pct_smpl_nr_sync_dis(i);
+         end if;
+      end loop;
+   end if;
+end process;
+
 -- ----------------------------------------------------------------------------
 -- Clear packet buffer when received sample number is to old
 -- ----------------------------------------------------------------------------
@@ -132,7 +152,8 @@ begin
       pct_data_clr_n <= (others=>'0');
    elsif (clk'event AND clk='1') then 
       for i in 0 to n_buff-1 loop
-         if pct_data_clr_dis(i) = '0' AND pct_smpl_nr_less(i) = '1' AND pct_buff_rdy(i) = '1' then 
+         if pct_data_clr_dis(i) = '0' AND pct_smpl_nr_sync_dis(i) = '0' AND 
+            pct_smpl_nr_less(i) = '1' AND pct_buff_rdy(i) = '1' then 
             pct_data_clr_n(i)<= '0';
          else 
             pct_data_clr_n(i)<= '1';

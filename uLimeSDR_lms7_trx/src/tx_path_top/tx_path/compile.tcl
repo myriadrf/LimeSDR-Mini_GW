@@ -32,11 +32,10 @@ puts {
 
 #Add files to compile, follow compilation order(last file - top module)
 set library_file_list {
-                           source_library { ../general/sync_reg.vhd
-                                            ../general/bus_sync_reg.vhd
-                                            ../general/sync_fifo_rw.vhd
-                                            ../altera_inst/fifo_inst.vhd
-                                            ../altera_inst/lms7002_ddout.vhd
+                           source_library { ../../general/sync_reg.vhd
+                                            ../../general/bus_sync_reg.vhd
+                                            ../../altera_inst/fifo_inst.vhd
+                                            ../../altera_inst/lms7002_ddout.vhd
                                             ../bit_unpack/synth/unpack_64_to_48.vhd
                                             ../bit_unpack/synth/unpack_64_to_56.vhd
                                             ../bit_unpack/synth/unpack_64_to_64.vhd
@@ -45,7 +44,6 @@ set library_file_list {
                                             ../fifo2diq/synth/fifo2diq.vhd
                                             ../handshake_sync/synth/handshake_sync.vhd
                                             ../packets2data/synth/p2d_wr_fsm.vhd
-                                            ../packets2data/synth/p2d_rd_fsm_pkg.vhd
                                             ../packets2data/synth/p2d_rd_fsm.vhd
                                             ../packets2data/synth/p2d_clr_fsm.vhd
                                             ../packets2data/synth/p2d_sync_fsm.vhd

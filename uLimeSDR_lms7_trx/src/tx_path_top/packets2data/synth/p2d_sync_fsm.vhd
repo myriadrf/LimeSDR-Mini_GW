@@ -65,15 +65,16 @@ signal current_state, next_state : state_type;
 type smpl_nr_array_type  is array (0 to n_buff-1) of std_logic_vector(63 downto 0);  
 signal smpl_nr_array       : smpl_nr_array_type;
 
-signal pct_smpl_nr_equal      : std_logic_vector(n_buff-1 downto 0);
-signal pct_smpl_nr_sync_dis   : std_logic_vector(n_buff-1 downto 0);
-signal sync_cnt               : unsigned(15 downto 0);
-signal sync_cnt_limit         : unsigned(15 downto 0);
-signal sync_cnt_max           : unsigned(15 downto 0);
-signal sync_en_vect           : std_logic_vector(n_buff-1 downto 0);
-signal sync_en_vect_shift     : std_logic;
-signal sync_en                : std_logic_vector(n_buff-1 downto 0);
-signal pct_buff_rd_en_int     : std_logic_vector(n_buff-1 downto 0);
+signal pct_smpl_nr_equal         : std_logic_vector(n_buff-1 downto 0);
+signal pct_smpl_nr_sync_dis      : std_logic_vector(n_buff-1 downto 0);
+signal pct_smpl_nr_sync_dis_msk  : std_logic_vector(n_buff-1 downto 0);
+signal sync_cnt                  : unsigned(15 downto 0);
+signal sync_cnt_limit            : unsigned(15 downto 0);
+signal sync_cnt_max              : unsigned(15 downto 0);
+signal sync_en_vect              : std_logic_vector(n_buff-1 downto 0);
+signal sync_en_vect_shift        : std_logic;
+signal sync_en                   : std_logic_vector(n_buff-1 downto 0);
+signal pct_buff_rd_en_int        : std_logic_vector(n_buff-1 downto 0);
 
 signal int_mode            : std_logic_vector(1 downto 0);
 
@@ -196,8 +197,8 @@ begin
 end process;
 
 
-sync_en <= sync_en_vect when pct_sync_dis = '1' else (others=> '0');
-
+sync_en <= sync_en_vect when (pct_sync_dis = '1' OR unsigned(pct_smpl_nr_sync_dis) > 0)  else (others=> '0');
+--sync_en <= sync_en_vect;
 
 process(clk, reset_n)
 begin
@@ -232,7 +233,7 @@ fsm : process(current_state, pct_buff_rd_en_int, sync_cnt, pct_sync_dis, sync_cn
 	case current_state is
 	  
 		when idle =>
-         if unsigned(pct_buff_rd_en_int) > 0 AND pct_sync_dis = '1' then
+         if unsigned(pct_buff_rd_en_int) > 0 AND (pct_sync_dis = '1' OR unsigned(pct_smpl_nr_sync_dis) > 0) then
             next_state <= pct_sync_en;
          else 
             next_state <= idle;
@@ -253,7 +254,7 @@ fsm : process(current_state, pct_buff_rd_en_int, sync_cnt, pct_sync_dis, sync_cn
 end process;
 
 -- ----------------------------------------------------------------------------
--- Clear packet buffer when received sample number is to old
+-- Trigger packet read when packet is ready
 -- ----------------------------------------------------------------------------
 process(clk, reset_n)
 begin

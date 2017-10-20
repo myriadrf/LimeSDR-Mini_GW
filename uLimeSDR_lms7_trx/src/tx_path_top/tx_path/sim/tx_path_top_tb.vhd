@@ -22,7 +22,7 @@ end tx_path_top_tb;
 -- ----------------------------------------------------------------------------
 
 architecture tb_behave of tx_path_top_tb is
-   constant clk0_period    : time := 16 ns;   --RX clk, ~180MBs
+   constant clk0_period    : time := 10 ns;   --RX clk, ~180MBs
    constant clk1_period    : time := 10 ns;     --Transfer clk, 100MHz, 400MBs 
    constant clk2_period    : time := 16 ns;   --TX clk, 
    --signals
@@ -34,14 +34,16 @@ architecture tb_behave of tx_path_top_tb is
    signal sample_width     : std_logic_vector(1 downto 0) := "10"; 
    signal mode			      : std_logic:='0'; -- JESD207: 1; TRXIQ: 0
 	signal trxiqpulse	      : std_logic:='0'; -- trxiqpulse on: 1; trxiqpulse off: 0
-	signal ddr_en 		      : std_logic:='0'; -- DDR: 1; SDR: 0
-	signal mimo_en 	      : std_logic:='0'; -- MIMO: 1; SISO: 0
+	signal ddr_en 		      : std_logic:='1'; -- DDR: 1; SDR: 0
+	signal mimo_en 	      : std_logic:='1'; -- MIMO: 1; SISO: 0
 	signal ch_en		      : std_logic_vector(1 downto 0):="11"; --"01" - Ch. A, "10" - Ch. B, "11" - Ch. A and Ch. B. 
 	signal fidm			      : std_logic:='0'; -- External Frame ID mode. Frame start at fsync = 0, when 0. Frame start at fsync = 1, when 1. 
 
 	-- Data to BB
 	signal inst0_DIQ 			: std_logic_vector(11 downto 0);
 	signal inst0_fsync		: std_logic; --Frame start
+   signal inst0_DIQ_h      : std_logic_vector(12 downto 0);
+   signal inst0_DIQ_l      : std_logic_vector(12 downto 0);
 
 	--ins0 signals
    signal inst0_fifo_wrreq    : std_logic;
@@ -55,9 +57,14 @@ architecture tb_behave of tx_path_top_tb is
 	signal inst1_in_pct_data   : std_logic_vector(31 downto 0);
    signal rx_sample_nr        : std_logic_vector(63 downto 0);
    signal rx_sample_nr_en     : std_logic;
-   signal inst1_pct_sync_dis  : std_logic := '1';
+   signal inst1_pct_sync_dis  : std_logic := '0';
    
-
+   signal DIQ_h               : unsigned(11 downto 0);
+   signal DIQ_l               : unsigned(11 downto 0);
+   
+   
+   signal DIQ_h_fail          : std_logic;
+   signal DIQ_l_fail          : std_logic;
 
    
    signal rd_pct           : std_logic;
@@ -93,11 +100,10 @@ begin
 		res: process is
 	begin
 		reset_n <= '0'; wait for 20 ns;
-      report "reset_n released" severity failure ;     
+      --report "reset_n released" severity failure ;     
 		reset_n <= '1'; wait;
 	end process res;
    
-   inst1_in_pct_full <= '0';
 
 
 -- ----------------------------------------------------------------------------
@@ -158,7 +164,8 @@ process(clk0, reset_n)
 -- ----------------------------------------------------------------------------   
 process(clk0, reset_n)
    --select one of the three files depending on sample width
-   FILE in_file      : TEXT OPEN READ_MODE IS "sim/out_pct_6_12b";
+   --FILE in_file      : TEXT OPEN READ_MODE IS "sim/out_pct_6_12b";
+   FILE in_file      : TEXT OPEN READ_MODE IS "sim/out_pct_6_12b_sync_dis";
    --FILE in_file      : TEXT OPEN READ_MODE IS "sim/out_pct_6_14b";
    --FILE in_file      : TEXT OPEN READ_MODE IS "sim/out_pct_6_16b";
    
@@ -182,7 +189,36 @@ end process;
 -- ----------------------------------------------------------------------------
 -- Packet data placed to FIFO for resizing bus width
 -- ----------------------------------------------------------------------------
-inst0_rdreq <= NOT inst0_rdempty;
+
+process is
+	begin
+   for i in 0 to 8 loop
+		inst0_rdreq <= '0';
+      --wait reset and check if pct can be written
+      wait until rising_edge(clk1) 
+         AND inst0_rdempty = '0'
+         AND inst1_in_pct_full = '0';
+      --read one pct
+      inst0_rdreq <= '1';
+      for i in 0 to 1023 loop
+         wait until rising_edge(clk1);
+      end loop;
+      
+      inst0_rdreq <= '0';
+      
+      for i in 0 to 511 loop
+         wait until rising_edge(clk1);
+      end loop;
+   end loop;
+   inst0_rdreq <= '0';
+
+   wait;
+	end process;
+
+   
+   -- <= NOT inst0_rdempty AND not inst1_in_pct_full;
+
+
 fifo_inst_isnt0 : entity work.fifo_inst
       generic map(
          dev_family	    =>  "Cyclone IV E",
@@ -239,7 +275,7 @@ tx_path_top_inst0 : entity work.tx_path_top
       en                => reset_n,
 
       rx_sample_clk     => clk2,
-      rx_sample_nr      => rx_sample_nr,
+      rx_sample_nr      => (others=> '0'),--rx_sample_nr,
 
       pct_sync_dis      => inst1_pct_sync_dis,
       pct_loss_flg      => open,
@@ -255,11 +291,57 @@ tx_path_top_inst0 : entity work.tx_path_top
 
       DIQ		 	      => open,
 		fsync	 	         => open,
+      DIQ_h             => inst0_DIQ_h,
+      DIQ_l             => inst0_DIQ_l,
 
       in_pct_wrreq      => inst1_in_pct_wrreq,
       in_pct_data       => inst1_in_pct_data,
       in_pct_full       => inst1_in_pct_full
         );
+        
+        
+process is
+begin
+   DIQ_h <= x"004";
+   DIQ_l <= x"005";
+   wait until rising_edge(clk2) 
+      and inst0_DIQ_h(11 downto 0) = x"004"
+      and inst0_DIQ_l(11 downto 0) = x"005";
+   for i in 0 to 999999 loop
+   wait until inst0_DIQ_h'event;
+      if DIQ_h = x"7FE" then 
+         DIQ_h <= x"000";
+         DIQ_l <= x"001";
+      else 
+         DIQ_h <= DIQ_h + 2 ;
+         DIQ_l <= DIQ_l + 2 ;
+      end if;
+   end loop;
+   wait;
+end process;
+
+
+process(clk2, reset_n)
+begin
+   if reset_n = '0' then 
+      DIQ_h_fail <= '0';
+      DIQ_l_fail <= '0';
+   elsif (clk2'event AND clk2='1') then 
+      if std_logic_vector(DIQ_h) = inst0_DIQ_h(11 downto 0) then 
+         DIQ_h_fail <= '0';
+      else 
+         DIQ_h_fail <= '1';
+      end if;
+      
+      if std_logic_vector(DIQ_l) = inst0_DIQ_l(11 downto 0) then 
+         DIQ_l_fail <= '0';
+      else 
+         DIQ_l_fail <= '1';
+      end if;
+      
+   end if;
+end process;
+
 	
 	
 	end tb_behave;

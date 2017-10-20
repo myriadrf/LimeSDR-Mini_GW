@@ -619,6 +619,7 @@ agreement for further details.
 		(line (pt 52 8)(pt 56 12))
 	)
 	(text "VCC" (rect 4 7 28 18)(font "Arial" (font_size 6)))
+	(annotation_block (location)(rect -1356 -248 -1268 -216))
 )
 (symbol
 	(rect -2576 -752 -2528 -720)

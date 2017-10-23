@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="lms_ctr" kind="lms_ctr" version="1.0" fabric="QSYS">
  <!-- Format version 15.1 193 (Future versions may contain additional information.) -->
- <!-- 2017.06.01.15:00:37 -->
+ <!-- 2017.06.28.14:49:33 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1496318436</value>
+  <value>1498650573</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -1344,7 +1344,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TARGETCLOCK</name>
-   <value>20000000u</value>
+   <value>10000000u</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TARGETSSDELAY</name>
@@ -1448,7 +1448,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="targetClockRate">
    <type>long</type>
-   <value>20000000</value>
+   <value>10000000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -1483,7 +1483,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="actualClockRate">
    <type>double</type>
-   <value>2.0E7</value>
+   <value>1.0E7</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -2165,7 +2165,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="CLOCK_FREQUENCY">
    <type>double</type>
-   <value>30.72</value>
+   <value>40.0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -2173,7 +2173,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="CONFIG_CYCLE">
    <type>int</type>
-   <value>11</value>
+   <value>15</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -2181,7 +2181,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="RESET_TIMER_CYCLE">
    <type>int</type>
-   <value>16</value>
+   <value>21</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -2728,7 +2728,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TARGETCLOCK</name>
-   <value>20000000u</value>
+   <value>10000000u</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TARGETSSDELAY</name>
@@ -2832,7 +2832,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="targetClockRate">
    <type>long</type>
-   <value>20000000</value>
+   <value>10000000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -2867,7 +2867,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="actualClockRate">
    <type>double</type>
-   <value>2.0E7</value>
+   <value>1.0E7</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -12349,7 +12349,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1496318436</value>
+   <value>1498650573</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -12369,7 +12369,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1496318436</value>
+   <value>1498650573</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -12385,7 +12385,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1496318436</value>
+   <value>1498650573</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>

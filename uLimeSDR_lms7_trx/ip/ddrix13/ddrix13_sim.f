@@ -1,3 +1,0 @@
-ddrix13_sim/ddrix13.vhd
-ddrix13_sim/altera_gpio_lite/altera_gpio_lite.sv
-ddrix13_sim/altera_gpio_lite/mentor/altera_gpio_lite.sv

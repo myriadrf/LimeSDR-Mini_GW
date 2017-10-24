@@ -1,6 +1,6 @@
 # LimeSDR-Mini FPGA gateware
 
-This repository contains the FPGA gateware project for the LimeSDR-IoT board.
+This repository contains the FPGA gateware project for the LimeSDR-Mini board.
 
 The gateware can be built with the free version of the Altera Quartus tools.
 
@@ -9,7 +9,7 @@ The gateware can be built with the free version of the Altera Quartus tools.
 This repository contains the following hardware-specific branches:
 
 * master:
-  * Compiled gateware file for Hardware Revision 1v1 is uLimeSDR_bitstreams/uLimeSDR_dual.pof.
+  * Compiled gateware file for Hardware Revision 1v0 is LimeSDR-Mini_bitstreams/LimeSDR-Mini_lms7_trx_HW_1.0.pof.
 * Other branches will be removed later.
   
 ## Licensing

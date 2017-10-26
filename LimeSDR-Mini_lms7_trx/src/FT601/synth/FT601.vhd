@@ -19,8 +19,10 @@ use ieee.numeric_std.all;
 -- ----------------------------------------------------------------------------
 entity FT601 is
   generic(
-			EP82_wsize     : integer := 64;		--packet size in bytes, has to be multiple of 4 bytes
-			EP83_wsize     : integer := 2048 	--packet size in bytes, has to be multiple of 4 bytes
+         FT_data_width  : integer := 32;     -- 32 and 16 valid option
+         FT_be_width    : integer := 4;      -- 4 and 2 valid options
+			EP82_wsize     : integer := 64;		-- packet size in bytes, has to be multiple of 4 bytes
+			EP83_wsize     : integer := 2048 	-- packet size in bytes, has to be multiple of 4 bytes
 			);
   port (
         --input ports 
@@ -31,13 +33,13 @@ entity FT601 is
 			rd_wr          : in std_logic;		-- 0- MASTER RD (PC->FPGA), 1-MASTER WR (FPGA->PC)
 			ch_n           : in std_logic_vector(3 downto 0);
          RD_data_valid  : out std_logic;
-			RD_data        : out std_logic_vector(31 downto 0);
+			RD_data        : out std_logic_vector(FT_data_width-1 downto 0);
          WR_data_req    : out std_logic;     
-			WR_data        : in std_logic_vector(31 downto 0); -- should be 2 cycle latency after WR_data_req 
+			WR_data        : in std_logic_vector(FT_data_width-1 downto 0); -- should be 2 cycle latency after WR_data_req 
 			wr_n           : out std_logic;
 			rxf_n          : in std_logic;
-			data           : inout std_logic_vector(31 downto 0);
-			be             : inout std_logic_vector(3 downto 0);
+			data           : inout std_logic_vector(FT_data_width-1 downto 0);
+			be             : inout std_logic_vector(FT_be_width-1 downto 0);
 			txe_n          : in std_logic
         );
 end FT601;
@@ -78,8 +80,8 @@ begin
    
  RD_data_valid_int   <= '1' when current_state = data_trnsf and rxf_n = '0' AND rd_wr_reg = '0' else '0';
 
- EP82_trnsf_end      <= '1' when (term_cnt=EP82_wsize/4-2 AND rd_wr_reg='1' AND ch_n_reg=x"1") else '0';
- EP83_trnsf_end      <= '1' when (term_cnt=EP83_wsize/4-2 AND rd_wr_reg='1' AND ch_n_reg=x"2") else '0'; 
+ EP82_trnsf_end      <= '1' when (term_cnt=EP82_wsize/(FT_data_width/8)-2 AND rd_wr_reg='1' AND ch_n_reg=x"1") else '0';
+ EP83_trnsf_end      <= '1' when (term_cnt=EP83_wsize/(FT_data_width/8)-2 AND rd_wr_reg='1' AND ch_n_reg=x"2") else '0'; 
 
  
 -- ----------------------------------------------------------------------------
@@ -170,6 +172,8 @@ end process;
 -- ----------------------------------------------------------------------------
 -- data bus control
 -- ----------------------------------------------------------------------------
+--generate FT bus controll signals when data bus is 32bit wide
+gen_32_bus : if FT_data_width = 32 generate 
 process (clk)
 begin
    if (clk'event AND clk = '1') then 
@@ -259,8 +263,95 @@ begin
             
       end case;
     end if;
+end process;
+end generate;
+
+--generate FT bus controll signals whe data bus is 16bit wide
+gen_16_bus : if FT_data_width = 16 generate
+  process (clk)
+begin
+   if (clk'event AND clk = '1') then 
+      case current_state is 
+         when idle=>   
+            data(15 downto 8)<=(others=>'Z');
+            data(7 downto 0)<=(others=>'1');
+            wr_n_sig<='1';
+            be<=(others=>'1');
+            
+         when prep_cmd =>
+            data(15 downto 8)<=(others=>'Z');
+            data(7 downto 0)<="0000" & ch_n_reg; 
+            wr_n_sig<='0';
+            be<='0' & rd_wr_reg;
+            
+         when cmd => 
+            if rd_wr_reg='1' then 
+               data(15 downto 8)<=(others=>'Z');
+               data(7 downto 0)<="0000" & ch_n_reg; 
+               wr_n_sig<='0';
+               be<='0' & rd_wr_reg;
+            else 
+               data(15 downto 8)<=(others=>'Z');			
+               data(7 downto 0)<=(others=>'Z');
+               wr_n_sig<='0';
+               be<=(others=>'Z');
+            end if;
+            
+         when bus_turn0 => 
+               if rd_wr_reg='1' then 
+               data<=WR_data;
+               wr_n_sig<='0';
+               be<=(others=>'1');
+            else 
+               data(15 downto 8)<=(others=>'Z');			
+               data(7 downto 0)<=(others=>'Z');
+               wr_n_sig<='0';
+               be<=(others=>'Z');
+            end if;
+            
+         when bus_turn1 => 
+               if rd_wr_reg='1' then 
+               data<=WR_data;
+               wr_n_sig<='0';
+               be<=(others=>'1');
+            else 
+               data(15 downto 8)<=(others=>'Z');			
+               data(7 downto 0)<=(others=>'Z');
+               wr_n_sig<='0';
+               be<=(others=>'Z');
+            end if;
+            
+         when data_trnsf => 
+               if rd_wr_reg='1' then 
+               data<=WR_data;
+               if rxf_n = '0' then
+                  wr_n_sig<='0';
+               else 
+                  wr_n_sig<='1';
+               end if;
+               be<=(others=>'1');
+            else 
+               data(15 downto 8)<=(others=>'Z');			
+               data(7 downto 0)<=(others=>'Z');
+               if rxf_n = '0' then
+                  wr_n_sig<='0';
+               else 
+                  wr_n_sig<='1';
+               end if;
+               be<=(others=>'Z');
+            end if;	
+            
+         when others=> 
+            data(15 downto 8)<=(others=>'Z');			
+            data(7 downto 0)<=(others=>'Z');
+            wr_n_sig<='1';
+            be<=(others=>'Z');
+            
+      end case;
+    end if;
 
 end process;
+end generate;
 
 wr_n<=wr_n_sig;
 

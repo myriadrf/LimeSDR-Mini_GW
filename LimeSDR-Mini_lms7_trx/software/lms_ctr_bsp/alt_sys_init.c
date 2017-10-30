@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'lms_ctr'
  * SOPC Builder design path: ../../lms_ctr.sopcinfo
  *
- * Generated: Tue Jul 11 14:17:29 EEST 2017
+ * Generated: Mon Oct 30 14:59:10 EET 2017
  */
 
 /*
@@ -63,7 +63,6 @@
 #include "altera_avalon_sysid_qsys.h"
 #include "altera_avalon_uart.h"
 #include "altera_onchip_flash.h"
-#include "i2c_opencores.h"
 
 /*
  * Allocate the device storage
@@ -75,7 +74,6 @@ ALTERA_AVALON_SPI_INSTANCE ( FPGA_SPI, fpga_spi);
 ALTERA_AVALON_SYSID_QSYS_INSTANCE ( SYSID_QSYS_0, sysid_qsys_0);
 ALTERA_AVALON_UART_INSTANCE ( UART, uart);
 ALTERA_ONCHIP_FLASH_DATA_CSR_INSTANCE ( ONCHIP_FLASH_0, ONCHIP_FLASH_0_DATA, ONCHIP_FLASH_0_CSR, onchip_flash_0);
-I2C_OPENCORES_INSTANCE ( I2C_OPENCORES_0, i2c_opencores_0);
 
 /*
  * Initialize the interrupt controller devices
@@ -103,5 +101,4 @@ void alt_sys_init( void )
     ALTERA_AVALON_SYSID_QSYS_INIT ( SYSID_QSYS_0, sysid_qsys_0);
     ALTERA_AVALON_UART_INIT ( UART, uart);
     ALTERA_ONCHIP_FLASH_INIT ( ONCHIP_FLASH_0, onchip_flash_0);
-    I2C_OPENCORES_INIT ( I2C_OPENCORES_0, i2c_opencores_0);
 }

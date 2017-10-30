@@ -27,7 +27,8 @@
 //#define FW_VER				1 //Initial version
 //#define FW_VER				2 //FLASH programming added
 //#define FW_VER				3 //Temperature and Si5351C control added
-#define FW_VER				4 //LM75 configured to control fan; I2C speed increased up to 400kHz; ADF/DAC control implementation.
+//#define FW_VER				4 //LM75 configured to control fan; I2C speed increased up to 400kHz; ADF/DAC control implementation.
+#define FW_VER				5 //EEPROM R/W opreation added
 
 #define SPI_NR_LMS7002M 0
 #define SPI_NR_FPGA     1
@@ -210,6 +211,7 @@ int main()
 
     volatile int spirez;
     char cnt = 0;
+    int k;
 
     uint8_t status = 0;
 
@@ -496,6 +498,72 @@ int main()
 
  					LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
  				break;
+
+
+				case CMD_MEMORY_WR:
+					current_portion = (LMS_Ctrl_Packet_Rx->Data_field[1] << 24) | (LMS_Ctrl_Packet_Rx->Data_field[2] << 16) | (LMS_Ctrl_Packet_Rx->Data_field[3] << 8) | (LMS_Ctrl_Packet_Rx->Data_field[4]);
+					data_cnt = LMS_Ctrl_Packet_Rx->Data_field[5];
+
+					if((LMS_Ctrl_Packet_Rx->Data_field[10] == 0) && (LMS_Ctrl_Packet_Rx->Data_field[11] == 3)) //TARGET = 3 (EEPROM)
+					{
+						if(LMS_Ctrl_Packet_Rx->Data_field[0] == 0) //write data to EEPROM #1
+						{
+
+							cmd_errors = I2C_start(I2C_OPENCORES_0_BASE, EEPROM_I2C_ADDR, 0);
+							cmd_errors += I2C_write(I2C_OPENCORES_0_BASE, LMS_Ctrl_Packet_Rx->Data_field[8], 0);
+							cmd_errors += I2C_write(I2C_OPENCORES_0_BASE, LMS_Ctrl_Packet_Rx->Data_field[9], 0);
+
+							for(k=0; k<data_cnt-1; k++)
+							{
+								cmd_errors += I2C_write(I2C_OPENCORES_0_BASE, LMS_Ctrl_Packet_Rx->Data_field[24+k], 0);
+								usleep(5000);
+							}
+							cmd_errors += I2C_write(I2C_OPENCORES_0_BASE, LMS_Ctrl_Packet_Rx->Data_field[24+k], 1);
+							usleep(5000);
+
+							if(cmd_errors) LMS_Ctrl_Packet_Tx->Header.Status = STATUS_ERROR_CMD;
+							else LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
+						}
+						else
+							LMS_Ctrl_Packet_Tx->Header.Status = STATUS_ERROR_CMD;
+					}
+					else
+
+						LMS_Ctrl_Packet_Tx->Header.Status = STATUS_ERROR_CMD;
+
+				break;
+
+
+				case CMD_MEMORY_RD:
+					current_portion = (LMS_Ctrl_Packet_Rx->Data_field[1] << 24) | (LMS_Ctrl_Packet_Rx->Data_field[2] << 16) | (LMS_Ctrl_Packet_Rx->Data_field[3] << 8) | (LMS_Ctrl_Packet_Rx->Data_field[4]);
+					data_cnt = LMS_Ctrl_Packet_Rx->Data_field[5];
+
+					if((LMS_Ctrl_Packet_Rx->Data_field[10] == 0) && (LMS_Ctrl_Packet_Rx->Data_field[11] == 3)) //TARGET = 3 (EEPROM)
+					{
+						if(LMS_Ctrl_Packet_Rx->Data_field[0] == 0) //read data from EEPROM #1
+						{
+
+							cmd_errors = I2C_start(I2C_OPENCORES_0_BASE, EEPROM_I2C_ADDR, 0);
+							cmd_errors += I2C_write(I2C_OPENCORES_0_BASE, LMS_Ctrl_Packet_Rx->Data_field[8], 0);
+							cmd_errors += I2C_write(I2C_OPENCORES_0_BASE, LMS_Ctrl_Packet_Rx->Data_field[9], 0);
+
+							cmd_errors += I2C_start(I2C_OPENCORES_0_BASE, EEPROM_I2C_ADDR, 1);
+							for(k=0; k<data_cnt-1; k++)
+							{
+								LMS_Ctrl_Packet_Tx->Data_field[24+k] = I2C_read(I2C_OPENCORES_0_BASE, 0);
+							}
+							LMS_Ctrl_Packet_Tx->Data_field[24+k] = I2C_read(I2C_OPENCORES_0_BASE, 1);
+
+							if(cmd_errors) LMS_Ctrl_Packet_Tx->Header.Status = STATUS_ERROR_CMD;
+							else LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
+						}
+						else
+							LMS_Ctrl_Packet_Tx->Header.Status = STATUS_ERROR_CMD;
+					}
+					else
+						LMS_Ctrl_Packet_Tx->Header.Status = STATUS_ERROR_CMD;
+
+				break;
 
 
 				case CMD_ANALOG_VAL_RD:

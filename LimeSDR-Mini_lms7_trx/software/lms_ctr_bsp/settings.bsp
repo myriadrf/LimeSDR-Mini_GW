@@ -2,9 +2,9 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Jul 11, 2017 2:17:26 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1499771846627</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>H:\working_dir\altera\uLimeSDR\uLimeSDR_lms7_trx\uLimeSDR_lms7_trx\software\lms_ctr_bsp</BspGeneratedLocation>
+        <BspGeneratedTimeStamp>Oct 30, 2017 2:59:20 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1509368360061</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>D:\gitrepos\LimeSDR-Mini\mini\ulimesdr_gw\LimeSDR-Mini_lms7_trx\software\lms_ctr_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\lms_ctr.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
@@ -314,7 +314,7 @@
                 <SettingName>hal.make.bsp_cflags_debug</SettingName>
                 <Identifier>BSP_CFLAGS_DEBUG</Identifier>
                 <Type>UnquotedString</Type>
-                <Value>-g</Value>
+                <Value>none</Value>
                 <DefaultValue>-g</DefaultValue>
                 <DestinationFile>makefile_variable</DestinationFile>
                 <Description>C/C++ compiler debug level. '-g' provides the default set of debug symbols typically required to debug a typical application. Omitting '-g' removes debug symbols from the ELF. This setting defines the value of BSP_CFLAGS_DEBUG in Makefile.</Description>

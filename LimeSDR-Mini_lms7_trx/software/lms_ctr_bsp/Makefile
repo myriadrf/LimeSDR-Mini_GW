@@ -127,12 +127,6 @@ BSP_ARFLAGS = -src
 # BSP_ASFLAGS in Makefile. 
 BSP_ASFLAGS = -Wa,-gdwarf2
 
-# C/C++ compiler debug level. '-g' provides the default set of debug symbols 
-# typically required to debug a typical application. Omitting '-g' removes 
-# debug symbols from the ELF. This setting defines the value of 
-# BSP_CFLAGS_DEBUG in Makefile. 
-BSP_CFLAGS_DEBUG = -g
-
 # C/C++ compiler optimization level. "-O0" = no optimization,"-O2" = "normal" 
 # optimization, etc. "-O0" is recommended for code that you want to debug since 
 # compiler optimization can remove variables and produce non-sequential 
@@ -340,13 +334,6 @@ hal_C_LIB_SRCS := \
 	$(hal_SRCS_ROOT)/src/alt_wait.c \
 	$(hal_SRCS_ROOT)/src/alt_write.c
 
-# i2c_opencores_driver sources root 
-i2c_opencores_driver_SRCS_ROOT := drivers
-
-# i2c_opencores_driver sources 
-i2c_opencores_driver_C_LIB_SRCS := \
-	$(i2c_opencores_driver_SRCS_ROOT)/src/i2c_opencores.c
-
 
 # Assemble all component C source files 
 COMPONENT_C_LIB_SRCS += \
@@ -355,8 +342,7 @@ COMPONENT_C_LIB_SRCS += \
 	$(altera_avalon_uart_driver_C_LIB_SRCS) \
 	$(altera_nios2_gen2_hal_driver_C_LIB_SRCS) \
 	$(altera_onchip_flash_driver_C_LIB_SRCS) \
-	$(hal_C_LIB_SRCS) \
-	$(i2c_opencores_driver_C_LIB_SRCS)
+	$(hal_C_LIB_SRCS)
 
 # Assemble all component assembly source files 
 COMPONENT_ASM_LIB_SRCS += \

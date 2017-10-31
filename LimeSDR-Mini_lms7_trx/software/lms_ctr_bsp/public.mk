@@ -152,14 +152,14 @@ SOPC_SYSID_FLAG += --id=4920
 ELF_PATCH_FLAG  += --id 4920
 
 # The SOPC System ID Base Address 
-# setting SOPC_SYSID_BASE_ADDRESS is 0x2020f8
-SOPC_SYSID_FLAG += --sidp=0x2020f8
-ELF_PATCH_FLAG  += --sidp 0x2020f8
+# setting SOPC_SYSID_BASE_ADDRESS is 0x202118
+SOPC_SYSID_FLAG += --sidp=0x202118
+ELF_PATCH_FLAG  += --sidp 0x202118
 
 # The SOPC Timestamp 
-# setting SOPC_TIMESTAMP is 1498650573
-SOPC_SYSID_FLAG += --timestamp=1498650573
-ELF_PATCH_FLAG  += --timestamp 1498650573
+# setting SOPC_TIMESTAMP is 1509460762
+SOPC_SYSID_FLAG += --timestamp=1509460762
+ELF_PATCH_FLAG  += --timestamp 1509460762
 
 # Enable driver ioctl() support. This feature is not compatible with the 
 # 'small' driver; ioctl() support will not be compiled if either the UART 

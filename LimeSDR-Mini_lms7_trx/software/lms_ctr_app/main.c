@@ -28,7 +28,7 @@
 //#define FW_VER				2 //FLASH programming added
 //#define FW_VER				3 //Temperature and Si5351C control added
 //#define FW_VER				4 //LM75 configured to control fan; I2C speed increased up to 400kHz; ADF/DAC control implementation.
-#define FW_VER				5 //EEPROM R/W opreation added
+#define FW_VER				5 //EEPROM and FLASH R/W funtionality added
 
 #define SPI_NR_LMS7002M 0
 #define SPI_NR_FPGA     1
@@ -198,9 +198,7 @@ void testFlash(void)
 */
 
 /**
- * Main, what else?
- * Gets LEDs pattern from switchers.
- * Sets LEDs register according to the pattern.
+ * Main, what else? :)
  **/
 int main()
 {
@@ -350,8 +348,6 @@ int main()
      		switch(LMS_Ctrl_Packet_Rx->Header.Command)
      		{
 
-
-
  				case CMD_GET_INFO:
 
  					LMS_Ctrl_Packet_Tx->Data_field[0] = FW_VER;
@@ -390,56 +386,31 @@ int main()
  					LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
  				break;
 
+
  	 			case CMD_LMS7002_WR:
  	 				if(Check_many_blocks (4)) break;
-
- 	 				//CyU3PGpioSetValue (FX3_SPI_CS, CyFalse); //Enable LMS's SPI
 
  	 				for(block = 0; block < LMS_Ctrl_Packet_Rx->Header.Data_blocks; block++)
  	 				{
  	 					//write reg addr
  	 					sbi(LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 4)], 7); //set write bit
- 	 					/*
- 	 					CyU3PSpiTransmitWords (&LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 4)], 1); //reg addr MSB with write bit
- 	 					CyU3PSpiTransmitWords (&LMS_Ctrl_Packet_Rx->Data_field[1 + (block * 4)], 1); //reg addr LSB
-
- 	 					//write reg data
- 	 					CyU3PSpiTransmitWords (&LMS_Ctrl_Packet_Rx->Data_field[2 + (block * 4)], 1); //reg data MSB
- 	 					CyU3PSpiTransmitWords (&LMS_Ctrl_Packet_Rx->Data_field[3 + (block * 4)], 1); //reg data LSB
- 	 					*/
  	 					spirez = alt_avalon_spi_command(FPGA_SPI_BASE, SPI_NR_LMS7002M, 4, &LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 4)], 0, NULL, 0);
  	 				}
-
- 	 				//CyU3PGpioSetValue (FX3_SPI_CS, CyTrue); //Disable LMS's SPI
 
  	 				LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
  	 			break;
 
+
  				case CMD_LMS7002_RD:
  					if(Check_many_blocks (4)) break;
-
- 					//CyU3PGpioSetValue (FX3_SPI_CS, CyFalse); //Enable LMS's SPI
 
  					for(block = 0; block < LMS_Ctrl_Packet_Rx->Header.Data_blocks; block++)
  					{
 
  						//write reg addr
  						cbi(LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 2)], 7);  //clear write bit
- 						/*
- 						CyU3PSpiTransmitWords (&LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 2)], 1); //reg addr MSB
- 						CyU3PSpiTransmitWords (&LMS_Ctrl_Packet_Rx->Data_field[1 + (block * 2)], 1); //reg addr LSB
-
- 						LMS_Ctrl_Packet_Tx->Data_field[0 + (block * 4)] = LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 2)];
- 						LMS_Ctrl_Packet_Tx->Data_field[1 + (block * 4)] = LMS_Ctrl_Packet_Rx->Data_field[1 + (block * 2)];
-
- 						//read reg data
- 						CyU3PSpiReceiveWords (&LMS_Ctrl_Packet_Tx->Data_field[2 + (block * 4)], 1); //reg data MSB
- 						CyU3PSpiReceiveWords (&LMS_Ctrl_Packet_Tx->Data_field[3 + (block * 4)], 1); //reg data LSB
- 						*/
  						spirez = alt_avalon_spi_command(FPGA_SPI_BASE, SPI_NR_LMS7002M, 2, &LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 2)], 2, &LMS_Ctrl_Packet_Tx->Data_field[2 + (block * 4)], 0);
  					}
-
- 					//CyU3PGpioSetValue (FX3_SPI_CS, CyTrue); //Disable LMS's SPI
 
  					LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
  				break;
@@ -448,24 +419,12 @@ int main()
  	 			case CMD_BRDSPI16_WR:
  	 				if(Check_many_blocks (4)) break;
 
- 	 				//CyU3PGpioSetValue (FX3_SPI_CS, CyFalse); //Enable LMS's SPI
-
  	 				for(block = 0; block < LMS_Ctrl_Packet_Rx->Header.Data_blocks; block++)
  	 				{
  	 					//write reg addr
  	 					sbi(LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 4)], 7); //set write bit
- 	 					/*
- 	 					CyU3PSpiTransmitWords (&LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 4)], 1); //reg addr MSB with write bit
- 	 					CyU3PSpiTransmitWords (&LMS_Ctrl_Packet_Rx->Data_field[1 + (block * 4)], 1); //reg addr LSB
-
- 	 					//write reg data
- 	 					CyU3PSpiTransmitWords (&LMS_Ctrl_Packet_Rx->Data_field[2 + (block * 4)], 1); //reg data MSB
- 	 					CyU3PSpiTransmitWords (&LMS_Ctrl_Packet_Rx->Data_field[3 + (block * 4)], 1); //reg data LSB
- 	 					*/
  	 					spirez = alt_avalon_spi_command(FPGA_SPI_BASE, SPI_NR_FPGA, 4, &LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 4)], 0, NULL, 0);
  	 				}
-
- 	 				//CyU3PGpioSetValue (FX3_SPI_CS, CyTrue); //Disable LMS's SPI
 
  	 				LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
  	 			break;
@@ -473,28 +432,12 @@ int main()
  				case CMD_BRDSPI16_RD:
  					if(Check_many_blocks (4)) break;
 
- 					//CyU3PGpioSetValue (FX3_SPI_CS, CyFalse); //Enable LMS's SPI
-
  					for(block = 0; block < LMS_Ctrl_Packet_Rx->Header.Data_blocks; block++)
  					{
-
  						//write reg addr
  						cbi(LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 2)], 7);  //clear write bit
- 						/*
- 						CyU3PSpiTransmitWords (&LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 2)], 1); //reg addr MSB
- 						CyU3PSpiTransmitWords (&LMS_Ctrl_Packet_Rx->Data_field[1 + (block * 2)], 1); //reg addr LSB
-
- 						LMS_Ctrl_Packet_Tx->Data_field[0 + (block * 4)] = LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 2)];
- 						LMS_Ctrl_Packet_Tx->Data_field[1 + (block * 4)] = LMS_Ctrl_Packet_Rx->Data_field[1 + (block * 2)];
-
- 						//read reg data
- 						CyU3PSpiReceiveWords (&LMS_Ctrl_Packet_Tx->Data_field[2 + (block * 4)], 1); //reg data MSB
- 						CyU3PSpiReceiveWords (&LMS_Ctrl_Packet_Tx->Data_field[3 + (block * 4)], 1); //reg data LSB
- 						*/
  						spirez = alt_avalon_spi_command(FPGA_SPI_BASE, SPI_NR_FPGA, 2, &LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 2)], 2, &LMS_Ctrl_Packet_Tx->Data_field[2 + (block * 4)], 0);
  					}
-
- 					//CyU3PGpioSetValue (FX3_SPI_CS, CyTrue); //Disable LMS's SPI
 
  					LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
  				break;
@@ -529,7 +472,90 @@ int main()
 					}
 					else
 
-						LMS_Ctrl_Packet_Tx->Header.Status = STATUS_ERROR_CMD;
+						if((LMS_Ctrl_Packet_Rx->Data_field[10] == 0) && (LMS_Ctrl_Packet_Rx->Data_field[11] == 1)) // TARGET = 1 (FX3)
+						{
+							switch (LMS_Ctrl_Packet_Rx->Data_field[0]) //PROG_MODE
+							{
+
+								case 2: //PROG_MODE = 2 (write FW to flash). Note please, that writes must be page after page.
+
+									if(current_portion == 0)//beginning
+									{
+										flash_page = 0;
+										flash_page_data_cnt = 0;
+										flash_data_counter_to_copy = 0;
+										fpga_byte = 0;
+									}
+
+									flash_data_cnt_free = FLASH_PAGE_SIZE - flash_page_data_cnt;
+
+									if (flash_data_cnt_free > 0)
+									{
+										if (flash_data_cnt_free > data_cnt)
+											flash_data_counter_to_copy = data_cnt; //copy all data if fits to free page space
+										else
+											flash_data_counter_to_copy = flash_data_cnt_free; //copy only amount of data that fits in to free page size
+
+										memcpy(&flash_page_data[flash_page_data_cnt], &LMS_Ctrl_Packet_Rx->Data_field[24], flash_data_counter_to_copy);
+
+										flash_page_data_cnt = flash_page_data_cnt + flash_data_counter_to_copy;
+										flash_data_cnt_free = FLASH_PAGE_SIZE - flash_page_data_cnt;
+
+										if (data_cnt == 0)//all bytes transmitted, end of programming
+										{
+											if (flash_page_data_cnt > 0)
+												flash_page_data_cnt = FLASH_PAGE_SIZE; //finish page
+										}
+
+										flash_data_cnt_free = FLASH_PAGE_SIZE - flash_page_data_cnt;
+									}
+
+									if (flash_page_data_cnt >= FLASH_PAGE_SIZE) //write data to flash
+									{
+										if ((flash_page % (FLASH_SECTOR_SIZE/FLASH_PAGE_SIZE)) == 0) //need to erase sector? reached number of pages in block?
+											if( FlashSpiEraseSector(FLASH_SPI_BASE, SPI_NR_FLASH, CyTrue, flash_page/(FLASH_SECTOR_SIZE/FLASH_PAGE_SIZE)) != CY_U3P_SUCCESS) cmd_errors++;
+
+										if(!cmd_errors)
+											if( FlashSpiTransfer(FLASH_SPI_BASE, SPI_NR_FLASH, flash_page, FLASH_PAGE_SIZE, flash_page_data, CyFalse) != CY_U3P_SUCCESS)  cmd_errors++;//write to flash
+
+										flash_page++;
+										flash_page_data_cnt = 0;
+										flash_data_cnt_free = FLASH_PAGE_SIZE - flash_page_data_cnt;
+									}
+
+									//if not all bytes written to flash page
+									if (data_cnt > flash_data_counter_to_copy)
+									{
+										flash_data_counter_to_copy = data_cnt - flash_data_counter_to_copy;
+
+										memcpy(&flash_page_data[flash_page_data_cnt], &LMS_Ctrl_Packet_Rx->Data_field[24], data_cnt);
+
+										flash_page_data_cnt = flash_page_data_cnt + flash_data_counter_to_copy;
+										flash_data_cnt_free = FLASH_PAGE_SIZE - flash_page_data_cnt;
+									}
+
+									fpga_byte = fpga_byte + data_cnt;
+
+									if (fpga_byte <= FLASH_PAGE_SIZE * FLASH_SECTOR_SIZE) //correct firmware size?
+									{
+										if (data_cnt == 0)//end of programming
+										{
+										}
+
+										if(cmd_errors) LMS_Ctrl_Packet_Tx->Header.Status = STATUS_ERROR_CMD;
+										else LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
+									}
+									else //not correct firmware size
+										LMS_Ctrl_Packet_Tx->Header.Status = STATUS_ERROR_CMD;
+
+									break;
+
+								default:
+									LMS_Ctrl_Packet_Tx->Header.Status = STATUS_ERROR_CMD;
+									break;
+							}
+						}
+						else LMS_Ctrl_Packet_Tx->Header.Status = STATUS_ERROR_CMD;
 
 				break;
 
@@ -561,9 +587,33 @@ int main()
 							LMS_Ctrl_Packet_Tx->Header.Status = STATUS_ERROR_CMD;
 					}
 					else
-						LMS_Ctrl_Packet_Tx->Header.Status = STATUS_ERROR_CMD;
+					{
+						if((LMS_Ctrl_Packet_Rx->Data_field[10] == 0) && (LMS_Ctrl_Packet_Rx->Data_field[11] == 1)) // TARGET = 1 (FX3)
+						{
+							flash_page  = LMS_Ctrl_Packet_Rx->Data_field[6] << 24;
+							flash_page |= LMS_Ctrl_Packet_Rx->Data_field[7] << 16;
+							flash_page |= LMS_Ctrl_Packet_Rx->Data_field[8] << 8;
+							flash_page |= LMS_Ctrl_Packet_Rx->Data_field[9];
+							//flash_page = flash_page / FLASH_PAGE_SIZE;
+
+							//if( FlashSpiTransfer(FLASH_SPI_BASE, SPI_NR_FLASH, flash_page, FLASH_PAGE_SIZE, flash_page_data, CyTrue) != CY_U3P_SUCCESS)  cmd_errors++;//write to flash
+							if( FlashSpiRead(FLASH_SPI_BASE, SPI_NR_FLASH, flash_page, FLASH_PAGE_SIZE, flash_page_data) != CY_U3P_SUCCESS)  cmd_errors++;//write to flash
+
+							for(k=0; k<data_cnt; k++)
+							{
+								LMS_Ctrl_Packet_Tx->Data_field[24+k] = flash_page_data[k];
+							}
+
+							if(cmd_errors) LMS_Ctrl_Packet_Tx->Header.Status = STATUS_ERROR_CMD;
+							else LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
+						}
+						else
+							LMS_Ctrl_Packet_Tx->Header.Status = STATUS_ERROR_CMD;
+					}
 
 				break;
+
+
 
 
 				case CMD_ANALOG_VAL_RD:

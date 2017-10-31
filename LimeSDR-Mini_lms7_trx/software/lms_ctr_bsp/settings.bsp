@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Oct 30, 2017 2:59:20 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1509368360061</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Oct 31, 2017 4:52:00 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1509461520512</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>D:\gitrepos\LimeSDR-Mini\mini\ulimesdr_gw\LimeSDR-Mini_lms7_trx\software\lms_ctr_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\lms_ctr.sopcinfo</SopcDesignFile>
@@ -899,68 +899,74 @@
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>dac_spi</slaveDescriptor>
+                <slaveDescriptor>flash_spi</slaveDescriptor>
                 <addressRange>0x00202000 - 0x0020201F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>fpga_spi</slaveDescriptor>
+                <slaveDescriptor>dac_spi</slaveDescriptor>
                 <addressRange>0x00202020 - 0x0020203F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>lms_ctr_gpio</slaveDescriptor>
+                <slaveDescriptor>fpga_spi</slaveDescriptor>
                 <addressRange>0x00202040 - 0x0020205F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>uart</slaveDescriptor>
+                <slaveDescriptor>lms_ctr_gpio</slaveDescriptor>
                 <addressRange>0x00202060 - 0x0020207F</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>uart</slaveDescriptor>
+                <addressRange>0x00202080 - 0x0020209F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>i2c_opencores_0</slaveDescriptor>
-                <addressRange>0x00202080 - 0x0020209F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dual_boot_0</slaveDescriptor>
                 <addressRange>0x002020A0 - 0x002020BF</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>dual_boot_0</slaveDescriptor>
+                <addressRange>0x002020C0 - 0x002020DF</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>leds</slaveDescriptor>
-                <addressRange>0x002020C0 - 0x002020CF</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>switch</slaveDescriptor>
-                <addressRange>0x002020D0 - 0x002020DF</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>Av_FIFO_Int_0</slaveDescriptor>
                 <addressRange>0x002020E0 - 0x002020EF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>switch</slaveDescriptor>
+                <addressRange>0x002020F0 - 0x002020FF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>Av_FIFO_Int_0</slaveDescriptor>
+                <addressRange>0x00202100 - 0x0020210F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>onchip_flash_0_csr</slaveDescriptor>
-                <addressRange>0x002020F0 - 0x002020F7</addressRange>
+                <addressRange>0x00202110 - 0x00202117</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>sysid_qsys_0</slaveDescriptor>
-                <addressRange>0x002020F8 - 0x002020FF</addressRange>
+                <addressRange>0x00202118 - 0x0020211F</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes/>
         </MemoryMap>

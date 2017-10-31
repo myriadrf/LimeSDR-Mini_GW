@@ -63,7 +63,6 @@ set_global_assignment -name POWER_DEFAULT_INPUT_IO_TOGGLE_RATE "50 %"
 set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "2.5 V"
 set_location_assignment PIN_D8 -to FPGA_LED_G
 set_location_assignment PIN_H6 -to LMK_CLK
-set_location_assignment PIN_D1 -to SPARE_IO_PULL_UP
 set_global_assignment -name RESERVE_ALL_UNUSED_PINS_WEAK_PULLUP "AS INPUT TRI-STATED"
 set_location_assignment PIN_H13 -to FT_D[31]
 set_location_assignment PIN_J13 -to FT_D[30]
@@ -114,8 +113,6 @@ set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_RO
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_LED_G
 set_instance_assignment -name IO_STANDARD "2.5 V" -to LMK_CLK
-set_instance_assignment -name IO_STANDARD "1.8 V" -to SPARE_IO_PULL_UP
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to SPARE_IO_PULL_UP
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FT_D[31]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FT_D[30]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FT_D[29]
@@ -267,7 +264,7 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_GPIO[5]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_GPIO[6]
 set_location_assignment PIN_C5 -to FAN_CTRL
 set_location_assignment PIN_H2 -to LM75_OS
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LM75_OS
+set_instance_assignment -name IO_STANDARD "1.8 V" -to LM75_OS
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FAN_CTRL
 set_location_assignment PIN_D6 -to FPGA_EGPIO[1]
 set_location_assignment PIN_B7 -to FPGA_EGPIO[0]
@@ -447,10 +444,22 @@ set_location_assignment PIN_C2 -to BOM_VER[2]
 set_instance_assignment -name IO_STANDARD "1.8 V" -to HW_VER[1]
 set_instance_assignment -name IO_STANDARD "1.8 V" -to HW_VER[0]
 set_instance_assignment -name IO_STANDARD "1.8 V" -to BOM_VER[2]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to BOM_VER[1]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to HW_VER[3]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to HW_VER[2]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to BOM_VER[1]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to HW_VER[3]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to HW_VER[2]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RFSW_RX_V2
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RFSW_TX_V2
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RFSW_RX_V1
+set_location_assignment PIN_E1 -to FPGA_QSPI_FLASH_SS
+set_location_assignment PIN_D1 -to FPGA_QSPI_IO0
+set_location_assignment PIN_C1 -to FPGA_QSPI_IO1
+set_location_assignment PIN_B1 -to FPGA_QSPI_IO2
+set_location_assignment PIN_H1 -to FPGA_QSPI_IO3
+set_location_assignment PIN_F1 -to FPGA_QSPI_SCLK
+set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_QSPI_FLASH_SS
+set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_QSPI_IO0
+set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_QSPI_IO1
+set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_QSPI_IO2
+set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_QSPI_IO3
+set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_QSPI_SCLK
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

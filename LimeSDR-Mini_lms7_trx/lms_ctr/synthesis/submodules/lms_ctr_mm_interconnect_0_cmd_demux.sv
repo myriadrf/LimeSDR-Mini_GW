@@ -29,8 +29,8 @@
 // Generation parameters:
 //   output_name:         lms_ctr_mm_interconnect_0_cmd_demux
 //   ST_DATA_W:           103
-//   ST_CHANNEL_W:        14
-//   NUM_OUTPUTS:         14
+//   ST_CHANNEL_W:        15
+//   NUM_OUTPUTS:         15
 //   VALID_WIDTH:         1
 // ------------------------------------------
 
@@ -47,7 +47,7 @@ module lms_ctr_mm_interconnect_0_cmd_demux
     // -------------------
     input  [1-1      : 0]   sink_valid,
     input  [103-1    : 0]   sink_data, // ST_DATA_W=103
-    input  [14-1 : 0]   sink_channel, // ST_CHANNEL_W=14
+    input  [15-1 : 0]   sink_channel, // ST_CHANNEL_W=15
     input                         sink_startofpacket,
     input                         sink_endofpacket,
     output                        sink_ready,
@@ -57,101 +57,108 @@ module lms_ctr_mm_interconnect_0_cmd_demux
     // -------------------
     output reg                      src0_valid,
     output reg [103-1    : 0] src0_data, // ST_DATA_W=103
-    output reg [14-1 : 0] src0_channel, // ST_CHANNEL_W=14
+    output reg [15-1 : 0] src0_channel, // ST_CHANNEL_W=15
     output reg                      src0_startofpacket,
     output reg                      src0_endofpacket,
     input                           src0_ready,
 
     output reg                      src1_valid,
     output reg [103-1    : 0] src1_data, // ST_DATA_W=103
-    output reg [14-1 : 0] src1_channel, // ST_CHANNEL_W=14
+    output reg [15-1 : 0] src1_channel, // ST_CHANNEL_W=15
     output reg                      src1_startofpacket,
     output reg                      src1_endofpacket,
     input                           src1_ready,
 
     output reg                      src2_valid,
     output reg [103-1    : 0] src2_data, // ST_DATA_W=103
-    output reg [14-1 : 0] src2_channel, // ST_CHANNEL_W=14
+    output reg [15-1 : 0] src2_channel, // ST_CHANNEL_W=15
     output reg                      src2_startofpacket,
     output reg                      src2_endofpacket,
     input                           src2_ready,
 
     output reg                      src3_valid,
     output reg [103-1    : 0] src3_data, // ST_DATA_W=103
-    output reg [14-1 : 0] src3_channel, // ST_CHANNEL_W=14
+    output reg [15-1 : 0] src3_channel, // ST_CHANNEL_W=15
     output reg                      src3_startofpacket,
     output reg                      src3_endofpacket,
     input                           src3_ready,
 
     output reg                      src4_valid,
     output reg [103-1    : 0] src4_data, // ST_DATA_W=103
-    output reg [14-1 : 0] src4_channel, // ST_CHANNEL_W=14
+    output reg [15-1 : 0] src4_channel, // ST_CHANNEL_W=15
     output reg                      src4_startofpacket,
     output reg                      src4_endofpacket,
     input                           src4_ready,
 
     output reg                      src5_valid,
     output reg [103-1    : 0] src5_data, // ST_DATA_W=103
-    output reg [14-1 : 0] src5_channel, // ST_CHANNEL_W=14
+    output reg [15-1 : 0] src5_channel, // ST_CHANNEL_W=15
     output reg                      src5_startofpacket,
     output reg                      src5_endofpacket,
     input                           src5_ready,
 
     output reg                      src6_valid,
     output reg [103-1    : 0] src6_data, // ST_DATA_W=103
-    output reg [14-1 : 0] src6_channel, // ST_CHANNEL_W=14
+    output reg [15-1 : 0] src6_channel, // ST_CHANNEL_W=15
     output reg                      src6_startofpacket,
     output reg                      src6_endofpacket,
     input                           src6_ready,
 
     output reg                      src7_valid,
     output reg [103-1    : 0] src7_data, // ST_DATA_W=103
-    output reg [14-1 : 0] src7_channel, // ST_CHANNEL_W=14
+    output reg [15-1 : 0] src7_channel, // ST_CHANNEL_W=15
     output reg                      src7_startofpacket,
     output reg                      src7_endofpacket,
     input                           src7_ready,
 
     output reg                      src8_valid,
     output reg [103-1    : 0] src8_data, // ST_DATA_W=103
-    output reg [14-1 : 0] src8_channel, // ST_CHANNEL_W=14
+    output reg [15-1 : 0] src8_channel, // ST_CHANNEL_W=15
     output reg                      src8_startofpacket,
     output reg                      src8_endofpacket,
     input                           src8_ready,
 
     output reg                      src9_valid,
     output reg [103-1    : 0] src9_data, // ST_DATA_W=103
-    output reg [14-1 : 0] src9_channel, // ST_CHANNEL_W=14
+    output reg [15-1 : 0] src9_channel, // ST_CHANNEL_W=15
     output reg                      src9_startofpacket,
     output reg                      src9_endofpacket,
     input                           src9_ready,
 
     output reg                      src10_valid,
     output reg [103-1    : 0] src10_data, // ST_DATA_W=103
-    output reg [14-1 : 0] src10_channel, // ST_CHANNEL_W=14
+    output reg [15-1 : 0] src10_channel, // ST_CHANNEL_W=15
     output reg                      src10_startofpacket,
     output reg                      src10_endofpacket,
     input                           src10_ready,
 
     output reg                      src11_valid,
     output reg [103-1    : 0] src11_data, // ST_DATA_W=103
-    output reg [14-1 : 0] src11_channel, // ST_CHANNEL_W=14
+    output reg [15-1 : 0] src11_channel, // ST_CHANNEL_W=15
     output reg                      src11_startofpacket,
     output reg                      src11_endofpacket,
     input                           src11_ready,
 
     output reg                      src12_valid,
     output reg [103-1    : 0] src12_data, // ST_DATA_W=103
-    output reg [14-1 : 0] src12_channel, // ST_CHANNEL_W=14
+    output reg [15-1 : 0] src12_channel, // ST_CHANNEL_W=15
     output reg                      src12_startofpacket,
     output reg                      src12_endofpacket,
     input                           src12_ready,
 
     output reg                      src13_valid,
     output reg [103-1    : 0] src13_data, // ST_DATA_W=103
-    output reg [14-1 : 0] src13_channel, // ST_CHANNEL_W=14
+    output reg [15-1 : 0] src13_channel, // ST_CHANNEL_W=15
     output reg                      src13_startofpacket,
     output reg                      src13_endofpacket,
     input                           src13_ready,
+
+    output reg                      src14_valid,
+    output reg [103-1    : 0] src14_data, // ST_DATA_W=103
+    output reg [15-1 : 0] src14_channel, // ST_CHANNEL_W=15
+    output reg                      src14_startofpacket,
+    output reg                      src14_endofpacket,
+    input                           src14_ready,
 
 
     // -------------------
@@ -164,7 +171,7 @@ module lms_ctr_mm_interconnect_0_cmd_demux
 
 );
 
-    localparam NUM_OUTPUTS = 14;
+    localparam NUM_OUTPUTS = 15;
     wire [NUM_OUTPUTS - 1 : 0] ready_vector;
 
     // -------------------
@@ -269,6 +276,13 @@ module lms_ctr_mm_interconnect_0_cmd_demux
 
         src13_valid         = sink_channel[13] && sink_valid;
 
+        src14_data          = sink_data;
+        src14_startofpacket = sink_startofpacket;
+        src14_endofpacket   = sink_endofpacket;
+        src14_channel       = sink_channel >> NUM_OUTPUTS;
+
+        src14_valid         = sink_channel[14] && sink_valid;
+
     end
 
     // -------------------
@@ -288,6 +302,7 @@ module lms_ctr_mm_interconnect_0_cmd_demux
     assign ready_vector[11] = src11_ready;
     assign ready_vector[12] = src12_ready;
     assign ready_vector[13] = src13_ready;
+    assign ready_vector[14] = src14_ready;
 
     assign sink_ready = |(sink_channel & ready_vector);
 

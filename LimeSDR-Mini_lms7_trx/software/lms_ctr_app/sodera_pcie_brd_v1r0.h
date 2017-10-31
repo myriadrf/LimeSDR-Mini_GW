@@ -27,22 +27,21 @@
 //FPGA Cyclone IV GX (EP4GX30F23C7N) bitstream (RBF) size in bytes
 #define FPGA_SIZE 			2751361 //1191788
 
-//FLash memory (M25P16, 16M-bit))
-//FLash memory (S25FL164K, 64M-bit)
+//FLash memory (W25Q40EW , 4M-bit))
 #define FLASH_PAGE_SIZE 	0x100 //256 bytes, SPI Page size to be used for transfers
-#define FLASH_SECTOR_SIZE 	0x10000 //256 pages * 256 page size = 65536 bytes
+#define FLASH_SECTOR_SIZE 	0x10000 //2048 pages * 256 page size = 524288 bytes
 //#define FLASH_BLOCK_SIZE	(FLASH_SECTOR_SIZE/FLASH_PAGE_SIZE) //in pages
 
 //FLASH memory layout
 #define FLASH_LAYOUT_FPGA_METADATA	64//FPGA autoload metadata (start sector)
 #define FLASH_LAYOUT_FPGA_BITSTREAM	0//FPGA bitstream (start sector) till end
 
-#define FLASH_CMD_SECTOR_ERASE 0x1B //Depends on flash, reversed: 0xD8 or 0x20
-#define FLASH_CMD_PAGE_WRITE   0x40 //Reversed 0x02
-#define FLASH_CMD_PAGE_WRITEEN 0x60 //Reversed 0x06
-#define FLASH_CMD_PAGE_READ    0xC0 //Reversed 0x03
-#define FLASH_CMD_PAGE_READST  0xA0 //Reversed 0x05
-#define FLASH_CMD_READJEDECID  0xF9 //Reversed 0x9F
+#define FLASH_CMD_SECTOR_ERASE 0x20 //0x1B //Depends on flash, reversed: 0xD8 or 0x20
+#define FLASH_CMD_PAGE_WRITE   0x02 //0x40 //Reversed 0x02
+#define FLASH_CMD_PAGE_WRITEEN 0x06 //0x60 //Reversed 0x06
+#define FLASH_CMD_PAGE_READ    0x03 //0xC0 //Reversed 0x03
+#define FLASH_CMD_PAGE_READST  0x05 //0xA0 //Reversed 0x05
+#define FLASH_CMD_READJEDECID  0x9F //0xF9 //Reversed 0x9F
 
 typedef struct{
 	uint32_t Bitream_size;

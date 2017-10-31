@@ -20,6 +20,10 @@ entity lms_ctr is
 		exfifo_of_wr_export                     : out   std_logic;                                        --                     exfifo_of_wr.export
 		exfifo_of_wrfull_export                 : in    std_logic                     := '0';             --                 exfifo_of_wrfull.export
 		exfifo_rst_export                       : out   std_logic;                                        --                       exfifo_rst.export
+		flash_spi_MISO                          : in    std_logic                     := '0';             --                        flash_spi.MISO
+		flash_spi_MOSI                          : out   std_logic;                                        --                                 .MOSI
+		flash_spi_SCLK                          : out   std_logic;                                        --                                 .SCLK
+		flash_spi_SS_n                          : out   std_logic;                                        --                                 .SS_n
 		fpga_spi_ext_MISO                       : in    std_logic                     := '0';             --                     fpga_spi_ext.MISO
 		fpga_spi_ext_MOSI                       : out   std_logic;                                        --                                 .MOSI
 		fpga_spi_ext_SCLK                       : out   std_logic;                                        --                                 .SCLK
@@ -92,6 +96,24 @@ architecture rtl of lms_ctr is
 			avmm_rcv_readdata  : out std_logic_vector(31 downto 0)                     -- readdata
 		);
 	end component altera_dual_boot;
+
+	component lms_ctr_flash_spi is
+		port (
+			clk           : in  std_logic                     := 'X';             -- clk
+			reset_n       : in  std_logic                     := 'X';             -- reset_n
+			data_from_cpu : in  std_logic_vector(15 downto 0) := (others => 'X'); -- writedata
+			data_to_cpu   : out std_logic_vector(15 downto 0);                    -- readdata
+			mem_addr      : in  std_logic_vector(2 downto 0)  := (others => 'X'); -- address
+			read_n        : in  std_logic                     := 'X';             -- read_n
+			spi_select    : in  std_logic                     := 'X';             -- chipselect
+			write_n       : in  std_logic                     := 'X';             -- write_n
+			irq           : out std_logic;                                        -- irq
+			MISO          : in  std_logic                     := 'X';             -- export
+			MOSI          : out std_logic;                                        -- export
+			SCLK          : out std_logic;                                        -- export
+			SS_n          : out std_logic                                         -- export
+		);
+	end component lms_ctr_flash_spi;
 
 	component lms_ctr_fpga_spi is
 		port (
@@ -498,6 +520,12 @@ architecture rtl of lms_ctr is
 			dual_boot_0_avalon_read                        : out std_logic;                                        -- read
 			dual_boot_0_avalon_readdata                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			dual_boot_0_avalon_writedata                   : out std_logic_vector(31 downto 0);                    -- writedata
+			flash_spi_spi_control_port_address             : out std_logic_vector(2 downto 0);                     -- address
+			flash_spi_spi_control_port_write               : out std_logic;                                        -- write
+			flash_spi_spi_control_port_read                : out std_logic;                                        -- read
+			flash_spi_spi_control_port_readdata            : in  std_logic_vector(15 downto 0) := (others => 'X'); -- readdata
+			flash_spi_spi_control_port_writedata           : out std_logic_vector(15 downto 0);                    -- writedata
+			flash_spi_spi_control_port_chipselect          : out std_logic;                                        -- chipselect
 			fpga_spi_spi_control_port_address              : out std_logic_vector(2 downto 0);                     -- address
 			fpga_spi_spi_control_port_write                : out std_logic;                                        -- write
 			fpga_spi_spi_control_port_read                 : out std_logic;                                        -- read
@@ -570,6 +598,7 @@ architecture rtl of lms_ctr is
 			receiver1_irq : in  std_logic                     := 'X'; -- irq
 			receiver2_irq : in  std_logic                     := 'X'; -- irq
 			receiver3_irq : in  std_logic                     := 'X'; -- irq
+			receiver4_irq : in  std_logic                     := 'X'; -- irq
 			sender_irq    : out std_logic_vector(31 downto 0)         -- irq
 		);
 	end component lms_ctr_irq_mapper;
@@ -836,10 +865,17 @@ architecture rtl of lms_ctr is
 	signal mm_interconnect_0_dac_spi_spi_control_port_read                             : std_logic;                     -- mm_interconnect_0:dac_spi_spi_control_port_read -> mm_interconnect_0_dac_spi_spi_control_port_read:in
 	signal mm_interconnect_0_dac_spi_spi_control_port_write                            : std_logic;                     -- mm_interconnect_0:dac_spi_spi_control_port_write -> mm_interconnect_0_dac_spi_spi_control_port_write:in
 	signal mm_interconnect_0_dac_spi_spi_control_port_writedata                        : std_logic_vector(15 downto 0); -- mm_interconnect_0:dac_spi_spi_control_port_writedata -> dac_spi:data_from_cpu
+	signal mm_interconnect_0_flash_spi_spi_control_port_chipselect                     : std_logic;                     -- mm_interconnect_0:flash_spi_spi_control_port_chipselect -> flash_spi:spi_select
+	signal mm_interconnect_0_flash_spi_spi_control_port_readdata                       : std_logic_vector(15 downto 0); -- flash_spi:data_to_cpu -> mm_interconnect_0:flash_spi_spi_control_port_readdata
+	signal mm_interconnect_0_flash_spi_spi_control_port_address                        : std_logic_vector(2 downto 0);  -- mm_interconnect_0:flash_spi_spi_control_port_address -> flash_spi:mem_addr
+	signal mm_interconnect_0_flash_spi_spi_control_port_read                           : std_logic;                     -- mm_interconnect_0:flash_spi_spi_control_port_read -> mm_interconnect_0_flash_spi_spi_control_port_read:in
+	signal mm_interconnect_0_flash_spi_spi_control_port_write                          : std_logic;                     -- mm_interconnect_0:flash_spi_spi_control_port_write -> mm_interconnect_0_flash_spi_spi_control_port_write:in
+	signal mm_interconnect_0_flash_spi_spi_control_port_writedata                      : std_logic_vector(15 downto 0); -- mm_interconnect_0:flash_spi_spi_control_port_writedata -> flash_spi:data_from_cpu
 	signal irq_mapper_receiver0_irq                                                    : std_logic;                     -- i2c_opencores_0:wb_inta_o -> irq_mapper:receiver0_irq
 	signal irq_mapper_receiver1_irq                                                    : std_logic;                     -- uart:irq -> irq_mapper:receiver1_irq
 	signal irq_mapper_receiver2_irq                                                    : std_logic;                     -- fpga_spi:irq -> irq_mapper:receiver2_irq
 	signal irq_mapper_receiver3_irq                                                    : std_logic;                     -- dac_spi:irq -> irq_mapper:receiver3_irq
+	signal irq_mapper_receiver4_irq                                                    : std_logic;                     -- flash_spi:irq -> irq_mapper:receiver4_irq
 	signal nios2_cpu_irq_irq                                                           : std_logic_vector(31 downto 0); -- irq_mapper:sender_irq -> nios2_cpu:irq
 	signal rst_controller_reset_out_reset                                              : std_logic;                     -- rst_controller:reset_out -> [i2c_opencores_0:wb_rst_i, irq_mapper:reset, mm_interconnect_0:nios2_cpu_reset_reset_bridge_in_reset_reset, rst_controller_reset_out_reset:in, rst_translator:in_reset]
 	signal rst_controller_reset_out_reset_req                                          : std_logic;                     -- rst_controller:reset_req -> [nios2_cpu:reset_req, rst_translator:reset_req_in]
@@ -854,7 +890,9 @@ architecture rtl of lms_ctr is
 	signal mm_interconnect_0_fpga_spi_spi_control_port_write_ports_inv                 : std_logic;                     -- mm_interconnect_0_fpga_spi_spi_control_port_write:inv -> fpga_spi:write_n
 	signal mm_interconnect_0_dac_spi_spi_control_port_read_ports_inv                   : std_logic;                     -- mm_interconnect_0_dac_spi_spi_control_port_read:inv -> dac_spi:read_n
 	signal mm_interconnect_0_dac_spi_spi_control_port_write_ports_inv                  : std_logic;                     -- mm_interconnect_0_dac_spi_spi_control_port_write:inv -> dac_spi:write_n
-	signal rst_controller_reset_out_reset_ports_inv                                    : std_logic;                     -- rst_controller_reset_out_reset:inv -> [Av_FIFO_Int_0:rsi_nrst, dac_spi:reset_n, fpga_spi:reset_n, leds:reset_n, lms_ctr_gpio:reset_n, nios2_cpu:reset_n, switch:reset_n, sysid_qsys_0:reset_n, uart:reset_n]
+	signal mm_interconnect_0_flash_spi_spi_control_port_read_ports_inv                 : std_logic;                     -- mm_interconnect_0_flash_spi_spi_control_port_read:inv -> flash_spi:read_n
+	signal mm_interconnect_0_flash_spi_spi_control_port_write_ports_inv                : std_logic;                     -- mm_interconnect_0_flash_spi_spi_control_port_write:inv -> flash_spi:write_n
+	signal rst_controller_reset_out_reset_ports_inv                                    : std_logic;                     -- rst_controller_reset_out_reset:inv -> [Av_FIFO_Int_0:rsi_nrst, dac_spi:reset_n, flash_spi:reset_n, fpga_spi:reset_n, leds:reset_n, lms_ctr_gpio:reset_n, nios2_cpu:reset_n, switch:reset_n, sysid_qsys_0:reset_n, uart:reset_n]
 	signal rst_controller_001_reset_out_reset_ports_inv                                : std_logic;                     -- rst_controller_001_reset_out_reset:inv -> [dual_boot_0:nreset, onchip_flash_0:reset_n]
 
 begin
@@ -912,6 +950,23 @@ begin
 			avmm_rcv_writedata => mm_interconnect_0_dual_boot_0_avalon_writedata, --       .writedata
 			avmm_rcv_write     => mm_interconnect_0_dual_boot_0_avalon_write,     --       .write
 			avmm_rcv_readdata  => mm_interconnect_0_dual_boot_0_avalon_readdata   --       .readdata
+		);
+
+	flash_spi : component lms_ctr_flash_spi
+		port map (
+			clk           => clk_clk,                                                      --              clk.clk
+			reset_n       => rst_controller_reset_out_reset_ports_inv,                     --            reset.reset_n
+			data_from_cpu => mm_interconnect_0_flash_spi_spi_control_port_writedata,       -- spi_control_port.writedata
+			data_to_cpu   => mm_interconnect_0_flash_spi_spi_control_port_readdata,        --                 .readdata
+			mem_addr      => mm_interconnect_0_flash_spi_spi_control_port_address,         --                 .address
+			read_n        => mm_interconnect_0_flash_spi_spi_control_port_read_ports_inv,  --                 .read_n
+			spi_select    => mm_interconnect_0_flash_spi_spi_control_port_chipselect,      --                 .chipselect
+			write_n       => mm_interconnect_0_flash_spi_spi_control_port_write_ports_inv, --                 .write_n
+			irq           => irq_mapper_receiver4_irq,                                     --              irq.irq
+			MISO          => flash_spi_MISO,                                               --         external.export
+			MOSI          => flash_spi_MOSI,                                               --                 .export
+			SCLK          => flash_spi_SCLK,                                               --                 .export
+			SS_n          => flash_spi_SS_n                                                --                 .export
 		);
 
 	fpga_spi : component lms_ctr_fpga_spi
@@ -1305,6 +1360,12 @@ begin
 			dual_boot_0_avalon_read                        => mm_interconnect_0_dual_boot_0_avalon_read,                   --                                         .read
 			dual_boot_0_avalon_readdata                    => mm_interconnect_0_dual_boot_0_avalon_readdata,               --                                         .readdata
 			dual_boot_0_avalon_writedata                   => mm_interconnect_0_dual_boot_0_avalon_writedata,              --                                         .writedata
+			flash_spi_spi_control_port_address             => mm_interconnect_0_flash_spi_spi_control_port_address,        --               flash_spi_spi_control_port.address
+			flash_spi_spi_control_port_write               => mm_interconnect_0_flash_spi_spi_control_port_write,          --                                         .write
+			flash_spi_spi_control_port_read                => mm_interconnect_0_flash_spi_spi_control_port_read,           --                                         .read
+			flash_spi_spi_control_port_readdata            => mm_interconnect_0_flash_spi_spi_control_port_readdata,       --                                         .readdata
+			flash_spi_spi_control_port_writedata           => mm_interconnect_0_flash_spi_spi_control_port_writedata,      --                                         .writedata
+			flash_spi_spi_control_port_chipselect          => mm_interconnect_0_flash_spi_spi_control_port_chipselect,     --                                         .chipselect
 			fpga_spi_spi_control_port_address              => mm_interconnect_0_fpga_spi_spi_control_port_address,         --                fpga_spi_spi_control_port.address
 			fpga_spi_spi_control_port_write                => mm_interconnect_0_fpga_spi_spi_control_port_write,           --                                         .write
 			fpga_spi_spi_control_port_read                 => mm_interconnect_0_fpga_spi_spi_control_port_read,            --                                         .read
@@ -1376,6 +1437,7 @@ begin
 			receiver1_irq => irq_mapper_receiver1_irq,       -- receiver1.irq
 			receiver2_irq => irq_mapper_receiver2_irq,       -- receiver2.irq
 			receiver3_irq => irq_mapper_receiver3_irq,       -- receiver3.irq
+			receiver4_irq => irq_mapper_receiver4_irq,       -- receiver4.irq
 			sender_irq    => nios2_cpu_irq_irq               --    sender.irq
 		);
 
@@ -1526,6 +1588,10 @@ begin
 	mm_interconnect_0_dac_spi_spi_control_port_read_ports_inv <= not mm_interconnect_0_dac_spi_spi_control_port_read;
 
 	mm_interconnect_0_dac_spi_spi_control_port_write_ports_inv <= not mm_interconnect_0_dac_spi_spi_control_port_write;
+
+	mm_interconnect_0_flash_spi_spi_control_port_read_ports_inv <= not mm_interconnect_0_flash_spi_spi_control_port_read;
+
+	mm_interconnect_0_flash_spi_spi_control_port_write_ports_inv <= not mm_interconnect_0_flash_spi_spi_control_port_write;
 
 	rst_controller_reset_out_reset_ports_inv <= not rst_controller_reset_out_reset;
 

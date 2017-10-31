@@ -33,7 +33,12 @@ entity nios_cpu is
 			uart_rxd						: in    std_logic;
 			uart_txd						: out   std_logic;
 			i2c_scl							: inout std_logic;
-			i2c_sda							: inout std_logic
+			i2c_sda							: inout std_logic;
+			flash_spi_MISO      : in    std_logic;
+			flash_spi_MOSI      : out   std_logic;
+			flash_spi_SCLK      : out   std_logic;
+			flash_spi_SS_n      : out   std_logic
+
         );
 end nios_cpu;
 
@@ -72,7 +77,12 @@ architecture arch of nios_cpu is
 			uart_external_connection_rxd            : in    std_logic                    := 'X';             -- rxd
 			uart_external_connection_txd            : out   std_logic;                                       -- txd
 			i2c_scl_export                          : inout std_logic                    := 'X';             -- export
-			i2c_sda_export                          : inout std_logic                    := 'X'              -- export
+			i2c_sda_export                          : inout std_logic                    := 'X';             -- export
+			flash_spi_MISO                          : in    std_logic                     := 'X';             -- MISO
+			flash_spi_MOSI                          : out   std_logic;                                        -- MOSI
+			flash_spi_SCLK                          : out   std_logic;                                        -- SCLK
+			flash_spi_SS_n                          : out   std_logic                                         -- SS_n 
+
 		);
 	end component lms_ctr;
   
@@ -102,7 +112,11 @@ begin
 			uart_external_connection_rxd            => uart_rxd,
 			uart_external_connection_txd            => uart_txd,
 			i2c_scl_export                          => i2c_scl,
-			i2c_sda_export                          => i2c_sda
+			i2c_sda_export                          => i2c_sda,
+			flash_spi_MISO                          => flash_spi_MISO,
+			flash_spi_MOSI                          => flash_spi_MOSI,
+			flash_spi_SCLK                          => flash_spi_SCLK,
+			flash_spi_SS_n                          => flash_spi_SS_n
 		);
 		
 		

@@ -141,6 +141,7 @@ uint8_t ReverseBitOrder (uint8_t data);
 uint8_t FlashSpiEraseSector(alt_u32 SPIBase, alt_u32 SPISlave, uint8_t isErase, uint8_t sector);
 uint8_t CyFxSpiWaitForStatus(alt_u32 SPIBase, alt_u32 SPISlave);
 uint8_t FlashSpiTransfer(alt_u32 SPIBase, alt_u32 SPISlave, uint32_t pageAddress, uint16_t byteCount, uint8_t *buffer, CyBool_t isRead);
+uint8_t FlashSpiRead(alt_u32 SPIBase, alt_u32 SPISlave, uint32_t byteAddress, uint16_t byteCount, uint8_t *buffer);
 
 
 #endif /* SPI_FLASH_LIB_H_ */

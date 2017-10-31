@@ -21,7 +21,7 @@
    {
       datum baseAddress
       {
-         value = "2105568";
+         value = "2105600";
          type = "String";
       }
    }
@@ -45,7 +45,7 @@
    {
       datum baseAddress
       {
-         value = "2105344";
+         value = "2105376";
          type = "String";
       }
    }
@@ -61,7 +61,23 @@
    {
       datum baseAddress
       {
-         value = "2105504";
+         value = "2105536";
+         type = "String";
+      }
+   }
+   element flash_spi
+   {
+      datum _sortIndex
+      {
+         value = "15";
+         type = "int";
+      }
+   }
+   element flash_spi.spi_control_port
+   {
+      datum baseAddress
+      {
+         value = "2105344";
          type = "String";
       }
    }
@@ -77,7 +93,7 @@
    {
       datum baseAddress
       {
-         value = "2105376";
+         value = "2105408";
          type = "String";
       }
    }
@@ -93,7 +109,7 @@
    {
       datum baseAddress
       {
-         value = "2105472";
+         value = "2105504";
          type = "String";
       }
    }
@@ -109,7 +125,7 @@
    {
       datum baseAddress
       {
-         value = "2105536";
+         value = "2105568";
          type = "String";
       }
    }
@@ -149,7 +165,7 @@
    {
       datum baseAddress
       {
-         value = "2105408";
+         value = "2105440";
          type = "String";
       }
    }
@@ -194,7 +210,7 @@
    {
       datum baseAddress
       {
-         value = "2105584";
+         value = "2105616";
          type = "String";
       }
    }
@@ -239,7 +255,7 @@
    {
       datum baseAddress
       {
-         value = "2105552";
+         value = "2105584";
          type = "String";
       }
    }
@@ -255,7 +271,7 @@
    {
       datum baseAddress
       {
-         value = "2105592";
+         value = "2105624";
          type = "String";
       }
    }
@@ -271,7 +287,7 @@
    {
       datum baseAddress
       {
-         value = "2105440";
+         value = "2105472";
          type = "String";
       }
    }
@@ -289,7 +305,7 @@
  <parameter name="hideFromIPCatalog" value="false" />
  <parameter name="lockedInterfaceDefinition" value="" />
  <parameter name="maxAdditionalLatency" value="1" />
- <parameter name="projectName">uLimeSDR_lms7_trx.qpf</parameter>
+ <parameter name="projectName">LimeSDR-Mini_lms7_trx.qpf</parameter>
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="0" />
  <parameter name="testBenchDutName" value="" />
@@ -338,6 +354,11 @@
    type="conduit"
    dir="end" />
  <interface name="extfifo" internal="Av_FIFO_Int_0.conduit_end_0" />
+ <interface
+   name="flash_spi"
+   internal="flash_spi.external"
+   type="conduit"
+   dir="end" />
  <interface
    name="fpga_spi_ext"
    internal="fpga_spi.external"
@@ -401,6 +422,22 @@
  <module name="dual_boot_0" kind="altera_dual_boot" version="15.1" enabled="1">
   <parameter name="CLOCK_FREQUENCY" value="40.0" />
   <parameter name="INTENDED_DEVICE_FAMILY" value="MAX 10" />
+ </module>
+ <module name="flash_spi" kind="altera_avalon_spi" version="15.1" enabled="1">
+  <parameter name="avalonSpec" value="2.0" />
+  <parameter name="clockPhase" value="0" />
+  <parameter name="clockPolarity" value="0" />
+  <parameter name="dataWidth" value="8" />
+  <parameter name="disableAvalonFlowControl" value="false" />
+  <parameter name="inputClockRate" value="40000000" />
+  <parameter name="insertDelayBetweenSlaveSelectAndSClk" value="false" />
+  <parameter name="insertSync" value="false" />
+  <parameter name="lsbOrderedFirst" value="false" />
+  <parameter name="masterSPI" value="true" />
+  <parameter name="numberOfSlaves" value="1" />
+  <parameter name="syncRegDepth" value="2" />
+  <parameter name="targetClockRate" value="10000000" />
+  <parameter name="targetSlaveSelectToSClkDelay" value="0.0" />
  </module>
  <module name="fpga_spi" kind="altera_avalon_spi" version="15.1" enabled="1">
   <parameter name="avalonSpec" value="2.0" />
@@ -475,7 +512,7 @@
   <parameter name="dataAddrWidth" value="22" />
   <parameter name="dataMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="dataMasterHighPerformanceMapParam" value="" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='onchip_flash_0.data' start='0x100000' end='0x18C000' type='altera_onchip_flash.data' /><slave name='onchip_memory2_0.s1' start='0x200000' end='0x201000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_cpu.debug_mem_slave' start='0x201800' end='0x202000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='dac_spi.spi_control_port' start='0x202000' end='0x202020' type='altera_avalon_spi.spi_control_port' /><slave name='fpga_spi.spi_control_port' start='0x202020' end='0x202040' type='altera_avalon_spi.spi_control_port' /><slave name='lms_ctr_gpio.s1' start='0x202040' end='0x202060' type='altera_avalon_pio.s1' /><slave name='uart.s1' start='0x202060' end='0x202080' type='altera_avalon_uart.s1' /><slave name='i2c_opencores_0.avalon_slave_0' start='0x202080' end='0x2020A0' type='i2c_opencores.avalon_slave_0' /><slave name='dual_boot_0.avalon' start='0x2020A0' end='0x2020C0' type='altera_dual_boot.avalon' /><slave name='leds.s1' start='0x2020C0' end='0x2020D0' type='altera_avalon_pio.s1' /><slave name='switch.s1' start='0x2020D0' end='0x2020E0' type='altera_avalon_pio.s1' /><slave name='Av_FIFO_Int_0.avalon_slave_0' start='0x2020E0' end='0x2020F0' type='Av_FIFO_Int.avalon_slave_0' /><slave name='onchip_flash_0.csr' start='0x2020F0' end='0x2020F8' type='altera_onchip_flash.csr' /><slave name='sysid_qsys_0.control_slave' start='0x2020F8' end='0x202100' type='altera_avalon_sysid_qsys.control_slave' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='onchip_flash_0.data' start='0x100000' end='0x18C000' type='altera_onchip_flash.data' /><slave name='onchip_memory2_0.s1' start='0x200000' end='0x201000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_cpu.debug_mem_slave' start='0x201800' end='0x202000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='flash_spi.spi_control_port' start='0x202000' end='0x202020' type='altera_avalon_spi.spi_control_port' /><slave name='dac_spi.spi_control_port' start='0x202020' end='0x202040' type='altera_avalon_spi.spi_control_port' /><slave name='fpga_spi.spi_control_port' start='0x202040' end='0x202060' type='altera_avalon_spi.spi_control_port' /><slave name='lms_ctr_gpio.s1' start='0x202060' end='0x202080' type='altera_avalon_pio.s1' /><slave name='uart.s1' start='0x202080' end='0x2020A0' type='altera_avalon_uart.s1' /><slave name='i2c_opencores_0.avalon_slave_0' start='0x2020A0' end='0x2020C0' type='i2c_opencores.avalon_slave_0' /><slave name='dual_boot_0.avalon' start='0x2020C0' end='0x2020E0' type='altera_dual_boot.avalon' /><slave name='leds.s1' start='0x2020E0' end='0x2020F0' type='altera_avalon_pio.s1' /><slave name='switch.s1' start='0x2020F0' end='0x202100' type='altera_avalon_pio.s1' /><slave name='Av_FIFO_Int_0.avalon_slave_0' start='0x202100' end='0x202110' type='Av_FIFO_Int.avalon_slave_0' /><slave name='onchip_flash_0.csr' start='0x202110' end='0x202118' type='altera_onchip_flash.csr' /><slave name='sysid_qsys_0.control_slave' start='0x202118' end='0x202120' type='altera_avalon_sysid_qsys.control_slave' /></address-map>]]></parameter>
   <parameter name="data_master_high_performance_paddr_base" value="0" />
   <parameter name="data_master_high_performance_paddr_size" value="0" />
   <parameter name="data_master_paddr_base" value="0" />
@@ -521,7 +558,7 @@
   <parameter name="instruction_master_high_performance_paddr_size" value="0" />
   <parameter name="instruction_master_paddr_base" value="0" />
   <parameter name="instruction_master_paddr_size" value="0" />
-  <parameter name="internalIrqMaskSystemInfo" value="15" />
+  <parameter name="internalIrqMaskSystemInfo" value="31" />
   <parameter name="io_regionbase" value="0" />
   <parameter name="io_regionsize" value="0" />
   <parameter name="master_addr_map" value="false" />
@@ -732,7 +769,7 @@
    start="nios2_cpu.data_master"
    end="dual_boot_0.avalon">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x002020a0" />
+  <parameter name="baseAddress" value="0x002020c0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -741,7 +778,7 @@
    start="nios2_cpu.data_master"
    end="Av_FIFO_Int_0.avalon_slave_0">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x002020e0" />
+  <parameter name="baseAddress" value="0x00202100" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -750,7 +787,7 @@
    start="nios2_cpu.data_master"
    end="i2c_opencores_0.avalon_slave_0">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00202080" />
+  <parameter name="baseAddress" value="0x002020a0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -759,7 +796,7 @@
    start="nios2_cpu.data_master"
    end="sysid_qsys_0.control_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x002020f8" />
+  <parameter name="baseAddress" value="0x00202118" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -768,7 +805,7 @@
    start="nios2_cpu.data_master"
    end="onchip_flash_0.csr">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x002020f0" />
+  <parameter name="baseAddress" value="0x00202110" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -795,7 +832,7 @@
    start="nios2_cpu.data_master"
    end="switch.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x002020d0" />
+  <parameter name="baseAddress" value="0x002020f0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -804,7 +841,7 @@
    start="nios2_cpu.data_master"
    end="leds.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x002020c0" />
+  <parameter name="baseAddress" value="0x002020e0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -813,7 +850,7 @@
    start="nios2_cpu.data_master"
    end="uart.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00202060" />
+  <parameter name="baseAddress" value="0x00202080" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -822,7 +859,7 @@
    start="nios2_cpu.data_master"
    end="lms_ctr_gpio.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00202040" />
+  <parameter name="baseAddress" value="0x00202060" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -840,7 +877,7 @@
    start="nios2_cpu.data_master"
    end="fpga_spi.spi_control_port">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00202020" />
+  <parameter name="baseAddress" value="0x00202040" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -848,6 +885,15 @@
    version="15.1"
    start="nios2_cpu.data_master"
    end="dac_spi.spi_control_port">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00202020" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="15.1"
+   start="nios2_cpu.data_master"
+   end="flash_spi.spi_control_port">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00202000" />
   <parameter name="defaultConnection" value="false" />
@@ -896,6 +942,7 @@
    version="15.1"
    start="clk_main.clk"
    end="dual_boot_0.clk" />
+ <connection kind="clock" version="15.1" start="clk_main.clk" end="flash_spi.clk" />
  <connection
    kind="clock"
    version="15.1"
@@ -934,6 +981,13 @@
    start="nios2_cpu.irq"
    end="dac_spi.irq">
   <parameter name="irqNumber" value="3" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="15.1"
+   start="nios2_cpu.irq"
+   end="flash_spi.irq">
+  <parameter name="irqNumber" value="4" />
  </connection>
  <connection
    kind="nios_custom_instruction"
@@ -994,6 +1048,11 @@
    version="15.1"
    start="clk_main.clk_reset"
    end="dac_spi.reset" />
+ <connection
+   kind="reset"
+   version="15.1"
+   start="clk_main.clk_reset"
+   end="flash_spi.reset" />
  <connection
    kind="reset"
    version="15.1"
@@ -1059,6 +1118,11 @@
    version="15.1"
    start="nios2_cpu.debug_reset_request"
    end="dac_spi.reset" />
+ <connection
+   kind="reset"
+   version="15.1"
+   start="nios2_cpu.debug_reset_request"
+   end="flash_spi.reset" />
  <connection
    kind="reset"
    version="15.1"

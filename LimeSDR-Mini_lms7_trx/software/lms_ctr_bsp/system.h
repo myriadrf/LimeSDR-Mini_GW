@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'lms_ctr'
  * SOPC Builder design path: ../../lms_ctr.sopcinfo
  *
- * Generated: Mon Oct 30 14:59:10 EET 2017
+ * Generated: Tue Oct 31 16:52:01 EET 2017
  */
 
 /*
@@ -61,7 +61,7 @@
  */
 
 #define ALT_MODULE_CLASS_Av_FIFO_Int_0 Av_FIFO_Int
-#define AV_FIFO_INT_0_BASE 0x2020e0
+#define AV_FIFO_INT_0_BASE 0x202100
 #define AV_FIFO_INT_0_IRQ -1
 #define AV_FIFO_INT_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define AV_FIFO_INT_0_NAME "/dev/Av_FIFO_Int_0"
@@ -205,7 +205,7 @@
  */
 
 #define ALT_MODULE_CLASS_dac_spi altera_avalon_spi
-#define DAC_SPI_BASE 0x202000
+#define DAC_SPI_BASE 0x202020
 #define DAC_SPI_CLOCKMULT 1
 #define DAC_SPI_CLOCKPHASE 1
 #define DAC_SPI_CLOCKPOLARITY 0
@@ -236,7 +236,7 @@
  */
 
 #define ALT_MODULE_CLASS_dual_boot_0 altera_dual_boot
-#define DUAL_BOOT_0_BASE 0x2020a0
+#define DUAL_BOOT_0_BASE 0x2020c0
 #define DUAL_BOOT_0_IRQ -1
 #define DUAL_BOOT_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define DUAL_BOOT_0_NAME "/dev/dual_boot_0"
@@ -245,12 +245,43 @@
 
 
 /*
+ * flash_spi configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_flash_spi altera_avalon_spi
+#define FLASH_SPI_BASE 0x202000
+#define FLASH_SPI_CLOCKMULT 1
+#define FLASH_SPI_CLOCKPHASE 0
+#define FLASH_SPI_CLOCKPOLARITY 0
+#define FLASH_SPI_CLOCKUNITS "Hz"
+#define FLASH_SPI_DATABITS 8
+#define FLASH_SPI_DATAWIDTH 16
+#define FLASH_SPI_DELAYMULT "1.0E-9"
+#define FLASH_SPI_DELAYUNITS "ns"
+#define FLASH_SPI_EXTRADELAY 0
+#define FLASH_SPI_INSERT_SYNC 0
+#define FLASH_SPI_IRQ 4
+#define FLASH_SPI_IRQ_INTERRUPT_CONTROLLER_ID 0
+#define FLASH_SPI_ISMASTER 1
+#define FLASH_SPI_LSBFIRST 0
+#define FLASH_SPI_NAME "/dev/flash_spi"
+#define FLASH_SPI_NUMSLAVES 1
+#define FLASH_SPI_PREFIX "spi_"
+#define FLASH_SPI_SPAN 32
+#define FLASH_SPI_SYNC_REG_DEPTH 2
+#define FLASH_SPI_TARGETCLOCK 10000000u
+#define FLASH_SPI_TARGETSSDELAY "0.0"
+#define FLASH_SPI_TYPE "altera_avalon_spi"
+
+
+/*
  * fpga_spi configuration
  *
  */
 
 #define ALT_MODULE_CLASS_fpga_spi altera_avalon_spi
-#define FPGA_SPI_BASE 0x202020
+#define FPGA_SPI_BASE 0x202040
 #define FPGA_SPI_CLOCKMULT 1
 #define FPGA_SPI_CLOCKPHASE 0
 #define FPGA_SPI_CLOCKPOLARITY 0
@@ -292,7 +323,7 @@
  */
 
 #define ALT_MODULE_CLASS_i2c_opencores_0 i2c_opencores
-#define I2C_OPENCORES_0_BASE 0x202080
+#define I2C_OPENCORES_0_BASE 0x2020a0
 #define I2C_OPENCORES_0_IRQ 0
 #define I2C_OPENCORES_0_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define I2C_OPENCORES_0_NAME "/dev/i2c_opencores_0"
@@ -306,7 +337,7 @@
  */
 
 #define ALT_MODULE_CLASS_leds altera_avalon_pio
-#define LEDS_BASE 0x2020c0
+#define LEDS_BASE 0x2020e0
 #define LEDS_BIT_CLEARING_EDGE_REGISTER 0
 #define LEDS_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define LEDS_CAPTURE 0
@@ -333,7 +364,7 @@
  */
 
 #define ALT_MODULE_CLASS_lms_ctr_gpio altera_avalon_pio
-#define LMS_CTR_GPIO_BASE 0x202040
+#define LMS_CTR_GPIO_BASE 0x202060
 #define LMS_CTR_GPIO_BIT_CLEARING_EDGE_REGISTER 0
 #define LMS_CTR_GPIO_BIT_MODIFYING_OUTPUT_REGISTER 1
 #define LMS_CTR_GPIO_CAPTURE 0
@@ -360,7 +391,7 @@
  */
 
 #define ALT_MODULE_CLASS_onchip_flash_0_csr altera_onchip_flash
-#define ONCHIP_FLASH_0_CSR_BASE 0x2020f0
+#define ONCHIP_FLASH_0_CSR_BASE 0x202110
 #define ONCHIP_FLASH_0_CSR_BYTES_PER_PAGE 4096
 #define ONCHIP_FLASH_0_CSR_IRQ -1
 #define ONCHIP_FLASH_0_CSR_IRQ_INTERRUPT_CONTROLLER_ID -1
@@ -451,7 +482,7 @@
  */
 
 #define ALT_MODULE_CLASS_switch altera_avalon_pio
-#define SWITCH_BASE 0x2020d0
+#define SWITCH_BASE 0x2020f0
 #define SWITCH_BIT_CLEARING_EDGE_REGISTER 0
 #define SWITCH_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define SWITCH_CAPTURE 0
@@ -478,13 +509,13 @@
  */
 
 #define ALT_MODULE_CLASS_sysid_qsys_0 altera_avalon_sysid_qsys
-#define SYSID_QSYS_0_BASE 0x2020f8
+#define SYSID_QSYS_0_BASE 0x202118
 #define SYSID_QSYS_0_ID 4920
 #define SYSID_QSYS_0_IRQ -1
 #define SYSID_QSYS_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_0_NAME "/dev/sysid_qsys_0"
 #define SYSID_QSYS_0_SPAN 8
-#define SYSID_QSYS_0_TIMESTAMP 1498650573
+#define SYSID_QSYS_0_TIMESTAMP 1509460762
 #define SYSID_QSYS_0_TYPE "altera_avalon_sysid_qsys"
 
 
@@ -494,7 +525,7 @@
  */
 
 #define ALT_MODULE_CLASS_uart altera_avalon_uart
-#define UART_BASE 0x202060
+#define UART_BASE 0x202080
 #define UART_BAUD 115200
 #define UART_DATA_BITS 8
 #define UART_FIXED_BAUD 1

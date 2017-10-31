@@ -23,9 +23,46 @@ uint8_t ReverseBitOrder (uint8_t data)
 }
 
 char spiFastRead = 0;
-void FlashSpiFastRead(CyBool_t v) {
+void FlashSpiFastRead(CyBool_t v)
+{
     spiFastRead = v;
 }
+
+
+/* SPI read / write for programmer application. */
+uint8_t FlashSpiRead(alt_u32 SPIBase, alt_u32 SPISlave, uint32_t byteAddress, uint16_t byteCount, uint8_t *buffer)
+{
+    uint8_t location[4];
+    uint8_t status = 0;
+
+    spiFastRead = 1;// force fast read
+
+    if (byteCount == 0)
+    {
+        return 0; // CY_U3P_SUCCESS;
+    };
+
+    location[1] = ((byteAddress >> 16) & 0xFF);       /* MS byte */
+    location[2] = ((byteAddress >> 8) & 0xFF);
+    location[3] = (byteAddress & 0xFF);               /* LS byte */
+
+
+    location[0] = FLASH_CMD_PAGE_READ;// 0x03; /* Read command. */
+
+    if (!spiFastRead)
+    {
+       	status = CyFxSpiWaitForStatus(SPIBase, SPISlave);
+       	if (!status)
+       	{
+       		return status;
+       	};
+    };
+
+    alt_avalon_spi_command(SPIBase, SPISlave, 4, location, byteCount, buffer, 0);
+
+    return status; //CY_U3P_SUCCESS;
+}
+
 
 /* SPI read / write for programmer application. */
 uint8_t FlashSpiTransfer(alt_u32 SPIBase, alt_u32 SPISlave, uint32_t pageAddress, uint16_t byteCount, uint8_t *buffer, CyBool_t isRead)
@@ -43,21 +80,25 @@ uint8_t FlashSpiTransfer(alt_u32 SPIBase, alt_u32 SPISlave, uint32_t pageAddress
         return 0; // CY_U3P_SUCCESS;
     }
 
-    if ((byteCount % FLASH_PAGE_SIZE) != 0) {
+    if ((byteCount % FLASH_PAGE_SIZE) != 0)
+    {
         return 1;//CY_U3P_ERROR_NOT_SUPPORTED;
     }
 
     byteAddress = pageAddress * FLASH_PAGE_SIZE;
 
-    while (pageCount != 0) {
-        location[1] = ReverseBitOrder((byteAddress >> 16) & 0xFF);       /* MS byte */
-        location[2] = ReverseBitOrder((byteAddress >> 8) & 0xFF);
-        location[3] = ReverseBitOrder(byteAddress & 0xFF);               /* LS byte */
+    while (pageCount != 0)
+    {
+        location[1] = ((byteAddress >> 16) & 0xFF);       /* MS byte */
+        location[2] = ((byteAddress >> 8) & 0xFF);
+        location[3] = (byteAddress & 0xFF);               /* LS byte */
 
-        if (isRead) {
+        if (isRead)
+        {
             location[0] = FLASH_CMD_PAGE_READ;// 0x03; /* Read command. */
 
-            if (!spiFastRead) {
+            if (!spiFastRead)
+            {
                 //status = CyFxSpiWaitForStatus();
                 //if (status != CY_U3P_SUCCESS)
                 //    return status;
@@ -87,7 +128,9 @@ uint8_t FlashSpiTransfer(alt_u32 SPIBase, alt_u32 SPISlave, uint32_t pageAddress
 
             alt_avalon_spi_command(SPIBase, SPISlave, 4, location, FLASH_PAGE_SIZE, buffer, 0);
 
-        } else { /* Write */
+        }
+        else
+        { /* Write */
             location[0] = FLASH_CMD_PAGE_WRITE; //0x02; /* Write command */
 
             //status = CyFxSpiWaitForStatus();
@@ -174,7 +217,7 @@ uint8_t CyFxSpiWaitForStatus(alt_u32 SPIBase, alt_u32 SPISlave)
         }
         retries++;
 
-    } while ((rd_buf[0] & 0x80) || (!(rd_buf[0] & 0x40))); //while ((rd_buf[0] & 1) || (!(rd_buf[0] & 0x2)));
+    } while ((rd_buf[0] & 1) || (!(rd_buf[0] & 0x2)));
 
     return 0; //CY_U3P_SUCCESS;
 }
@@ -203,9 +246,9 @@ uint8_t FlashSpiEraseSector(alt_u32 SPIBase, alt_u32 SPISlave, uint8_t isErase, 
     {
         location[0] = FLASH_CMD_SECTOR_ERASE; // Sector erase.
         temp        = sector * FLASH_SECTOR_SIZE;
-        location[1] = ReverseBitOrder((temp >> 16) & 0xFF);
-        location[2] = ReverseBitOrder((temp >> 8) & 0xFF);
-        location[3] = ReverseBitOrder(temp & 0xFF);
+        location[1] = ((temp >> 16) & 0xFF);
+        location[2] = ((temp >> 8) & 0xFF);
+        location[3] = (temp & 0xFF);
 
         //CyU3PGpioSetValue (FX3_FLASH2_SNN, CyFalse);//CyU3PSpiSetSsnLine (CyFalse);
         //status = CyU3PSpiTransmitWords (location, 4);
@@ -219,7 +262,7 @@ uint8_t FlashSpiEraseSector(alt_u32 SPIBase, alt_u32 SPISlave, uint8_t isErase, 
         //status = CyU3PSpiTransmitWords (location, 1);
         //status = CyU3PSpiReceiveWords(rdBuf, 1);
         //CyU3PGpioSetValue (FX3_FLASH2_SNN, CyTrue);//CyU3PSpiSetSsnLine (CyTrue);
-    	rdsz = alt_avalon_spi_command(SPIBase, SPISlave, 1, location,1, rdBuf, 0);
+    	rdsz = alt_avalon_spi_command(SPIBase, SPISlave, 1, location, 1, rdBuf, 0);
 
     	//In case of something goes wrong, break the loop
         if (retries >= STATUS_RETRIES_ERASE)
@@ -228,7 +271,7 @@ uint8_t FlashSpiEraseSector(alt_u32 SPIBase, alt_u32 SPISlave, uint8_t isErase, 
         }
         retries++;
 
-    } while(rdBuf[0] & 0x80);	//Reversed, in reality is: } while(rdBuf[0] & 1);
+    } while(rdBuf[0] & 1);
 
     return 0;
 }

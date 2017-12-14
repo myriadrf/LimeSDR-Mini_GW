@@ -288,28 +288,28 @@ inst2_smpl_buff_rddata(16-iq_width-1 downto 0) <= (others=>'0');
 -------------------------------------------------------------------------------
 -- detect cleared packets in tx path
 -------------------------------------------------------------------------------   
-process(reset_n_sync, clk)
-    begin
-      if reset_n_sync='0' then
-          tx_pct_loss_detect<='0';
- 	    elsif (clk'event and clk = '1') then
- 	        if tx_pct_loss_sync='1' then 
- 	          tx_pct_loss_detect<='1';
- 	        elsif  tx_pct_loss_clr_sync='1' then 
- 	          tx_pct_loss_detect<='0';
- 	        else 
- 	          tx_pct_loss_detect<=tx_pct_loss_detect;
- 	        end if;
- 	    end if;
-    end process; 
+-- process(reset_n_sync, clk)
+    -- begin
+      -- if reset_n_sync='0' then
+          -- tx_pct_loss_detect<='0';
+ 	    -- elsif (clk'event and clk = '1') then
+ 	        -- if tx_pct_loss_sync='1' then 
+ 	          -- tx_pct_loss_detect<='1';
+ 	        -- elsif  tx_pct_loss_clr_sync='1' then 
+ 	          -- tx_pct_loss_detect<='0';
+ 	        -- else 
+ 	          -- tx_pct_loss_detect<=tx_pct_loss_detect;
+ 	        -- end if;
+ 	    -- end if;
+    -- end process; 
     
     
 --packet reserved bits  
-  inst2_pct_hdr_0(63 downto 48)<="000000000000" & tx_pct_loss_detect & pct_fifo_wusedw(pct_buff_wrusedw_w-1 downto pct_buff_wrusedw_w-3);
-  inst2_pct_hdr_0(47 downto 32)<=x"0201";
-  inst2_pct_hdr_0(31 downto 16)<=x"0403";
-  inst2_pct_hdr_0(15 downto 0)<=x"0605";
-        
+   inst2_pct_hdr_0(15 downto 0)   <="000000000000" & tx_pct_loss_sync & pct_fifo_wusedw(pct_buff_wrusedw_w-1 downto pct_buff_wrusedw_w-3);
+   inst2_pct_hdr_0(31 downto 16)  <=x"0201";
+   inst2_pct_hdr_0(47 downto 32)  <=x"0403";
+   inst2_pct_hdr_0(63 downto 48)  <=x"0605";
+
         
 -- ----------------------------------------------------------------------------
 -- Instance for packing samples to packets

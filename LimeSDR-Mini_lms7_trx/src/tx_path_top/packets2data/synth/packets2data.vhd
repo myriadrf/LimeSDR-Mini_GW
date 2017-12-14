@@ -83,6 +83,7 @@ signal inst0_pct_hdr_1_valid_rclk   : std_logic_vector(n_buff-1 downto 0);
 --inst1
 signal inst1_pct_buff_rdy           : std_logic_vector(n_buff-1 downto 0);
 signal inst1_pct_data_clr_n         : std_logic_vector(n_buff-1 downto 0);
+signal inst1_pct_data_clr           : std_logic_vector(n_buff-1 downto 0);
 signal inst1_pct_data_clr_dis       : std_logic_vector(n_buff-1 downto 0);
 
 --inst2
@@ -187,10 +188,14 @@ inst3_pct_size <= std_logic_vector(half_pct_size_only_data);
 
 process(rclk, reset_n)
 begin
-   if reset_n = '0' then 
+   if reset_n = '0' then
+      inst1_pct_data_clr <= (others=>'0');
       in_pct_clr_flag <= '0';
-   elsif (rclk'event AND rclk='1') then 
-      if unsigned(inst1_pct_data_clr_n) > 0 then 
+   elsif (rclk'event AND rclk='1') then
+      for i in 0 to n_buff-1 loop
+         inst1_pct_data_clr <= not inst1_pct_data_clr_n;
+      end loop; 
+      if unsigned(inst1_pct_data_clr) > 0 then 
          in_pct_clr_flag <= '1';
       else 
          in_pct_clr_flag <= '0';

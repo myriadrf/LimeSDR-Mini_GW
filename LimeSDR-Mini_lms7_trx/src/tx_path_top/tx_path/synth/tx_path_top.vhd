@@ -61,6 +61,8 @@ end tx_path_top;
 architecture arch of tx_path_top is
 --declare signals,  components here
 
+signal reset_n_sync_iq_rdclk        : std_logic;
+
 signal rx_sample_nr_iq_rdclk        : std_logic_vector(63 downto 0);
 signal rx_sample_nr_iq_rdclk_reg    : std_logic_vector(63 downto 0);
 signal en_sync_rx_sample_clk        : std_logic;
@@ -80,6 +82,7 @@ signal inst0_smpl_buff_rdempty      : std_logic;
 signal inst0_smpl_buff_q            : std_logic_vector(out_pct_data_w-1 downto 0);
 signal inst0_pct_size               : std_logic_vector(pct_size_w-1 downto 0);
 signal inst0_in_pct_clr_flag        : std_logic;
+signal inst0_in_pct_clr_flag_reg    : std_logic;
 
 --inst1
 signal inst1_fifo_rdreq             : std_logic;
@@ -117,7 +120,10 @@ sync_reg6 : entity work.sync_reg
  port map(iq_rdclk, '1', fidm, fidm_sync_iq_rdclk);
 
 sync_reg7 : entity work.sync_reg 
- port map(iq_rdclk, '1', pct_loss_flg_clr, pct_loss_flg_clr_sync_iq_rdclk); 
+ port map(iq_rdclk, '1', pct_loss_flg_clr, pct_loss_flg_clr_sync_iq_rdclk);
+
+sync_reg8 : entity work.sync_reg 
+ port map(iq_rdclk, '1', reset_n, reset_n_sync_iq_rdclk);  
  
  
 bus_sync_reg0 : entity work.bus_sync_reg
@@ -147,20 +153,25 @@ begin
 end process;
 
 
-process(iq_rdclk, reset_n)
-begin
-	if reset_n = '0' then 
-		pct_loss_flg_int <= '0';
-	elsif (iq_rdclk'event AND iq_rdclk='1') then
-		if inst0_in_pct_clr_flag = '1' then 
-			pct_loss_flg_int <= '1';
-		elsif pct_loss_flg_clr_sync_iq_rdclk = '1' then 
-			pct_loss_flg_int <= '0';
-		else 
-			pct_loss_flg_int <= pct_loss_flg_int;
-		end if;
-	end if;
-end process;
+-- reset_n_sync_iq_rdclk is delayed two cycles, this helps awoid throwing 
+-- pct_loss_flg_int on reset_n at stream start 
+ process(iq_rdclk, reset_n_sync_iq_rdclk)
+ begin
+   if reset_n_sync_iq_rdclk = '0' then 
+      pct_loss_flg_int           <= '0';
+      inst0_in_pct_clr_flag_reg  <= '1';
+   elsif (iq_rdclk'event AND iq_rdclk='1') then
+      inst0_in_pct_clr_flag_reg <= inst0_in_pct_clr_flag;
+      
+      if inst0_in_pct_clr_flag = '1' AND inst0_in_pct_clr_flag_reg = '0' then 
+         pct_loss_flg_int <= '1';
+      elsif pct_loss_flg_clr_sync_iq_rdclk = '1' then 
+         pct_loss_flg_int <= '0';
+      else 
+         pct_loss_flg_int <= pct_loss_flg_int;
+      end if;
+   end if;
+ end process;
 
 pct_loss_flg<= pct_loss_flg_int;
 

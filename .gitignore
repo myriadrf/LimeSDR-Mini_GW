@@ -45,6 +45,7 @@ ddr2_phy_autodetectedpins.tcl
 alt_sld_fab_wrapper_hw.tcl
 *.csv
 *.rpt
+!*.fit.rpt
 *.txt
 *.qws
 *.qarlog
@@ -59,6 +60,7 @@ alt_sld_fab_wrapper_hw.tcl
 # generated folders
 #--------------
 simulation/
+db/
 incremental_db/
 wspace_nios2/
 wspace_nios

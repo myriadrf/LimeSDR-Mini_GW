@@ -67,6 +67,7 @@ signal inst0_pct_hdr_0        : std_logic_vector(63 downto 0);
 signal inst0_pct_hdr_0_valid  : std_logic_vector(n_buff-1 downto 0);
 signal inst0_pct_hdr_1        : std_logic_vector(63 downto 0);
 signal inst0_pct_hdr_1_valid  : std_logic_vector(n_buff-1 downto 0);
+signal inst0_pct_hdr_1_sync_en: std_logic;
 signal inst0_pct_data         : std_logic_vector(in_pct_data_w-1 downto 0);
 signal inst0_pct_data_wrreq   : std_logic_vector(n_buff-1 downto 0);
 signal inst0_pct_buff_rdy     : std_logic_vector(n_buff-1 downto 0);
@@ -76,8 +77,10 @@ signal inst0_in_pct_wrfull    : std_logic;
 --for clk domain crosing
 signal pct_sync_dis_rclk            : std_logic;
 signal inst0_pct_hdr_0_rclk         : std_logic_vector(63 downto 0);
+signal inst0_pct_hdr_0_rclk_stage0  : std_logic_vector(63 downto 0);
 signal inst0_pct_hdr_0_valid_rclk   : std_logic_vector(n_buff-1 downto 0);
 signal inst0_pct_hdr_1_rclk         : std_logic_vector(63 downto 0);
+signal inst0_pct_hdr_1_rclk_stage0  : std_logic_vector(63 downto 0);
 signal inst0_pct_hdr_1_valid_rclk   : std_logic_vector(n_buff-1 downto 0);
 
 --inst1
@@ -110,6 +113,12 @@ signal half_pct_size_only_data      : unsigned(pct_size_w-1 downto 0);
 
 signal smpl_buff_valid_int          : std_logic;
 
+signal fifo_sync_0_dst_data         : std_logic_vector(n_buff-1 downto 0);
+signal fifo_sync_1_dst_data         : std_logic_vector(n_buff-1 downto 0);
+
+attribute noprune: boolean;
+attribute noprune of fifo_sync_0_dst_data: signal is true;
+attribute noprune of fifo_sync_1_dst_data: signal is true;
 
   
 begin
@@ -118,7 +127,11 @@ begin
 --inst0_pct_hdr_0 bus is changed once per packet, safe to use sync registers 
 bus_sync_reg0 : entity work.bus_sync_reg
  generic map (64) 
- port map(rclk, '1', inst0_pct_hdr_0, inst0_pct_hdr_0_rclk);
+ port map(rclk, '1', inst0_pct_hdr_0, inst0_pct_hdr_0_rclk_stage0);
+
+bus_sync_reg1 : entity work.bus_sync_reg
+ generic map (64) 
+ port map(rclk, '1', inst0_pct_hdr_0_rclk_stage0, inst0_pct_hdr_0_rclk);
  
  
  gen_handshake_sync_0  : 
@@ -133,15 +146,15 @@ bus_sync_reg0 : entity work.bus_sync_reg
          inst0_pct_hdr_0_valid_rclk(i)
       );
   end generate gen_handshake_sync_0;
-  
--- bus_sync_reg1 : entity work.bus_sync_reg
- -- generic map (n_buff) 
--- port map(rclk, '1', (others=>'1'), inst0_pct_hdr_0_valid_rclk);
 
 --inst0_pct_hdr_1 bus is changed once per packet, safe to use sync registers  
  bus_sync_reg2 : entity work.bus_sync_reg
  generic map (64) 
- port map(rclk, '1', inst0_pct_hdr_1, inst0_pct_hdr_1_rclk);
+ port map(rclk, '1', inst0_pct_hdr_1, inst0_pct_hdr_1_rclk_stage0);
+ 
+ bus_sync_reg3 : entity work.bus_sync_reg
+ generic map (64) 
+ port map(rclk, '1', inst0_pct_hdr_1_rclk_stage0, inst0_pct_hdr_1_rclk);
  
  
   gen_handshake_sync_1  : 
@@ -156,11 +169,7 @@ bus_sync_reg0 : entity work.bus_sync_reg
          inst0_pct_hdr_1_valid_rclk(i)
       );
   end generate gen_handshake_sync_1;
- 
--- bus_sync_reg3 : entity work.bus_sync_reg
- -- generic map (n_buff) 
--- port map(rclk, '1', (others=>'1'), inst0_pct_hdr_1_valid_rclk);
-
+  
 sync_reg1 : entity work.sync_reg 
 port map(rclk, '1', pct_sync_dis, pct_sync_dis_rclk);
 
@@ -273,7 +282,7 @@ begin
    if reset_n = '0' then 
       in_pct_full <= '0';
    elsif (wclk'event AND wclk='1') then 
-      if unsigned(instx_wrempty) = 0 then 
+      if unsigned(instx_wrempty) = 0 OR inst0_in_pct_wrfull = '1' then 
          in_pct_full <= '1';
       else
          in_pct_full <= '0';

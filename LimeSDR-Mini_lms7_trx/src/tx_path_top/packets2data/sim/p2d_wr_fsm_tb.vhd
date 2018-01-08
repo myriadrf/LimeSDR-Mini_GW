@@ -27,15 +27,21 @@ signal clk0,clk1		: std_logic;
 signal reset_n       : std_logic; 
    
    --dut0 signals
-signal dut0_pct_size          : std_logic_vector(15 downto 0):=x"0006";
+signal dut0_pct_size          : std_logic_vector(15 downto 0):=x"0008";
 signal dut0_pct_hdr_0         : std_logic_vector(63 downto 0);
 signal dut0_pct_hdr_1         : std_logic_vector(63 downto 0);
 signal dut0_pct_data          : std_logic_vector(31 downto 0);
-signal dut0_pct_data_wrreq    : std_logic;
 signal dut0_in_pct_wrfull     : std_logic;
 signal dut0_pct_data_wrreq_delay : std_logic;
 signal dut0_pct_state         : std_logic_vector(1 downto 0);
 signal pct_cnt                : unsigned(31 downto 0);
+signal dut0_pct_data_wrreq       : std_logic_vector(3 downto 0);
+signal dut0_pct_data_wrreq_reg   : std_logic_vector(3 downto 0);
+signal dut0_pct_buff_rdy      : std_logic_vector(3 downto 0);
+signal dut0_in_pct_wrreq      : std_logic;
+
+signal shift_reg              : std_logic_vector(4 downto 0);
+signal shift_en               : std_logic;
   
 
 begin 
@@ -59,36 +65,76 @@ begin
 	end process res;
    
    
- -- process is 
-    -- begin
-      -- dut0_pct_data_wrreq <= '0';
-      -- wait until reset_n = '1';
-      -- wait until rising_edge(clk0) AND dut0_pct_state(1)='0';
-      -- loop
-         -- if rising_edge(clk0) AND dut0_pct_state(1)='1' then 
-            -- exit;
-         -- else 
-            -- wait until rising_edge(clk0);
-            -- dut0_pct_data_wrreq <= not dut0_pct_data_wrreq;
-            --dut0_pct_data_wrreq <=  '1';
-         -- end if;
-      -- end loop;
-    -- end process;
-    
-    
+   process is
+	begin
+      dut0_in_pct_wrreq <= '0';
+      wait until reset_n = '1';
+      wait until rising_edge(clk0);
+      
+      --write one full packet
+      dut0_in_pct_wrreq <= '1';
+      for i in 0 to to_integer(unsigned(dut0_pct_size)-1) loop
+         wait until rising_edge(clk0);
+      end loop;
+      dut0_in_pct_wrreq <= '0';
+      wait until rising_edge(clk0) AND dut0_in_pct_wrfull = '0';
+            
+      --write one half of packet
+      dut0_in_pct_wrreq <= '1';
+      for i in 0 to to_integer(unsigned(dut0_pct_size)-1)/2 loop
+         wait until rising_edge(clk0);
+      end loop;
+      dut0_in_pct_wrreq <= '0';
+      wait until rising_edge(clk0) AND dut0_in_pct_wrfull = '0';
+      
+      --write one half of packet
+      dut0_in_pct_wrreq <= '1';
+      for i in 0 to to_integer(unsigned(dut0_pct_size)-1)/2 loop
+         wait until rising_edge(clk0);
+      end loop;
+      dut0_in_pct_wrreq <= '0';
+      wait until rising_edge(clk0) AND dut0_in_pct_wrfull = '0';
+      
+      --write one full packet
+      dut0_in_pct_wrreq <= '1';
+      for i in 0 to to_integer(unsigned(dut0_pct_size)-1) loop
+         wait until rising_edge(clk0);
+      end loop;
+      dut0_in_pct_wrreq <= '0';
+      wait until rising_edge(clk0) AND dut0_in_pct_wrfull = '0';
+      
+      --write one half of packet
+      dut0_in_pct_wrreq <= '1';
+      for i in 0 to to_integer(unsigned(dut0_pct_size)-1)/2 loop
+         wait until rising_edge(clk0);
+      end loop;
+      dut0_in_pct_wrreq <= '0';
+      wait until rising_edge(clk0) AND dut0_in_pct_wrfull = '0';
+      
+      --write one half of packet
+      dut0_in_pct_wrreq <= '1';
+      for i in 0 to to_integer(unsigned(dut0_pct_size)-1)/2 loop
+         wait until rising_edge(clk0);
+      end loop;
+      dut0_in_pct_wrreq <= '0';
+      wait until rising_edge(clk0) AND dut0_in_pct_wrfull = '0';
+      
+      --write one full packet
+      dut0_in_pct_wrreq <= '1';
+      for i in 0 to to_integer(unsigned(dut0_pct_size)-1) loop
+         wait until rising_edge(clk0);
+      end loop;
+      dut0_in_pct_wrreq <= '0';
+      wait until rising_edge(clk0) AND dut0_in_pct_wrfull = '0';
+         
+	end process;
+   
      process(reset_n, clk0)
     begin
       if reset_n='0' then
-         pct_cnt <= (others=>'0');
-         dut0_pct_data_wrreq <= '0';        
+         pct_cnt <= (others=>'0');       
       elsif (clk0'event and clk0 = '1') then
-         if dut0_in_pct_wrfull = '0' then 
-            dut0_pct_data_wrreq <= '1';
-            --dut0_pct_data_wrreq <= NOT dut0_pct_data_wrreq;
-         else 
-            dut0_pct_data_wrreq <= '0';
-         end if;
-         if dut0_pct_data_wrreq = '1' then 
+         if dut0_in_pct_wrreq = '1' then 
             pct_cnt <= pct_cnt + 1;
          else 
             pct_cnt <= pct_cnt;
@@ -97,6 +143,43 @@ begin
     end process;
     
     dut0_pct_data  <= std_logic_vector(pct_cnt);
+    
+   process(clk0, reset_n)
+   begin
+      if reset_n = '0' then 
+         shift_reg <="00001";
+         dut0_pct_data_wrreq_reg <= (others=>'0');
+      elsif (clk0'event AND clk0='1') then
+         dut0_pct_data_wrreq_reg <= dut0_pct_data_wrreq;
+      end if;
+   end process;
+   
+   
+   process is
+	begin
+		dut0_pct_buff_rdy <= (others=>'1');
+      wait until unsigned(dut0_pct_data_wrreq) > 0 and unsigned(dut0_pct_data_wrreq_reg) = 0;
+      wait until rising_edge(clk0);
+		dut0_pct_buff_rdy <= "1110";
+      wait until unsigned(dut0_pct_data_wrreq) > 0 and unsigned(dut0_pct_data_wrreq_reg) = 0;
+      dut0_pct_buff_rdy <= "1100";
+      wait until unsigned(dut0_pct_data_wrreq) > 0 and unsigned(dut0_pct_data_wrreq_reg) = 0;
+      dut0_pct_buff_rdy <= "1000";
+      wait until unsigned(dut0_pct_data_wrreq) > 0 and unsigned(dut0_pct_data_wrreq_reg) = 0;
+      dut0_pct_buff_rdy <= "0000";
+      wait for 80 ns;
+      wait until rising_edge(clk0);
+      dut0_pct_buff_rdy <= "0010";
+      wait for 80 ns;
+      wait until rising_edge(clk0);
+      dut0_pct_buff_rdy <= "0000";
+      wait for 80 ns;
+      wait until rising_edge(clk0);
+      dut0_pct_buff_rdy <= "0001";
+      wait until unsigned(dut0_pct_data_wrreq) > 0 and unsigned(dut0_pct_data_wrreq_reg) = 0;
+      dut0_pct_buff_rdy <= "0010";
+      wait;
+	end process ;
    
 
   
@@ -111,7 +194,7 @@ begin
       reset_n           => reset_n,
       pct_size          => dut0_pct_size, 
       
-      in_pct_wrreq      => dut0_pct_data_wrreq,
+      in_pct_wrreq      => dut0_in_pct_wrreq,
       in_pct_data       => dut0_pct_data,
       in_pct_wrfull     => dut0_in_pct_wrfull,
 
@@ -122,9 +205,9 @@ begin
       pct_hdr_1_valid   => open,
       
       pct_data          => open,
-      pct_data_wrreq    => open,
+      pct_data_wrreq    => dut0_pct_data_wrreq,
       
-      pct_buff_rdy      => "0011"
+      pct_buff_rdy      => dut0_pct_buff_rdy
       );
 	
 	end tb_behave;

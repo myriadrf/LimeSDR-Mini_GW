@@ -462,4 +462,6 @@ set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_QSPI_IO1
 set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_QSPI_IO2
 set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_QSPI_IO3
 set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_QSPI_SCLK
+set_global_assignment -name ALLOW_REGISTER_MERGING ON
+set_global_assignment -name ALLOW_REGISTER_RETIMING ON
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

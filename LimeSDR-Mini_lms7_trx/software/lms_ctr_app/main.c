@@ -75,6 +75,8 @@ uint32_t byte1;
 uint32_t word = 0x0;
 uint8_t state, Flash = 0x0;
 
+int boot_img_en = 0;
+
 
 
 /**	This function checks if all blocks could fit in data field.
@@ -196,6 +198,22 @@ void testFlash(void)
 
 }
 */
+
+
+void boot_from_flash(void)
+{
+	//set CONFIG_SEL overwrite to 1 and CONFIG_SEL to Image 0
+	//IOWR(DUAL_BOOT_0_BASE, 1, 0x00000001);
+
+	//set CONFIG_SEL overwrite to 1 and CONFIG_SEL to Image 1
+	IOWR(DUAL_BOOT_0_BASE, 1, 0x00000003);
+
+	/*wait while core is busy*/
+	while(IORD(DUAL_BOOT_0_BASE, 3) == 1) {}
+
+	//Trigger reconfiguration to selected Image
+	IOWR(DUAL_BOOT_0_BASE, 0, 0x00000001);
+}
 
 /**
  * Main, what else? :)
@@ -869,21 +887,8 @@ int main()
 
 						case 2: //configure FPGA from flash
 
-							//set CONFIG_SEL overwrite to 1 and CONFIG_SEL to Image 1
-							//IOWR(DUAL_BOOT_0_BASE, 1, 0x00000003);
-
-							//set CONFIG_SEL overwrite to 1 and CONFIG_SEL to Image 0
-							IOWR(DUAL_BOOT_0_BASE, 1, 0x00000001);
-
-
-							/*wait while core is busy*/
-							while(IORD(DUAL_BOOT_0_BASE, 3) == 1) {}
-
-							//Trigger reconfiguration to Image 1
-							//IOWR(DUAL_BOOT_0_BASE, 0, 0x00000001);
-
-							//Trigger reconfiguration to Image 0
-							IOWR(DUAL_BOOT_0_BASE, 0, 0x00000001);
+							//enable boot to factory image, booting is executed after response to command is sent
+							boot_img_en = 1;
 
 							LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
 
@@ -1122,6 +1127,13 @@ int main()
         	for(cnt=0; cnt<64/sizeof(uint32_t); ++cnt)
         	{
         		IOWR(AV_FIFO_INT_0_BASE, 0, dest[cnt]);
+        	};
+
+        	// If boot from flash CMD is executed FPGA GW is loaded from internal FLASH (image 1)
+        	if (boot_img_en==1) {
+
+        		boot_from_flash();
+
         	};
 
 

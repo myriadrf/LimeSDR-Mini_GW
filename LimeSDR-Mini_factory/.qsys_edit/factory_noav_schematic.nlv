@@ -1,0 +1,24 @@
+# # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
+# 
+preplace inst factory.bridge_0 -pg 1 -lvl 2 -y 190
+preplace inst factory.pio_0 -pg 1 -lvl 3 -y 30
+preplace inst factory.dual_boot_0 -pg 1 -lvl 3 -y 130
+preplace inst factory.clk_0 -pg 1 -lvl 1 -y 150
+preplace inst factory.Av_FIFO_Int_0 -pg 1 -lvl 3 -y 250
+preplace inst factory -pg 1 -lvl 1 -y 40 -regy -20
+preplace netloc EXPORT<net_container>factory</net_container>(SLAVE)Av_FIFO_Int_0.cnd_of_wr,(SLAVE)factory.av_fifo_of_wr) 1 0 3 NJ 400 NJ 400 NJ
+preplace netloc EXPORT<net_container>factory</net_container>(SLAVE)factory.av_fifo_fifo_rst,(SLAVE)Av_FIFO_Int_0.cnd_fifo_rst) 1 0 3 NJ 300 NJ 300 NJ
+preplace netloc EXPORT<net_container>factory</net_container>(SLAVE)clk_0.clk_in_reset,(SLAVE)factory.reset) 1 0 1 NJ
+preplace netloc EXPORT<net_container>factory</net_container>(SLAVE)pio_0.external_connection,(SLAVE)factory.pio_0) 1 0 3 NJ 280 NJ 280 NJ
+preplace netloc FAN_OUT<net_container>factory</net_container>(SLAVE)Av_FIFO_Int_0.reset,(SLAVE)dual_boot_0.nreset,(MASTER)clk_0.clk_reset,(SLAVE)pio_0.reset,(SLAVE)bridge_0.reset) 1 1 2 330 440 650
+preplace netloc EXPORT<net_container>factory</net_container>(SLAVE)Av_FIFO_Int_0.cnd_of_d,(SLAVE)factory.av_fifo_of_d) 1 0 3 NJ 380 NJ 380 NJ
+preplace netloc FAN_OUT<net_container>factory</net_container>(SLAVE)pio_0.s1,(SLAVE)dual_boot_0.avalon,(MASTER)bridge_0.avalon_master,(SLAVE)Av_FIFO_Int_0.avalon_slave_0) 1 2 1 670
+preplace netloc EXPORT<net_container>factory</net_container>(SLAVE)clk_0.clk_in,(SLAVE)factory.clk) 1 0 1 NJ
+preplace netloc EXPORT<net_container>factory</net_container>(SLAVE)Av_FIFO_Int_0.cnd_if_d,(SLAVE)factory.av_fifo_if_d) 1 0 3 NJ 320 NJ 320 NJ
+preplace netloc EXPORT<net_container>factory</net_container>(SLAVE)Av_FIFO_Int_0.cnd_if_rdempty,(SLAVE)factory.av_fifo_if_rdempty) 1 0 3 NJ 360 NJ 360 NJ
+preplace netloc FAN_OUT<net_container>factory</net_container>(SLAVE)Av_FIFO_Int_0.clock,(SLAVE)pio_0.clk,(MASTER)clk_0.clk,(SLAVE)bridge_0.clk,(SLAVE)dual_boot_0.clk) 1 1 2 350 160 630
+preplace netloc EXPORT<net_container>factory</net_container>(SLAVE)factory.av_fifo_of_wrfull,(SLAVE)Av_FIFO_Int_0.cnd_of_wrfull) 1 0 3 NJ 420 NJ 420 NJ
+preplace netloc EXPORT<net_container>factory</net_container>(SLAVE)bridge_0.external_interface,(SLAVE)factory.bridge_0) 1 0 2 NJ 220 NJ
+preplace netloc EXPORT<net_container>factory</net_container>(SLAVE)Av_FIFO_Int_0.cnd_if_rd,(SLAVE)factory.av_fifo_if_rd) 1 0 3 NJ 340 NJ 340 NJ
+levelinfo -pg 1 0 120 860
+levelinfo -hier factory 130 160 380 700 850

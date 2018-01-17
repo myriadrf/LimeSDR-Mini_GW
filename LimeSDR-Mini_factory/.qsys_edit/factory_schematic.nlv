@@ -1,0 +1,22 @@
+# # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
+# 
+preplace inst factory.bridge_0 -pg 1 -lvl 2 -y 190
+preplace inst factory.pio_0 -pg 1 -lvl 3 -y 30
+preplace inst factory.dual_boot_0 -pg 1 -lvl 3 -y 130
+preplace inst factory.avs_fifo_int_0 -pg 1 -lvl 3 -y 250
+preplace inst factory.i2c_opencores_0 -pg 1 -lvl 3 -y 450
+preplace inst factory.clk_0 -pg 1 -lvl 1 -y 150
+preplace inst factory.onchip_flash_0 -pg 1 -lvl 3 -y 350
+preplace inst factory -pg 1 -lvl 1 -y 40 -regy -20
+preplace netloc EXPORT<net_container>factory</net_container>(SLAVE)factory.sda,(SLAVE)i2c_opencores_0.export_sda) 1 0 3 NJ 540 NJ 540 NJ
+preplace netloc EXPORT<net_container>factory</net_container>(SLAVE)factory.reset,(SLAVE)clk_0.clk_in_reset) 1 0 1 NJ
+preplace netloc EXPORT<net_container>factory</net_container>(SLAVE)pio_0.external_connection,(SLAVE)factory.pio_0) 1 0 3 NJ 60 NJ 60 NJ
+preplace netloc FAN_OUT<net_container>factory</net_container>(SLAVE)dual_boot_0.clk,(SLAVE)pio_0.clk,(SLAVE)i2c_opencores_0.clock,(MASTER)clk_0.clk,(SLAVE)bridge_0.clk,(SLAVE)onchip_flash_0.clk,(SLAVE)avs_fifo_int_0.clock) 1 1 2 290 280 550
+preplace netloc EXPORT<net_container>factory</net_container>(SLAVE)clk_0.clk_in,(SLAVE)factory.clk) 1 0 1 NJ
+preplace netloc EXPORT<net_container>factory</net_container>(SLAVE)i2c_opencores_0.export_scl,(SLAVE)factory.scl) 1 0 3 NJ 520 NJ 520 NJ
+preplace netloc FAN_OUT<net_container>factory</net_container>(SLAVE)pio_0.s1,(SLAVE)dual_boot_0.avalon,(SLAVE)onchip_flash_0.data,(SLAVE)onchip_flash_0.csr,(MASTER)bridge_0.avalon_master,(SLAVE)avs_fifo_int_0.avs_s0,(SLAVE)i2c_opencores_0.avalon_slave_0) 1 2 1 590
+preplace netloc EXPORT<net_container>factory</net_container>(SLAVE)avs_fifo_int_0.coe,(SLAVE)factory.extfifo) 1 0 3 NJ 300 NJ 300 NJ
+preplace netloc EXPORT<net_container>factory</net_container>(SLAVE)bridge_0.external_interface,(SLAVE)factory.bridge_0) 1 0 2 NJ 220 NJ
+preplace netloc FAN_OUT<net_container>factory</net_container>(SLAVE)i2c_opencores_0.clock_reset,(SLAVE)pio_0.reset,(SLAVE)bridge_0.reset,(SLAVE)onchip_flash_0.nreset,(MASTER)clk_0.clk_reset,(SLAVE)dual_boot_0.nreset,(SLAVE)avs_fifo_int_0.reset) 1 1 2 270 320 570
+levelinfo -pg 1 0 60 810
+levelinfo -hier factory 70 100 320 650 800

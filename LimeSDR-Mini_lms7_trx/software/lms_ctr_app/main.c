@@ -52,7 +52,7 @@ uint8_t test, block, cmd_errors, glEp0Buffer_Rx[64], glEp0Buffer_Tx[64];
 tLMS_Ctrl_Packet *LMS_Ctrl_Packet_Tx = (tLMS_Ctrl_Packet*)glEp0Buffer_Tx;
 tLMS_Ctrl_Packet *LMS_Ctrl_Packet_Rx = (tLMS_Ctrl_Packet*)glEp0Buffer_Rx;
 
-unsigned char dac_val = 134;
+unsigned char dac_val = 180;
 unsigned char dac_data[2];
 
 signed short int converted_val = 300;

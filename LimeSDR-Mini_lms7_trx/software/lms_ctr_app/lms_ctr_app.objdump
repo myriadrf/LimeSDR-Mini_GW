@@ -5042,7 +5042,7 @@ Disassembly of section .text:
   10470c:	d9400015 	stw	r5,0(sp)
   104710:	d9800115 	stw	r6,4(sp)
   104714:	d9c00215 	stw	r7,8(sp)
-  104718:	00000000 	call	0 <__alt_mem_onchip_flash_0_data-0x100000>
+  104718:	00000000 	call	0 <__reset-0x100000>
   10471c:	d9400017 	ldw	r5,0(sp)
   104720:	d9800117 	ldw	r6,4(sp)
   104724:	d9c00217 	ldw	r7,8(sp)
@@ -5128,7 +5128,7 @@ Disassembly of section .text:
   10485c:	10003426 	beq	r2,zero,104930 <__call_exitprocs+0x18c>
   104860:	9809883a 	mov	r4,r19
   104864:	a8800015 	stw	r2,0(r21)
-  104868:	00000000 	call	0 <__alt_mem_onchip_flash_0_data-0x100000>
+  104868:	00000000 	call	0 <__reset-0x100000>
   10486c:	acc00017 	ldw	r19,0(r21)
   104870:	983fe41e 	bne	r19,zero,104804 <_gp+0xffefc03c>
   104874:	dfc00b17 	ldw	ra,44(sp)

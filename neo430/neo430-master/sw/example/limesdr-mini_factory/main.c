@@ -1,28 +1,22 @@
-// #################################################################################################
-// #  < Blinking LED example program >                                                             #
-// # ********************************************************************************************* #
-// #  Displays an 8-bit counter on the high-active LEDs connected to the parallel output port.     #
-// # ********************************************************************************************* #
-// # This file is part of the NEO430 Processor project: https://github.com/stnolting/neo430        #
-// # Copyright by Stephan Nolting: stnolting@gmail.com                                             #
-// #                                                                                               #
-// # This source file may be used and distributed without restriction provided that this copyright #
-// # statement is not removed from the file and that any derivative work contains the original     #
-// # copyright notice and the associated disclaimer.                                               #
-// #                                                                                               #
-// # This source file is free software; you can redistribute it and/or modify it under the terms   #
-// # of the GNU Lesser General Public License as published by the Free Software Foundation,        #
-// # either version 3 of the License, or (at your option) any later version.                       #
-// #                                                                                               #
-// # This source is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;      #
-// # without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.     #
-// # See the GNU Lesser General Public License for more details.                                   #
-// #                                                                                               #
-// # You should have received a copy of the GNU Lesser General Public License along with this      #
-// # source; if not, download it from https://www.gnu.org/licenses/lgpl-3.0.en.html                #
-// # ********************************************************************************************* #
-// #  Stephan Nolting, Hannover, Germany                                               06.10.2017  #
-// #################################################################################################
+/**
+ * @file main.c
+ *
+ * @brief NEO430 firmware for LimeSDR-Mini factory image. 
+ *
+ * Copyright (C) 2018 Lime Microsystems
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 
 // Includes
@@ -36,13 +30,15 @@
 
 
 // Get Info related
-#define FW_VER				1 //Initial version
+//#define FW_VER				1 //Initial version
+#define FW_VER				2 //Configuration possibility from image 0 added
 
 // Check Intel System Designer for addresses
 #define AV_FIFO_INT_0_BASE (0x0400)
 #define ONCHIP_FLASH_0_CSR_BASE (0x0040)
 #define ONCHIP_FLASH_0_DATA_BASE (0x100000)
 #define I2C_OPENCORES_0_BASE (0x0060)
+#define DUAL_BOOT_0_BASE (0x00)
 
 
 uint8_t test, block, cmd_errors, glEp0Buffer_Rx[64], glEp0Buffer_Tx[64];
@@ -56,6 +52,25 @@ tLMS_Ctrl_Packet *LMS_Ctrl_Packet_Rx = (tLMS_Ctrl_Packet*)glEp0Buffer_Rx;
 // Macros
 #define xstr(a) str(a)
 #define str(a) #a
+
+
+ /**
+ * Triggers another configuration 
+ */
+void boot_from_flash(void)
+{
+	//set CONFIG_SEL overwrite to 1 and CONFIG_SEL to Image 0
+	wishbone_write32(DUAL_BOOT_0_BASE+(1<<2), 0x00000001);
+
+	//set CONFIG_SEL overwrite to 1 and CONFIG_SEL to Image 1
+	//IOWR(DUAL_BOOT_0_BASE, 1, 0x00000003);
+
+	/*wait while core is busy*/
+	while(wishbone_read32(DUAL_BOOT_0_BASE+(3<<2)) == 1) {}
+
+	//Trigger reconfiguration to selected Image
+	wishbone_write32(DUAL_BOOT_0_BASE+(0<<2), 0x00000001);
+}
 
 
  /**
@@ -202,6 +217,7 @@ int main(void)
 	unsigned int spirez;
 	uint32_t u32_rd;
 	short cnt = 0;
+	uint8_t boot_img_en = 0;
 	
 	// FPGA Flash programming related
 	uint32_t current_portion;
@@ -536,7 +552,9 @@ int main(void)
 
 							LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
 */
-							LMS_Ctrl_Packet_Tx->Header.Status = STATUS_ERROR_CMD;
+							//enable boot to factory image, booting is executed after response to command is sent
+							boot_img_en = 1;
+							LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
 						break;
 
 						default:
@@ -560,6 +578,12 @@ int main(void)
 				wishbone_write32(AV_FIFO_INT_0_BASE + (0<<2), dest[cnt]);
 			};
 			//uart_br_print("Response Sent\n");
+			
+			// If boot from flash CMD is executed FPGA GW is loaded from internal FLASH (image 1)
+			if(boot_img_en==1)
+			{
+				boot_from_flash();
+			};
 		};
   }
 

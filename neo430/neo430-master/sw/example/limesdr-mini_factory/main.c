@@ -38,7 +38,7 @@
 #define ONCHIP_FLASH_0_CSR_BASE (0x0040)
 #define ONCHIP_FLASH_0_DATA_BASE (0x100000)
 #define I2C_OPENCORES_0_BASE (0x0060)
-#define DUAL_BOOT_0_BASE (0x00)
+#define DUAL_BOOT_0_BASE (0x0020)
 
 
 uint8_t test, block, cmd_errors, glEp0Buffer_Rx[64], glEp0Buffer_Tx[64];

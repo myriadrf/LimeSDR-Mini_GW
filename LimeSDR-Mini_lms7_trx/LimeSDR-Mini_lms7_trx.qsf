@@ -303,6 +303,75 @@ set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to FT_D[2]
 set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to FT_D[1]
 set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to FT_D[0]
 set_global_assignment -name FITTER_EFFORT "STANDARD FIT"
+set_location_assignment PIN_G5 -to LMS_MCLK1
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_MCLK1
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[0]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[1]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[2]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[3]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[4]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[5]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[6]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[7]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[8]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[9]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[10]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[11]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MINIMUM CURRENT" -to LMS_CORE_LDO_EN
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_ENABLE_IQSEL1
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MINIMUM CURRENT" -to LMS_TXNRX1
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MINIMUM CURRENT" -to LMS_TXEN
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MINIMUM CURRENT" -to LMS_RXEN
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MINIMUM CURRENT" -to LMS_TXNRX2
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MINIMUM CURRENT" -to LMS_RESET
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_FCLK2
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_FCLK1
+set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (VHDL)"
+set_global_assignment -name EDA_OUTPUT_DATA_FORMAT VHDL -section_id eda_simulation
+set_global_assignment -name POWER_USE_PVA OFF
+set_global_assignment -name POWER_DEFAULT_TOGGLE_RATE "12.5 %"
+set_location_assignment PIN_J10 -to TX_LB_SH
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to TX_LB_SH
+set_location_assignment PIN_K10 -to TX_LB_AT
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to TX_LB_AT
+set_location_assignment PIN_C4 -to RFSW_TX_V2
+set_location_assignment PIN_L11 -to RFSW_TX_V1
+set_location_assignment PIN_C9 -to RFSW_RX_V2
+set_location_assignment PIN_A10 -to RFSW_RX_V1
+set_location_assignment PIN_E3 -to HW_VER[0]
+set_location_assignment PIN_E4 -to HW_VER[1]
+set_location_assignment PIN_F4 -to HW_VER[2]
+set_location_assignment PIN_G4 -to HW_VER[3]
+set_location_assignment PIN_K7 -to BOM_VER[0]
+set_location_assignment PIN_H3 -to BOM_VER[1]
+set_location_assignment PIN_C2 -to BOM_VER[2]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to HW_VER[1]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to HW_VER[0]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to BOM_VER[2]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to BOM_VER[1]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to HW_VER[3]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to HW_VER[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RFSW_RX_V2
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RFSW_TX_V2
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RFSW_RX_V1
+set_location_assignment PIN_E1 -to FPGA_QSPI_FLASH_SS
+set_location_assignment PIN_D1 -to FPGA_QSPI_IO0
+set_location_assignment PIN_C1 -to FPGA_QSPI_IO1
+set_location_assignment PIN_B1 -to FPGA_QSPI_IO2
+set_location_assignment PIN_H1 -to FPGA_QSPI_IO3
+set_location_assignment PIN_F1 -to FPGA_QSPI_SCLK
+set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_QSPI_FLASH_SS
+set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_QSPI_IO0
+set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_QSPI_IO1
+set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_QSPI_IO2
+set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_QSPI_IO3
+set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_QSPI_SCLK
+set_global_assignment -name ALLOW_REGISTER_MERGING ON
+set_global_assignment -name ALLOW_REGISTER_RETIMING ON
+set_global_assignment -name VHDL_FILE src/rx_path_top/smpl_cmp/synth/smpl_cmp.vhd
+set_global_assignment -name VHDL_FILE src/dyn_ps/synth/pll_ps_top.vhd
+set_global_assignment -name VHDL_FILE src/dyn_ps/synth/pll_ps_fsm.vhd
+set_global_assignment -name VHDL_FILE src/dyn_ps/synth/pll_ps.vhd
 set_global_assignment -name QIP_FILE lms_ctr/synthesis/lms_ctr.qip
 set_global_assignment -name SDC_FILE LMS7002_timing.sdc
 set_global_assignment -name SDC_FILE FT601_timing.sdc
@@ -399,69 +468,4 @@ set_global_assignment -name VHDL_FILE src/rx_path_top/smpl_cnt/synth/smpl_cnt.vh
 set_global_assignment -name VHDL_FILE src/rx_path_top/rx_path/synth/rx_path_top.vhd
 set_global_assignment -name SDC_FILE Clock_groups.sdc
 set_global_assignment -name VHDL_FILE src/general/lms7002_ddin_max10.vhd
-set_location_assignment PIN_G5 -to LMS_MCLK1
-set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_MCLK1
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[0]
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[1]
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[2]
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[3]
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[4]
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[5]
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[6]
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[7]
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[8]
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[9]
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[10]
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1[11]
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MINIMUM CURRENT" -to LMS_CORE_LDO_EN
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_ENABLE_IQSEL1
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MINIMUM CURRENT" -to LMS_TXNRX1
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MINIMUM CURRENT" -to LMS_TXEN
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MINIMUM CURRENT" -to LMS_RXEN
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MINIMUM CURRENT" -to LMS_TXNRX2
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MINIMUM CURRENT" -to LMS_RESET
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_FCLK2
-set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_FCLK1
-set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (VHDL)"
-set_global_assignment -name EDA_OUTPUT_DATA_FORMAT VHDL -section_id eda_simulation
-set_global_assignment -name POWER_USE_PVA OFF
-set_global_assignment -name POWER_DEFAULT_TOGGLE_RATE "12.5 %"
-set_location_assignment PIN_J10 -to TX_LB_SH
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to TX_LB_SH
-set_location_assignment PIN_K10 -to TX_LB_AT
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to TX_LB_AT
-set_location_assignment PIN_C4 -to RFSW_TX_V2
-set_location_assignment PIN_L11 -to RFSW_TX_V1
-set_location_assignment PIN_C9 -to RFSW_RX_V2
-set_location_assignment PIN_A10 -to RFSW_RX_V1
-set_location_assignment PIN_E3 -to HW_VER[0]
-set_location_assignment PIN_E4 -to HW_VER[1]
-set_location_assignment PIN_F4 -to HW_VER[2]
-set_location_assignment PIN_G4 -to HW_VER[3]
-set_location_assignment PIN_K7 -to BOM_VER[0]
-set_location_assignment PIN_H3 -to BOM_VER[1]
-set_location_assignment PIN_C2 -to BOM_VER[2]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to HW_VER[1]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to HW_VER[0]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to BOM_VER[2]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to BOM_VER[1]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to HW_VER[3]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to HW_VER[2]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RFSW_RX_V2
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RFSW_TX_V2
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RFSW_RX_V1
-set_location_assignment PIN_E1 -to FPGA_QSPI_FLASH_SS
-set_location_assignment PIN_D1 -to FPGA_QSPI_IO0
-set_location_assignment PIN_C1 -to FPGA_QSPI_IO1
-set_location_assignment PIN_B1 -to FPGA_QSPI_IO2
-set_location_assignment PIN_H1 -to FPGA_QSPI_IO3
-set_location_assignment PIN_F1 -to FPGA_QSPI_SCLK
-set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_QSPI_FLASH_SS
-set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_QSPI_IO0
-set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_QSPI_IO1
-set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_QSPI_IO2
-set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_QSPI_IO3
-set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_QSPI_SCLK
-set_global_assignment -name ALLOW_REGISTER_MERGING ON
-set_global_assignment -name ALLOW_REGISTER_RETIMING ON
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

@@ -77,7 +77,13 @@ entity limelight_top is
       tx_diq                  : out std_logic_vector(tx_diq_width-1 downto 0);
       tx_diq_fsync            : out std_logic;     
       tx_diq_h                : out std_logic_vector(tx_diq_width downto 0);
-      tx_diq_l                : out std_logic_vector(tx_diq_width downto 0)      
+      tx_diq_l                : out std_logic_vector(tx_diq_width downto 0);
+
+      --sample compare
+      smpl_cmp_start       : in std_logic;
+      smpl_cmp_length      : in std_logic_vector(15 downto 0);
+      smpl_cmp_done        : out std_logic;
+      smpl_cmp_err         : out std_logic      
       
       
 
@@ -159,7 +165,12 @@ begin
       smpl_nr_cnt          => inst0_smpl_nr_cnt,
       --flag control       
       tx_pct_loss          => inst1_pct_loss_flg,
-      tx_pct_loss_clr      => rx_pct_loss_flg_clr
+      tx_pct_loss_clr      => rx_pct_loss_flg_clr,
+      --sample compare
+      smpl_cmp_start       => smpl_cmp_start,
+      smpl_cmp_length      => smpl_cmp_length,
+      smpl_cmp_done        => smpl_cmp_done,
+      smpl_cmp_err         => smpl_cmp_err
      
         );
         

@@ -50,6 +50,7 @@ entity pll_top is
 	inclk1				: in std_logic;
    inclk2         	: in std_logic;
    pll_areset        : in std_logic;
+   pll_logic_reset_n : in std_logic;
    inv_c0            : in std_logic;
    inv_c2            : in std_logic;
    c0                : out std_logic; --muxed clock output
@@ -67,10 +68,22 @@ entity pll_top is
    rcnfig_data       : in std_logic_vector(143 downto 0);
    rcnfig_status     : out std_logic;
    --Dynamic phase shift ports
+   dynps_mode        : in std_logic; -- 0 - manual, 1 - auto
+   dynps_areset_n    : in std_logic;
    dynps_en          : in std_logic;
+   dynps_tst         : in std_logic;
    dynps_dir         : in std_logic;
    dynps_cnt_sel     : in std_logic_vector(2 downto 0);
+   -- max phase steps in auto mode, phase steps to shift in manual mode 
    dynps_phase       : in std_logic_vector(9 downto 0);
+   dynps_step_size   : in std_logic_vector(9 downto 0);
+   dynps_busy        : out std_logic;
+   dynps_done        : out std_logic;
+   dynps_status      : out std_logic;
+   --signals from sample compare module (required for automatic phase searching)
+   smpl_cmp_en       : out std_logic;
+   smpl_cmp_done     : in std_logic;
+   smpl_cmp_error    : in std_logic;
    --Overall configuration PLL status
    busy              : out std_logic
    
@@ -92,12 +105,20 @@ signal c3_global                 : std_logic;
       
 signal rcnfig_en_sync            : std_logic;
 signal rcnfig_data_sync          : std_logic_vector(143 downto 0);
+signal rcnfig_areset_sync        : std_logic;
 
+signal dynps_areset_n_sync       : std_logic;
 signal dynps_en_sync             : std_logic;
 signal dynps_dir_sync            : std_logic;
 signal dynps_cnt_sel_sync        : std_logic_vector(2 downto 0);
 signal dynps_phase_sync          : std_logic_vector(9 downto 0);
+signal dynps_step_size_sync      : std_logic_vector(9 downto 0);
 signal rcnfig_en_sync_scanclk    : std_logic;
+signal dynps_mode_sync           : std_logic;
+signal dynps_tst_sync            : std_logic;
+
+signal smpl_cmp_done_sync        : std_logic; 
+signal smpl_cmp_error_sync       : std_logic;
 
       
 --inst0     
@@ -113,14 +134,21 @@ signal inst1_pll_scanclkena      : std_logic;
 signal inst1_pll_scandata        : std_logic;
 signal inst1_rom_address_out     : std_logic_vector(7 downto 0);
 signal inst1_write_rom_ena       : std_logic;
+signal inst1_pll_areset_in       : std_logic;
 -- inst2
-signal inst2_ph_step             : std_logic;
+signal inst2_pll_phasestep       : std_logic;
 signal inst2_ps_status           : std_logic;
+signal inst2_ps_busy             : std_logic;
+signal inst2_ps_done             : std_logic;
+signal inst2_pll_reset_req       : std_logic;
+signal inst2_pll_phasecounterselect : std_logic_vector(2 downto 0);
+signal inst2_pll_phaseupdown        : std_logic; 
 
 --inst3
 signal inst3_inclk               : std_logic_vector(1 downto 0);
 signal inst3_clk                 : std_logic_vector(4 downto 0);
 signal inst3_locked              : std_logic;
+signal inst3_locked_scanclk      : std_logic;
 signal inst3_phasedone           : std_logic;
 signal inst3_scandataout         : std_logic;
 signal inst3_scandone            : std_logic;
@@ -258,28 +286,53 @@ pll_areset_n   <= not pll_areset;
 -- Synchronization registers
 ----------------------------------------------------------------------------  
  sync_reg0 : entity work.sync_reg 
- port map(rcnfg_clk, '1', rcnfig_en, rcnfig_en_sync); 
+ port map(rcnfg_clk, pll_logic_reset_n, rcnfig_en, rcnfig_en_sync); 
  
  sync_reg1 : entity work.sync_reg 
- port map(inst1_pll_scanclk, '1', dynps_en, dynps_en_sync); 
+ port map(inst1_pll_scanclk, pll_logic_reset_n, dynps_en, dynps_en_sync); 
  
  sync_reg2 : entity work.sync_reg 
- port map(inst1_pll_scanclk, '1', dynps_dir, dynps_dir_sync); 
+ port map(inst1_pll_scanclk, pll_logic_reset_n, dynps_dir, dynps_dir_sync); 
  
  sync_reg3 : entity work.sync_reg 
- port map(inst1_pll_scanclk, '1', rcnfig_en, rcnfig_en_sync_scanclk);
-   
+ port map(inst1_pll_scanclk, pll_logic_reset_n, rcnfig_en, rcnfig_en_sync_scanclk);
+  
+ sync_reg4 : entity work.sync_reg 
+ port map(inst1_pll_scanclk, pll_logic_reset_n, dynps_mode, dynps_mode_sync);
+ 
+ sync_reg5 : entity work.sync_reg 
+ port map(inst1_pll_scanclk, pll_logic_reset_n, smpl_cmp_done, smpl_cmp_done_sync);
+
+ sync_reg6 : entity work.sync_reg 
+ port map(inst1_pll_scanclk, pll_logic_reset_n, smpl_cmp_error, smpl_cmp_error_sync);
+ 
+ sync_reg7 : entity work.sync_reg 
+ port map(inst1_pll_scanclk, pll_logic_reset_n, dynps_areset_n, dynps_areset_n_sync);
+ 
+ sync_reg8 : entity work.sync_reg 
+ port map(rcnfg_clk, pll_logic_reset_n, rcnfig_areset, rcnfig_areset_sync);
+ 
+ sync_reg9 : entity work.sync_reg 
+ port map(inst1_pll_scanclk, pll_logic_reset_n, dynps_tst, dynps_tst_sync);
+ 
+ sync_reg10 : entity work.sync_reg 
+ port map(inst1_pll_scanclk, pll_logic_reset_n, inst3_locked, inst3_locked_scanclk); 
+ 
  bus_sync_reg0 : entity work.bus_sync_reg
  generic map (144) 
- port map(rcnfg_clk, '1', rcnfig_data, rcnfig_data_sync);
+ port map(rcnfg_clk, pll_logic_reset_n, rcnfig_data, rcnfig_data_sync);
  
  bus_sync_reg1 : entity work.bus_sync_reg
  generic map (3) 
- port map(inst1_pll_scanclk, '1', dynps_cnt_sel, dynps_cnt_sel_sync);
+ port map(inst1_pll_scanclk, pll_logic_reset_n, dynps_cnt_sel, dynps_cnt_sel_sync);
  
  bus_sync_reg2 : entity work.bus_sync_reg
  generic map (10) 
- port map(inst1_pll_scanclk, '1', dynps_phase, dynps_phase_sync);
+ port map(inst1_pll_scanclk, pll_logic_reset_n, dynps_phase, dynps_phase_sync);
+ 
+ bus_sync_reg3 : entity work.bus_sync_reg
+ generic map (10) 
+ port map(inst1_pll_scanclk, pll_logic_reset_n, dynps_step_size, dynps_step_size_sync);
  
 ----------------------------------------------------------------------------
 -- pll_reconfig_module controller instance
@@ -301,7 +354,9 @@ port map(
  
 ----------------------------------------------------------------------------
 -- pll_reconfig_module instance
----------------------------------------------------------------------------- 
+----------------------------------------------------------------------------
+inst1_pll_areset_in <= pll_areset OR inst2_pll_reset_req;
+ 
 pll_reconfig_module_inst1 : ENTITY work.pll_reconfig_module
    PORT MAP
 (
@@ -309,7 +364,7 @@ pll_reconfig_module_inst1 : ENTITY work.pll_reconfig_module
       counter_param        => (others=>'0'),
       counter_type         => (others=>'0'),
       data_in              => (others=>'0'),
-      pll_areset_in        => pll_areset,
+      pll_areset_in        => inst1_pll_areset_in,
       pll_scandataout      => inst3_scandataout,
       pll_scandone         => inst3_scandone,
       read_param           => '0',
@@ -332,21 +387,38 @@ pll_reconfig_module_inst1 : ENTITY work.pll_reconfig_module
       
 ----------------------------------------------------------------------------
 -- Dynamic phase shift controller instance
-----------------------------------------------------------------------------
-pll_ps_cntrl_inst2 : entity work.pll_ps_cntrl
+---------------------------------------------------------------------------- 
+  
+pll_ps_top_inst2 : entity work.pll_ps_top
    port map(
-      clk               => inst1_pll_scanclk,
-      reset_n           => pll_areset_n,
-      phase             => dynps_phase_sync,
-      ps_en             => dynps_en_sync,
-      ph_done           => inst3_phasedone,
-      pll_locked        => inst3_locked,
-      pll_reconfig      => rcnfig_en_sync_scanclk,
-      ph_step           => inst2_ph_step,
-      ps_status         => inst2_ps_status,
-      psen_cnt_out      => open
-      );   
 
+      clk                     => inst1_pll_scanclk,
+      reset_n                 => dynps_areset_n_sync,
+      --module control ports
+      ps_en                   => dynps_en_sync,
+      ps_mode                 => dynps_mode_sync,
+      ps_tst                  => dynps_tst_sync,
+      ps_cnt                  => dynps_cnt_sel_sync,
+      ps_updwn                => dynps_dir_sync,
+      ps_phase                => dynps_phase_sync,
+      ps_step_size            => dynps_step_size_sync,
+      ps_busy                 => inst2_ps_busy,
+      ps_done                 => inst2_ps_done,
+      ps_status               => inst2_ps_status,
+      --pll ports
+      pll_phasecounterselect  => inst2_pll_phasecounterselect,
+      pll_phaseupdown         => inst2_pll_phaseupdown, 
+      pll_phasestep           => inst2_pll_phasestep,        
+      pll_phasedone           => inst3_phasedone,      
+      pll_locked              => inst3_locked_scanclk,
+      pll_reconfig            => rcnfig_en_sync_scanclk,
+      pll_reset_req           => inst2_pll_reset_req,
+      --sample compare module
+      smpl_cmp_en             => smpl_cmp_en,
+      smpl_cmp_done           => smpl_cmp_done_sync,
+      smpl_cmp_error          => smpl_cmp_error_sync
+            
+      ); 
        
    inst3_inclk <= '0' & inclk2;
 ----------------------------------------------------------------------------
@@ -421,9 +493,9 @@ PORT MAP (
       configupdate         => inst1_pll_configupdate,
       inclk                => inst3_inclk,
       pfdena               => '1',
-      phasecounterselect   => dynps_cnt_sel_sync,
-      phasestep            => inst2_ph_step,
-      phaseupdown          => dynps_dir_sync,
+      phasecounterselect   => inst2_pll_phasecounterselect,
+      phasestep            => inst2_pll_phasestep,
+      phaseupdown          => inst2_pll_phaseupdown,
       scanclk              => inst1_pll_scanclk,
       scanclkena           => inst1_pll_scanclkena,
       scandata             => inst1_pll_scandata,
@@ -643,6 +715,8 @@ c2             <= inst6_dataout(0);
 c3             <= c3_global;
 pll_locked     <= locked_mux;
 rcnfig_status  <= inst4_rcfig_complete;
+dynps_done     <= inst2_ps_done;
+dynps_status   <= inst2_ps_status;
 busy           <= inst1_busy OR inst2_ps_status;
   
 end arch;   

@@ -55,7 +55,12 @@ entity rx_path_top is
       smpl_nr_cnt          : out std_logic_vector(63 downto 0);
       --flag control
       tx_pct_loss          : in std_logic;
-      tx_pct_loss_clr      : in std_logic
+      tx_pct_loss_clr      : in std_logic;
+      --sample compare
+      smpl_cmp_start       : in std_logic;
+      smpl_cmp_length      : in std_logic_vector(15 downto 0);
+      smpl_cmp_done        : out std_logic;
+      smpl_cmp_err         : out std_logic
      
         );
 end rx_path_top;
@@ -83,7 +88,10 @@ signal fidm_sync              : std_logic;
 signal clr_smpl_nr_sync       : std_logic;	
 signal ld_smpl_nr_sync        : std_logic;
 signal smpl_nr_in_sync        : std_logic_vector(63 downto 0);
-signal smpl_src_sel_sync				: std_logic;		 
+signal smpl_src_sel_sync      : std_logic;
+
+signal smpl_cmp_start_sync    : std_logic;
+signal smpl_cmp_length_sync   : std_logic_vector(15 downto 0);		 
 
 
 --inst0 
@@ -159,6 +167,9 @@ port map(clk, '1', io_reset_n, io_reset_n_sync);
 sync_reg12 : entity work.sync_reg 
 port map(clk, '1', smpl_src_sel, smpl_src_sel_sync);
 
+sync_reg13 : entity work.sync_reg 
+port map(clk, '1', smpl_cmp_start, smpl_cmp_start_sync);
+
 
 
 
@@ -174,6 +185,9 @@ bus_sync_reg2 : entity work.bus_sync_reg
 generic map (64)
 port map(clk, '1', smpl_nr_in, smpl_nr_in_sync);
 
+bus_sync_reg3 : entity work.bus_sync_reg
+generic map (16)
+port map(clk, '1', smpl_cmp_length, smpl_cmp_length_sync);
 
 
 
@@ -187,26 +201,30 @@ diq2fifo_inst0 : entity work.diq2fifo
       invert_input_clocks	=> invert_input_clocks
       )
    port map(
-      clk         => clk,
-      reset_n     => reset_n_sync,
-		io_reset_n	=> io_reset_n_sync,
+      clk               => clk,
+      reset_n           => reset_n_sync,
+		io_reset_n	      => io_reset_n_sync,
       --Mode settings
-		test_ptrn_en=> test_ptrn_en_sync,
-      mode			=> mode_sync, -- JESD207: 1; TRXIQ: 0
-		trxiqpulse	=> trxiqpulse_sync, -- trxiqpulse on: 1; trxiqpulse off: 0
-		ddr_en 		=> ddr_en_sync, -- DDR: 1; SDR: 0
-		mimo_en		=> mimo_en_sync, -- SISO: 1; MIMO: 0
-		ch_en			=> ch_en_sync, --"01" - Ch. A, "10" - Ch. B, "11" - Ch. A and Ch. B. 
-		fidm			=> fidm_sync, -- External Frame ID mode. Frame start at fsync = 0, when 0. Frame start at fsync = 1, when 1.
+		test_ptrn_en      => test_ptrn_en_sync,
+      mode			      => mode_sync, -- JESD207: 1; TRXIQ: 0
+		trxiqpulse	      => trxiqpulse_sync, -- trxiqpulse on: 1; trxiqpulse off: 0
+		ddr_en 		      => ddr_en_sync, -- DDR: 1; SDR: 0
+		mimo_en		      => mimo_en_sync, -- SISO: 1; MIMO: 0
+		ch_en			      => ch_en_sync, --"01" - Ch. A, "10" - Ch. B, "11" - Ch. A and Ch. B. 
+		fidm			      => fidm_sync, -- External Frame ID mode. Frame start at fsync = 0, when 0. Frame start at fsync = 1, when 1.
       --Rx interface data 
-      DIQ		 	=> DIQ,
-		fsync	 	   => fsync,
-		DIQ_h			=> DIQ_h,
-		DIQ_l			=> DIQ_l,
+      DIQ		 	      => DIQ,
+		fsync	 	         => fsync,
+		DIQ_h			      => DIQ_h,
+		DIQ_l			      => DIQ_l,
       --fifo ports 
-      fifo_wfull  => inst1_wrfull,
-      fifo_wrreq  => inst0_fifo_wrreq,
-      fifo_wdata  => inst0_fifo_wdata 
+      fifo_wfull        => inst1_wrfull,
+      fifo_wrreq        => inst0_fifo_wrreq,
+      fifo_wdata        => inst0_fifo_wdata,
+      smpl_cmp_start    => smpl_cmp_start_sync,
+      smpl_cmp_length   => smpl_cmp_length_sync,
+      smpl_cmp_done     => smpl_cmp_done,
+      smpl_cmp_err      => smpl_cmp_err 
         );
         
         

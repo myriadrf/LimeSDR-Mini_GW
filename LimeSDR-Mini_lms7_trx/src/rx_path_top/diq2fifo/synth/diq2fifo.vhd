@@ -38,7 +38,12 @@ entity diq2fifo is
       --fifo ports 
       fifo_wfull  : in std_logic;
       fifo_wrreq  : out std_logic;
-      fifo_wdata  : out std_logic_vector(iq_width*4-1 downto 0) 
+      fifo_wdata  : out std_logic_vector(iq_width*4-1 downto 0);
+      --sample compare
+      smpl_cmp_start : in std_logic;
+      smpl_cmp_length: in std_logic_vector(15 downto 0);
+      smpl_cmp_done  : out std_logic;
+      smpl_cmp_err   : out std_logic 
 
         );
 end diq2fifo;
@@ -51,9 +56,12 @@ architecture arch of diq2fifo is
 signal inst0_diq_out_h 	: std_logic_vector (iq_width downto 0); 
 signal inst0_diq_out_l 	: std_logic_vector (iq_width downto 0); 
 signal inst0_diq_out		: std_logic_vector (iq_width*2 downto 0);
+signal inst0_reset_n    : std_logic; 
 
 signal inst2_data_h		: std_logic_vector (iq_width downto 0);
-signal inst2_data_l		: std_logic_vector (iq_width downto 0); 
+signal inst2_data_l		: std_logic_vector (iq_width downto 0);
+
+signal inst3_reset_n    : std_logic;  
 
 signal mux0_diq_h			: std_logic_vector (iq_width downto 0); 
 signal mux0_diq_l			: std_logic_vector (iq_width downto 0);
@@ -63,6 +71,8 @@ signal mux0_diq_l_reg	: std_logic_vector (iq_width downto 0);
   
 begin
 
+inst0_reset_n <= io_reset_n when smpl_cmp_start = '0' else '1';
+
 inst0_lms7002_ddin : entity work.lms7002_ddin
 	generic map( 
       dev_family				=> dev_family,
@@ -71,7 +81,7 @@ inst0_lms7002_ddin : entity work.lms7002_ddin
 	)
 	port map (
       clk       	=> clk,
-      reset_n   	=> io_reset_n, 
+      reset_n   	=> inst0_reset_n, 
 		rxiq		 	=> DIQ, 
 		rxiqsel	 	=> fsync, 
 		data_out_h	=> inst0_diq_out_h, 
@@ -131,7 +141,37 @@ begin
 		mux0_diq_l_reg <= mux0_diq_l;
 	end if;
 end process;	  
-		  
+
+inst3_reset_n <= smpl_cmp_start;
+
+inst3_smpl_cmp : entity work.smpl_cmp
+   generic map(
+      smpl_width  => iq_width
+   )
+   port map(
+
+      clk         => clk,
+      reset_n     => inst3_reset_n,
+      --Mode settings
+      mode        => mode,
+      trxiqpulse  => trxiqpulse,
+      ddr_en      => ddr_en,
+      mimo_en     => mimo_en,
+      ch_en       => ch_en,
+      fidm        => fidm,
+      --control and status
+      cmp_start   => smpl_cmp_start,
+      cmp_length  => smpl_cmp_length,
+      cmp_AI      => x"AAA",
+      cmp_AQ      => x"555",
+      cmp_BI      => x"AAA",
+      cmp_BQ      => x"555",
+      cmp_done    => smpl_cmp_done,
+      cmp_error   => smpl_cmp_err,
+      --DIQ bus
+      diq_h       => inst0_diq_out_h,
+      diq_l       => inst0_diq_out_l
+      );		  
 
   
 end arch;   

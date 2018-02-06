@@ -84,28 +84,18 @@ ARCHITECTURE SYN OF pll IS
 
 	COMPONENT altpll
 	GENERIC (
-		bandwidth_type		: STRING;
-		clk0_divide_by		: NATURAL;
-		clk0_duty_cycle		: NATURAL;
-		clk0_multiply_by		: NATURAL;
-		clk0_phase_shift		: STRING;
-		clk1_divide_by		: NATURAL;
-		clk1_duty_cycle		: NATURAL;
-		clk1_multiply_by		: NATURAL;
-		clk1_phase_shift		: STRING;
-		clk2_divide_by		: NATURAL;
-		clk2_duty_cycle		: NATURAL;
-		clk2_multiply_by		: NATURAL;
-		clk2_phase_shift		: STRING;
-		clk3_divide_by		: NATURAL;
-		clk3_duty_cycle		: NATURAL;
-		clk3_multiply_by		: NATURAL;
-		clk3_phase_shift		: STRING;
+		charge_pump_current_bits		: NATURAL;
 		compensate_clock		: STRING;
 		inclk0_input_frequency		: NATURAL;
 		intended_device_family		: STRING;
+		loop_filter_c_bits		: NATURAL;
+		loop_filter_r_bits		: NATURAL;
 		lpm_hint		: STRING;
 		lpm_type		: STRING;
+		m		: NATURAL;
+		m_initial		: NATURAL;
+		m_ph		: NATURAL;
+		n		: NATURAL;
 		operation_mode		: STRING;
 		pll_type		: STRING;
 		port_activeclock		: STRING;
@@ -150,8 +140,33 @@ ARCHITECTURE SYN OF pll IS
 		port_extclk2		: STRING;
 		port_extclk3		: STRING;
 		self_reset_on_loss_lock		: STRING;
+		vco_post_scale		: NATURAL;
 		width_clock		: NATURAL;
 		width_phasecounterselect		: NATURAL;
+		c0_high		: NATURAL;
+		c0_initial		: NATURAL;
+		c0_low		: NATURAL;
+		c0_mode		: STRING;
+		c0_ph		: NATURAL;
+		c1_high		: NATURAL;
+		c1_initial		: NATURAL;
+		c1_low		: NATURAL;
+		c1_mode		: STRING;
+		c1_ph		: NATURAL;
+		c2_high		: NATURAL;
+		c2_initial		: NATURAL;
+		c2_low		: NATURAL;
+		c2_mode		: STRING;
+		c2_ph		: NATURAL;
+		c3_high		: NATURAL;
+		c3_initial		: NATURAL;
+		c3_low		: NATURAL;
+		c3_mode		: STRING;
+		c3_ph		: NATURAL;
+		clk0_counter		: STRING;
+		clk1_counter		: STRING;
+		clk2_counter		: STRING;
+		clk3_counter		: STRING;
 		scan_chain_mif_file		: STRING
 	);
 	PORT (
@@ -192,28 +207,18 @@ BEGIN
 
 	altpll_component : altpll
 	GENERIC MAP (
-		bandwidth_type => "AUTO",
-		clk0_divide_by => 1,
-		clk0_duty_cycle => 50,
-		clk0_multiply_by => 1,
-		clk0_phase_shift => "0",
-		clk1_divide_by => 1,
-		clk1_duty_cycle => 50,
-		clk1_multiply_by => 1,
-		clk1_phase_shift => "0",
-		clk2_divide_by => 1,
-		clk2_duty_cycle => 50,
-		clk2_multiply_by => 1,
-		clk2_phase_shift => "0",
-		clk3_divide_by => 1,
-		clk3_duty_cycle => 50,
-		clk3_multiply_by => 1,
-		clk3_phase_shift => "0",
+		charge_pump_current_bits => 1,
 		compensate_clock => "CLK3",
 		inclk0_input_frequency => 6250,
 		intended_device_family => "MAX 10",
+		loop_filter_c_bits => 0,
+		loop_filter_r_bits => 28,
 		lpm_hint => "CBX_MODULE_PREFIX=pll",
 		lpm_type => "altpll",
+		m => 4,
+		m_initial => 1,
+		m_ph => 0,
+		n => 1,
 		operation_mode => "NORMAL",
 		pll_type => "AUTO",
 		port_activeclock => "PORT_UNUSED",
@@ -258,8 +263,33 @@ BEGIN
 		port_extclk2 => "PORT_UNUSED",
 		port_extclk3 => "PORT_UNUSED",
 		self_reset_on_loss_lock => "OFF",
+		vco_post_scale => 2,
 		width_clock => 5,
 		width_phasecounterselect => 3,
+		c0_high => 2,
+		c0_initial => 1,
+		c0_low => 2,
+		c0_mode => "even",
+		c0_ph => 0,
+		c1_high => 2,
+		c1_initial => 1,
+		c1_low => 2,
+		c1_mode => "even",
+		c1_ph => 0,
+		c2_high => 2,
+		c2_initial => 1,
+		c2_low => 2,
+		c2_mode => "even",
+		c2_ph => 0,
+		c3_high => 2,
+		c3_initial => 1,
+		c3_low => 2,
+		c3_mode => "even",
+		c3_ph => 0,
+		clk0_counter => "c0",
+		clk1_counter => "c1",
+		clk2_counter => "c2",
+		clk3_counter => "c3",
 		scan_chain_mif_file => "pll.mif"
 	)
 	PORT MAP (
@@ -370,7 +400,7 @@ END SYN;
 -- Retrieval info: PRIVATE: PHASE_SHIFT_UNIT1 STRING "deg"
 -- Retrieval info: PRIVATE: PHASE_SHIFT_UNIT2 STRING "deg"
 -- Retrieval info: PRIVATE: PHASE_SHIFT_UNIT3 STRING "deg"
--- Retrieval info: PRIVATE: PLL_ADVANCED_PARAM_CHECK STRING "0"
+-- Retrieval info: PRIVATE: PLL_ADVANCED_PARAM_CHECK STRING "1"
 -- Retrieval info: PRIVATE: PLL_ARESET_CHECK STRING "1"
 -- Retrieval info: PRIVATE: PLL_AUTOPLL_CHECK NUMERIC "1"
 -- Retrieval info: PRIVATE: PLL_ENHPLL_CHECK NUMERIC "0"
@@ -409,27 +439,17 @@ END SYN;
 -- Retrieval info: PRIVATE: USE_MIL_SPEED_GRADE NUMERIC "0"
 -- Retrieval info: PRIVATE: ZERO_DELAY_RADIO STRING "0"
 -- Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
--- Retrieval info: CONSTANT: BANDWIDTH_TYPE STRING "AUTO"
--- Retrieval info: CONSTANT: CLK0_DIVIDE_BY NUMERIC "1"
--- Retrieval info: CONSTANT: CLK0_DUTY_CYCLE NUMERIC "50"
--- Retrieval info: CONSTANT: CLK0_MULTIPLY_BY NUMERIC "1"
--- Retrieval info: CONSTANT: CLK0_PHASE_SHIFT STRING "0"
--- Retrieval info: CONSTANT: CLK1_DIVIDE_BY NUMERIC "1"
--- Retrieval info: CONSTANT: CLK1_DUTY_CYCLE NUMERIC "50"
--- Retrieval info: CONSTANT: CLK1_MULTIPLY_BY NUMERIC "1"
--- Retrieval info: CONSTANT: CLK1_PHASE_SHIFT STRING "0"
--- Retrieval info: CONSTANT: CLK2_DIVIDE_BY NUMERIC "1"
--- Retrieval info: CONSTANT: CLK2_DUTY_CYCLE NUMERIC "50"
--- Retrieval info: CONSTANT: CLK2_MULTIPLY_BY NUMERIC "1"
--- Retrieval info: CONSTANT: CLK2_PHASE_SHIFT STRING "0"
--- Retrieval info: CONSTANT: CLK3_DIVIDE_BY NUMERIC "1"
--- Retrieval info: CONSTANT: CLK3_DUTY_CYCLE NUMERIC "50"
--- Retrieval info: CONSTANT: CLK3_MULTIPLY_BY NUMERIC "1"
--- Retrieval info: CONSTANT: CLK3_PHASE_SHIFT STRING "0"
+-- Retrieval info: CONSTANT: CHARGE_PUMP_CURRENT_BITS NUMERIC "1"
 -- Retrieval info: CONSTANT: COMPENSATE_CLOCK STRING "CLK3"
 -- Retrieval info: CONSTANT: INCLK0_INPUT_FREQUENCY NUMERIC "6250"
 -- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "MAX 10"
+-- Retrieval info: CONSTANT: LOOP_FILTER_C_BITS NUMERIC "0"
+-- Retrieval info: CONSTANT: LOOP_FILTER_R_BITS NUMERIC "28"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "altpll"
+-- Retrieval info: CONSTANT: M NUMERIC "4"
+-- Retrieval info: CONSTANT: M_INITIAL NUMERIC "1"
+-- Retrieval info: CONSTANT: M_PH NUMERIC "0"
+-- Retrieval info: CONSTANT: N NUMERIC "1"
 -- Retrieval info: CONSTANT: OPERATION_MODE STRING "NORMAL"
 -- Retrieval info: CONSTANT: PLL_TYPE STRING "AUTO"
 -- Retrieval info: CONSTANT: PORT_ACTIVECLOCK STRING "PORT_UNUSED"
@@ -474,8 +494,33 @@ END SYN;
 -- Retrieval info: CONSTANT: PORT_extclk2 STRING "PORT_UNUSED"
 -- Retrieval info: CONSTANT: PORT_extclk3 STRING "PORT_UNUSED"
 -- Retrieval info: CONSTANT: SELF_RESET_ON_LOSS_LOCK STRING "OFF"
+-- Retrieval info: CONSTANT: VCO_POST_SCALE NUMERIC "2"
 -- Retrieval info: CONSTANT: WIDTH_CLOCK NUMERIC "5"
 -- Retrieval info: CONSTANT: WIDTH_PHASECOUNTERSELECT NUMERIC "3"
+-- Retrieval info: CONSTANT: c0_high NUMERIC "2"
+-- Retrieval info: CONSTANT: c0_initial NUMERIC "1"
+-- Retrieval info: CONSTANT: c0_low NUMERIC "2"
+-- Retrieval info: CONSTANT: c0_mode STRING "even"
+-- Retrieval info: CONSTANT: c0_ph NUMERIC "0"
+-- Retrieval info: CONSTANT: c1_high NUMERIC "2"
+-- Retrieval info: CONSTANT: c1_initial NUMERIC "1"
+-- Retrieval info: CONSTANT: c1_low NUMERIC "2"
+-- Retrieval info: CONSTANT: c1_mode STRING "even"
+-- Retrieval info: CONSTANT: c1_ph NUMERIC "0"
+-- Retrieval info: CONSTANT: c2_high NUMERIC "2"
+-- Retrieval info: CONSTANT: c2_initial NUMERIC "1"
+-- Retrieval info: CONSTANT: c2_low NUMERIC "2"
+-- Retrieval info: CONSTANT: c2_mode STRING "even"
+-- Retrieval info: CONSTANT: c2_ph NUMERIC "0"
+-- Retrieval info: CONSTANT: c3_high NUMERIC "2"
+-- Retrieval info: CONSTANT: c3_initial NUMERIC "1"
+-- Retrieval info: CONSTANT: c3_low NUMERIC "2"
+-- Retrieval info: CONSTANT: c3_mode STRING "even"
+-- Retrieval info: CONSTANT: c3_ph NUMERIC "0"
+-- Retrieval info: CONSTANT: clk0_counter STRING "c0"
+-- Retrieval info: CONSTANT: clk1_counter STRING "c1"
+-- Retrieval info: CONSTANT: clk2_counter STRING "c2"
+-- Retrieval info: CONSTANT: clk3_counter STRING "c3"
 -- Retrieval info: CONSTANT: scan_chain_mif_file STRING "pll.mif"
 -- Retrieval info: USED_PORT: @clk 0 0 5 0 OUTPUT_CLK_EXT VCC "@clk[4..0]"
 -- Retrieval info: USED_PORT: @inclk 0 0 2 0 INPUT_CLK_EXT VCC "@inclk[1..0]"

@@ -48,6 +48,7 @@ entity packets2data is
       in_pct_last       : out std_logic;
       in_pct_full       : out std_logic;
       in_pct_clr_flag   : out std_logic;
+      in_pct_buff_rdy   : out std_logic_vector(n_buff-1 downto 0);
       
       smpl_buff_full    : in std_logic;
       smpl_buff_q       : out std_logic_vector(out_pct_data_w-1 downto 0);
@@ -67,7 +68,6 @@ signal inst0_pct_hdr_0        : std_logic_vector(63 downto 0);
 signal inst0_pct_hdr_0_valid  : std_logic_vector(n_buff-1 downto 0);
 signal inst0_pct_hdr_1        : std_logic_vector(63 downto 0);
 signal inst0_pct_hdr_1_valid  : std_logic_vector(n_buff-1 downto 0);
-signal inst0_pct_hdr_1_sync_en: std_logic;
 signal inst0_pct_data         : std_logic_vector(in_pct_data_w-1 downto 0);
 signal inst0_pct_data_wrreq   : std_logic_vector(n_buff-1 downto 0);
 signal inst0_pct_buff_rdy     : std_logic_vector(n_buff-1 downto 0);
@@ -95,7 +95,9 @@ signal isnt2_pct_buff_rd_en         : std_logic_vector(n_buff-1 downto 0);
 --inst3
 signal inst3_pct_data_rdreq         : std_logic_vector(n_buff-1 downto 0);
 signal inst3_pct_data_rdstate       : std_logic_vector(n_buff-1 downto 0);
-signal inst3_pct_size               : std_logic_vector(pct_size_w-1 downto 0); 
+signal inst3_pct_size               : std_logic_vector(pct_size_w-1 downto 0);
+signal inst3_rd_fsm_rdy             : std_logic;
+signal inst3_rd_fsm_rd_done         : std_logic;
 
 --instx
 signal instx_wrempty                : std_logic_vector(n_buff-1 downto 0);
@@ -113,12 +115,6 @@ signal half_pct_size_only_data      : unsigned(pct_size_w-1 downto 0);
 
 signal smpl_buff_valid_int          : std_logic;
 
-signal fifo_sync_0_dst_data         : std_logic_vector(n_buff-1 downto 0);
-signal fifo_sync_1_dst_data         : std_logic_vector(n_buff-1 downto 0);
-
-attribute noprune: boolean;
-attribute noprune of fifo_sync_0_dst_data: signal is true;
-attribute noprune of fifo_sync_1_dst_data: signal is true;
 
   
 begin
@@ -146,8 +142,12 @@ bus_sync_reg1 : entity work.bus_sync_reg
          inst0_pct_hdr_0_valid_rclk(i)
       );
   end generate gen_handshake_sync_0;
+  
+-- bus_sync_reg1 : entity work.bus_sync_reg
+ -- generic map (n_buff) 
+-- port map(rclk, '1', (others=>'1'), inst0_pct_hdr_0_valid_rclk);
 
---inst0_pct_hdr_1 bus is changed once per packet, safe to use sync registers  
+--inst0_pct_hdr_1 bus is changed once per packet, safe to use sync registers 
  bus_sync_reg2 : entity work.bus_sync_reg
  generic map (64) 
  port map(rclk, '1', inst0_pct_hdr_1, inst0_pct_hdr_1_rclk_stage0);
@@ -169,7 +169,11 @@ bus_sync_reg1 : entity work.bus_sync_reg
          inst0_pct_hdr_1_valid_rclk(i)
       );
   end generate gen_handshake_sync_1;
-  
+ 
+-- bus_sync_reg3 : entity work.bus_sync_reg
+ -- generic map (n_buff) 
+-- port map(rclk, '1', (others=>'1'), inst0_pct_hdr_1_valid_rclk);
+
 sync_reg1 : entity work.sync_reg 
 port map(rclk, '1', pct_sync_dis, pct_sync_dis_rclk);
 
@@ -309,7 +313,9 @@ end process;
 
 
 
-inst1_pct_buff_rdy <= pct_buff_rdy_int;
+inst1_pct_buff_rdy   <= pct_buff_rdy_int;
+in_pct_buff_rdy      <= pct_buff_rdy_int;
+
 
 p2d_clr_fsm_inst1 : entity work.p2d_clr_fsm
    generic map(
@@ -370,6 +376,9 @@ p2d_sync_fsm_inst2 : entity work.p2d_sync_fsm
 
       pct_data_clr_n       => inst1_pct_data_clr_n,
       pct_buff_rdy         => pct_buff_rdy_int,
+      
+      pct_rd_fsm_rdy       => inst3_rd_fsm_rdy,
+      pct_rd_fsm_done      => inst3_rd_fsm_rd_done,
 
       pct_buff_rd_en       => isnt2_pct_buff_rd_en
       
@@ -392,7 +401,8 @@ p2d_rd_fsm_inst3 : entity work.p2d_rd_fsm
       
 
       pct_buff_rdy         => isnt2_pct_buff_rd_en,
-      rd_fsm_rdy           => open
+      rd_fsm_rdy           => inst3_rd_fsm_rdy,
+      rd_fsm_rd_done       => inst3_rd_fsm_rd_done
       
         );
         

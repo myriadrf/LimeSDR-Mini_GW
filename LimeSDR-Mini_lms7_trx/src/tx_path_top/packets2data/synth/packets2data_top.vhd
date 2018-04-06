@@ -72,15 +72,15 @@ signal inst1_data_out            : std_logic_vector(127 downto 0);
 signal inst1_data_out_valid      : std_logic;
 
 --inst2
-signal inst2_wrusedw             : std_logic_vector(decomp_fifo_size-2 downto 0);
+signal inst2_wrusedw             : std_logic_vector(decomp_fifo_size-1 downto 0);
 
-signal max_fifo_words            : std_logic_vector(decomp_fifo_size-2 downto 0);
-signal fifo_limit                : unsigned(decomp_fifo_size-2 downto 0);
+signal max_fifo_words            : std_logic_vector(decomp_fifo_size-1 downto 0);
+signal fifo_limit                : unsigned(decomp_fifo_size-1 downto 0);
 signal fifo_full_sig             : std_logic;
  
 begin
 
-max_fifo_words <= ((decomp_fifo_size-2)=> '0', others=>'1');
+max_fifo_words <= ((decomp_fifo_size-1)=> '0', others=>'1');
 
 
 process(rclk, reset_n)
@@ -138,6 +138,7 @@ end process;
       in_pct_last       => in_pct_last,
       in_pct_full       => in_pct_full,
       in_pct_clr_flag   => in_pct_clr_flag,
+      in_pct_buff_rdy   => open,
       
       smpl_buff_full    => fifo_full_sig,
       smpl_buff_q       => inst0_smpl_buff_q,    
@@ -161,9 +162,9 @@ bit_unpack_64_inst1 : entity work.bit_unpack_64
       generic map(
          dev_family	    => dev_family,
          wrwidth         => 128,
-         wrusedw_witdth  => decomp_fifo_size-1,
+         wrusedw_witdth  => decomp_fifo_size,
          rdwidth         => out_pct_data_w,
-         rdusedw_width   => decomp_fifo_size,
+         rdusedw_width   => decomp_fifo_size+1,
          show_ahead      => "OFF"
       ) 
       port map(

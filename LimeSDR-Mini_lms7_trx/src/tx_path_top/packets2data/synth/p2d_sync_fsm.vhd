@@ -1,8 +1,8 @@
 -- ----------------------------------------------------------------------------	
--- FILE: 	p2d_sync_fsm.vhd
--- DESCRIPTION:	FSm for data reading from packets.
--- DATE:	April 6, 2017
--- AUTHOR(s):	Lime Microsystems
+-- FILE:          p2d_sync_fsm.vhd
+-- DESCRIPTION:   FSm for data reading from packets.
+-- DATE:          April 6, 2017
+-- AUTHOR(s):     Lime Microsystems
 -- REVISIONS:
 -- ----------------------------------------------------------------------------	
 
@@ -26,11 +26,11 @@ entity p2d_sync_fsm is
       clk                  : in std_logic;
       reset_n              : in std_logic;
       --Mode settings      
-      mode			         : in std_logic; -- JESD207: 1; TRXIQ: 0
-      trxiqpulse	         : in std_logic; -- trxiqpulse on: 1; trxiqpulse off: 0
-		ddr_en 		         : in std_logic; -- DDR: 1; SDR: 0
-		mimo_en		         : in std_logic; -- SISO: 1; MIMO: 0
-		ch_en			         : in std_logic_vector(1 downto 0); --"01" - Ch. A, "10" - Ch. B, "11" - Ch. A and Ch. B.  
+      mode                 : in std_logic; -- JESD207: 1; TRXIQ: 0
+      trxiqpulse           : in std_logic; -- trxiqpulse on: 1; trxiqpulse off: 0
+      ddr_en               : in std_logic; -- DDR: 1; SDR: 0
+      mimo_en              : in std_logic; -- SISO: 1; MIMO: 0
+      ch_en                : in std_logic_vector(1 downto 0); --"01" - Ch. A, "10" - Ch. B, "11" - Ch. A and Ch. B.  
       sample_width         : in std_logic_vector(1 downto 0); --"10"-12bit, "01"-14bit, "00"-16bit;
       
       pct_size             : in std_logic_vector(pct_size_w-1 downto 0);   --Whole packet size in 
@@ -47,6 +47,9 @@ entity p2d_sync_fsm is
      
       pct_data_clr_n       : in std_logic_vector(n_buff-1 downto 0);      
       pct_buff_rdy         : in std_logic_vector(n_buff-1 downto 0); --assert when whole packet is ready
+      
+      pct_rd_fsm_rdy       : in std_logic;
+      pct_rd_fsm_done      : in std_logic;
 
       pct_buff_rd_en       : out std_logic_vector(n_buff-1 downto 0)   
       
@@ -63,20 +66,19 @@ type state_type is (idle, pct_sync_en, shift_sync_en, rd_buff);
 signal current_state, next_state : state_type; 
 
 type smpl_nr_array_type  is array (0 to n_buff-1) of std_logic_vector(63 downto 0);  
-signal smpl_nr_array       : smpl_nr_array_type;
+signal smpl_nr_array          : smpl_nr_array_type;
 
-signal pct_smpl_nr_equal         : std_logic_vector(n_buff-1 downto 0);
-signal pct_smpl_nr_sync_dis      : std_logic_vector(n_buff-1 downto 0);
-signal pct_smpl_nr_sync_dis_msk  : std_logic_vector(n_buff-1 downto 0);
-signal sync_cnt                  : unsigned(15 downto 0);
-signal sync_cnt_limit            : unsigned(15 downto 0);
-signal sync_cnt_max              : unsigned(15 downto 0);
-signal sync_en_vect              : std_logic_vector(n_buff-1 downto 0);
-signal sync_en_vect_shift        : std_logic;
-signal sync_en                   : std_logic_vector(n_buff-1 downto 0);
-signal pct_buff_rd_en_int        : std_logic_vector(n_buff-1 downto 0);
+signal pct_smpl_nr_equal      : std_logic_vector(n_buff-1 downto 0);
+signal pct_smpl_nr_sync_dis   : std_logic_vector(n_buff-1 downto 0);
+signal sync_cnt               : unsigned(15 downto 0);
+signal sync_cnt_limit         : unsigned(15 downto 0);
+signal sync_cnt_max           : unsigned(15 downto 0);
+signal sync_en_vect           : std_logic_vector(n_buff-1 downto 0);
+signal sync_en_vect_shift     : std_logic;
+signal sync_en                : std_logic_vector(n_buff-1 downto 0);
+signal pct_buff_rd_en_int     : std_logic_vector(n_buff-1 downto 0);
 
-signal int_mode            : std_logic_vector(1 downto 0);
+signal int_mode               : std_logic_vector(1 downto 0);
 
 
 
@@ -173,7 +175,7 @@ begin
       pct_smpl_nr_equal <= (others=>'0');
    elsif (clk'event AND clk='1') then 
       for i in 0 to n_buff-1 loop
-         if unsigned(smpl_nr_array(i)) = unsigned(smpl_nr) then 
+         if unsigned(smpl_nr_array(i)) = unsigned(smpl_nr) AND pct_sync_dis = '0' then 
             pct_smpl_nr_equal(i)<= '1';
          else 
             pct_smpl_nr_equal(i)<= '0';
@@ -197,15 +199,14 @@ begin
 end process;
 
 
-sync_en <= sync_en_vect when (pct_sync_dis = '1' OR unsigned(pct_smpl_nr_sync_dis) > 0)  else (others=> '0');
---sync_en <= sync_en_vect;
-
+sync_en <= sync_en_vect when (pct_sync_dis = '1' OR unsigned(pct_smpl_nr_sync_dis) > 0)  else pct_smpl_nr_equal;
+            
 process(clk, reset_n)
 begin
    if reset_n = '0' then 
       sync_cnt <= (others=>'0');
    elsif (clk'event AND clk='1') then 
-      if current_state = pct_sync_en then 
+      if current_state = pct_sync_en then
          sync_cnt <= sync_cnt+1;
       else 
          sync_cnt <= (others=>'0');
@@ -218,39 +219,40 @@ end process;
 --state machine
 -- ----------------------------------------------------------------------------
 fsm_f : process(clk, reset_n)begin
-	if(reset_n = '0')then
-		current_state <= idle;
-	elsif(clk'event and clk = '1')then
+   if(reset_n = '0')then
+      current_state <= idle;
+   elsif(clk'event and clk = '1')then
          current_state <= next_state;
-	end if;	
+   end if;
 end process;
 
 -- ----------------------------------------------------------------------------
 --state machine combo
 -- ----------------------------------------------------------------------------
-fsm : process(current_state, pct_buff_rd_en_int, sync_cnt, pct_sync_dis, sync_cnt_max) begin
-	next_state <= current_state;
-	case current_state is
-	  
-		when idle =>
-         if unsigned(pct_buff_rd_en_int) > 0 AND (pct_sync_dis = '1' OR unsigned(pct_smpl_nr_sync_dis) > 0) then
+fsm : process(current_state, pct_buff_rd_en_int, pct_rd_fsm_rdy, pct_rd_fsm_done) begin
+   next_state <= current_state;
+   case current_state is
+   
+      when idle =>
+         if unsigned(pct_buff_rd_en_int) > 0  then
             next_state <= pct_sync_en;
          else 
             next_state <= idle;
          end if;
          
-      when pct_sync_en => 
-         if sync_cnt = sync_cnt_max then 
+      when pct_sync_en =>
+         if pct_rd_fsm_done = '1' then 
             next_state <= shift_sync_en;
-         else
+         else 
             next_state <= pct_sync_en;
          end if;
+
       when shift_sync_en =>
          next_state <= idle;
          
-		when others => 
-			next_state <= idle;
-	end case;
+      when others => 
+         next_state <= idle;
+   end case;
 end process;
 
 -- ----------------------------------------------------------------------------
@@ -262,8 +264,7 @@ begin
       pct_buff_rd_en_int <= (others=>'0');
    elsif (clk'event AND clk='1') then 
       for i in 0 to n_buff-1 loop
-         if pct_buff_rdy(i) = '1' AND pct_data_clr_n(i) = '1' 
-                                 AND (pct_smpl_nr_equal(i) = '1' OR sync_en(i) = '1') then 
+         if pct_buff_rdy(i) = '1' AND pct_data_clr_n(i) = '1' AND sync_en(i) = '1' AND pct_rd_fsm_rdy = '1' then 
             pct_buff_rd_en_int(i)<= '1';
          else 
             pct_buff_rd_en_int(i)<= '0';

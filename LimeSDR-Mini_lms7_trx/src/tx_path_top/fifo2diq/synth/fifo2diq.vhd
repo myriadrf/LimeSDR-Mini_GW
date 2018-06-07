@@ -78,6 +78,7 @@ fsync <= '0';
 	port map (
       clk            => clk,
       reset_n        => reset_n,
+      en             => reset_n,
       trxiqpulse     => trxiqpulse,
 		ddr_en 		   => ddr_en,
 		mimo_en		   => mimo_en,

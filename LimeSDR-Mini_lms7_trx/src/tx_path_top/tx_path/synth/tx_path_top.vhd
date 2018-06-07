@@ -68,6 +68,7 @@ signal rx_sample_nr_iq_rdclk_reg    : std_logic_vector(63 downto 0);
 signal en_sync_rx_sample_clk        : std_logic;
 signal en_sync_iq_rdclk             : std_logic;
 signal pct_loss_flg_clr_sync_iq_rdclk : std_logic;
+signal pct_loss_flg_clr_sync_iq_rdclk_reg : std_logic;
 
 signal mode_sync_iq_rdclk           : std_logic;
 signal trxiqpulse_sync_iq_rdclk     : std_logic; 
@@ -158,14 +159,16 @@ end process;
  process(iq_rdclk, reset_n_sync_iq_rdclk)
  begin
    if reset_n_sync_iq_rdclk = '0' then 
-      pct_loss_flg_int           <= '0';
-      inst0_in_pct_clr_flag_reg  <= '1';
+      pct_loss_flg_int                    <= '0';
+      inst0_in_pct_clr_flag_reg           <= '1';
+      pct_loss_flg_clr_sync_iq_rdclk_reg  <= '0';
    elsif (iq_rdclk'event AND iq_rdclk='1') then
-      inst0_in_pct_clr_flag_reg <= inst0_in_pct_clr_flag;
+      inst0_in_pct_clr_flag_reg           <= inst0_in_pct_clr_flag;
+      pct_loss_flg_clr_sync_iq_rdclk_reg  <= pct_loss_flg_clr_sync_iq_rdclk;
       
       if inst0_in_pct_clr_flag = '1' AND inst0_in_pct_clr_flag_reg = '0' then 
          pct_loss_flg_int <= '1';
-      elsif pct_loss_flg_clr_sync_iq_rdclk = '1' then 
+      elsif pct_loss_flg_clr_sync_iq_rdclk = '1' AND pct_loss_flg_clr_sync_iq_rdclk_reg = '0' then 
          pct_loss_flg_int <= '0';
       else 
          pct_loss_flg_int <= pct_loss_flg_int;

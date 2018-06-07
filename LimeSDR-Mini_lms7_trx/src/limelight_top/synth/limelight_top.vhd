@@ -102,6 +102,7 @@ signal inst0_DIQ_l         : std_logic_vector (rx_diq_width downto 0);
 signal inst0_smpl_nr_cnt   : std_logic_vector(63 downto 0);
 signal inst0_pct_fifo_wrreq: std_logic;
 signal inst0_pct_fifo_wdata: std_logic_vector(63 downto 0);
+signal inst0_pct_hdr_cap   : std_logic;
 
 
 --isnt1
@@ -158,6 +159,7 @@ begin
       pct_fifo_wusedw      => rx_pct_fifo_wrusedw,
       pct_fifo_wrreq       => inst0_pct_fifo_wrreq,
       pct_fifo_wdata       => inst0_pct_fifo_wdata,
+      pct_hdr_cap          => inst0_pct_hdr_cap,
       --sample nr          
       clr_smpl_nr          => rx_smpl_nr_clr,
       ld_smpl_nr           => rx_smpl_nr_ld,
@@ -197,7 +199,7 @@ tx_path_top_inst1 : entity work.tx_path_top
       
       pct_sync_dis      => tx_sync_dis,
       pct_loss_flg      => inst1_pct_loss_flg,
-      pct_loss_flg_clr  => rx_pct_loss_flg_clr,
+      pct_loss_flg_clr  => inst0_pct_hdr_cap,
       
       --Mode settings
       mode              => lml_mode,

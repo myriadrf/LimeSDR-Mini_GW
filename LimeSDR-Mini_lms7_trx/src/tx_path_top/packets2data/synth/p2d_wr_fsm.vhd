@@ -8,45 +8,45 @@
 
 -- ----------------------------------------------------------------------------
 -- Notes:
--- TODO: implement changeable in_pct_data_w parameter,
--- TODO: implement changeable pct_size_w parameter
 -- ----------------------------------------------------------------------------
 
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use ieee.math_real.all;
-use ieee.math_real.all;
+
+LIBRARY lpm;
+USE lpm.all;
 
 -- ----------------------------------------------------------------------------
 -- Entity declaration
 -- ----------------------------------------------------------------------------
 entity p2d_wr_fsm is
    generic (
-      pct_size_w        : integer := 16;
-      n_buff            : integer := 4; -- 2,4 valid values
-      in_pct_data_w     : integer := 32
+      N_BUFF            : integer := 4;   -- 2,4 valid values
+      PCT_SIZE          : integer := 4096 -- Whole packet size in bytes
    );
    port (
       clk               : in std_logic;
       reset_n           : in std_logic;
-      pct_size          : in std_logic_vector(pct_size_w-1 downto 0);   --Whole packet size in 
-                                                                        --in_pct_data_w words
       
-      in_pct_wrreq      : in std_logic;
-      in_pct_data       : in std_logic_vector(in_pct_data_w-1 downto 0);
-      in_pct_wrfull     : out std_logic; -- not registered, comb signal 
+      pct_sync_dis      : in std_logic;
+      sample_nr         : in std_logic_vector(63 downto 0);
+      
+      in_pct_reset_n_req: out std_logic;
+      in_pct_rdreq      : out std_logic;
+      in_pct_data       : in std_logic_vector(127 downto 0);
+      in_pct_rdy        : in std_logic;
       
       pct_hdr_0         : out std_logic_vector(63 downto 0);
-      pct_hdr_0_valid   : out std_logic_vector(n_buff-1 downto 0);
+      pct_hdr_0_valid   : out std_logic_vector(N_BUFF-1 downto 0);
       
       pct_hdr_1         : out std_logic_vector(63 downto 0);
-      pct_hdr_1_valid   : out std_logic_vector(n_buff-1 downto 0);
+      pct_hdr_1_valid   : out std_logic_vector(N_BUFF-1 downto 0);
       
-      pct_data          : out std_logic_vector(31 downto 0);
-      pct_data_wrreq    : out std_logic_vector(n_buff-1 downto 0);
+      pct_data          : out std_logic_vector(127 downto 0);
+      pct_data_wrreq    : out std_logic_vector(N_BUFF-1 downto 0);
 
-      pct_buff_rdy      : in std_logic_vector(n_buff-1 downto 0)
+      pct_buff_rdy      : in std_logic_vector(N_BUFF-1 downto 0)
       
         );
 end p2d_wr_fsm;
@@ -57,336 +57,303 @@ end p2d_wr_fsm;
 architecture arch of p2d_wr_fsm is
 --declare signals,  components here
 
-signal in_pct_data_reg        : std_logic_vector(in_pct_data_w-1 downto 0);
+constant C_HEADER_POS         : integer := 0;
 
-signal wr_cnt                 : unsigned(pct_size_w-1 downto 0);
-signal wr_cnt_end             : std_logic;
+type state_type is (idle, rd_hdr, wait_cmpr_pipe, check_smpl_nr, clr_fifo, switch_next_buff, rd_pct, wait_wr_end, check_next_buf, switch_current_buff);
+signal current_state, next_state : state_type;  
 
+signal current_buff_cnt       : unsigned(3 downto 0);
+signal next_buff_cnt          : unsigned(3 downto 0);
 
-signal pct_hdr_0_reg          : std_logic_vector(63 downto 0);      
-signal pct_hdr_0_valid_reg    : std_logic;
+signal rd_cnt                 : unsigned(15 downto 0);
+signal pipe_cnt               : unsigned(3 downto 0);
 
-signal pct_hdr_1_reg          : std_logic_vector(63 downto 0); 
-signal pct_hdr_1_valid_reg    : std_logic;
-
-signal pct_data_wrreq_int     : std_logic;
-
-signal buff_sel               : std_logic_vector(n_buff-1 downto 0);
-signal next_buff_sel_cnt      : unsigned(integer(ceil(log2(real(n_buff))))-1 downto 0); 
-signal current_buff_sel_cnt   : unsigned(integer(ceil(log2(real(n_buff))))-1 downto 0);
 signal current_buff_rdy       : std_logic;
 signal next_buff_rdy          : std_logic;
-signal buff_check_limit       : unsigned(pct_size_w-1 downto 0);
-signal pct_size_limit         : unsigned(pct_size_w-1 downto 0);
-signal in_pct_wrfull_int      : std_logic;
 
-signal pct_data_reg           : std_logic_vector(31 downto 0);    
-signal pct_data_wrreq_reg     : std_logic_vector(n_buff-1 downto 0);
-signal pct_data_wrreq_comb    : std_logic_vector(n_buff-1 downto 0);
+signal in_pct_rdreq_int       : std_logic;
+signal in_pct_data_valid      : std_logic;
+
+signal pct_data_wrreq_cnt     : unsigned(15 downto 0);
+signal pct_smpl_nr_equal      : std_logic;
+signal pct_smpl_nr_less       : std_logic;
+signal pct_hdr_0_reg          : std_logic_vector(63 downto 0);
+signal pct_hdr_1_reg          : std_logic_vector(63 downto 0);
+alias  crnt_pct_sync_dis      : std_logic is pct_hdr_0_reg(4);
 
 
-type state_type is (idle, wait_hdr_1, wait_pct_end, wait_rdy, switch_buff);
-signal current_state, next_state : state_type;               
 
-
+-- Component declaration
+COMPONENT lpm_compare
+   GENERIC (
+      lpm_pipeline         : NATURAL;
+      lpm_representation   : STRING;
+      lpm_type             : STRING;
+      lpm_width            : NATURAL
+   );
+   PORT (
+      clock : IN STD_LOGIC ;
+      dataa : IN STD_LOGIC_VECTOR (63 DOWNTO 0);
+      datab : IN STD_LOGIC_VECTOR (63 DOWNTO 0);
+      aeb   : OUT STD_LOGIC ;
+      alb   : OUT STD_LOGIC 
+   );
+   END COMPONENT;
 
 begin
 
-
+   LPM_COMPARE_component : LPM_COMPARE
+   GENERIC MAP (
+      lpm_pipeline         => 3,
+      lpm_representation   => "UNSIGNED",
+      lpm_type             => "LPM_COMPARE",
+      lpm_width            => 64
+   )
+   PORT MAP (
+      clock                => clk,
+      dataa                => pct_hdr_1_reg,
+      datab                => sample_nr,
+      aeb                  => pct_smpl_nr_equal,
+      alb                  => pct_smpl_nr_less
+   );
+     
 -- ----------------------------------------------------------------------------
--- To calculate limits
--- ----------------------------------------------------------------------------
-process(clk, reset_n)
-begin
-   if reset_n = '0' then 
-      buff_check_limit  <= (others=>'1');
-      pct_size_limit    <= (others=>'1');
-   elsif (clk'event AND clk='1') then 
-      buff_check_limit  <= unsigned(pct_size)-2;
-      pct_size_limit    <= unsigned(pct_size)-1;
-   end if;
-end process;
-
--- ----------------------------------------------------------------------------
--- Counter for selecting new buffer
--- ----------------------------------------------------------------------------
-process(clk, reset_n)
-begin
-   if reset_n = '0' then 
-      next_buff_sel_cnt <= (others=>'0');
-      current_buff_sel_cnt <= (others=>'0');
-   elsif (clk'event AND clk='1') then
-      if pct_hdr_0_valid_reg = '1' then 
-         next_buff_sel_cnt <= next_buff_sel_cnt+1;
-      else 
-         next_buff_sel_cnt <= next_buff_sel_cnt;
+-- Buffer selection process
+-- ----------------------------------------------------------------------------   
+   next_buff_sel_proc : process(clk, reset_n)
+   begin
+      if reset_n = '0' then 
+         next_buff_cnt <= (others=>'0');
+         next_buff_rdy <= '0';
+      elsif (clk'event AND clk='1') then 
+         if current_state = switch_next_buff then 
+            if next_buff_cnt < N_BUFF - 1 then  
+               next_buff_cnt <= next_buff_cnt + 1;
+            else 
+               next_buff_cnt <= (others=>'0');
+            end if;
+         else 
+            next_buff_cnt <= next_buff_cnt;
+         end if;
+         
+         next_buff_rdy <= pct_buff_rdy(to_integer(next_buff_cnt));
+         
       end if;
-      
-      if current_state = switch_buff then 
-         current_buff_sel_cnt <= next_buff_sel_cnt;
-      else
-         current_buff_sel_cnt <= current_buff_sel_cnt;
+   end process;
+   
+   current_buff_sel_proc : process(clk, reset_n)
+   begin
+      if reset_n = '0' then 
+         current_buff_cnt <= (others=>'0');
+         current_buff_rdy <= '0';
+      elsif (clk'event AND clk='1') then 
+         if current_state = check_next_buf then 
+            current_buff_cnt <= next_buff_cnt;
+         else 
+            current_buff_cnt <= current_buff_cnt;
+         end if;
+         
+         current_buff_rdy <= pct_buff_rdy(to_integer(current_buff_cnt));         
       end if;
-      
-   end if;
-end process;
-
+   end process;
+ 
 -- ----------------------------------------------------------------------------
--- To select buffer and show selected buffer status
--- ----------------------------------------------------------------------------
-process(pct_buff_rdy,current_buff_sel_cnt)
-begin
-   current_buff_rdy <= pct_buff_rdy(to_integer(current_buff_sel_cnt));
-end process;
-
-process(pct_buff_rdy,next_buff_sel_cnt)
-begin
-   next_buff_rdy <= pct_buff_rdy(to_integer(next_buff_sel_cnt));
-end process;
-
-
-
-process(current_state)
-begin
-   if current_state = wait_rdy  OR current_state = switch_buff then 
-      in_pct_wrfull_int <= '1';
-   else
-      in_pct_wrfull_int <= '0';
-   end if;
-end process;
+-- Read counter
+-- ---------------------------------------------------------------------------- 
+   rdcnt_proc : process(clk, reset_n)
+   begin
+      if reset_n = '0' then 
+         rd_cnt   <= (others=>'0');
+         pipe_cnt <= (others=>'0');
+      elsif (clk'event AND clk='1') then 
+         if current_state = rd_pct OR current_state = rd_hdr then 
+            rd_cnt <= rd_cnt + 1;
+         elsif current_state = idle then 
+            rd_cnt <= (others=>'0');
+         else 
+            rd_cnt <= rd_cnt;
+         end if;
+         
+         if current_state = wait_cmpr_pipe then 
+            pipe_cnt <= pipe_cnt + 1;
+         else 
+            pipe_cnt <= (others=>'0');
+         end if;
+      end if;
+   end process;
 
 -- ----------------------------------------------------------------------------
 --state machine
 -- ----------------------------------------------------------------------------
 fsm_f : process(clk, reset_n)begin
-	if(reset_n = '0')then
-		current_state <= idle;
-	elsif(clk'event and clk = '1')then
+   if(reset_n = '0')then
+      current_state <= idle;
+   elsif(clk'event and clk = '1')then
       current_state <= next_state;
-	end if;	
+   end if;
 end process;
 
 -- ----------------------------------------------------------------------------
---state machine combo
+-- state machine combo
 -- ----------------------------------------------------------------------------
-fsm : process(current_state, pct_hdr_1_valid_reg, wr_cnt_end, current_buff_rdy, 
-               next_buff_rdy, in_pct_wrreq, wr_cnt) begin
-	next_state <= current_state;
-	case current_state is
-	  
-		when idle =>
-         if current_buff_rdy = '1' then
-            next_state <= wait_hdr_1;
+fsm : process(current_state, current_buff_rdy, in_pct_rdy, rd_cnt,
+               next_buff_rdy, in_pct_data_valid, pipe_cnt, pct_smpl_nr_less, 
+               crnt_pct_sync_dis, pct_sync_dis) begin
+   next_state <= current_state;
+   case current_state is
+   
+      when idle =>
+         if in_pct_rdy = '1' then
+            next_state <= rd_hdr;
          else 
             next_state <= idle;
          end if;
+      
+      when rd_hdr =>
+         next_state <= wait_cmpr_pipe;
          
-      when wait_hdr_1 => 
-         if in_pct_wrreq = '1' AND wr_cnt = 3 then 
-            next_state <= wait_pct_end;
+      when wait_cmpr_pipe => 
+         if pipe_cnt > 3 then 
+            next_state <= check_smpl_nr;
          else 
-            next_state <= wait_hdr_1;
+            next_state <= wait_cmpr_pipe;
          end if;
-         
-      when wait_pct_end =>
-         if wr_cnt_end = '1' then
-            if next_buff_rdy = '1' then 
-               next_state <= switch_buff;
+
+      when check_smpl_nr =>
+         if pct_smpl_nr_less = '1' AND crnt_pct_sync_dis = '0' AND pct_sync_dis = '0' then 
+            next_state <= clr_fifo;
+         else 
+            if current_buff_rdy = '1' then 
+               next_state <= switch_next_buff;
             else 
-               next_state <= wait_rdy;
+               next_state <= check_smpl_nr;
             end if;
-         else 
-            next_state <= wait_pct_end;
-         end if;
-       
-      when wait_rdy => 
-         if next_buff_rdy = '1' then 
-            next_state <= switch_buff;
-         else 
-            next_state <= wait_rdy;
          end if;
          
-      when switch_buff => 
+      when clr_fifo => 
+         next_state <= idle;
+
+      when switch_next_buff => 
+         next_state <= rd_pct;
+                  
+      when rd_pct =>
+         if rd_cnt < (PCT_SIZE*8)/pct_data'length - 1 then 
+            next_state <= rd_pct;
+         else 
+            next_state <= wait_wr_end;
+         end if;
+         
+      when wait_wr_end => 
+         if in_pct_data_valid = '0' then 
+            next_state <= check_next_buf;
+         else 
+            next_state <= wait_wr_end;
+         end if;
+         
+      when check_next_buf =>
+         if next_buff_rdy = '1' then
+            next_state <= switch_current_buff;
+         else 
+            next_state <= check_next_buf;
+         end if;
+            
+      when switch_current_buff => 
          next_state <= idle;
          
-		when others => 
-			next_state <= idle;
-	end case;
+      when others => 
+         next_state <= idle;
+   end case;
 end process;
 
 
 -- ----------------------------------------------------------------------------
--- In packed data register
+-- Write request signal and write counter
 -- ----------------------------------------------------------------------------
-in_reg_proc : process(clk, reset_n)
-begin
-   if reset_n = '0' then 
-      in_pct_data_reg <= (others=>'0');
-   elsif (clk'event AND clk='1') then 
-      if in_pct_wrreq = '1' then 
-         in_pct_data_reg <= in_pct_data;
-      else 
-         in_pct_data_reg <= in_pct_data_reg;
-      end if;
-   end if;
-end process;
-
--- ----------------------------------------------------------------------------
--- Packet write counter
--- ----------------------------------------------------------------------------
-pct_count_proc : process(clk, reset_n)
-begin
-   if reset_n = '0' then 
-      wr_cnt <= (others=>'0');
-      wr_cnt_end <= '0';
-   elsif (clk'event AND clk='1') then 
-      if in_pct_wrreq = '1' then 
-         if wr_cnt < pct_size_limit then 
-            wr_cnt <= wr_cnt+1;
-         else 
-            wr_cnt <= (others=>'0');
-         end if;
-         --for fsm
-         if wr_cnt = buff_check_limit then 
-            wr_cnt_end <= '1';
-         else
-            wr_cnt_end <= '0';
-         end if;
+   process(clk, reset_n)
+   begin
+      if reset_n = '0' then 
+         in_pct_data_valid <= '0';
+         pct_data_wrreq_cnt <= (others => '0');
+      elsif (clk'event AND clk='1') then 
+         in_pct_data_valid <= in_pct_rdreq_int;
          
-      else 
-         wr_cnt <= wr_cnt;
+         if in_pct_data_valid = '1' then 
+            pct_data_wrreq_cnt <= pct_data_wrreq_cnt + 1;
+         elsif current_state = idle then 
+            pct_data_wrreq_cnt <= (others => '0');
+         else 
+            pct_data_wrreq_cnt <= pct_data_wrreq_cnt;
+         end if;
       end if;
-   end if;
-end process;
+   end process;
+   
+   
 
 -- ----------------------------------------------------------------------------
--- Packet header 0 register
+-- Output registers
 -- ----------------------------------------------------------------------------
-hdr0_reg : process(clk, reset_n)
+out_reg: process(clk, reset_n)
 begin
    if reset_n = '0' then 
-      pct_hdr_0_reg        <= (others=>'0');     
-      pct_hdr_0_valid_reg  <= '0';
-   elsif (clk'event AND clk='1') then 
-      if in_pct_wrreq = '1' AND wr_cnt = 1 then
-         pct_hdr_0_reg        <= in_pct_data & in_pct_data_reg;     
-         pct_hdr_0_valid_reg  <= '1';
+      in_pct_rdreq_int     <= '0';
+      in_pct_reset_n_req   <= '1';
+      pct_hdr_0_reg     <= (others=>'0');
+      pct_hdr_0_valid   <= (others=>'0');  
+      pct_hdr_1_reg     <= (others=>'0');
+      pct_hdr_1_valid   <= (others=>'0');
+      pct_data          <= (others=>'0');
+      pct_data_wrreq    <= (others=>'0');    
+   elsif (clk'event AND clk='1') then
+      -- Read request signal for FIFO where packet is stored
+      if current_state = rd_pct OR current_state = rd_hdr then 
+         in_pct_rdreq_int <= '1';
       else 
-         pct_hdr_0_reg        <= pct_hdr_0_reg;     
-         pct_hdr_0_valid_reg  <= '0';
+         in_pct_rdreq_int <= '0';
       end if;
-   end if;
-end process;
-
--- ----------------------------------------------------------------------------
--- Packet header 1 register
--- ----------------------------------------------------------------------------
-hdr1_reg : process(clk, reset_n)
-begin
-   if reset_n = '0' then 
-      pct_hdr_1_reg        <= (others=>'0');     
-      pct_hdr_1_valid_reg  <= '0';
-   elsif (clk'event AND clk='1') then 
-      if in_pct_wrreq = '1' AND wr_cnt = 3 then
-         pct_hdr_1_reg        <= in_pct_data & in_pct_data_reg;     
-         pct_hdr_1_valid_reg  <= '1';
+      
+      if current_state = clr_fifo then 
+         in_pct_reset_n_req <= '0';
       else 
-         pct_hdr_1_reg        <= pct_hdr_1_reg;     
-         pct_hdr_1_valid_reg  <= '0';
+         in_pct_reset_n_req <= '1';
       end if;
-   end if;
-end process;
-
-
--- ----------------------------------------------------------------------------
--- Packet wrreq internal signal
--- ----------------------------------------------------------------------------
-process(clk, reset_n)
-begin
-   if reset_n = '0' then    
-      pct_data_wrreq_int  <= '0';
-   elsif (clk'event AND clk='1') then 
-      if in_pct_wrreq = '1' AND current_state = wait_pct_end then  
-         pct_data_wrreq_int  <= '1';
-      else    
-         pct_data_wrreq_int  <= '0';
+      
+      -- Packet header
+      if in_pct_data_valid = '1' AND pct_data_wrreq_cnt = C_HEADER_POS then 
+         pct_hdr_0_reg     <= in_pct_data(63 downto 0);
+         pct_hdr_1_reg     <= in_pct_data(127 downto 64);
       end if;
-   end if;
-end process;
-
-
--- ----------------------------------------------------------------------------
--- Buffer select signal 
--- ----------------------------------------------------------------------------
-process(clk, reset_n)
-begin
-   if reset_n = '0' then    
-      buff_sel(0)  <= '1';
-      buff_sel(n_buff-1 downto 1) <= (others=>'0');
-   elsif (clk'event AND clk='1') then 
-      if current_state = switch_buff then 
-         for i in 0 to n_buff-1 loop
-            if i = next_buff_sel_cnt then 
-               buff_sel(i) <= '1';
-            else 
-               buff_sel(i) <= '0';
-            end if;
-         end loop;
-      else    
-         buff_sel  <= buff_sel;
-      end if;
-   end if;
-end process;
--- ----------------------------------------------------------------------------
--- Buffer write select signal 
--- ----------------------------------------------------------------------------
-process(pct_data_wrreq_int,current_buff_sel_cnt)
-begin
-   for i in 0 to n_buff-1 loop
-      if i = current_buff_sel_cnt then 
-         pct_data_wrreq_comb(i) <= pct_data_wrreq_int;
+      
+      if in_pct_data_valid = '1' AND pct_data_wrreq_cnt = C_HEADER_POS then 
+         pct_hdr_0_valid   <= (others=>'0');
+         pct_hdr_0_valid(to_integer(current_buff_cnt))   <= '1';
+   
+         pct_hdr_1_valid   <= (others=>'0');
+         pct_hdr_1_valid(to_integer(current_buff_cnt))   <= '1';
       else 
-         pct_data_wrreq_comb(i) <= '0';
+         pct_hdr_0_valid   <= (others=>'0');
+         pct_hdr_1_valid   <= (others=>'0');
       end if;
-   end loop;
-end process;
-
--- ----------------------------------------------------------------------------
--- Packet header capture valid signal 
--- ----------------------------------------------------------------------------
-process(clk, reset_n)
-begin
-   if reset_n = '0' then 
-      pct_hdr_0_valid <= (others=>'0');
-      pct_hdr_1_valid <= (others=>'0');
-   elsif (clk'event AND clk='1') then 
-      for i in 0 to n_buff-1 loop 
-         pct_hdr_0_valid(i) <= buff_sel(i) AND pct_hdr_0_valid_reg;
-         pct_hdr_1_valid(i) <= buff_sel(i) AND pct_hdr_1_valid_reg;
-      end loop;
+      
+      -- Packet data
+      if in_pct_data_valid = '1' AND pct_data_wrreq_cnt > C_HEADER_POS then 
+         pct_data         <= in_pct_data;
+      end if;
+      
+      if in_pct_data_valid = '1' AND pct_data_wrreq_cnt > C_HEADER_POS then 
+         pct_data_wrreq   <= (others=>'0');
+         pct_data_wrreq(to_integer(current_buff_cnt))   <= '1';
+      else 
+         pct_data_wrreq   <= (others=>'0');
+      end if;
+      
    end if;
 end process;
 
 
+in_pct_rdreq <= in_pct_rdreq_int;
 
-proc_name : process(clk, reset_n)
-begin
-   if reset_n = '0' then 
-      pct_data_reg         <= (others=>'0');      
-      pct_data_wrreq_reg   <= (others=>'0');
-   elsif (clk'event AND clk='1') then 
-      pct_data_reg         <= in_pct_data_reg;      
-      pct_data_wrreq_reg   <= pct_data_wrreq_comb;
-   end if;
-end process;
-
-pct_hdr_0      <= pct_hdr_0_reg;
-pct_hdr_1      <= pct_hdr_1_reg;
-pct_data       <= pct_data_reg;
-pct_data_wrreq <= pct_data_wrreq_reg;
-in_pct_wrfull  <= in_pct_wrfull_int;
-
-
+pct_hdr_0 <= pct_hdr_0_reg;
+pct_hdr_1 <= pct_hdr_1_reg;
 
 end arch;   
 

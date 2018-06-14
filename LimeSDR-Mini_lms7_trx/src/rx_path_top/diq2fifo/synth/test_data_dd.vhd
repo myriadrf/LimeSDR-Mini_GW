@@ -13,18 +13,15 @@ use ieee.numeric_std.all;
 -- Entity declaration
 -- ----------------------------------------------------------------------------
 entity test_data_dd is
-   generic( 
-      iq_width					: integer := 12
-      );
   port (
-         --input ports 
-         clk         : in std_logic;
-         reset_n     : in std_logic;
-         fr_start    : in std_logic;
-         mimo_en     : in std_logic;
-         
-         data_h      : out std_logic_vector(iq_width downto 0);
-         data_l      : out std_logic_vector(iq_width downto 0)
+        --input ports 
+        clk       : in std_logic;
+        reset_n   : in std_logic;
+		    fr_start	 : in std_logic;
+		    mimo_en   : in std_logic;
+		  
+		    data_h		  : out std_logic_vector(12 downto 0);
+		    data_l		  : out std_logic_vector(12 downto 0)
 
         --output ports 
         
@@ -36,46 +33,48 @@ end test_data_dd;
 -- ----------------------------------------------------------------------------
 architecture arch of test_data_dd is
 --declare signals,  components here
-signal cnt_h      : unsigned (iq_width-1 downto 0);
-signal cnt_l      : unsigned (iq_width-1 downto 0);
+signal cnt_h 		: unsigned (11 downto 0);
+signal cnt_l 		: unsigned (11 downto 0);
 
-signal iq_sel     : std_logic;
-signal iq_sel_out : std_logic; 
+signal iq_sel		: std_logic;
+signal iq_sel_out	: std_logic; 
 
   
 begin
 
-   process(reset_n, clk)
-   begin
+  process(reset_n, clk)
+    begin
       if reset_n='0' then
-      iq_sel<='0'; 
-      elsif (clk'event and clk = '1') then
-         iq_sel<= not iq_sel;
-      end if;
-   end process;
-
+		  iq_sel<='0'; 
+ 	    elsif (clk'event and clk = '1') then
+			iq_sel<= not iq_sel;
+ 	    end if;
+    end process;
+	 
 process(reset_n, clk)
-   begin
-      if reset_n='0' then
-         cnt_h <=(0=>'1', others=>'0'); 
-         cnt_l <=(others=>'0');
-      elsif (clk'event and clk = '1') then
-         if iq_sel = '0' then 
-            cnt_h <= cnt_h + 2;
-            cnt_l <= cnt_l + 2;
-         else 
-            cnt_h <= cnt_h;
-            cnt_l <= cnt_l;
-         end if;
-      end if;
+	begin
+		if reset_n='0' then
+			cnt_h <="000000000001"; 
+			cnt_l <=(others=>'0');
+		elsif (clk'event and clk = '1') then
+			if iq_sel = '0' then 
+				cnt_h <= cnt_h + 2;
+				cnt_l <= cnt_l + 2;
+			else 
+				cnt_h <= cnt_h;
+				cnt_l <= cnt_l;
+			end if;
+		end if;
 end process;
-
-
+	 
+	 
 iq_sel_out<= iq_sel when fr_start='0' else not iq_sel;
 
 data_l<=iq_sel_out & std_logic_vector(cnt_l);
 data_h<=iq_sel_out & std_logic_vector(cnt_h);
   
 end arch;
+
+
 
 

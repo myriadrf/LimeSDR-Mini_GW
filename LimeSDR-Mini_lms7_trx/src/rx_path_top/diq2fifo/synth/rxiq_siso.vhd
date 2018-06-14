@@ -93,7 +93,7 @@ end process;
 -- ----------------------------------------------------------------------------
  rxiq_siso_sdr_inst0 : entity work.rxiq_siso_sdr
    generic map (
-      iq_width    => iq_width
+      iq_width    => 12
    )
    port map (
       clk         => clk,
@@ -111,7 +111,7 @@ end process;
 -- ---------------------------------------------------------------------------- 
   rxiq_siso_ddr_inst1 : entity work.rxiq_siso_ddr
    generic map (
-      iq_width    => iq_width
+      iq_width    => 12
    )
    port map (
       clk         => clk,

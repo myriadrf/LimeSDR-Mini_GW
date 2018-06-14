@@ -117,7 +117,7 @@ begin
 -- ----------------------------------------------------------------------------
    inst1_data <= inst0_q;
    
-   fifo_6kB_inst1 : entity work.fifo_inst		
+   fifo_4kB_inst1 : entity work.fifo_inst		
    generic map(
          dev_family		=> DEV_FAMILY,
          wrwidth			=> C_INST1_WRWIDTH,

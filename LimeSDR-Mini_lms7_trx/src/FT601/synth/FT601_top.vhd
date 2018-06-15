@@ -371,7 +371,7 @@ port map(
       if reset_n = '0' then 
          EP03_rdy <= '0';
       elsif (clk'event AND clk='1') then 
-         if EP03_wrempty = '0' OR EP03_sclrn_0 = '0' then 
+         if EP03_wrempty = '0' then 
             EP03_rdy <= '0';
          else 
             EP03_rdy <= '1';

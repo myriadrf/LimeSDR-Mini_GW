@@ -309,8 +309,8 @@ port map(
       rdwidth        => EP03_rwidth,
       rdusedw_width  => EP03_rdusedw_width,   
       show_ahead     => "OFF",
-      TRNSF_SIZE     => 1024, 
-      TRNSF_N        => 4
+      TRNSF_SIZE     => 512, 
+      TRNSF_N        => 8
    )
    port map(
       reset_0_n   => EP03_sclrn_0,

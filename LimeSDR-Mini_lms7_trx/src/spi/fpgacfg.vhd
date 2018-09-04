@@ -63,6 +63,9 @@ architecture fpgacfg_arch of fpgacfg is
    signal oe: std_logic;                              -- Tri state buffers control
    signal spi_config_data_rev	: std_logic_vector(143 downto 0);
    
+   signal hw_ver_int          : std_logic_vector(to_fpgacfg.HW_VER'length-1 downto 0);
+   signal bom_ver_int         : std_logic_vector(to_fpgacfg.BOM_VER'length-1 downto 0);
+   
    signal BOARD_ID_reg        : std_logic_vector(15 downto 0);
    signal MAJOR_REV_reg       : std_logic_vector(15 downto 0);
    signal COMPILE_REV_reg     : std_logic_vector(7 downto 0);
@@ -160,7 +163,7 @@ begin
                when "00000" => dout_reg <= BOARD_ID_reg;
                when "00001" => dout_reg <= MAJOR_REV_reg;
                when "00010" => dout_reg <= (15 downto 8 => '0') & COMPILE_REV_reg;
-               when "00011" => dout_reg <= (15 downto 9 => '0') & to_fpgacfg.PWR_SRC & to_fpgacfg.BOM_VER & to_fpgacfg.HW_VER;
+               when "00011" => dout_reg <= (15 downto 9 => '0') & to_fpgacfg.PWR_SRC & bom_ver_int & hw_ver_int;
                when others  => dout_reg <= mem(to_integer(unsigned(inst_reg(4 downto 0))));
             end case;
          end if;
@@ -172,6 +175,32 @@ begin
 
 -- sdout <= dout_reg(7);
 -- oen <= oe;
+
+   -- ---------------------------------------------------------------------------------------------
+   -- There is no way to detect hardware versions in 1.1 and 1.2 boards (HW_VER = 0 for both versions). 
+   -- If HW_VER = 0, hardware version is decided by BOM_VER highest bit value. bom_ver_int assigned to 
+   -- SPI registers has only 2 valid bits. 
+   -- If HW_VER returns any value other than 0, HW_VER and BOM_VER registers will work as intended. 
+   -- ---------------------------------------------------------------------------------------------
+   process(sclk, lreset)
+   begin 
+      if lreset = '0' then
+         hw_ver_int  <= (others=>'0');
+         bom_ver_int <= (others=>'0');   
+      elsif sclk'event and sclk = '0' then
+         if unsigned(to_fpgacfg.HW_VER) = 0 then
+            bom_ver_int <= "00" & to_fpgacfg.BOM_VER(1 downto 0);
+            if to_fpgacfg.BOM_VER(2) = '1' then 
+               hw_ver_int <= std_logic_vector(to_unsigned(2, hw_ver_int'length));
+            else 
+               hw_ver_int <= std_logic_vector(to_unsigned(1, hw_ver_int'length));
+            end if;
+         else 
+            hw_ver_int  <= to_fpgacfg.HW_VER;
+            bom_ver_int <= to_fpgacfg.BOM_VER;
+         end if;
+      end if;
+   end process;
 
    sdout <= dout_reg(15) and oe;
    oen <= oe;

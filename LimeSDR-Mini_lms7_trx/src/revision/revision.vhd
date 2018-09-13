@@ -21,5 +21,5 @@ package revisions is
 	constant COMPILE_HOUR_STAMP : INTEGER := 14;
 	
 	constant MAGIC_NUM : STD_LOGIC_VECTOR(31 downto 0) := X"D8A5F009";
-   constant BOARD_ID : STD_LOGIC_VECTOR(15 downto 0) := X"0017"; -- LimeSDR-MINI
+   constant BOARD_ID : STD_LOGIC_VECTOR(15 downto 0) := X"0011"; -- LimeSDR-MINI
 end revisions;

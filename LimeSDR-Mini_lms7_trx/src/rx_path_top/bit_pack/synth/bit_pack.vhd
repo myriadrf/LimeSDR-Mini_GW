@@ -109,20 +109,20 @@ port map (
       data_out_valid    => inst0_data_out_valid
 );
 
---inst1_data56_in <=   data_in(63 downto 50) &
---                     data_in(47 downto 34) & 
---                     data_in(31 downto 18) & 
---                     data_in(15 downto 2);
+inst1_data56_in <=   data_in(63 downto 50) &
+                     data_in(47 downto 34) & 
+                     data_in(31 downto 18) & 
+                     data_in(15 downto 2);
 
---inst1 : pack_56_to_64 
---port map (
---      clk            => clk,
---      reset_n        => reset_n,
---      data_in_wrreq  => data_in_valid,
---      data56_in      => inst1_data56_in,
---      data64_out     => inst1_data64_out,
---      data_out_valid => inst1_data_out_valid
---);
+inst1 : pack_56_to_64 
+port map (
+      clk            => clk,
+      reset_n        => reset_n,
+      data_in_wrreq  => data_in_valid,
+      data56_in      => inst1_data56_in,
+      data64_out     => inst1_data64_out,
+      data_out_valid => inst1_data_out_valid
+);
 
 -- ----------------------------------------------------------------------------
 -- MUX 0 

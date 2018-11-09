@@ -132,6 +132,7 @@ begin
       in_pct_data       => dut0_pct_data,
       in_pct_last       => dut0_in_pct_last,
       in_pct_full       => open,
+      in_pct_buff_rdy   => open, 
       
       smpl_buff_rdempty => open,
       smpl_buff_q       => open,    

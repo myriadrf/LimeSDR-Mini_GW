@@ -93,7 +93,7 @@ end process;
  
  inst0_rxiq_siso : entity work.rxiq_siso
    generic map (
-      iq_width    => iq_width
+      iq_width    => 12
    )
    port map (
       clk         => clk,
@@ -109,7 +109,7 @@ end process;
         
  inst1_rxiq_mimo : entity work.rxiq_mimo
    generic map (
-      iq_width    => iq_width
+      iq_width    => 12
    )
    port map (
       clk         => clk,

@@ -19,14 +19,13 @@
 #
 # Quartus Prime
 # Version 15.1.2 Build 193 02/01/2016 SJ Lite Edition
-# Date created = 10:56:33  October 24, 2017
+# Date created = 16:04:06  June 14, 2018
 #
 # -------------------------------------------------------------------------- #
 
 QUARTUS_VERSION = "15.1"
-DATE = "10:56:33  October 24, 2017"
+DATE = "16:04:06  June 14, 2018"
 
 # Revisions
 
 PROJECT_REVISION = "LimeSDR-Mini_lms7_trx"
-PROJECT_REVISION = "uLimeSDR_lms7_trx"

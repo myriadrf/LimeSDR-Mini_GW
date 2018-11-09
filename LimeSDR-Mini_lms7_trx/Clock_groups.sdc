@@ -18,7 +18,8 @@ set_clock_groups 	-asynchronous \
 									FPGA_SPI_SCLK \
 									FPGA_SPI_SCLK_out \
 									DUAL_BOOT_CLK \
-									ONCHIP_FLASH_CLK } \
+									ONCHIP_FLASH_CLK \
+                           FPGA_SPI_SCLK_FPGA} \
 						-group { FT_CLK } \
 						-group { LMS_MCLK2 } \
 						-group { TX_C0 } \

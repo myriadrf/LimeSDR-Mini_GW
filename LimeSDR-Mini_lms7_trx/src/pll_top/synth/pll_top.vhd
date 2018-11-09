@@ -1,10 +1,15 @@
-----------------------------------------------------------------------------
--- FILE: pll_top.vhd
--- DESCRIPTION: top file for PLL
--- DATE:July 17, 2017
--- AUTHOR(s):Lime Microsystems
+-- ----------------------------------------------------------------------------
+-- FILE:          pll_top.vhd
+-- DESCRIPTION:   Top wrapper file for PLLs
+-- DATE:          10:50 AM Wednesday, May 9, 2018
+-- AUTHOR(s):     Lime Microsystems
 -- REVISIONS:
-----------------------------------------------------------------------------
+-- ----------------------------------------------------------------------------
+
+-- ----------------------------------------------------------------------------
+--NOTES:
+-- ----------------------------------------------------------------------------
+-- altera vhdl_input_version vhdl_2008
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -12,80 +17,62 @@ use ieee.numeric_std.all;
 LIBRARY altera_mf;
 USE altera_mf.all;
 USE altera_mf.altera_mf_components.all;
+use work.pllcfg_pkg.all;
 
 ----------------------------------------------------------------------------
 -- Entity declaration
 ----------------------------------------------------------------------------
 entity pll_top is
    generic(
-      bandwidth_type          : STRING    := "AUTO";
-      clk0_divide_by          : NATURAL   := 1;
-      clk0_duty_cycle         : NATURAL   := 50;
-      clk0_multiply_by        : NATURAL   := 1;
-      clk0_phase_shift        : STRING    := "0";
-      clk1_divide_by          : NATURAL   := 1;
-      clk1_duty_cycle         : NATURAL   := 50;
-      clk1_multiply_by        : NATURAL   := 1;
-      clk1_phase_shift        : STRING    := "0";
-      clk2_divide_by          : NATURAL   := 1;
-      clk2_duty_cycle         : NATURAL   := 50;
-      clk2_multiply_by        : NATURAL   := 1;
-      clk2_phase_shift        : STRING    := "0";
-      clk3_divide_by          : NATURAL   := 1;
-      clk3_duty_cycle         : NATURAL   := 50;
-      clk3_multiply_by        : NATURAL   := 1;
-      clk3_phase_shift        : STRING    := "0";
-      compensate_clock        : STRING    := "CLK3";
-      inclk0_input_frequency  : NATURAL   := 6250;
-      intended_device_family  : STRING    := "MAX 10";
-      operation_mode          : STRING    := "SOURCE_SYNCHRONOUS";
-      scan_chain_mif_file     : STRING    := "ip/pll/pll.mif";
-      drct_c0_ndly            : integer   := 1;
-      drct_c1_ndly            : integer   := 2;
-      drct_c2_ndly            : integer   := 1;
-      drct_c3_ndly            : integer   := 2
+      N_PLL                   : integer   := 1;
+      -- PLL parameters
+      BANDWIDTH_TYPE          : STRING    := "AUTO";
+      CLK0_DIVIDE_BY          : NATURAL   := 1;
+      CLK0_DUTY_CYCLE         : NATURAL   := 50;
+      CLK0_MULTIPLY_BY        : NATURAL   := 1;
+      CLK0_PHASE_SHIFT        : STRING    := "0";
+      CLK1_DIVIDE_BY          : NATURAL   := 1;
+      CLK1_DUTY_CYCLE         : NATURAL   := 50;
+      CLK1_MULTIPLY_BY        : NATURAL   := 1;
+      CLK1_PHASE_SHIFT        : STRING    := "0";
+      CLK2_DIVIDE_BY          : NATURAL   := 1;
+      CLK2_DUTY_CYCLE         : NATURAL   := 50;
+      CLK2_MULTIPLY_BY        : NATURAL   := 1;
+      CLK2_PHASE_SHIFT        : STRING    := "0";
+      CLK3_DIVIDE_BY          : NATURAL   := 1;
+      CLK3_DUTY_CYCLE         : NATURAL   := 50;
+      CLK3_MULTIPLY_BY        : NATURAL   := 1;
+      CLK3_PHASE_SHIFT        : STRING    := "0";
+      COMPENSATE_CLOCK        : STRING    := "CLK3";
+      INCLK0_INPUT_FREQUENCY  : NATURAL   := 6250;
+      INTENDED_DEVICE_FAMILY  : STRING    := "MAX 10";
+      OPERATION_MODE          : STRING    := "NORMAL";
+      SCAN_CHAIN_MIF_FILE     : STRING    := "ip/pll/pll.mif";
+      DRCT_C0_NDLY            : integer   := 1;
+      DRCT_C1_NDLY            : integer   := 8;
+      DRCT_C2_NDLY            : integer   := 1;
+      DRCT_C3_NDLY            : integer   := 8
    );
    port (
-   --PLL input
-	inclk1				: in std_logic;
-   inclk2         	: in std_logic;
-   pll_areset        : in std_logic;
-   pll_logic_reset_n : in std_logic;
-   inv_c0            : in std_logic;
-   inv_c2            : in std_logic;
-   c0                : out std_logic; --muxed clock output
-   c1                : out std_logic; --muxed clock output
-   c2                : out std_logic; --muxed clock output
-   c3                : out std_logic; --muxed clock output
-   pll_locked        : out std_logic;
-   --Bypass control
-   clk_ena           : in std_logic_vector(3 downto 0); --clock output enable
-   drct_clk_en       : in std_logic_vector(3 downto 0); --1- Direct clk, 0 - PLL clocks 
-   --Reconfiguration ports
-   rcnfg_clk         : in std_logic;
-   rcnfig_areset     : in std_logic;
-   rcnfig_en         : in std_logic;
-   rcnfig_data       : in std_logic_vector(143 downto 0);
-   rcnfig_status     : out std_logic;
-   --Dynamic phase shift ports
-   dynps_mode        : in std_logic; -- 0 - manual, 1 - auto
-   dynps_areset_n    : in std_logic;
-   dynps_en          : in std_logic;
-   dynps_tst         : in std_logic;
-   dynps_dir         : in std_logic;
-   dynps_cnt_sel     : in std_logic_vector(2 downto 0);
-   -- max phase steps in auto mode, phase steps to shift in manual mode 
-   dynps_phase       : in std_logic_vector(9 downto 0);
-   dynps_step_size   : in std_logic_vector(9 downto 0);
-   dynps_busy        : out std_logic;
-   dynps_done        : out std_logic;
-   dynps_status      : out std_logic;
-   --signals from sample compare module (required for automatic phase searching)
-   smpl_cmp_en       : out std_logic;
-   smpl_cmp_done     : in std_logic;
-   smpl_cmp_error    : in std_logic;
-   --Overall configuration PLL status
-   busy              : out std_logic
+      --PLL ports
+      pll_inclk            : in  std_logic;
+      pll_reconfig_clk     : in  std_logic;
+      pll_logic_reset_n    : in  std_logic;
+      pll_clk_ena          : in  std_logic_vector(3 downto 0);
+      pll_drct_clk_en      : in  std_logic_vector(3 downto 0);
+      pll_c0               : out std_logic;
+      pll_c1               : out std_logic;
+      pll_c2               : out std_logic;
+      pll_c3               : out std_logic;
+      pll_locked           : out std_logic;
+      --
+      pll_smpl_cmp_en      : out std_logic;
+      pll_smpl_cmp_done    : in  std_logic;
+      pll_smpl_cmp_error   : in  std_logic;
+      pll_smpl_cmp_cnt     : out std_logic_vector(15 downto 0);
+      -- pllcfg ports
+      to_pllcfg            : out t_TO_PLLCFG;
+      from_pllcfg          : in  t_FROM_PLLCFG
    
    );
 end pll_top;
@@ -95,630 +82,171 @@ end pll_top;
 ----------------------------------------------------------------------------
 architecture arch of pll_top is
 --declare signals,  components here
-signal pll_areset_n              : std_logic;
-signal pll_inclk_global          : std_logic;
 
-signal c0_global                 : std_logic;
-signal c1_global                 : std_logic;
-signal c2_global                 : std_logic;
-signal c3_global                 : std_logic;
-      
-signal rcnfig_en_sync            : std_logic;
-signal rcnfig_data_sync          : std_logic_vector(143 downto 0);
-signal rcnfig_areset_sync        : std_logic;
+--inst0
+signal inst0_pll_locked    : std_logic;
+signal inst0_smpl_cmp_en   : std_logic;
+signal inst0_busy          : std_logic;
+signal inst0_dynps_done    : std_logic;
+signal inst0_dynps_status  : std_logic;
+signal inst0_rcnfig_status : std_logic;
 
-signal dynps_areset_n_sync       : std_logic;
-signal dynps_en_sync             : std_logic;
-signal dynps_dir_sync            : std_logic;
-signal dynps_cnt_sel_sync        : std_logic_vector(2 downto 0);
-signal dynps_phase_sync          : std_logic_vector(9 downto 0);
-signal dynps_step_size_sync      : std_logic_vector(9 downto 0);
-signal rcnfig_en_sync_scanclk    : std_logic;
-signal dynps_mode_sync           : std_logic;
-signal dynps_tst_sync            : std_logic;
+--inst2
+signal inst2_pllcfg_busy      : std_logic_vector(N_PLL-1 downto 0);
+signal inst2_pllcfg_done      : std_logic_vector(N_PLL-1 downto 0);
+signal inst2_pll_lock         : std_logic_vector(N_PLL-1 downto 0);
+signal inst2_phcfg_start      : std_logic_vector(N_PLL-1 downto 0);
+signal inst2_pllcfg_start     : std_logic_vector(N_PLL-1 downto 0);
+signal inst2_pllrst_start     : std_logic_vector(N_PLL-1 downto 0);
+signal inst2_auto_phcfg_done  : std_logic_vector(N_PLL-1 downto 0);
+signal inst2_auto_phcfg_err   : std_logic_vector(N_PLL-1 downto 0);
+signal inst2_phcfg_mode       : std_logic;
+signal inst2_phcfg_tst        : std_logic;
+signal inst2_phcfg_updn       : std_logic;
+signal inst2_cnt_ind          : std_logic_vector(4 downto 0);
+signal inst2_cnt_phase        : std_logic_vector(15 downto 0);
+signal inst2_pllcfg_data      : std_logic_vector(143 downto 0);
+signal inst2_auto_phcfg_smpls : std_logic_vector(15 downto 0);
+signal inst2_auto_phcfg_step  : std_logic_vector(15 downto 0);
 
-signal smpl_cmp_done_sync        : std_logic; 
-signal smpl_cmp_error_sync       : std_logic;
-
-      
---inst0     
-signal inst0_wr_rom              : std_logic;
-signal inst0_reconfig            : std_logic;
-signal inst0_config_data         : std_logic;
---inst1
-signal inst1_busy                : std_logic;
-signal inst1_pll_areset          : std_logic;
-signal inst1_pll_configupdate    : std_logic;
-signal inst1_pll_scanclk         : std_logic;
-signal inst1_pll_scanclkena      : std_logic;
-signal inst1_pll_scandata        : std_logic;
-signal inst1_rom_address_out     : std_logic_vector(7 downto 0);
-signal inst1_write_rom_ena       : std_logic;
-signal inst1_pll_areset_in       : std_logic;
--- inst2
-signal inst2_pll_phasestep       : std_logic;
-signal inst2_ps_status           : std_logic;
-signal inst2_ps_busy             : std_logic;
-signal inst2_ps_done             : std_logic;
-signal inst2_pll_reset_req       : std_logic;
-signal inst2_pll_phasecounterselect : std_logic_vector(2 downto 0);
-signal inst2_pll_phaseupdown        : std_logic; 
-
---inst3
-signal inst3_inclk               : std_logic_vector(1 downto 0);
-signal inst3_clk                 : std_logic_vector(4 downto 0);
-signal inst3_locked              : std_logic;
-signal inst3_locked_scanclk      : std_logic;
-signal inst3_phasedone           : std_logic;
-signal inst3_scandataout         : std_logic;
-signal inst3_scandone            : std_logic;
-
---isnt4
-signal inst4_rcfig_complete      : std_logic;
-
---inst5
-signal inst5_c0_pol_h            : std_logic_vector(0 downto 0);
-signal inst5_c0_pol_l            : std_logic_vector(0 downto 0);
-signal inst5_dataout             : std_logic_vector(0 downto 0);
-
---inst5
-signal inst6_c2_pol_h            : std_logic_vector(0 downto 0);
-signal inst6_c2_pol_l            : std_logic_vector(0 downto 0);
-signal inst6_dataout             : std_logic_vector(0 downto 0);
-
-signal drct_c0_dly_chain         : std_logic_vector(drct_c0_ndly-1 downto 0);
-signal drct_c1_dly_chain         : std_logic_vector(drct_c1_ndly-1 downto 0);
-signal drct_c2_dly_chain         : std_logic_vector(drct_c2_ndly-1 downto 0);
-signal drct_c3_dly_chain         : std_logic_vector(drct_c3_ndly-1 downto 0);
-
---inst10
-signal inst10_clkselect				: std_logic_vector(1 downto 0);
-
-signal c0_mux, c1_mux            : std_logic;
-signal c2_mux, c3_mux            : std_logic;
-signal locked_mux                : std_logic;
-
-component clkctrl is
-   port (
-      inclk  : in  std_logic := '0'; --  altclkctrl_input.inclk
-      ena    : in  std_logic := '0'; --                  .ena
-      outclk : out std_logic         -- altclkctrl_output.outclk
-);
-end component;
-
-component ddrox1 is
-	port (
-		outclock : in  std_logic                    := '0';             -- outclock.export
-		din      : in  std_logic_vector(1 downto 0) := (others => '0'); --      din.export
-		pad_out  : out std_logic_vector(0 downto 0)                     --  pad_out.export
-	);
-end component;
-
-COMPONENT altpll
-   GENERIC (
-      bandwidth_type          : STRING;
-      clk0_divide_by          : NATURAL;
-      clk0_duty_cycle         : NATURAL;
-      clk0_multiply_by        : NATURAL;
-      clk0_phase_shift        : STRING;
-      clk1_divide_by          : NATURAL;
-      clk1_duty_cycle         : NATURAL;
-      clk1_multiply_by        : NATURAL;
-      clk1_phase_shift        : STRING;
-      compensate_clock        : STRING;
-      inclk0_input_frequency  : NATURAL;
-      intended_device_family  : STRING;
-      lpm_hint                : STRING;
-      lpm_type                : STRING;
-      operation_mode          : STRING;
-      pll_type                : STRING;
-      port_activeclock        : STRING;
-      port_areset             : STRING;
-      port_clkbad0            : STRING;
-      port_clkbad1            : STRING;
-      port_clkloss            : STRING;
-      port_clkswitch          : STRING;
-      port_configupdate       : STRING;
-      port_fbin               : STRING;
-      port_inclk0             : STRING;
-      port_inclk1             : STRING;
-      port_locked             : STRING;
-      port_pfdena             : STRING;
-      port_phasecounterselect : STRING;
-      port_phasedone          : STRING;
-      port_phasestep          : STRING;
-      port_phaseupdown        : STRING;
-      port_pllena             : STRING;
-      port_scanaclr           : STRING;
-      port_scanclk            : STRING;
-      port_scanclkena         : STRING;
-      port_scandata           : STRING;
-      port_scandataout        : STRING;
-      port_scandone           : STRING;
-      port_scanread           : STRING;
-      port_scanwrite          : STRING;
-      port_clk0               : STRING;
-      port_clk1               : STRING;
-      port_clk2               : STRING;
-      port_clk3               : STRING;
-      port_clk4               : STRING;
-      port_clk5               : STRING;
-      port_clkena0            : STRING;
-      port_clkena1            : STRING;
-      port_clkena2            : STRING;
-      port_clkena3            : STRING;
-      port_clkena4            : STRING;
-      port_clkena5            : STRING;
-      port_extclk0            : STRING;
-      port_extclk1            : STRING;
-      port_extclk2            : STRING;
-      port_extclk3            : STRING;
-      self_reset_on_loss_lock : STRING;
-      width_clock             : NATURAL;
-      width_phasecounterselect: NATURAL;
-      scan_chain_mif_file     : STRING
-   );
-PORT (
-      areset               : IN STD_LOGIC ;
-      configupdate         : IN STD_LOGIC ;
-      inclk                : IN STD_LOGIC_VECTOR (1 DOWNTO 0);
-      pfdena               : IN STD_LOGIC ;
-      phasecounterselect   : IN STD_LOGIC_VECTOR (2 DOWNTO 0);
-      phasestep            : IN STD_LOGIC ;
-      phaseupdown          : IN STD_LOGIC ;
-      scanclk              : IN STD_LOGIC ;
-      scanclkena           : IN STD_LOGIC ;
-      scandata             : IN STD_LOGIC ;
-      clk                  : OUT STD_LOGIC_VECTOR (4 DOWNTO 0);
-      locked               : OUT STD_LOGIC ;
-      phasedone            : OUT STD_LOGIC ;
-      scandataout          : OUT STD_LOGIC ;
-      scandone             : OUT STD_LOGIC 
-);
-END COMPONENT;
+signal pllcfg_busy            : std_logic;
+signal pllcfg_done            : std_logic;
 
 
 begin
    
-pll_areset_n   <= not pll_areset;
-   
-----------------------------------------------------------------------------
--- Synchronization registers
-----------------------------------------------------------------------------  
- sync_reg0 : entity work.sync_reg 
- port map(rcnfg_clk, pll_logic_reset_n, rcnfig_en, rcnfig_en_sync); 
- 
- sync_reg1 : entity work.sync_reg 
- port map(inst1_pll_scanclk, pll_logic_reset_n, dynps_en, dynps_en_sync); 
- 
- sync_reg2 : entity work.sync_reg 
- port map(inst1_pll_scanclk, pll_logic_reset_n, dynps_dir, dynps_dir_sync); 
- 
- sync_reg3 : entity work.sync_reg 
- port map(inst1_pll_scanclk, pll_logic_reset_n, rcnfig_en, rcnfig_en_sync_scanclk);
-  
- sync_reg4 : entity work.sync_reg 
- port map(inst1_pll_scanclk, pll_logic_reset_n, dynps_mode, dynps_mode_sync);
- 
- sync_reg5 : entity work.sync_reg 
- port map(inst1_pll_scanclk, pll_logic_reset_n, smpl_cmp_done, smpl_cmp_done_sync);
-
- sync_reg6 : entity work.sync_reg 
- port map(inst1_pll_scanclk, pll_logic_reset_n, smpl_cmp_error, smpl_cmp_error_sync);
- 
- sync_reg7 : entity work.sync_reg 
- port map(inst1_pll_scanclk, pll_logic_reset_n, dynps_areset_n, dynps_areset_n_sync);
- 
- sync_reg8 : entity work.sync_reg 
- port map(rcnfg_clk, pll_logic_reset_n, rcnfig_areset, rcnfig_areset_sync);
- 
- sync_reg9 : entity work.sync_reg 
- port map(inst1_pll_scanclk, pll_logic_reset_n, dynps_tst, dynps_tst_sync);
- 
- sync_reg10 : entity work.sync_reg 
- port map(inst1_pll_scanclk, pll_logic_reset_n, inst3_locked, inst3_locked_scanclk); 
- 
- bus_sync_reg0 : entity work.bus_sync_reg
- generic map (144) 
- port map(rcnfg_clk, pll_logic_reset_n, rcnfig_data, rcnfig_data_sync);
- 
- bus_sync_reg1 : entity work.bus_sync_reg
- generic map (3) 
- port map(inst1_pll_scanclk, pll_logic_reset_n, dynps_cnt_sel, dynps_cnt_sel_sync);
- 
- bus_sync_reg2 : entity work.bus_sync_reg
- generic map (10) 
- port map(inst1_pll_scanclk, pll_logic_reset_n, dynps_phase, dynps_phase_sync);
- 
- bus_sync_reg3 : entity work.bus_sync_reg
- generic map (10) 
- port map(inst1_pll_scanclk, pll_logic_reset_n, dynps_step_size, dynps_step_size_sync);
- 
-----------------------------------------------------------------------------
--- pll_reconfig_module controller instance
-----------------------------------------------------------------------------
-config_ctrl_inst0 : entity work.config_ctrl
-port map(
-      clk         => rcnfg_clk,
-      rst         => rcnfig_areset,
-      busy        => inst1_busy,
-      addr        => inst1_rom_address_out,
-      rd_data     => inst1_write_rom_ena,
-      spi_data    => rcnfig_data_sync,
-      en_config   => rcnfig_en_sync,
-      en_clk      => open,
-      wr_rom      => inst0_wr_rom,
-      reconfig    => inst0_reconfig,
-      config_data => inst0_config_data
-);
- 
-----------------------------------------------------------------------------
--- pll_reconfig_module instance
-----------------------------------------------------------------------------
-inst1_pll_areset_in <= pll_areset OR inst2_pll_reset_req;
- 
-pll_reconfig_module_inst1 : ENTITY work.pll_reconfig_module
-   PORT MAP
-(
-      clock                => rcnfg_clk,
-      counter_param        => (others=>'0'),
-      counter_type         => (others=>'0'),
-      data_in              => (others=>'0'),
-      pll_areset_in        => inst1_pll_areset_in,
-      pll_scandataout      => inst3_scandataout,
-      pll_scandone         => inst3_scandone,
-      read_param           => '0',
-      reconfig             => inst0_reconfig,
-      reset                => rcnfig_areset,
-      reset_rom_address    => '0',
-      rom_data_in          => inst0_config_data,
-      write_from_rom       => inst0_wr_rom,
-      write_param          => '0',
-      busy                 => inst1_busy,
-      data_out             => open,
-      pll_areset           => inst1_pll_areset,
-      pll_configupdate     => inst1_pll_configupdate,
-      pll_scanclk          => inst1_pll_scanclk,
-      pll_scanclkena       => inst1_pll_scanclkena,
-      pll_scandata         => inst1_pll_scandata,
-      rom_address_out      => inst1_rom_address_out,
-      write_rom_ena        => inst1_write_rom_ena
-);
-      
-----------------------------------------------------------------------------
--- Dynamic phase shift controller instance
----------------------------------------------------------------------------- 
-  
-pll_ps_top_inst2 : entity work.pll_ps_top
-   port map(
-
-      clk                     => inst1_pll_scanclk,
-      reset_n                 => dynps_areset_n_sync,
-      --module control ports
-      ps_en                   => dynps_en_sync,
-      ps_mode                 => dynps_mode_sync,
-      ps_tst                  => dynps_tst_sync,
-      ps_cnt                  => dynps_cnt_sel_sync,
-      ps_updwn                => dynps_dir_sync,
-      ps_phase                => dynps_phase_sync,
-      ps_step_size            => dynps_step_size_sync,
-      ps_busy                 => inst2_ps_busy,
-      ps_done                 => inst2_ps_done,
-      ps_status               => inst2_ps_status,
-      --pll ports
-      pll_phasecounterselect  => inst2_pll_phasecounterselect,
-      pll_phaseupdown         => inst2_pll_phaseupdown, 
-      pll_phasestep           => inst2_pll_phasestep,        
-      pll_phasedone           => inst3_phasedone,      
-      pll_locked              => inst3_locked_scanclk,
-      pll_reconfig            => rcnfig_en_sync_scanclk,
-      pll_reset_req           => inst2_pll_reset_req,
-      --sample compare module
-      smpl_cmp_en             => smpl_cmp_en,
-      smpl_cmp_done           => smpl_cmp_done_sync,
-      smpl_cmp_error          => smpl_cmp_error_sync
-            
-      ); 
-       
-   inst3_inclk <= '0' & inclk2;
-----------------------------------------------------------------------------
+-- ----------------------------------------------------------------------------
 -- PLL instance
-----------------------------------------------------------------------------      
-altpll_inst3 : altpll
-GENERIC MAP (
-      bandwidth_type             => bandwidth_type,
-      clk0_divide_by             => clk0_divide_by,
-      clk0_duty_cycle            => clk0_duty_cycle,
-      clk0_multiply_by           => clk0_multiply_by,
-      clk0_phase_shift           => clk0_phase_shift,   
-      clk1_divide_by             => clk1_divide_by,
-      clk1_duty_cycle            => clk1_duty_cycle,
-      clk1_multiply_by           => clk1_multiply_by,
-      clk1_phase_shift           => clk1_phase_shift,
-      compensate_clock           => compensate_clock,
-      inclk0_input_frequency     => inclk0_input_frequency,
-      intended_device_family     => intended_device_family,
-      lpm_hint                   => "CBX_MODULE_PREFIX=pll",
-      lpm_type                   => "altpll",
-      operation_mode             => operation_mode,
-      pll_type                   => "AUTO",
-      port_activeclock           => "PORT_UNUSED",
-      port_areset                => "PORT_USED",
-      port_clkbad0               => "PORT_UNUSED",
-      port_clkbad1               => "PORT_UNUSED",
-      port_clkloss               => "PORT_UNUSED",
-      port_clkswitch             => "PORT_UNUSED",
-      port_configupdate          => "PORT_USED",
-      port_fbin                  => "PORT_UNUSED",
-      port_inclk0                => "PORT_USED",
-      port_inclk1                => "PORT_UNUSED",
-      port_locked                => "PORT_USED",
-      port_pfdena                => "PORT_USED",
-      port_phasecounterselect    => "PORT_USED",
-      port_phasedone             => "PORT_USED",
-      port_phasestep             => "PORT_USED",
-      port_phaseupdown           => "PORT_USED",
-      port_pllena                => "PORT_UNUSED",
-      port_scanaclr              => "PORT_UNUSED",
-      port_scanclk               => "PORT_USED",
-      port_scanclkena            => "PORT_USED",
-      port_scandata              => "PORT_USED",
-      port_scandataout           => "PORT_USED",
-      port_scandone              => "PORT_USED",
-      port_scanread              => "PORT_UNUSED",
-      port_scanwrite             => "PORT_UNUSED",
-      port_clk0                  => "PORT_USED",
-      port_clk1                  => "PORT_USED",
-      port_clk2                  => "PORT_USED",
-      port_clk3                  => "PORT_USED",
-      port_clk4                  => "PORT_UNUSED",
-      port_clk5                  => "PORT_UNUSED",
-      port_clkena0               => "PORT_UNUSED",
-      port_clkena1               => "PORT_UNUSED",
-      port_clkena2               => "PORT_UNUSED",
-      port_clkena3               => "PORT_UNUSED",
-      port_clkena4               => "PORT_UNUSED",
-      port_clkena5               => "PORT_UNUSED",
-      port_extclk0               => "PORT_UNUSED",
-      port_extclk1               => "PORT_UNUSED",
-      port_extclk2               => "PORT_UNUSED",
-      port_extclk3               => "PORT_UNUSED",
-      self_reset_on_loss_lock    => "OFF",
-      width_clock                => 5,
-      width_phasecounterselect   => 3,
-      scan_chain_mif_file        => scan_chain_mif_file
-)
-PORT MAP (
-      areset               => inst1_pll_areset,
-      configupdate         => inst1_pll_configupdate,
-      inclk                => inst3_inclk,
-      pfdena               => '1',
-      phasecounterselect   => inst2_pll_phasecounterselect,
-      phasestep            => inst2_pll_phasestep,
-      phaseupdown          => inst2_pll_phaseupdown,
-      scanclk              => inst1_pll_scanclk,
-      scanclkena           => inst1_pll_scanclkena,
-      scandata             => inst1_pll_scandata,
-      clk                  => inst3_clk,
-      locked               => inst3_locked,
-      phasedone            => inst3_phasedone,
-      scandataout          => inst3_scandataout,
-      scandone             => inst3_scandone
-);
-   
-   
-pll_reconfig_status_inst4 : entity work.pll_reconfig_status
+-- ----------------------------------------------------------------------------
+rxtx_pll_inst0 : entity work.rxtx_pll
+   generic map(
+      bandwidth_type          => BANDWIDTH_TYPE,         
+      clk0_divide_by          => CLK0_DIVIDE_BY,         
+      clk0_duty_cycle         => CLK0_DUTY_CYCLE,        
+      clk0_multiply_by        => CLK0_MULTIPLY_BY,       
+      clk0_phase_shift        => CLK0_PHASE_SHIFT,       
+      clk1_divide_by          => CLK1_DIVIDE_BY,         
+      clk1_duty_cycle         => CLK1_DUTY_CYCLE,        
+      clk1_multiply_by        => CLK1_MULTIPLY_BY,       
+      clk1_phase_shift        => CLK1_PHASE_SHIFT,       
+      clk2_divide_by          => CLK2_DIVIDE_BY,         
+      clk2_duty_cycle         => CLK2_DUTY_CYCLE,        
+      clk2_multiply_by        => CLK2_MULTIPLY_BY,       
+      clk2_phase_shift        => CLK2_PHASE_SHIFT,       
+      clk3_divide_by          => CLK3_DIVIDE_BY,         
+      clk3_duty_cycle         => CLK3_DUTY_CYCLE,        
+      clk3_multiply_by        => CLK3_MULTIPLY_BY,       
+      clk3_phase_shift        => CLK3_PHASE_SHIFT,       
+      compensate_clock        => COMPENSATE_CLOCK,       
+      inclk0_input_frequency  => INCLK0_INPUT_FREQUENCY, 
+      intended_device_family  => INTENDED_DEVICE_FAMILY, 
+      operation_mode          => OPERATION_MODE,         
+      scan_chain_mif_file     => SCAN_CHAIN_MIF_FILE,    
+      drct_c0_ndly            => DRCT_C0_NDLY,           
+      drct_c1_ndly            => DRCT_C1_NDLY,           
+      drct_c2_ndly            => DRCT_C2_NDLY,           
+      drct_c3_ndly            => DRCT_C3_NDLY           
+   )
    port map(
-      clk               => inst1_pll_scanclk,
-      reset_n           => pll_areset_n,
-      reconfig_en       => rcnfig_en_sync_scanclk,
-      scandone          => inst3_scandone,
-      exclude_ps_status => '0',
-      ps_en             => dynps_en_sync,
-      ps_status         => inst2_ps_status,
-      rcfig_complete    => inst4_rcfig_complete
-      
-      );   
-
--- ----------------------------------------------------------------------------
--- c0 direct output lcell delay chain 
--- ----------------------------------------------------------------------------   
-c0_dly_instx_gen : 
-for i in 0 to drct_c0_ndly-1 generate
-   --first lcell instance
-   first : if i = 0 generate 
-   lcell0 : lcell 
-      port map (
-         a_in  => pll_inclk_global,
-         a_out => drct_c0_dly_chain(i)
-         );
-   end generate first;
-   --rest of the lcell instance
-   rest : if i > 0 generate
-   lcellx : lcell 
-      port map (
-         a_in  => drct_c0_dly_chain(i-1),
-         a_out => drct_c0_dly_chain(i)
-         );
-   end generate rest;
-end generate c0_dly_instx_gen;
-
-
--- ----------------------------------------------------------------------------
--- c1 direct output lcell delay chain 
--- ----------------------------------------------------------------------------   
-c1_dly_instx_gen : 
-for i in 0 to drct_c1_ndly-1 generate
-   --first lcell instance
-   first : if i = 0 generate 
-   lcell0 : lcell 
-      port map (
-         a_in  => pll_inclk_global,
-         a_out => drct_c1_dly_chain(i)
-         );
-   end generate first;
-   --rest of the lcell instance
-   rest : if i > 0 generate
-   lcellx : lcell 
-      port map (
-         a_in  => drct_c1_dly_chain(i-1),
-         a_out => drct_c1_dly_chain(i)
-         );
-   end generate rest;
-end generate c1_dly_instx_gen;
-
-
--- ----------------------------------------------------------------------------
--- c2 direct output lcell delay chain 
--- ----------------------------------------------------------------------------   
-c2_dly_instx_gen : 
-for i in 0 to drct_c2_ndly-1 generate
-   --first lcell instance
-   first : if i = 0 generate 
-   lcell0 : lcell 
-      port map (
-         a_in  => pll_inclk_global,
-         a_out => drct_c2_dly_chain(i)
-         );
-   end generate first;
-   --rest of the lcell instance
-   rest : if i > 0 generate
-   lcellx : lcell 
-      port map (
-         a_in  => drct_c2_dly_chain(i-1),
-         a_out => drct_c2_dly_chain(i)
-         );
-   end generate rest;
-end generate c2_dly_instx_gen;
-
-
--- ----------------------------------------------------------------------------
--- c3 direct output lcell delay chain 
--- ----------------------------------------------------------------------------   
-c3_dly_instx_gen : 
-for i in 0 to drct_c3_ndly-1 generate
-   --first lcell instance
-   first : if i = 0 generate 
-   lcell0 : lcell 
-      port map (
-         a_in  => pll_inclk_global,
-         a_out => drct_c3_dly_chain(i)
-         );
-   end generate first;
-   --rest of the lcell instance
-   rest : if i > 0 generate
-   lcellx : lcell 
-      port map (
-         a_in  => drct_c3_dly_chain(i-1),
-         a_out => drct_c3_dly_chain(i)
-         );
-   end generate rest;
-end generate c3_dly_instx_gen;
-
--- ----------------------------------------------------------------------------
--- c0 clk MUX
--- ----------------------------------------------------------------------------
-c0_mux <=   inst3_clk(0) when drct_clk_en(0)='0' else 
-            drct_c0_dly_chain(drct_c0_ndly-1);
-				
--- ----------------------------------------------------------------------------
--- c1 clk MUX
--- ----------------------------------------------------------------------------
-c1_mux <=   inst3_clk(1) when drct_clk_en(1)='0' else 
-            drct_c1_dly_chain(drct_c1_ndly-1);
-				         
--- ----------------------------------------------------------------------------
--- c2 clk MUX
--- ----------------------------------------------------------------------------
-c2_mux <=   inst3_clk(2) when drct_clk_en(2)='0' else 
-            drct_c2_dly_chain(drct_c2_ndly-1);
-            
--- ----------------------------------------------------------------------------
--- c3 clk MUX
--- ----------------------------------------------------------------------------
-c3_mux <=   inst3_clk(3) when drct_clk_en(3)='0' else 
-            drct_c3_dly_chain(drct_c3_ndly-1);
-				
-
-locked_mux <=  pll_areset_n when (drct_clk_en(0)='1' OR drct_clk_en(1)='1') else
-               inst3_locked;
-
--- ----------------------------------------------------------------------------
--- DDR output buffers
--- ----------------------------------------------------------------------------
-inst5_c0_pol_h(0) <= not inv_c0;
-inst5_c0_pol_l(0) <= inv_c0;
-
-
-ddrox1_inst6 : ddrox1
-	port map (
-		outclock => c0_global,
-		din      => inst5_c0_pol_l & inst5_c0_pol_h, 		
-      pad_out  => inst5_dataout                 
-	);
+      --PLL input
+      inclk1				=> '0',
+      inclk2         	=> pll_inclk,
+      pll_areset        => inst2_pllrst_start(0),
+      pll_logic_reset_n => pll_logic_reset_n,
+      inv_c0            => '0',
+      inv_c2            => '0',
+      c0                => pll_c0,
+      c1                => pll_c1,
+      c2                => pll_c2,
+      c3                => pll_c3,
+      pll_locked        => inst0_pll_locked,
+      --Bypass control
+      clk_ena           => pll_clk_ena, --clock output enable
+      drct_clk_en       => pll_drct_clk_en, --1- Direct clk, 0 - PLL clocks 
+      --Reconfiguration ports
+      rcnfg_clk         => pll_reconfig_clk,
+      rcnfig_areset     => inst2_pllrst_start(0),
+      rcnfig_en         => inst2_pllcfg_start(0),
+      rcnfig_data       => inst2_pllcfg_data,
+      rcnfig_status     => inst0_rcnfig_status,
+      --Dynamic phase shift ports
+      dynps_areset_n    => not inst2_pllrst_start(0),
+      dynps_mode        => inst2_phcfg_mode, -- 0 - manual, 1 - auto
+      dynps_en          => inst2_phcfg_start(0),
+      dynps_tst         => inst2_phcfg_tst,
+      dynps_dir         => inst2_phcfg_updn,
+      dynps_cnt_sel     => inst2_cnt_ind(2 downto 0),
+      -- max phase steps in auto mode, phase steps to shift in manual mode 
+      dynps_phase       => inst2_cnt_phase(9 downto 0),
+      dynps_step_size   => inst2_auto_phcfg_step(9 downto 0),
+      dynps_busy        => open,
+      dynps_done        => inst0_dynps_done,
+      dynps_status      => inst0_dynps_status,
+      --signals from sample compare module (required for automatic phase searching)
+      smpl_cmp_en       => inst0_smpl_cmp_en,
+      smpl_cmp_done     => pll_smpl_cmp_done,
+      smpl_cmp_error    => pll_smpl_cmp_error,
+      --Overall configuration PLL status
+      busy              => inst0_busy
+   );
    
+   pllcfg_busy <= inst0_busy;
+   pllcfg_done <= not pllcfg_busy;
    
-inst6_c2_pol_h(0) <= not inv_c2;
-inst6_c2_pol_l(0) <= inv_c2;
-
-ddrox1_inst7 : ddrox1
-	port map (
-		outclock => c2_global,
-		din      => inst6_c2_pol_l & inst6_c2_pol_h, 		
-      pad_out  => inst6_dataout                 
-	);
-
+   -- ----------------------------------------------------------------------------
+-- pllcfg_top instance
 -- ----------------------------------------------------------------------------
--- Clock control buffers 
+   process(pllcfg_busy) 
+      begin 
+         inst2_pllcfg_busy <= (others=>'0');
+         inst2_pllcfg_busy(0) <= pllcfg_busy;
+   end process;
+   
+   process(pllcfg_done) 
+      begin 
+         inst2_pllcfg_done <= (others=>'1');
+         inst2_pllcfg_done(0) <= pllcfg_done;
+   end process;
+   
+   inst2_pll_lock(0)       <= inst0_pll_locked;   
+   inst2_auto_phcfg_done(0)<= inst0_dynps_done; 
+   inst2_auto_phcfg_err(0) <= inst0_dynps_status;
+
+   pll_ctrl_inst2 : entity work.pll_ctrl 
+   generic map(
+      n_pll	=> N_PLL
+   )
+   port map(
+      to_pllcfg         => to_pllcfg,
+      from_pllcfg       => from_pllcfg,
+         -- Status Inputs
+      pllcfg_busy       => inst2_pllcfg_busy,
+      pllcfg_done       => inst2_pllcfg_done,
+         -- PLL Lock flags
+      pll_lock          => inst2_pll_lock,
+         -- PLL Configuration Related
+      phcfg_mode        => inst2_phcfg_mode,
+      phcfg_tst         => inst2_phcfg_tst,
+      phcfg_start       => inst2_phcfg_start,   --
+      pllcfg_start      => inst2_pllcfg_start,  --
+      pllrst_start      => inst2_pllrst_start,  --
+      phcfg_updn        => inst2_phcfg_updn,
+      cnt_ind           => inst2_cnt_ind,       --
+      cnt_phase         => inst2_cnt_phase,     --
+      pllcfg_data       => inst2_pllcfg_data,
+      auto_phcfg_done   => inst2_auto_phcfg_done,
+      auto_phcfg_err    => inst2_auto_phcfg_err,
+      auto_phcfg_smpls  => inst2_auto_phcfg_smpls,
+      auto_phcfg_step   => inst2_auto_phcfg_step
+        
+      );
 -- ----------------------------------------------------------------------------
-clkctrl_inst7 : clkctrl 
-port map(
-   inclk    => inclk2,
-   ena      => '1',
-   outclk   => pll_inclk_global
-);
-
-clkctrl_inst8 : clkctrl 
-port map(
-   inclk    => c0_mux,
-   ena      => clk_ena(0),
-   outclk   => c0_global
-);
-
-clkctrl_inst9 : clkctrl 
-port map(
-   inclk    => c1_mux,
-   ena      => clk_ena(1),
-   outclk   => c1_global
-);
-
-clkctrl_inst10 : clkctrl 
-port map(
-   inclk    => c2_mux,
-   ena      => clk_ena(2),
-   outclk   => c2_global
-);
-
-clkctrl_inst11 : clkctrl 
-port map(
-   inclk    => c3_mux,
-   ena      => clk_ena(3),
-   outclk   => c3_global
-);
-
+-- Output ports
 -- ----------------------------------------------------------------------------
--- To output ports
--- ----------------------------------------------------------------------------
-c0             <= inst5_dataout(0);
-c1             <= c1_global;
-c2             <= inst6_dataout(0);
-c3             <= c3_global;
-pll_locked     <= locked_mux;
-rcnfig_status  <= inst4_rcfig_complete;
-dynps_done     <= inst2_ps_done;
-dynps_status   <= inst2_ps_status;
-busy           <= inst1_busy OR inst2_ps_status;
-  
+pll_locked         <= inst0_pll_locked;
+pll_smpl_cmp_en    <= inst0_smpl_cmp_en;
+pll_smpl_cmp_cnt   <= inst2_auto_phcfg_smpls;
+
 end arch;   
 
 

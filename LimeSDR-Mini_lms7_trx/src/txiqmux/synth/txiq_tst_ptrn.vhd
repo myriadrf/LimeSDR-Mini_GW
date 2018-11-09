@@ -49,11 +49,11 @@ begin
 sync_reg0 : entity work.sync_reg
 port map(clk, '1', fidm, fidm_sync);
 
-bus_sync_reg0 : entity work.bus_synch
+bus_sync_reg0 : entity work.bus_sync_reg
 generic map (16)
 port map(clk, '1', ptrn_i, ptrn_i_sync);
 
-bus_sync_reg1 : entity work.bus_synch
+bus_sync_reg1 : entity work.bus_sync_reg
 generic map (16)
 port map(clk, '1', ptrn_q, ptrn_q_sync);
 

@@ -42,7 +42,7 @@ set_global_assignment -name DEVICE 10M16SAU169C8G
 set_global_assignment -name TOP_LEVEL_ENTITY lms7_trx_top
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 15.1.2
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "10:56:13  OCTOBER 24, 2017"
-set_global_assignment -name LAST_QUARTUS_VERSION 15.1.2
+set_global_assignment -name LAST_QUARTUS_VERSION "18.0.0 Lite Edition"
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
@@ -104,9 +104,9 @@ set_location_assignment PIN_G9 -to FT_CLK
 set_location_assignment PIN_C13 -to FT_TXEn
 set_location_assignment PIN_C11 -to FT_RXFn
 set_location_assignment PIN_E12 -to FT_WRn
-set_global_assignment -name ENABLE_SIGNALTAP OFF
-set_global_assignment -name USE_SIGNALTAP_FILE signal_tap/debug.stp
-set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS ON
+set_global_assignment -name ENABLE_SIGNALTAP ON
+set_global_assignment -name USE_SIGNALTAP_FILE ../stp1.stp
+set_global_assignment -name TIMING_ANALYZER_MULTICORNER_ANALYSIS ON
 set_global_assignment -name NUM_PARALLEL_PROCESSORS ALL
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
@@ -478,4 +478,5 @@ set_global_assignment -name VHDL_FILE src/rx_path_top/bit_pack/synth/bit_pack.vh
 set_global_assignment -name VHDL_FILE src/rx_path_top/smpl_cnt/synth/smpl_cnt.vhd
 set_global_assignment -name VHDL_FILE src/rx_path_top/rx_path/synth/rx_path_top.vhd
 set_global_assignment -name SDC_FILE Clock_groups.sdc
+set_global_assignment -name SIGNALTAP_FILE ../stp1.stp
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

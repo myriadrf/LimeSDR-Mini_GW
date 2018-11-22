@@ -468,7 +468,8 @@ begin
       gpio_dir             => (others=>'1'),
       gpio_out_val         => "000000000" & inst1_pll_locked,
       gpio_rd_val          => open,
-      gpio                 => inst4_gpio,      
+      gpio(7 downto 0)     => FPGA_GPIO,
+      gpio(9 downto 8)     => FPGA_EGPIO,
       --Fan control
       fan_sens_in          => LM75_OS,
       fan_ctrl_out         => FAN_CTRL
@@ -555,8 +556,11 @@ begin
    LMS_TXNRX1        <= inst0_from_fpgacfg.LMS1_TXNRX1;
    LMS_TXNRX2        <= inst0_from_fpgacfg.LMS1_TXNRX2;
    
-   FPGA_GPIO         <= inst4_gpio(7 downto 0);
-   FPGA_EGPIO        <= inst4_gpio(9 downto 8);
+--   FPGA_GPIO         <= inst4_gpio(7 downto 0);
+--   FPGA_EGPIO        <= inst4_gpio(9 downto 8);
+   
+   
+   
    
    RFSW_RX_V1        <= inst0_from_fpgacfg.GPIO(8);
    RFSW_RX_V2        <= inst0_from_fpgacfg.GPIO(9);

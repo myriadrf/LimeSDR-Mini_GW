@@ -14,11 +14,11 @@ package revisions is
 	constant MAJOR_REV : INTEGER := 1;
 	constant MINOR_REV : INTEGER := 1;
 	constant BETA_REV : INTEGER := 1;
-	constant COMPILE_REV : INTEGER := 27;
+	constant COMPILE_REV : INTEGER := 29;
 	constant COMPILE_YEAR_STAMP : INTEGER := 18;
-	constant COMPILE_MONTH_STAMP : INTEGER := 06;
-	constant COMPILE_DAY_STAMP : INTEGER := 13;
-	constant COMPILE_HOUR_STAMP : INTEGER := 14;
+	constant COMPILE_MONTH_STAMP : INTEGER := 11;
+	constant COMPILE_DAY_STAMP : INTEGER := 14;
+	constant COMPILE_HOUR_STAMP : INTEGER := 13;
 	
 	constant MAGIC_NUM : STD_LOGIC_VECTOR(31 downto 0) := X"D8A5F009";
    constant BOARD_ID : STD_LOGIC_VECTOR(15 downto 0) := X"0011"; -- LimeSDR-MINI

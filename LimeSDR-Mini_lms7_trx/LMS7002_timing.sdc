@@ -153,22 +153,22 @@ set_input_delay	-min $LMS7_IN_MIN_DELAY \
 #LMS1 when MCLK2 is 160MHz				
 set_output_delay	-max $LMS_LMS7_Tsu \
 						-clock 	[get_clocks LMS_FCLK1] \
-									[get_ports {LMS_DIQ1[*] LMS_ENABLE_IQSEL1}]
+									[get_ports {LMS_DIQ1_D[*] LMS_ENABLE_IQSEL1}]
 						
 set_output_delay	-min -$LMS_LMS7_Th \
 						-clock 	[get_clocks LMS_FCLK1] \
-									[get_ports {LMS_DIQ1[*] LMS_ENABLE_IQSEL1}]						
+									[get_ports {LMS_DIQ1_D[*] LMS_ENABLE_IQSEL1}]						
 						
 set_output_delay	-max $LMS_LMS7_Tsu \
 						-clock 	[get_clocks LMS_FCLK1] \
 						-clock_fall \
-									[get_ports { LMS_DIQ1[*] LMS_ENABLE_IQSEL1}] \
+									[get_ports { LMS_DIQ1_D[*] LMS_ENABLE_IQSEL1}] \
 						-add_delay
 											
 set_output_delay	-min -$LMS_LMS7_Th \
 						-clock 	[get_clocks LMS_FCLK1] \
 						-clock_fall \
-									[get_ports {LMS_DIQ1[*] LMS_ENABLE_IQSEL1}] \
+									[get_ports {LMS_DIQ1_D[*] LMS_ENABLE_IQSEL1}] \
 						-add_delay
 												
 #LMS1 when MCLK2 is 5MHz						

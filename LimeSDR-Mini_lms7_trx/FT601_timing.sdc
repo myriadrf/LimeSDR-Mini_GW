@@ -55,12 +55,21 @@ set_output_delay 	-max 0.5 \
 						-clock 	[get_clocks FT_CLK] \
 									[get_ports FT_WRn] \
 						-add_delay
+                  
+set_output_delay 	-min 0.5 \
+						-clock 	[get_clocks FT_CLK] \
+									[get_ports FT_WRn] \
+						-add_delay
 							
 set_output_delay 	-max 0.5 \
 						-clock 	[get_clocks FT_CLK]  \
 									[get_ports {FT_BE[*] FT_D[*]}] \
 						-add_delay  
 
+set_output_delay 	-min 0.5 \
+						-clock 	[get_clocks FT_CLK]  \
+									[get_ports {FT_BE[*] FT_D[*]}] \
+						-add_delay                   
 # ----------------------------------------------------------------------------
 #Exceptions
 # ----------------------------------------------------------------------------

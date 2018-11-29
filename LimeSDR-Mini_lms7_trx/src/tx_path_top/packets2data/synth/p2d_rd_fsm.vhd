@@ -46,7 +46,7 @@ end p2d_rd_fsm;
 architecture arch of p2d_rd_fsm is
 --declare signals,  components here
 
-type state_type is (idle, sel_buff, rd_buff, rd_done);
+type state_type is (idle, sel_buff, rd_buff, rd_hold, rd_done);
 signal current_state, next_state : state_type;   
 
 signal pct_buff_rdy_int    : std_logic;
@@ -81,7 +81,7 @@ begin
    if reset_n = '0' then 
       rd_cnt <= (others=>'0');
    elsif (clk'event AND clk='1') then
-      if current_state = rd_buff then 
+      if current_state = rd_buff OR current_state = rd_hold then 
          if rd_sig = '1' then
             rd_cnt <= rd_cnt + 1;
          else 
@@ -92,6 +92,8 @@ begin
       end if;
    end if;
 end process;
+
+
 
 -- ----------------------------------------------------------------------------
 -- To select buffer from which to read
@@ -149,14 +151,21 @@ fsm : process(current_state, pct_buff_rdy_int, pct_data_buff_full, rd_cnt, pct_s
          
       when rd_buff => 
          if rd_cnt < pct_size_rd_limit then
-            next_state <= rd_buff;
-         else
-            if pct_data_buff_full = '0' then 
-               next_state <= rd_done;
+            if pct_data_buff_full = '1' then 
+               next_state <= rd_hold; 
             else 
                next_state <= rd_buff;
             end if;
+         else
+            next_state <= rd_done;
          end if; 
+         
+      when rd_hold => 
+         if pct_data_buff_full = '1' then 
+            next_state <= rd_hold; 
+         else 
+            next_state <= rd_buff;
+         end if;         
          
       when rd_done => 
          next_state <= idle;
@@ -167,33 +176,19 @@ fsm : process(current_state, pct_buff_rdy_int, pct_data_buff_full, rd_cnt, pct_s
 end process;
 
 -- ----------------------------------------------------------------------------
---Read signal
+--Read signal register
 -- ----------------------------------------------------------------------------
---Comb version of read signal
-process(current_state, pct_data_buff_full)
+process (current_state)
 begin 
-   if current_state = rd_buff AND pct_data_buff_full = '0' then 
+   if current_state = rd_buff then 
       rd_sig <= '1';
+      pct_data_rdreq <= pct_buff_sel;
    else 
-      rd_sig <= '0';      
-   end if;
-end process;
-
--- Output register for read signal
-out_reg1 : process(clk, reset_n)
-begin
-   if reset_n = '0' then 
+      rd_sig <= '0';
       pct_data_rdreq <= (others =>'0');
-   elsif (clk'event AND clk='1') then 
-      if rd_sig = '1' then 
-         pct_data_rdreq <= pct_buff_sel;
-      else 
-         pct_data_rdreq <= (others =>'0');
-      end if;
    end if;
 end process;
 
--- Output register for read state
 out_reg2 : process(clk, reset_n)
 begin
    if reset_n = '0' then 
@@ -207,7 +202,7 @@ begin
    end if;
 end process;
 
--- Comb version of state machine ready
+
 process(current_state, pct_data_buff_full) 
 begin 
    if current_state = idle AND pct_data_buff_full = '0' then 
@@ -217,7 +212,6 @@ begin
    end if;
 end process;
 
--- Comb version of state machine read done
 process(current_state) 
 begin 
    if current_state = rd_done then 

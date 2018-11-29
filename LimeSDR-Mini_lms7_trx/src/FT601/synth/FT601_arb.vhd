@@ -13,7 +13,8 @@ use ieee.numeric_std.all;
 -- Entity declaration
 -- ----------------------------------------------------------------------------
 entity FT601_arb is
-   generic(	
+   generic(
+      FT_data_width     : integer := 32;	
       EP82_fifo_rwidth  : integer := 10;
       EP82_wsize        : integer := 64;		--packet size in bytes, has to be multiple of 4 bytes
       EP83_fifo_rwidth  : integer := 10;
@@ -25,19 +26,19 @@ entity FT601_arb is
       reset_n           : in std_logic;
       enable            : in std_logic;
       --control EP PC->FPGA
-      EP02_fifo_data    : out std_logic_vector(31 downto 0);
+      EP02_fifo_data    : out std_logic_vector(FT_data_width-1 downto 0);
       EP02_fifo_wr      : out std_logic;
       EP02_fifo_wrempty : in std_logic;
       --control EP FPGA->PC
-      EP82_fifo_data    : in std_logic_vector(31 downto 0);
+      EP82_fifo_data    : in std_logic_vector(FT_data_width-1 downto 0);
       EP82_fifo_rd      : out std_logic;
       EP82_fifo_rdusedw : in std_logic_vector(EP82_fifo_rwidth-1 downto 0);
       --stream EP PC->FPGA
-      EP03_fifo_data    : out std_logic_vector(31 downto 0);
+      EP03_fifo_data    : out std_logic_vector(FT_data_width-1 downto 0);
       EP03_fifo_wr      : out std_logic;
       EP03_fifo_wrempty : in std_logic;		
       --stream EP FPGA->PC
-      EP83_fifo_data    : in std_logic_vector(31 downto 0);
+      EP83_fifo_data    : in std_logic_vector(FT_data_width-1 downto 0);
       EP83_fifo_rd      : out std_logic;
       EP83_fifo_rdusedw : in std_logic_vector(EP83_fifo_rwidth-1 downto 0);
       --fsm controll signals
@@ -46,9 +47,9 @@ entity FT601_arb is
       fsm_ch            : out std_logic_vector(3 downto 0);
       fsm_rdy           : in std_logic;
       fsm_rddata_valid  : in std_logic;
-      fsm_rddata        : in std_logic_vector(31 downto 0);
+      fsm_rddata        : in std_logic_vector(FT_data_width-1 downto 0);
       fsm_wrdata_req    : in std_logic;
-      fsm_wrdata        : out std_logic_vector(31 downto 0);
+      fsm_wrdata        : out std_logic_vector(FT_data_width-1 downto 0);
       
       ep_status         : in std_logic_vector(7 downto 0) -- 0 - EP is ready
         
@@ -75,9 +76,9 @@ begin
   
 --endpoint ready signals, indicates when transfer can occur
 en_ep02<='1' when EP02_fifo_wrempty='1'                     and ep_status(4)='0'	and fsm_rdy='1' else '0';
-en_ep82<='1' when unsigned(EP82_fifo_rdusedw)>=EP82_wsize/4 and ep_status(0)='0'	and fsm_rdy='1' else '0';
+en_ep82<='1' when unsigned(EP82_fifo_rdusedw)>=EP82_wsize/(FT_data_width/8) and ep_status(0)='0'	and fsm_rdy='1' else '0';
 en_ep03<='1' when EP03_fifo_wrempty='1'                     and ep_status(5)='0'	and fsm_rdy='1' else '0';
-en_ep83<='1' when unsigned(EP83_fifo_rdusedw)>=EP83_wsize/4 and ep_status(1)='0'	and fsm_rdy='1' else '0';
+en_ep83<='1' when unsigned(EP83_fifo_rdusedw)>=EP83_wsize/(FT_data_width/8) and ep_status(1)='0'	and fsm_rdy='1' else '0';
 
 --indicates when endpoint status was checked
 ep_checked<='1' when current_state=check_ep02 or current_state=check_ep82 or

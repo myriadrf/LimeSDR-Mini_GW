@@ -39,6 +39,11 @@ create_generated_clock 	-name FPGA_SPI_SCLK \
 								-source 	[get_ports {LMK_CLK}] \
 								-divide_by 4 \
 											[get_registers *nios_cpu*|*dac_spi*|SCLK_reg]
+                                 
+create_generated_clock 	-name FPGA_SPI_SCLK_FPGA \
+								-source 	[get_ports {LMK_CLK}] \
+								-divide_by 4 \
+											[get_registers *nios_cpu*|*fpga_spi*|SCLK_reg]
 
 create_generated_clock 	-name FPGA_SPI_SCLK_out \
 								-source 	[get_registers *nios_cpu*|*dac_spi*|SCLK_reg] \
@@ -151,7 +156,6 @@ set_false_path -to [get_ports FPGA_SPI_SCLK]
 #set false paths between low speed signals
 #Inputs
 set_false_path -from [get_ports FPGA_GPIO[*] ]
-set_false_path -from [get_ports SPARE_IO_PULL_UP*]
 set_false_path -from [get_ports LM75_OS]
 set_false_path -from [get_ports FPGA_I2C_SCL]
 set_false_path -from [get_ports FPGA_I2C_SDA]

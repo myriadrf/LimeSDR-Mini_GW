@@ -36,7 +36,9 @@ set library_file_list {
                                             ../../general/bus_sync_reg.vhd                                            
                                             ../../altera_inst/fifo_inst.vhd
                                             ../../altera_inst/lms7002_ddout.vhd
+                                            ../pulse_gen/synth/pulse_gen.vhd
                                             synth/txiq.vhd
+                                            synth/txiq_ctrl.vhd
                                             synth/fifo2diq.vhd
                                             sim/diq1_test_data.vhd
                                             sim/dac_data_sim.vhd

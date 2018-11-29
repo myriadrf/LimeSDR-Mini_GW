@@ -96,7 +96,7 @@ end process;
 -- ----------------------------------------------------------------------------
  rxiq_mimo_ddr_inst0 : entity work.rxiq_mimo_ddr
    generic map (
-      iq_width    => iq_width
+      iq_width    => 12
    )
    port map (
       clk         => clk,
@@ -115,7 +115,7 @@ end process;
 -- ---------------------------------------------------------------------------- 
   rxiq_pulse_ddr_inst1 : entity work.rxiq_pulse_ddr
    generic map (
-      iq_width    => iq_width
+      iq_width    => 12
    )
    port map (
       clk         => clk,

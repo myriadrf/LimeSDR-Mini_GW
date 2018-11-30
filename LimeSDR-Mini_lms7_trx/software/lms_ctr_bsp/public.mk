@@ -77,12 +77,12 @@ ALT_CPPFLAGS += -pipe
 
 # This following VERSION comment indicates the version of the tool used to 
 # generate this makefile. A makefile variable is provided for VERSION as well. 
-# ACDS_VERSION: 18.0
-ACDS_VERSION := 18.0
+# ACDS_VERSION: 15.1
+ACDS_VERSION := 15.1
 
 # This following BUILD_NUMBER comment indicates the build number of the tool 
 # used to generate this makefile. 
-# BUILD_NUMBER: 614
+# BUILD_NUMBER: 193
 
 # Qsys--generated SOPCINFO file. Required for resolving node instance ID's with 
 # design component names. 
@@ -257,18 +257,6 @@ ALT_CPPFLAGS += -DALT_NO_INSTRUCTION_EMULATION
 # hardware design on the target. If false, adds --accept-bad-sysid to 
 # SOPC_SYSID_FLAG in public.mk. none 
 # setting hal.enable_sopc_sysid_check is true
-
-# C/C++ compiler to generate (do not generate) GP-relative accesses. 'none' 
-# tells the compilter not to generate GP-relative accesses. 'local' will 
-# generate GP-relative accesses for small data objects that are not external, 
-# weak, or uninitialized common symbols. Also use GP-relative addressing for 
-# objects that have been explicitly placed in a small data section via a 
-# section attribute. provides the default set of debug symbols typically 
-# required to debug a typical application. 'global' is same as 'local' but also 
-# generate GP-relative accesses for small data objects that are external, weak, 
-# or common. none 
-# setting hal.make.cflags_mgpopt is -mgpopt=global
-ALT_CFLAGS += -mgpopt=global
 
 # Enable BSP generation to query if SOPC system is big endian. If true ignores 
 # export of 'ALT_CFLAGS += -meb' to public.mk if big endian system. none 

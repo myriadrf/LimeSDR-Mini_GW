@@ -93,12 +93,12 @@ OBJ_DIR := ./obj
 
 # This following VERSION comment indicates the version of the tool used to 
 # generate this makefile. A makefile variable is provided for VERSION as well. 
-# ACDS_VERSION: 18.0
-ACDS_VERSION := 18.0
+# ACDS_VERSION: 15.1
+ACDS_VERSION := 15.1
 
 # This following BUILD_NUMBER comment indicates the build number of the tool 
 # used to generate this makefile. 
-# BUILD_NUMBER: 614
+# BUILD_NUMBER: 193
 
 SETTINGS_FILE := settings.bsp
 SOPC_FILE := ../../lms_ctr.sopcinfo
@@ -268,6 +268,13 @@ altera_nios2_gen2_hal_driver_ASM_LIB_SRCS := \
 	$(altera_nios2_gen2_hal_driver_SRCS_ROOT)/src/alt_log_macro.S \
 	$(altera_nios2_gen2_hal_driver_SRCS_ROOT)/src/crt0.S
 
+# altera_onchip_flash_driver sources root 
+altera_onchip_flash_driver_SRCS_ROOT := drivers
+
+# altera_onchip_flash_driver sources 
+altera_onchip_flash_driver_C_LIB_SRCS := \
+	$(altera_onchip_flash_driver_SRCS_ROOT)/src/altera_onchip_flash.c
+
 # hal sources root 
 hal_SRCS_ROOT := HAL
 
@@ -341,6 +348,7 @@ COMPONENT_C_LIB_SRCS += \
 	$(altera_avalon_sysid_qsys_driver_C_LIB_SRCS) \
 	$(altera_avalon_uart_driver_C_LIB_SRCS) \
 	$(altera_nios2_gen2_hal_driver_C_LIB_SRCS) \
+	$(altera_onchip_flash_driver_C_LIB_SRCS) \
 	$(hal_C_LIB_SRCS) \
 	$(i2c_opencores_driver_C_LIB_SRCS)
 

@@ -28,7 +28,8 @@
 //#define FW_VER				2 //FLASH programming added
 //#define FW_VER				3 //Temperature and Si5351C control added
 //#define FW_VER				4 //LM75 configured to control fan; I2C speed increased up to 400kHz; ADF/DAC control implementation.
-#define FW_VER				5 //EEPROM and FLASH R/W funtionality added
+//#define FW_VER				5 //EEPROM and FLASH R/W funtionality added
+#define FW_VER				6 // DAC value read from EEPROM memory
 
 #define SPI_NR_LMS7002M 0
 #define SPI_NR_FPGA     1
@@ -46,6 +47,10 @@
 #define MCU_FIFO_WR_REG	0x04
 
 #define MAX_MCU_RETRIES	30
+
+#define DAC_VAL_ADDR  	0x0010		// Address in EEPROM memory where TCXO DAC value is stored
+#define DAC_DEFF_VAL	180			// Default TCXO DAC value loaded when EEPROM is empty
+
 uint8_t MCU_retries;
 
 uint8_t test, block, cmd_errors, glEp0Buffer_Rx[64], glEp0Buffer_Tx[64];
@@ -215,6 +220,26 @@ void boot_from_flash(void)
 	IOWR(DUAL_BOOT_0_BASE, 0, 0x00000001);
 }
 
+uint16_t rd_dac_val(uint16_t addr)
+{
+	uint8_t i2c_error;
+	uint8_t addr_lsb = (uint8_t) addr & 0x00FF;
+	uint8_t addr_msb = (uint8_t) (addr & 0xFF00) >> 8;
+	uint8_t eeprom_rd_val_0;
+	uint8_t eeprom_rd_val_1;
+	uint16_t rez;
+
+	i2c_error = I2C_start(I2C_OPENCORES_0_BASE, EEPROM_I2C_ADDR, 0);
+	i2c_error = I2C_write(I2C_OPENCORES_0_BASE, addr_msb, 0);
+	i2c_error = I2C_write(I2C_OPENCORES_0_BASE, addr_lsb, 0);
+	i2c_error = I2C_start(I2C_OPENCORES_0_BASE, EEPROM_I2C_ADDR, 1);
+	eeprom_rd_val_0 = I2C_read(I2C_OPENCORES_0_BASE, 0);
+	eeprom_rd_val_1 = I2C_read(I2C_OPENCORES_0_BASE, 1);
+
+	rez = ((uint16_t)eeprom_rd_val_1 << 8) | eeprom_rd_val_0;
+	return rez;
+}
+
 /**
  * Main, what else? :)
  **/
@@ -228,6 +253,7 @@ int main()
     volatile int spirez;
     char cnt = 0;
     int k;
+    uint16_t eeprom_dac_val;
 
     uint8_t status = 0;
 
@@ -239,6 +265,19 @@ int main()
     uint8_t spi_wrbuf1[2] = {0x00, 0x20};
     uint8_t spi_wrbuf2[6] = {0x80, 0x20, 0xFF, 0xFD, 0x00, 0x20};
     //uint8_t spi_rdbuf[2] = {0x01, 0x00};
+
+    // I2C initialiazation
+    I2C_init(I2C_OPENCORES_0_BASE, ALT_CPU_FREQ, 100000);
+
+	// Read TCXO DAC value from EEPROM memory
+	eeprom_dac_val = rd_dac_val(DAC_VAL_ADDR);
+	if (eeprom_dac_val == 0xFFFF){
+		dac_val = DAC_DEFF_VAL; //default DAC value
+	}
+	else {
+		dac_val = (unsigned char) eeprom_dac_val;
+	}
+
 
     // Write initial data to the DAC
 	dac_data[0] = (dac_val) >>2; //POWER-DOWN MODE = NORMAL OPERATION (MSB bits =00) + MSB data
@@ -266,8 +305,7 @@ int main()
 	//spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 0x0010, 10, flash_page_data, 1);
 	*/
 
-    // I2C initialiazation
-    I2C_init(I2C_OPENCORES_0_BASE, ALT_CPU_FREQ, 100000);
+
 
     // Configure LM75
     Configure_LM75();

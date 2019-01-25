@@ -386,8 +386,7 @@ begin
       EP82_wdata     => inst0_exfifo_of_d,
       EP82_wfull     => inst2_EP82_wfull,
       --stream endpoint fifo PC->FPGA
-      EP03_aclrn_0   => inst0_from_fpgacfg.rx_en,
-      EP03_aclrn_1   => inst6_tx_in_pct_reset_n_req,
+      EP03_aclrn     => inst0_from_fpgacfg.rx_en,
       EP03_rdclk     => inst1_pll_c1,
       EP03_rd        => inst6_tx_in_pct_rdreq,
       EP03_rdata     => inst2_EP03_rdata,
@@ -510,7 +509,6 @@ begin
       tx_DIQ                  => LMS_DIQ1_D,
       tx_fsync                => LMS_ENABLE_IQSEL1,
       --fifo ports
-      tx_in_pct_reset_n_req   => inst6_tx_in_pct_reset_n_req,
       tx_in_pct_rdreq         => inst6_tx_in_pct_rdreq,
       tx_in_pct_data          => inst2_EP03_rdata,
       tx_in_pct_rdempty       => inst2_EP03_rempty,

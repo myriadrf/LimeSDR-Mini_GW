@@ -1,0 +1,5 @@
+Release 1.29 (2019-01-29)
+==========================
+
+RX TX path changes:
+- Short packet feature 

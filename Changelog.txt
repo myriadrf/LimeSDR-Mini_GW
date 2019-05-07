@@ -3,3 +3,8 @@ Release 1.29 (2019-01-29)
 
 RX TX path changes:
 - Short packet feature 
+
+Release 1.30 (2019-05-07)
+==========================
+TX path changes:
+- Modified txiq module to output zero samples if FIFO is empty after enable

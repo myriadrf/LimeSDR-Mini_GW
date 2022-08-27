@@ -258,7 +258,7 @@ agreement for further details.
 		(text "uart_external_connection" (rect 95 827 334 1667)(font "Arial" (color 128 0 0)(font_size 9)))
 		(text "rxd" (rect 245 851 508 1712)(font "Arial" (color 0 0 0)))
 		(text "txd" (rect 245 867 508 1744)(font "Arial" (color 0 0 0)))
-		(text " lms_ctr " (rect 492 888 1038 1786)(font "Arial" ))
+		(text " system " (rect 493 888 1034 1786)(font "Arial" ))
 		(line (pt 240 32)(pt 288 32)(line_width 1))
 		(line (pt 288 32)(pt 288 888)(line_width 1))
 		(line (pt 240 888)(pt 288 888)(line_width 1))

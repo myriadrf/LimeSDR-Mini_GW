@@ -11,6 +11,10 @@
 		.exfifo_of_wr_export                     (<connected-to-exfifo_of_wr_export>),                     //                     exfifo_of_wr.export
 		.exfifo_of_wrfull_export                 (<connected-to-exfifo_of_wrfull_export>),                 //                 exfifo_of_wrfull.export
 		.exfifo_rst_export                       (<connected-to-exfifo_rst_export>),                       //                       exfifo_rst.export
+		.flash_spi_MISO                          (<connected-to-flash_spi_MISO>),                          //                        flash_spi.MISO
+		.flash_spi_MOSI                          (<connected-to-flash_spi_MOSI>),                          //                                 .MOSI
+		.flash_spi_SCLK                          (<connected-to-flash_spi_SCLK>),                          //                                 .SCLK
+		.flash_spi_SS_n                          (<connected-to-flash_spi_SS_n>),                          //                                 .SS_n
 		.fpga_spi_ext_MISO                       (<connected-to-fpga_spi_ext_MISO>),                       //                     fpga_spi_ext.MISO
 		.fpga_spi_ext_MOSI                       (<connected-to-fpga_spi_ext_MOSI>),                       //                                 .MOSI
 		.fpga_spi_ext_SCLK                       (<connected-to-fpga_spi_ext_SCLK>),                       //                                 .SCLK
@@ -21,10 +25,6 @@
 		.lms_ctr_gpio_external_connection_export (<connected-to-lms_ctr_gpio_external_connection_export>), // lms_ctr_gpio_external_connection.export
 		.switch_external_connection_export       (<connected-to-switch_external_connection_export>),       //       switch_external_connection.export
 		.uart_external_connection_rxd            (<connected-to-uart_external_connection_rxd>),            //         uart_external_connection.rxd
-		.uart_external_connection_txd            (<connected-to-uart_external_connection_txd>),            //                                 .txd
-		.flash_spi_MISO                          (<connected-to-flash_spi_MISO>),                          //                        flash_spi.MISO
-		.flash_spi_MOSI                          (<connected-to-flash_spi_MOSI>),                          //                                 .MOSI
-		.flash_spi_SCLK                          (<connected-to-flash_spi_SCLK>),                          //                                 .SCLK
-		.flash_spi_SS_n                          (<connected-to-flash_spi_SS_n>)                           //                                 .SS_n
+		.uart_external_connection_txd            (<connected-to-uart_external_connection_txd>)             //                                 .txd
 	);
 

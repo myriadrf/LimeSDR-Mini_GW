@@ -378,6 +378,7 @@ set_global_assignment -name INFER_RAMS_FROM_RAW_LOGIC ON
 set_global_assignment -name AUTO_RAM_RECOGNITION ON
 set_global_assignment -name AUTO_SHIFT_REGISTER_RECOGNITION OFF
 set_global_assignment -name DEVICE_MIGRATION_LIST 10M16SAU169C8G
+set_global_assignment -name QIP_FILE lms_ctr/synthesis/lms_ctr.qip
 set_global_assignment -name VHDL_FILE src/tx_path_top/pct_separate/synth/pct_separate_fsm.vhd
 set_global_assignment -name VHDL_FILE src/tx_path_top/pct_separate/synth/one_pct_fifo.vhd
 set_global_assignment -name VHDL_FILE src/rx_path_top/smpl_cnt/synth/iq_smpl_cnt.vhd
@@ -407,7 +408,6 @@ set_global_assignment -name VHDL_FILE src/rx_path_top/smpl_cmp/synth/smpl_cmp.vh
 set_global_assignment -name VHDL_FILE src/dyn_ps/synth/pll_ps_top.vhd
 set_global_assignment -name VHDL_FILE src/dyn_ps/synth/pll_ps_fsm.vhd
 set_global_assignment -name VHDL_FILE src/dyn_ps/synth/pll_ps.vhd
-set_global_assignment -name QIP_FILE lms_ctr/synthesis/lms_ctr.qip
 set_global_assignment -name SDC_FILE LMS7002_timing.sdc
 set_global_assignment -name SDC_FILE FT601_timing.sdc
 set_global_assignment -name SDC_FILE timing.sdc

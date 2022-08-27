@@ -133,6 +133,14 @@
    {
       datum _originalDeviceFamily
       {
+         value = "MAX 10";
+         type = "String";
+      }
+   }
+   element lms_ctr
+   {
+      datum _originalDeviceFamily
+      {
          value = "Cyclone IV GX";
          type = "String";
       }
